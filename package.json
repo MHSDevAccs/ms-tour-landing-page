@@ -1,0 +1,53 @@
+{
+  "name": "mhs-tour-landing",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbo",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.8",
+    "@heroicons/react": "^2.2.0",
+    "@sanity/client": "^6.20.1",
+    "@sanity/image-url": "^1.0.2",
+    "@sanity/vision": "^3.49.0",
+    "framer-motion": "^12.23.12",
+    "next": "^14.2.4",
+    "next-sanity": "^9.4.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-is": "^18.3.1",
+    "sanity": "^3.49.0",
+    "styled-components": "^6.1.11"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@sanity/eslint-config-studio": "^4.0.0",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20.14.9",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.4",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.6",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "tailwindcss": "^4",
+    "typescript": "^5.5.2"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
+  }
+}

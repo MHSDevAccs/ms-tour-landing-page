@@ -214,7 +214,7 @@ const Lightbox: React.FC<LightboxProps> = ({
               <button
                 onClick={() => setShowInfo(!showInfo)}
                 className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-                title="Toggle Info (I)"
+                title="Tampilkan Info (I)"
               >
                 <Info className="w-5 h-5" />
               </button>
@@ -224,7 +224,7 @@ const Lightbox: React.FC<LightboxProps> = ({
                 <button
                   onClick={toggleAutoPlay}
                   className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-                  title="Toggle Slideshow (Space)"
+                  title="Jeda/Putar Slideshow (Spasi)"
                 >
                   {isAutoPlaying ? (
                     <Pause className="w-5 h-5" />
@@ -238,7 +238,7 @@ const Lightbox: React.FC<LightboxProps> = ({
               <button
                 onClick={toggleZoom}
                 className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-                title="Toggle Zoom"
+                title="Perbesar/Perkecil"
               >
                 {isZoomed ? (
                   <ZoomOut className="w-5 h-5" />
@@ -251,7 +251,7 @@ const Lightbox: React.FC<LightboxProps> = ({
               <button
                 onClick={handleShare}
                 className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-                title="Share"
+                title="Bagikan"
               >
                 <Share2 className="w-5 h-5" />
               </button>
@@ -260,7 +260,7 @@ const Lightbox: React.FC<LightboxProps> = ({
               <button
                 onClick={handleDownload}
                 className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-                title="Download"
+                title="Unduh"
               >
                 <Download className="w-5 h-5" />
               </button>
@@ -269,7 +269,7 @@ const Lightbox: React.FC<LightboxProps> = ({
               <button
                 onClick={onClose}
                 className="p-2 hover:bg-white/20 rounded-lg transition-colors"
-                title="Close (Esc)"
+                title="Tutup (Esc)"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -283,7 +283,7 @@ const Lightbox: React.FC<LightboxProps> = ({
             <button
               onClick={goToPrevious}
               className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors"
-              title="Previous (←)"
+              title="Sebelumnya (←)"
             >
               <ChevronLeft className="w-6 h-6" />
             </button>
@@ -291,7 +291,7 @@ const Lightbox: React.FC<LightboxProps> = ({
             <button
               onClick={goToNext}
               className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-3 bg-black/50 hover:bg-black/70 text-white rounded-full transition-colors"
-              title="Next (→)"
+              title="Selanjutnya (→)"
             >
               <ChevronRight className="w-6 h-6" />
             </button>
@@ -430,7 +430,7 @@ const Lightbox: React.FC<LightboxProps> = ({
 
         {/* Keyboard Shortcuts Help */}
         <div className="absolute bottom-4 left-4 text-white text-xs opacity-75">
-          <div>← → Navigate • Space: Slideshow • I: Info • Esc: Close</div>
+          <div>← → Navigasi • Spasi: Slideshow • I: Info • Esc: Tutup</div>
         </div>
       </motion.div>
     </AnimatePresence>

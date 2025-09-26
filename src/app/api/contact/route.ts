@@ -31,30 +31,30 @@ function rateLimit(ip: string, limit: number = 5, windowMs: number = 15 * 60 * 1
 // Enhanced validation schema matching frontend
 const contactFormSchema = z.object({
   name: z.string()
-    .min(2, 'Name must be at least 2 characters')
-    .max(50, 'Name must be less than 50 characters')
-    .regex(/^[a-zA-Z\s]+$/, 'Name can only contain letters and spaces'),
+    .min(2, 'Nama harus minimal 2 karakter')
+    .max(50, 'Nama harus kurang dari 50 karakter')
+    .regex(/^[a-zA-Z\s]+$/, 'Nama hanya boleh berisi huruf dan spasi'),
   email: z.string()
-    .email('Please enter a valid email address')
-    .min(5, 'Email must be at least 5 characters')
-    .max(100, 'Email must be less than 100 characters'),
+    .email('Silakan masukkan alamat email yang valid')
+    .min(5, 'Email harus minimal 5 karakter')
+    .max(100, 'Email harus kurang dari 100 karakter'),
   phone: z.string()
     .optional()
     .refine((val) => !val || /^[\+]?[0-9\s\-\(\)]{10,15}$/.test(val), {
-      message: 'Please enter a valid phone number'
+      message: 'Silakan masukkan nomor telepon yang valid'
     }),
   subject: z.string()
-    .min(5, 'Subject must be at least 5 characters')
-    .max(100, 'Subject must be less than 100 characters'),
+    .min(5, 'Subjek harus minimal 5 karakter')
+    .max(100, 'Subjek harus kurang dari 100 karakter'),
   message: z.string()
-    .min(20, 'Message must be at least 20 characters')
-    .max(1000, 'Message must be less than 1000 characters'),
+    .min(20, 'Pesan harus minimal 20 karakter')
+    .max(1000, 'Pesan harus kurang dari 1000 karakter'),
   tourInterest: z.string().optional(),
   travelDate: z.string().optional(),
   groupSize: z.string()
     .optional()
     .refine((val) => !val || (parseInt(val) >= 1 && parseInt(val) <= 50), {
-      message: 'Group size must be between 1 and 50'
+      message: 'Ukuran grup harus antara 1 dan 50'
     }),
   budget: z.string().optional()
 })
@@ -66,8 +66,8 @@ export async function POST(request: NextRequest) {
     if (!rateLimit(ip)) {
       return NextResponse.json(
         { 
-          error: 'Too many requests',
-          message: 'Please wait before submitting another form. Limit: 5 requests per 15 minutes.'
+          error: 'Terlalu banyak permintaan',
+          message: 'Silakan tunggu sebelum mengirim formulir lagi. Batas: 5 permintaan per 15 menit.'
         },
         { status: 429 }
       )
@@ -80,8 +80,8 @@ export async function POST(request: NextRequest) {
     if (!validationResult.success) {
       return NextResponse.json(
         { 
-          error: 'Validation failed',
-          message: 'Please check your form data',
+          error: 'Validasi gagal',
+          message: 'Silakan periksa data formulir Anda',
           details: validationResult.error.issues
         },
         { status: 400 }
@@ -133,8 +133,8 @@ export async function POST(request: NextRequest) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { 
-          error: 'Validation error',
-          message: 'Please check your form data',
+          error: 'Kesalahan validasi',
+          message: 'Silakan periksa data formulir Anda',
           details: error.issues
         },
         { status: 400 }
@@ -143,8 +143,8 @@ export async function POST(request: NextRequest) {
     
     return NextResponse.json(
       { 
-        error: 'Internal server error',
-        message: 'We are experiencing technical difficulties. Please try again later or contact us directly.'
+        error: 'Kesalahan server internal',
+        message: 'Kami mengalami kesulitan teknis. Silakan coba lagi nanti atau hubungi kami langsung.'
       },
       { status: 500 }
     )
@@ -154,7 +154,7 @@ export async function POST(request: NextRequest) {
 // Handle GET requests (method not allowed)
 export async function GET() {
   return NextResponse.json(
-    { error: 'Method not allowed' },
+    { error: 'Metode tidak diizinkan' },
     { status: 405 }
   )
 }
@@ -208,29 +208,29 @@ async function sendEmailNotification(contactDoc: any) {
     const businessEmailHtml = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <div style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); padding: 30px; text-align: center;">
-          <h1 style="color: white; margin: 0; font-size: 28px;">New Contact Form Submission</h1>
+          <h1 style="color: white; margin: 0; font-size: 28px;">Formulir Kontak Baru</h1>
           <p style="color: #f0f8ff; margin: 10px 0 0 0;">${siteName}</p>
         </div>
         
         <div style="padding: 30px; background: #f8f9fa;">
           <div style="background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px;">
-            <h2 style="color: #333; margin-top: 0;">Contact Details</h2>
+            <h2 style="color: #333; margin-top: 0;">Detail Kontak</h2>
             <table style="width: 100%; border-collapse: collapse;">
-              <tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Name:</td><td style="padding: 8px 0;">${contactDoc.name}</td></tr>
+              <tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Nama:</td><td style="padding: 8px 0;">${contactDoc.name}</td></tr>
               <tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Email:</td><td style="padding: 8px 0;"><a href="mailto:${contactDoc.email}" style="color: var(--primary);">${contactDoc.email}</a></td></tr>
-              ${contactDoc.phone ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Phone:</td><td style="padding: 8px 0;"><a href="tel:${contactDoc.phone}" style="color: var(--primary);">${contactDoc.phone}</a></td></tr>` : ''}
-              <tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Subject:</td><td style="padding: 8px 0;">${contactDoc.subject}</td></tr>
+              ${contactDoc.phone ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Telepon:</td><td style="padding: 8px 0;"><a href="tel:${contactDoc.phone}" style="color: var(--primary);">${contactDoc.phone}</a></td></tr>` : ''}
+              <tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Subjek:</td><td style="padding: 8px 0;">${contactDoc.subject}</td></tr>
             </table>
           </div>
 
           ${contactDoc.tourInterest || contactDoc.travelDate || contactDoc.groupSize || contactDoc.budget ? `
           <div style="background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px;">
-            <h3 style="color: #333; margin-top: 0;">Trip Details</h3>
+            <h3 style="color: #333; margin-top: 0;">Detail Perjalanan</h3>
             <table style="width: 100%; border-collapse: collapse;">
-              ${contactDoc.tourInterest ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Tour Interest:</td><td style="padding: 8px 0;">${contactDoc.tourInterest}</td></tr>` : ''}
-          ${contactDoc.travelDate ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Travel Date:</td><td style="padding: 8px 0;">${contactDoc.travelDate}</td></tr>` : ''}
-          ${contactDoc.groupSize ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Group Size:</td><td style="padding: 8px 0;">${contactDoc.groupSize} travelers</td></tr>` : ''}
-          ${contactDoc.budget ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Budget:</td><td style="padding: 8px 0;">${contactDoc.budget}</td></tr>` : ''}
+              ${contactDoc.tourInterest ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Minat Tour:</td><td style="padding: 8px 0;">${contactDoc.tourInterest}</td></tr>` : ''}
+          ${contactDoc.travelDate ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Tanggal Perjalanan:</td><td style="padding: 8px 0;">${contactDoc.travelDate}</td></tr>` : ''}
+          ${contactDoc.groupSize ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Ukuran Grup:</td><td style="padding: 8px 0;">${contactDoc.groupSize} orang</td></tr>` : ''}
+          ${contactDoc.budget ? `<tr><td style="padding: 8px 0; font-weight: bold; color: #666;">Anggaran:</td><td style="padding: 8px 0;">${contactDoc.budget}</td></tr>` : ''}
         </table>
         
             </table>
@@ -239,7 +239,7 @@ async function sendEmailNotification(contactDoc: any) {
 
           ${contactDoc.message ? `
           <div style="background: white; padding: 25px; border-radius: 8px; margin-bottom: 20px;">
-            <h3 style="color: #333; margin-top: 0;">Message</h3>
+            <h3 style="color: #333; margin-top: 0;">Pesan</h3>
             <div style="background: #f8f9fa; padding: 15px; border-radius: 4px; border-left: 4px solid var(--primary);">
               <p style="margin: 0; white-space: pre-wrap;">${contactDoc.message}</p>
             </div>
@@ -248,7 +248,7 @@ async function sendEmailNotification(contactDoc: any) {
         </div>
       
       <div style="padding: 20px; text-align: center; background: #333; color: #ccc;">
-          <p style="margin: 0; font-size: 14px;">Submitted at: ${new Date(contactDoc.submittedAt).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}</p>
+          <p style="margin: 0; font-size: 14px;">Dikirim pada: ${new Date(contactDoc.submittedAt).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}</p>
         </div>
       </div>
     `
@@ -257,7 +257,7 @@ async function sendEmailNotification(contactDoc: any) {
     await transporter.sendMail({
       from: `"${siteName} Contact Form" <${process.env.SMTP_FROM || process.env.SMTP_USER}>`,
       to: process.env.CONTACT_EMAIL || process.env.SMTP_USER,
-      subject: `New Contact Form: ${contactDoc.subject}`,
+      subject: `Formulir Kontak Baru: ${contactDoc.subject}`,
       html: businessEmailHtml,
     })
 
@@ -266,7 +266,7 @@ async function sendEmailNotification(contactDoc: any) {
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <div style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); padding: 30px; text-align: center;">
           <h1 style="color: white; margin: 0; font-size: 28px;">Terima Kasih!</h1>
-          <p style="color: #f0f8ff; margin: 10px 0 0 0;">Thank You for Contacting Us</p>
+          <p style="color: #f0f8ff; margin: 10px 0 0 0;">Terima Kasih Telah Menghubungi Kami</p>
         </div>
         
         <div style="padding: 30px; background: #f8f9fa;">

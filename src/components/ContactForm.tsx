@@ -7,6 +7,7 @@ import { z } from 'zod'
 import { motion } from 'framer-motion'
 import AnimatedSection from './AnimatedSection'
 import { sanityFetch } from '@/sanity/lib/client'
+import { getStyleClasses, getButtonClasses, getCardClasses, combineClasses } from '@/lib/cms-styles'
 
 interface ThemeConfig {
   colors?: {
@@ -77,30 +78,30 @@ interface SiteSettings {
 // Zod validation schema
 const contactFormSchema = z.object({
   name: z.string()
-    .min(2, 'Name must be at least 2 characters')
-    .max(50, 'Name must be less than 50 characters')
-    .regex(/^[a-zA-Z\s]+$/, 'Name can only contain letters and spaces'),
+    .min(2, 'Nama harus minimal 2 karakter')
+    .max(50, 'Nama harus kurang dari 50 karakter')
+    .regex(/^[a-zA-Z\s]+$/, 'Nama hanya boleh berisi huruf dan spasi'),
   email: z.string()
-    .email('Please enter a valid email address')
-    .min(5, 'Email must be at least 5 characters')
-    .max(100, 'Email must be less than 100 characters'),
+    .email('Silakan masukkan alamat email yang valid')
+    .min(5, 'Email harus minimal 5 karakter')
+    .max(100, 'Email harus kurang dari 100 karakter'),
   phone: z.string()
     .optional()
     .refine((val) => !val || /^[\+]?[0-9\s\-\(\)]{10,15}$/.test(val), {
-      message: 'Please enter a valid phone number'
+      message: 'Silakan masukkan nomor telepon yang valid'
     }),
   subject: z.string()
-    .min(5, 'Subject must be at least 5 characters')
-    .max(100, 'Subject must be less than 100 characters'),
+    .min(5, 'Subjek harus minimal 5 karakter')
+    .max(100, 'Subjek harus kurang dari 100 karakter'),
   message: z.string()
-    .min(20, 'Message must be at least 20 characters')
-    .max(1000, 'Message must be less than 1000 characters'),
+    .min(20, 'Pesan harus minimal 20 karakter')
+    .max(1000, 'Pesan harus kurang dari 1000 karakter'),
   tourInterest: z.string().optional(),
   travelDate: z.string().optional(),
   groupSize: z.string()
     .optional()
     .refine((val) => !val || (parseInt(val) >= 1 && parseInt(val) <= 50), {
-      message: 'Group size must be between 1 and 50'
+      message: 'Ukuran grup harus antara 1 dan 50'
     }),
   budget: z.string().optional()
 })
@@ -111,6 +112,12 @@ export default function ContactForm({ className = '', theme }: ContactFormProps)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [errorMessage, setErrorMessage] = useState('')
   const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null)
+  const [formStyles, setFormStyles] = useState({
+    container: 'bg-white rounded-lg shadow-lg p-8',
+    title: 'text-2xl font-bold text-black mb-2',
+    subtitle: 'text-gray-600',
+    primaryButton: 'bg-accent text-primary-dark px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-light transition-colors duration-200'
+  })
 
   useEffect(() => {
     const fetchSiteSettings = async () => {
@@ -162,6 +169,30 @@ export default function ContactForm({ className = '', theme }: ContactFormProps)
     }
     fetchSiteSettings()
   }, [])
+
+  useEffect(() => {
+    const loadFormStyles = async () => {
+      try {
+        const [container, title, subtitle, primaryButton] = await Promise.all([
+          getCardClasses('default'),
+          getStyleClasses('components', 'sectionTitle'),
+          getStyleClasses('components', 'sectionSubtitle'),
+          getButtonClasses('primary')
+        ])
+
+        setFormStyles({
+          container: container || 'bg-white rounded-lg shadow-lg p-8',
+          title: title || 'text-2xl font-bold text-black mb-2',
+          subtitle: subtitle || 'text-gray-600',
+          primaryButton: primaryButton || 'bg-accent text-primary-dark px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-light transition-colors duration-200'
+        })
+      } catch (error) {
+        console.error('Error loading form styles:', error)
+      }
+    }
+
+    loadFormStyles()
+  }, [])
   
   const {
     register,
@@ -202,7 +233,7 @@ export default function ContactForm({ className = '', theme }: ContactFormProps)
 
       if (!response.ok) {
         const errorData = await response.json()
-        throw new Error(errorData.message || 'Failed to submit form')
+        throw new Error(errorData.message || 'Gagal mengirim formulir')
       }
 
       setSubmitStatus('success')
@@ -215,36 +246,36 @@ export default function ContactForm({ className = '', theme }: ContactFormProps)
       })
     } catch (error) {
       setSubmitStatus('error')
-      setErrorMessage(error instanceof Error ? error.message : 'An error occurred while submitting the form')
+      setErrorMessage(error instanceof Error ? error.message : 'Terjadi kesalahan saat mengirim formulir')
     }
   }
 
   const tourOptions = siteSettings?.contactContent?.tourOptions || [
-    { value: '', label: 'Select tour type...' },
-    { value: 'packages', label: 'Tour Packages' },
-    { value: 'custom', label: 'Custom Tours' },
-    { value: 'group', label: 'Group Tours' },
-    { value: 'private', label: 'Private Tours' },
-    { value: 'adventure', label: 'Adventure Tours' },
-    { value: 'cultural', label: 'Cultural Tours' },
-    { value: 'general', label: 'General Inquiry' }
+    { value: '', label: 'Pilih jenis wisata...' },
+    { value: 'packages', label: 'Paket Wisata' },
+    { value: 'custom', label: 'Wisata Kustom' },
+    { value: 'group', label: 'Wisata Grup' },
+    { value: 'private', label: 'Wisata Pribadi' },
+    { value: 'adventure', label: 'Wisata Petualangan' },
+    { value: 'cultural', label: 'Wisata Budaya' },
+    { value: 'general', label: 'Pertanyaan Umum' }
   ]
 
   const budgetOptions = siteSettings?.contactContent?.budgetOptions || [
-    { value: '', label: 'Select budget range...' },
-    { value: 'under-5m', label: 'Under 5 Million IDR' },
-    { value: '5-10m', label: '5-10 Million IDR' },
-    { value: '10-20m', label: '10-20 Million IDR' },
-    { value: '20-50m', label: '20-50 Million IDR' },
-    { value: 'over-50m', label: 'Over 50 Million IDR' }
+    { value: '', label: 'Pilih rentang anggaran...' },
+    { value: 'under-5m', label: 'Di bawah 5 Juta IDR' },
+    { value: '5-10m', label: '5-10 Juta IDR' },
+    { value: '10-20m', label: '10-20 Juta IDR' },
+    { value: '20-50m', label: '20-50 Juta IDR' },
+    { value: 'over-50m', label: 'Di atas 50 Juta IDR' }
   ]
 
   return (
     <div id="contact-form">
-      <AnimatedSection className={`bg-white rounded-lg shadow-lg p-8 ${className}`}>
+      <AnimatedSection className={combineClasses(formStyles.container, className)}>
       <div className="mb-6">
-        <h2 className={`text-2xl font-bold ${theme?.colors?.textPrimary || 'text-black'} mb-2`}>{siteSettings?.contactContent?.formTitle || siteSettings?.content?.getInTouchText || 'Get in Touch'}</h2>
-        <p className={theme?.colors?.textSecondary || 'text-gray-600'}>{siteSettings?.contactContent?.formDescription || 'Ready to plan your adventure? Fill out the form below and we\'ll get back to you soon!'}</p>
+        <h2 className={combineClasses(formStyles.title, theme?.colors?.textPrimary)}>{siteSettings?.contactContent?.formTitle || siteSettings?.content?.getInTouchText || 'Hubungi Kami'}</h2>
+        <p className={combineClasses(formStyles.subtitle, theme?.colors?.textSecondary)}>{siteSettings?.contactContent?.formDescription || 'Siap merencanakan petualangan Anda? Isi formulir di bawah ini dan kami akan segera menghubungi Anda!'}</p>
       </div>
 
       {submitStatus === 'success' && (
@@ -257,7 +288,7 @@ export default function ContactForm({ className = '', theme }: ContactFormProps)
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
-            {siteSettings?.contactContent?.successMessage || 'Thank you for your message! We\'ll get back to you within 24 hours.'}
+            {siteSettings?.contactContent?.successMessage || 'Barakallahu fiikum atas pesan Anda! InsyaAllah kami akan menghubungi Anda dalam 24 jam.'}
           </div>
         </motion.div>
       )}
@@ -272,7 +303,7 @@ export default function ContactForm({ className = '', theme }: ContactFormProps)
             <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            {siteSettings?.contactContent?.errorPrefix || 'Error'}: {errorMessage}
+            {siteSettings?.contactContent?.errorPrefix || 'Kesalahan'}: {errorMessage}
           </div>
         </motion.div>
       )}
@@ -391,7 +422,7 @@ export default function ContactForm({ className = '', theme }: ContactFormProps)
               className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
                 errors.groupSize ? 'border-red-500' : 'border-gray-300'
               }`}
-              placeholder={siteSettings?.contactContent?.groupSizePlaceholder || 'Number of travelers'}
+              placeholder={siteSettings?.contactContent?.groupSizePlaceholder || 'Jumlah jamaah'}
             />
             {errors.groupSize && (
               <p className="mt-1 text-sm text-red-600">{errors.groupSize.message}</p>
@@ -475,11 +506,11 @@ export default function ContactForm({ className = '', theme }: ContactFormProps)
             disabled={isSubmitting}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className={`w-full py-3 px-6 rounded-lg font-semibold text-lg transition-colors duration-200 ${
-              isSubmitting
-                ? 'bg-gray-400 cursor-not-allowed'
-                : theme?.buttons?.primaryButton || 'bg-primary text-white hover:bg-primary-dark'
-            }`}
+            className={combineClasses(
+              formStyles.primaryButton,
+              isSubmitting ? 'bg-gray-400 cursor-not-allowed' : '',
+              theme?.buttons?.primaryButton
+            )}
           >
             {isSubmitting ? (siteSettings?.contactContent?.submittingText || 'Sending...') : (siteSettings?.contactContent?.submitButtonText || 'Send Message')}
           </motion.button>

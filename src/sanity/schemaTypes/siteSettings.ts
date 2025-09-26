@@ -41,14 +41,14 @@ export const siteSettings = defineType({
       title: 'Site Title (SEO)',
       type: 'string',
       description: 'Page title for SEO and browser tab',
-      initialValue: 'Mahabbatussholihin Tour & Travel - Your Gateway to Unforgettable Adventures',
+      initialValue: 'Mahabbatussholihin Tour & Travel - Gerbang Menuju Petualangan Tak Terlupakan',
     }),
     defineField({
       name: 'siteDescription',
       title: 'Site Description (SEO)',
       type: 'text',
       description: 'Meta description for SEO and social sharing',
-      initialValue: 'Discover amazing destinations with Mahabbatussholihin Tour & Travel. We offer personalized travel experiences, expert guides, and unforgettable adventures across Indonesia and beyond.',
+      initialValue: 'Temukan destinasi menakjubkan bersama Mahabbatussholihin Tour & Travel. Kami menawarkan pengalaman perjalanan yang dipersonalisasi, pemandu ahli, dan petualangan tak terlupakan di seluruh Indonesia dan sekitarnya.',
     }),
     defineField({
       name: 'contactInfo',
@@ -86,19 +86,19 @@ export const siteSettings = defineType({
           name: 'mondayFriday',
           title: 'Monday - Friday',
           type: 'string',
-          initialValue: '9:00 AM - 6:00 PM'
+          initialValue: '09:00 - 18:00'
         },
         {
           name: 'saturday',
           title: 'Saturday',
           type: 'string',
-          initialValue: '9:00 AM - 4:00 PM'
+          initialValue: '09:00 - 16:00'
         },
         {
           name: 'sunday',
           title: 'Sunday',
           type: 'string',
-          initialValue: 'Closed'
+          initialValue: 'Tutup'
         },
         {
           name: 'timezone',
@@ -151,35 +151,35 @@ export const siteSettings = defineType({
           name: 'ctaText',
           title: 'Call to Action Text',
           type: 'string',
-          initialValue: 'Ready to Start Your Journey?',
+          initialValue: 'Bismillah, Siap Memulai Perjalanan Berkah Anda?',
           description: 'Main CTA text on homepage'
         },
         {
           name: 'contactCtaText',
           title: 'Contact CTA Text',
           type: 'string',
-          initialValue: 'Ready to start your next adventure? Get in touch with our travel experts',
+          initialValue: 'Bismillah, siap memulai perjalanan berkah berikutnya? Hubungi tim kami yang amanah',
           description: 'CTA text on contact page'
         },
         {
           name: 'getInTouchText',
           title: 'Get in Touch Text',
           type: 'string',
-          initialValue: 'Get in Touch',
+          initialValue: 'Hubungi Kami',
           description: 'Contact form heading'
         },
         {
           name: 'bookNowText',
           title: 'Book Now Button Text',
           type: 'string',
-          initialValue: 'Book Now',
+          initialValue: 'Pesan Sekarang',
           description: 'Text for book now buttons'
         },
         {
           name: 'copyrightText',
           title: 'Copyright Text',
           type: 'string',
-          initialValue: '© 2024 Mahabbatussholihin Tour & Travel. All rights reserved.',
+          initialValue: '© 2024 Mahabbatussholihin Tour & Travel. Semua hak dilindungi.',
           description: 'Copyright notice in footer'
         }
       ]
@@ -193,25 +193,25 @@ export const siteSettings = defineType({
           name: 'homeText',
           title: 'Home Menu Text',
           type: 'string',
-          initialValue: 'Home'
+          initialValue: 'Beranda'
         },
         {
           name: 'aboutText',
           title: 'About Menu Text',
           type: 'string',
-          initialValue: 'About'
+          initialValue: 'Tentang'
         },
         {
           name: 'servicesText',
           title: 'Services Menu Text',
           type: 'string',
-          initialValue: 'Services'
+          initialValue: 'Layanan'
         },
         {
           name: 'galleryText',
           title: 'Gallery Menu Text',
           type: 'string',
-          initialValue: 'Gallery'
+          initialValue: 'Galeri'
         },
         {
           name: 'blogText',
@@ -223,19 +223,18 @@ export const siteSettings = defineType({
           name: 'contactText',
           title: 'Contact Menu Text',
           type: 'string',
-          initialValue: 'Contact'
+          initialValue: 'Kontak'
         },
         {
           name: 'tourPackagesText',
           title: 'Tour Packages Text',
-          type: 'string',
-          initialValue: 'Tour Packages'
+          type: 'string'
         },
         {
           name: 'privacyPolicyText',
           title: 'Privacy Policy Text',
           type: 'string',
-          initialValue: 'Privacy Policy'
+          initialValue: 'Kebijakan Privasi'
         }
       ]
     }),
@@ -266,7 +265,7 @@ export const siteSettings = defineType({
           name: 'getStartedNowText',
           title: 'Get Started Now Text',
           type: 'string',
-          initialValue: 'Get Started Now'
+          initialValue: 'Mulai Sekarang'
         },
         {
           name: 'galleryTitle',
@@ -326,13 +325,13 @@ export const siteSettings = defineType({
           name: 'createMomentsTitle',
           title: 'Create Moments Title',
           type: 'string',
-          initialValue: 'Siap Menciptakan Momen Indah Bersama Kami?'
+          initialValue: 'Siap Menciptakan Momen Berkah Bersama Kami?'
         },
         {
           name: 'createMomentsSubtitle',
           title: 'Create Moments Subtitle',
           type: 'text',
-          initialValue: 'Bergabunglah dengan ribuan wisatawan yang telah merasakan pengalaman tak terlupakan bersama Mahabbatussholihin Tour & Travel'
+          initialValue: 'Alhamdulillah, gabung yuk sama ribuan jamaah yang udah merasakan berkah perjalanan tak terlupakan bareng Mahabbatussholihin Tour & Travel'
         },
         {
           name: 'freeConsultationText',
@@ -343,14 +342,12 @@ export const siteSettings = defineType({
         {
           name: 'viewTourPackagesText',
           title: 'View Tour Packages Text',
-          type: 'string',
-          initialValue: 'Lihat Paket Tour'
+          type: 'string'
         },
         {
           name: 'viewAllPackagesText',
           title: 'View All Packages Text',
-          type: 'string',
-          initialValue: 'Lihat Semua Paket'
+          type: 'string'
         }
       ]
     }),
@@ -442,6 +439,24 @@ export const siteSettings = defineType({
           title: 'Subscribe Newsletter Text',
           type: 'string',
           initialValue: 'Berlangganan Newsletter'
+        },
+        {
+          name: 'searchPlaceholderText',
+          title: 'Search Placeholder Text',
+          type: 'string',
+          initialValue: 'Cari artikel...'
+        },
+        {
+          name: 'previousPageText',
+          title: 'Previous Page Text',
+          type: 'string',
+          initialValue: 'Sebelumnya'
+        },
+        {
+          name: 'nextPageText',
+          title: 'Next Page Text',
+          type: 'string',
+          initialValue: 'Selanjutnya'
         }
       ]
     }),
@@ -709,7 +724,7 @@ export const siteSettings = defineType({
           name: 'sendMessageText',
           title: 'Send Message Text',
           type: 'string',
-          initialValue: 'Send Message'
+          initialValue: 'Kirim Pesan'
         }
       ]
     }),
@@ -722,25 +737,25 @@ export const siteSettings = defineType({
           name: 'nameLabel',
           title: 'Name Label',
           type: 'string',
-          initialValue: 'Your full name'
+          initialValue: 'Nama lengkap Anda'
         },
         {
           name: 'emailLabel',
           title: 'Email Label',
           type: 'string',
-          initialValue: 'Email Address *'
+          initialValue: 'Alamat Email *'
         },
         {
           name: 'emailPlaceholder',
           title: 'Email Placeholder',
           type: 'string',
-          initialValue: 'your.email@example.com'
+          initialValue: 'email.anda@contoh.com'
         },
         {
           name: 'phoneLabel',
           title: 'Phone Label',
           type: 'string',
-          initialValue: 'Phone Number'
+          initialValue: 'Nomor Telepon'
         },
         {
           name: 'phonePlaceholder',
@@ -752,55 +767,55 @@ export const siteSettings = defineType({
           name: 'tourInterestLabel',
           title: 'Tour Interest Label',
           type: 'string',
-          initialValue: 'Tour Interest'
+          initialValue: 'Minat Tour'
         },
         {
           name: 'travelDateLabel',
           title: 'Travel Date Label',
           type: 'string',
-          initialValue: 'Preferred Travel Date'
+          initialValue: 'Tanggal Perjalanan Pilihan'
         },
         {
           name: 'groupSizeLabel',
           title: 'Group Size Label',
           type: 'string',
-          initialValue: 'Group Size'
+          initialValue: 'Ukuran Grup'
         },
         {
           name: 'groupSizePlaceholder',
           title: 'Group Size Placeholder',
           type: 'string',
-          initialValue: 'Number of travelers'
+          initialValue: 'Jumlah wisatawan'
         },
         {
           name: 'budgetLabel',
           title: 'Budget Label',
           type: 'string',
-          initialValue: 'Budget Range'
+          initialValue: 'Rentang Anggaran'
         },
         {
           name: 'subjectLabel',
           title: 'Subject Label',
           type: 'string',
-          initialValue: 'Subject *'
+          initialValue: 'Subjek *'
         },
         {
           name: 'subjectPlaceholder',
           title: 'Subject Placeholder',
           type: 'string',
-          initialValue: 'What can we help you with?'
+          initialValue: 'Bismillah, apa yang bisa kami bantu?'
         },
         {
           name: 'messageLabel',
           title: 'Message Label',
           type: 'string',
-          initialValue: 'Message *'
+          initialValue: 'Pesan *'
         },
         {
           name: 'messagePlaceholder',
           title: 'Message Placeholder',
           type: 'string',
-          initialValue: 'Tell us more about your travel plans...'
+          initialValue: 'Bismillah, ceritakan lebih lanjut tentang rencana perjalanan berkah Anda...'
         }
       ]
     }),
@@ -812,20 +827,19 @@ export const siteSettings = defineType({
         {
           name: 'tourPackagesOption',
           title: 'Tour Packages Option',
-          type: 'string',
-          initialValue: 'Tour Packages'
+          type: 'string'
         },
         {
           name: 'customToursOption',
           title: 'Custom Tours Option',
           type: 'string',
-          initialValue: 'Custom Tours'
+          initialValue: 'Tour Kustom'
         },
         {
           name: 'generalInquiryOption',
           title: 'General Inquiry Option',
           type: 'string',
-          initialValue: 'General Inquiry'
+          initialValue: 'Pertanyaan Umum'
         },
         {
           name: 'budgetUnder5M',
@@ -868,55 +882,55 @@ export const siteSettings = defineType({
           name: 'nameMinLength',
           title: 'Name Min Length Error',
           type: 'string',
-          initialValue: 'Name must be at least 2 characters'
+          initialValue: 'Nama harus minimal 2 karakter'
         },
         {
           name: 'nameMaxLength',
           title: 'Name Max Length Error',
           type: 'string',
-          initialValue: 'Name must be less than 50 characters'
+          initialValue: 'Nama harus kurang dari 50 karakter'
         },
         {
           name: 'emailInvalid',
           title: 'Email Invalid Error',
           type: 'string',
-          initialValue: 'Please enter a valid email address'
+          initialValue: 'Silakan masukkan alamat email yang valid'
         },
         {
           name: 'phoneInvalid',
           title: 'Phone Invalid Error',
           type: 'string',
-          initialValue: 'Please enter a valid phone number'
+          initialValue: 'Silakan masukkan nomor telepon yang valid'
         },
         {
           name: 'groupSizeRange',
           title: 'Group Size Range Error',
           type: 'string',
-          initialValue: 'Group size must be between 1 and 50'
+          initialValue: 'Ukuran grup harus antara 1 dan 50'
         },
         {
           name: 'subjectMinLength',
           title: 'Subject Min Length Error',
           type: 'string',
-          initialValue: 'Subject must be at least 5 characters'
+          initialValue: 'Subjek harus minimal 5 karakter'
         },
         {
           name: 'subjectMaxLength',
           title: 'Subject Max Length Error',
           type: 'string',
-          initialValue: 'Subject must be less than 100 characters'
+          initialValue: 'Subjek harus kurang dari 100 karakter'
         },
         {
           name: 'messageMinLength',
           title: 'Message Min Length Error',
           type: 'string',
-          initialValue: 'Message must be at least 10 characters'
+          initialValue: 'Pesan harus minimal 10 karakter'
         },
         {
           name: 'messageMaxLength',
           title: 'Message Max Length Error',
           type: 'string',
-          initialValue: 'Message must be less than 1000 characters'
+          initialValue: 'Pesan harus kurang dari 1000 karakter'
         }
       ]
     }),
@@ -929,21 +943,21 @@ export const siteSettings = defineType({
           name: 'thankYouMessage',
           title: 'Thank You Message',
           type: 'text',
-          initialValue: 'Terima kasih telah menghubungi Mahabbatussholihin Tour & Travel.',
+          initialValue: 'Barakallahu fiikum atas kepercayaan Anda kepada Mahabbatussholihin Tour & Travel.',
           description: 'Thank you message in customer email'
         },
         {
           name: 'responseMessage',
           title: 'Response Message',
           type: 'text',
-          initialValue: 'Kami akan segera merespons pertanyaan Anda dalam waktu 24 jam.',
+          initialValue: 'InsyaAllah kami akan segera merespons pertanyaan Anda dalam waktu 24 jam.',
           description: 'Response time message in customer email'
         },
         {
           name: 'teamSignature',
           title: 'Team Signature',
           type: 'string',
-          initialValue: 'Team Mahabbatussholihin Tour & Travel',
+          initialValue: 'Wassalamu\'alaikum warahmatullahi wabarakatuh\nTeam Mahabbatussholihin Tour & Travel',
           description: 'Team signature in emails'
         }
       ]
@@ -1076,6 +1090,13 @@ export const siteSettings = defineType({
               type: 'string',
               initialValue: 'bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden',
               description: 'CSS classes for blog cards'
+            },
+            {
+              name: 'testimonialCard',
+              title: 'Testimonial Card Classes',
+              type: 'string',
+              initialValue: 'bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 h-full',
+              description: 'CSS classes for testimonial cards'
             }
           ]
         },
@@ -1111,6 +1132,76 @@ export const siteSettings = defineType({
               type: 'string',
               initialValue: 'bg-gray-900 text-white',
               description: 'CSS classes for footer background'
+            }
+          ]
+        },
+        {
+          name: 'components',
+          title: 'Component Styles',
+          type: 'object',
+          fields: [
+            {
+              name: 'sectionTitle',
+              title: 'Section Title Classes',
+              type: 'string',
+              initialValue: 'text-3xl md:text-4xl font-bold text-black mb-4',
+              description: 'CSS classes for section titles'
+            },
+            {
+              name: 'sectionSubtitle',
+              title: 'Section Subtitle Classes',
+              type: 'string',
+              initialValue: 'text-lg text-gray-600 max-w-3xl mx-auto',
+              description: 'CSS classes for section subtitles'
+            },
+            {
+              name: 'sectionHeader',
+              title: 'Section Header Classes',
+              type: 'string',
+              initialValue: 'text-center mb-12',
+              description: 'CSS classes for section headers'
+            },
+            {
+              name: 'gridDefault',
+              title: 'Default Grid Classes',
+              type: 'string',
+              initialValue: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+              description: 'CSS classes for default grid layout'
+            },
+            {
+              name: 'gridCompact',
+              title: 'Compact Grid Classes',
+              type: 'string',
+              initialValue: 'grid-cols-1 sm:grid-cols-2',
+              description: 'CSS classes for compact grid layout'
+            },
+            {
+              name: 'testimonialSection',
+              title: 'Testimonial Section Classes',
+              type: 'string',
+              initialValue: 'py-16 bg-gray-50',
+              description: 'CSS classes for testimonial section background'
+            },
+            {
+              name: 'starRating',
+              title: 'Star Rating Classes',
+              type: 'string',
+              initialValue: 'text-lg',
+              description: 'CSS classes for star rating'
+            },
+            {
+              name: 'starActive',
+              title: 'Active Star Classes',
+              type: 'string',
+              initialValue: 'text-accent',
+              description: 'CSS classes for active stars'
+            },
+            {
+              name: 'starInactive',
+              title: 'Inactive Star Classes',
+              type: 'string',
+              initialValue: 'text-gray-300',
+              description: 'CSS classes for inactive stars'
             }
           ]
         }

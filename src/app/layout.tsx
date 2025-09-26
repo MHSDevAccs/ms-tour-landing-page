@@ -13,10 +13,10 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: {
-    default: "Mahabbatussholihin Tour & Travel - Your Trusted Travel Partner",
+    default: "Mahabbatussholihin Tour & Travel - Mitra Perjalanan Terpercaya Anda",
     template: "%s | Mahabbatussholihin Tour & Travel"
   },
-  description: "Explore the world with Mahabbatussholihin Tour & Travel - Your trusted partner for unforgettable travel experiences. Discover amazing destinations with our expertly crafted tour packages.",
+  description: "Jelajahi dunia bersama Mahabbatussholihin Tour & Travel - Mitra terpercaya Anda untuk pengalaman perjalanan yang tak terlupakan. Temukan destinasi menakjubkan dengan paket wisata yang dirancang ahli.",
   keywords: ["tour", "travel", "vacation", "holiday", "tourism", "Indonesia", "travel agency", "tour packages"],
   authors: [{ name: "Mahabbatussholihin Tour & Travel" }],
   creator: "Mahabbatussholihin Tour & Travel",
@@ -31,8 +31,8 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "Mahabbatussholihin Tour & Travel - Your Trusted Travel Partner",
-    description: "Explore the world with Mahabbatussholihin Tour & Travel - Your trusted partner for unforgettable travel experiences.",
+    title: "Mahabbatussholihin Tour & Travel - Mitra Perjalanan Terpercaya Anda",
+    description: "Jelajahi dunia bersama Mahabbatussholihin Tour & Travel - Mitra terpercaya Anda untuk pengalaman perjalanan yang tak terlupakan.",
     url: 'https://mhstour.com',
     siteName: 'Mahabbatussholihin Tour & Travel',
     locale: 'id_ID',
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Mahabbatussholihin Tour & Travel - Your Trusted Travel Partner",
-    description: "Explore the world with Mahabbatussholihin Tour & Travel - Your trusted partner for unforgettable travel experiences.",
+    title: "Mahabbatussholihin Tour & Travel - Mitra Perjalanan Terpercaya Anda",
+    description: "Jelajahi dunia bersama Mahabbatussholihin Tour & Travel - Mitra terpercaya Anda untuk pengalaman perjalanan yang tak terlupakan.",
     creator: '@mhstour',
   },
   robots: {

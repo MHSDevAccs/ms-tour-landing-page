@@ -66,42 +66,60 @@ interface SiteSettings {
 const Footer = () => {
   const currentYear = new Date().getFullYear()
   const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null)
+  const [services, setServices] = useState<any[]>([])
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const fetchSiteSettings = async () => {
+    const fetchData = async () => {
       try {
-        const settings = await sanityFetch<SiteSettings>({
-          query: queries.getSiteSettings(),
-          tags: ['siteSettings'],
-        })
+        const [settings, servicePackages] = await Promise.all([
+          sanityFetch<SiteSettings>({
+            query: queries.getSiteSettings(),
+            tags: ['siteSettings'],
+          }),
+          sanityFetch<any[]>({
+            query: queries.getPopularServices(4),
+            tags: ['servicePackage'],
+          })
+        ])
         setSiteSettings(settings)
+        setServices(servicePackages)
       } catch (error) {
-        console.error('Failed to fetch site settings:', error)
+        console.error('Failed to fetch data:', error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
-    fetchSiteSettings()
+    fetchData()
   }, [])
+
+  // Theme configuration with proper fallbacks
+  const themeConfig = {
+    footerBg: siteSettings?.theme?.layout?.footerBg || "bg-gray-900 text-white",
+    container: siteSettings?.theme?.layout?.container || "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16",
+    primaryLight: siteSettings?.theme?.colors?.primaryLight || "text-primary-light",
+    textPrimary: siteSettings?.theme?.colors?.textPrimary || "text-white",
+    textSecondary: siteSettings?.theme?.colors?.textSecondary || "text-gray-300",
+  }
 
   const navigation = {
     main: [
-      { name: siteSettings?.navigation?.homeText || 'Home', href: '/' },
-      { name: siteSettings?.navigation?.aboutText || 'About', href: '/about' },
-      { name: siteSettings?.navigation?.servicesText || 'Services', href: '/services' },
-      { name: siteSettings?.navigation?.galleryText || 'Gallery', href: '/gallery' },
+      { name: siteSettings?.navigation?.homeText || 'Beranda', href: '/' },
+      { name: siteSettings?.navigation?.aboutText || 'Tentang', href: '/about' },
+      { name: siteSettings?.navigation?.servicesText || 'Layanan', href: '/services' },
+      { name: siteSettings?.navigation?.galleryText || 'Galeri', href: '/gallery' },
       { name: siteSettings?.navigation?.blogText || 'Blog', href: '/blog' },
-      { name: siteSettings?.navigation?.contactText || 'Contact', href: '/contact' },
+      { name: siteSettings?.navigation?.contactText || 'Kontak', href: '/contact' },
     ],
-    services: [
-      { name: 'Tour Packages', href: '/services/packages' },
-      { name: 'Custom Tours', href: '/services/custom' },
-      { name: 'Group Tours', href: '/services/group' },
-      { name: 'Private Tours', href: '/services/private' },
-    ],
+    services: services.map(service => ({
+      name: service.title,
+      href: service.link || `/services/${service.slug?.current || service.category}`
+    })),
     legal: [
-      { name: 'Privacy Policy', href: '/privacy' },
-      { name: 'Terms of Service', href: '/terms' },
-      { name: 'Cancellation Policy', href: '/cancellation' },
+      { name: 'Kebijakan Privasi', href: '/privacy' },
+      { name: 'Syarat Layanan', href: '/terms' },
+      { name: 'Kebijakan Pembatalan', href: '/cancellation' },
     ],
     social: [
       ...(siteSettings?.socialMedia?.facebook ? [{
@@ -153,35 +171,35 @@ const Footer = () => {
   }
 
   return (
-    <footer className={siteSettings?.theme?.layout?.footerBg || "bg-gray-900 text-white"}>
-      <div className={siteSettings?.theme?.layout?.container || "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12"}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className={themeConfig.footerBg}>
+      <div className={themeConfig.container}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Company Info */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center mb-4">
+          <div className="sm:col-span-2 lg:col-span-1">
+            <div className="flex items-center mb-6">
               {siteSettings?.logo ? (
                 <Image
                   src={urlFor(siteSettings.logo).width(200).height(60).url()}
-                  alt={siteSettings.logoAlt || 'Company Logo'}
+                  alt={siteSettings.logoAlt || 'Logo Perusahaan'}
                   width={200}
                   height={60}
                   className="h-10 w-auto brightness-0 invert"
                 />
               ) : (
-                <span className={`text-2xl font-bold ${siteSettings?.theme?.colors?.primaryLight || 'text-primary-light'}`}>
+                <span className="text-xl sm:text-2xl font-bold text-primary-light">
                   {siteSettings?.siteName || 'Mahabbatussholihin Tour & Travel'}
                 </span>
               )}
             </div>
-            <p className="text-gray-300 mb-4">
-              {siteSettings?.content?.tagline || 'Your trusted partner for unforgettable travel experiences. We create memories that last a lifetime with our expertly crafted tour packages.'}
+            <p className="text-gray-300 mb-6 text-sm sm:text-base leading-relaxed">
+              {siteSettings?.content?.tagline || 'Mitra terpercaya Anda untuk pengalaman perjalanan yang tak terlupakan. Kami menciptakan kenangan yang bertahan seumur hidup dengan paket wisata yang dirancang ahli.'}
             </p>
             <div className="flex space-x-4">
               {navigation.social.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className={`text-gray-400 hover:${siteSettings?.theme?.colors?.primaryLight || 'text-primary-light'} transition-colors duration-200`}
+                  className="text-gray-400 hover:text-primary-light transition-colors duration-200 p-2 hover:bg-gray-800 rounded-lg"
                   aria-label={item.name}
                 >
                   {item.icon}
@@ -191,14 +209,14 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
+          <div className="mt-8 sm:mt-0">
+            <h3 className="text-lg font-semibold mb-6 text-white">Tautan Cepat</h3>
+            <ul className="space-y-3">
               {navigation.main.map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className={`text-gray-300 hover:${siteSettings?.theme?.colors?.primaryLight || 'text-primary-light'} transition-colors duration-200`}
+                    className="text-gray-300 hover:text-primary-light transition-colors duration-200 text-sm sm:text-base block py-1"
                   >
                     {item.name}
                   </Link>
@@ -207,30 +225,15 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Our Services</h3>
-            <ul className="space-y-2">
-              {navigation.services.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className={`text-gray-300 hover:${siteSettings?.theme?.colors?.primaryLight || 'text-primary-light'} transition-colors duration-200`}
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+
 
           {/* Contact Info */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
-            <div className="space-y-3">
+          <div className="mt-8 lg:mt-0 sm:col-span-2 lg:col-span-1">
+            <h3 className="text-lg font-semibold mb-6 text-white">Info Kontak</h3>
+            <div className="space-y-4">
               {siteSettings?.contactInfo?.address && (
                 <div className="flex items-start">
-                  <svg className={`h-5 w-5 ${siteSettings?.theme?.colors?.primaryLight || 'text-primary-light'} mt-1 mr-3 flex-shrink-0`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5 text-primary-light mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
@@ -241,12 +244,12 @@ const Footer = () => {
               )}
               {siteSettings?.contactInfo?.whatsapp && (
                 <div className="flex items-center">
-                  <svg className={`h-5 w-5 ${siteSettings?.theme?.colors?.primaryLight || 'text-primary-light'} mr-3 flex-shrink-0`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5 text-primary-light mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                   <a 
                     href={`https://wa.me/${siteSettings.contactInfo.whatsapp.replace(/[^0-9]/g, '')}`} 
-                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                    className="text-gray-300 hover:text-primary-light transition-colors text-sm"
                   >
                     {siteSettings.contactInfo.whatsapp}
                   </a>
@@ -254,12 +257,12 @@ const Footer = () => {
               )}
               {siteSettings?.contactInfo?.email && (
                 <div className="flex items-center">
-                  <svg className={`h-5 w-5 ${siteSettings?.theme?.colors?.primaryLight || 'text-primary-light'} mr-3 flex-shrink-0`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 w-5 text-primary-light mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   <a 
                     href={`mailto:${siteSettings.contactInfo.email}`}
-                    className="text-gray-300 hover:text-white transition-colors text-sm"
+                    className="text-gray-300 hover:text-primary-light transition-colors text-sm"
                   >
                     {siteSettings.contactInfo.email}
                   </a>
@@ -270,17 +273,17 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section */}
-        <div className="border-t border-gray-800 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm mb-4 md:mb-0">
-              {siteSettings?.copyrightText || `© ${currentYear} Mahabbatussholihin Tour & Travel. All rights reserved.`}
+        <div className="border-t border-gray-800 mt-12 pt-8">
+          <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+            <p className="text-gray-400 text-sm text-center sm:text-left">
+              {siteSettings?.copyrightText || `© ${currentYear} Mahabbatussholihin Tour & Travel. Semua hak dilindungi.`}
             </p>
-            <div className="flex space-x-6">
+            <div className="flex flex-wrap justify-center sm:justify-end space-x-4 sm:space-x-6">
               {navigation.legal.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`text-gray-400 hover:${siteSettings?.theme?.colors?.primaryLight || 'text-primary-light'} text-sm transition-colors duration-200`}
+                  className="text-gray-400 hover:text-primary-light text-sm transition-colors duration-200 py-1"
                 >
                   {item.name}
                 </Link>

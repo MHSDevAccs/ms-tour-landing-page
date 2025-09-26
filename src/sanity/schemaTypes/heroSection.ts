@@ -7,15 +7,15 @@ export const heroSection = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Main Title',
+      title: 'Business Name',
       type: 'string',
-      description: 'The main headline for the hero section'
+      description: 'The main business name displayed in large text (e.g., "Buttonscarves Tour & Travel")'
     }),
     defineField({
       name: 'subtitle',
-      title: 'Subtitle',
+      title: 'Business Motto/Tagline',
       type: 'text',
-      description: 'Supporting text below the main title'
+      description: 'The business motto or tagline displayed below the business name in smaller text'
     }),
     defineField({
       name: 'ctaText',

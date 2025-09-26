@@ -122,8 +122,8 @@ function FeatureCard({ feature, variant }: FeatureCardProps) {
             className="object-cover"
           />
         ) : (
-          <div className="w-full h-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center">
-            <span className="text-white text-2xl font-bold">
+          <div className="w-full h-full bg-accent flex items-center justify-center">
+            <span className="text-primary-dark text-2xl font-bold">
               {feature.title[0]}
             </span>
           </div>

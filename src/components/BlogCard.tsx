@@ -202,7 +202,7 @@ export default function BlogCard({
                 {showReadingTime && readingTime > 0 && (
                   <div className="flex items-center">
                     <Clock className="w-3 h-3 mr-1" />
-                    <span>{readingTime} min</span>
+                    <span>{readingTime} mnt</span>
                   </div>
                 )}
               </div>

@@ -1,6 +1,10 @@
+'use client'
+
 import Image from 'next/image'
 import { urlForIcon } from '@/sanity/lib/image'
 import AnimatedSection, { StaggerContainer, StaggerItem, HoverCard } from './AnimatedSection'
+import { getStyleClasses, getGridClasses, getCardClasses, combineClasses } from '@/lib/cms-styles'
+import { useEffect, useState } from 'react'
 
 // TypeScript interfaces for Testimonial
 interface Testimonial {
@@ -34,13 +38,57 @@ interface TestimonialsSectionProps {
 
 export default function TestimonialsSection({ 
   testimonials,
-  title = "What Our Travelers Say",
-  subtitle = "Don't just take our word for it - hear from our happy customers",
+  title = "Testimoni Jamaah - Barakallahu Fiikum",
+  subtitle = "Alhamdulillah, dengerin langsung cerita jamaah yang udah merasakan berkah perjalanan bersama kami",
   variant = 'default',
   maxTestimonials = 6,
   showRating = true,
   className = ''
 }: TestimonialsSectionProps) {
+  
+  const [styles, setStyles] = useState({
+    sectionBg: 'py-16 bg-gray-50',
+    container: 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8',
+    sectionHeader: 'text-center mb-12',
+    sectionTitle: 'text-3xl md:text-4xl font-bold text-black mb-4',
+    sectionSubtitle: 'text-lg text-gray-600 max-w-3xl mx-auto',
+    gridClasses: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+  })
+
+  useEffect(() => {
+    const loadStyles = async () => {
+      try {
+        const [
+          sectionBg,
+          container,
+          sectionHeader,
+          sectionTitle,
+          sectionSubtitle,
+          gridClasses
+        ] = await Promise.all([
+          getStyleClasses('components', 'testimonialSection'),
+          getStyleClasses('layout', 'container'),
+          getStyleClasses('components', 'sectionHeader'),
+          getStyleClasses('components', 'sectionTitle'),
+          getStyleClasses('components', 'sectionSubtitle'),
+          getGridClasses(variant === 'compact' ? 'compact' : 'default')
+        ])
+
+        setStyles({
+          sectionBg: sectionBg || 'py-16 bg-gray-50',
+          container: container || 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8',
+          sectionHeader: sectionHeader || 'text-center mb-12',
+          sectionTitle: sectionTitle || 'text-3xl md:text-4xl font-bold text-black mb-4',
+          sectionSubtitle: sectionSubtitle || 'text-lg text-gray-600 max-w-3xl mx-auto',
+          gridClasses: gridClasses || 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+        })
+      } catch (error) {
+        console.error('Error loading testimonial styles:', error)
+      }
+    }
+
+    loadStyles()
+  }, [variant])
   
   if (!testimonials || testimonials.length === 0) {
     return null
@@ -48,27 +96,21 @@ export default function TestimonialsSection({
 
   const testimonialsToShow = testimonials.slice(0, maxTestimonials)
 
-  const getGridClass = () => {
-    if (variant === 'compact') return 'grid-cols-1 sm:grid-cols-2'
-    if (variant === 'carousel') return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-    return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-  }
-
   return (
-    <AnimatedSection className={`py-16 bg-gray-50 ${className}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <AnimatedSection className={combineClasses(styles.sectionBg, className)}>
+      <div className={styles.container}>
         {/* Section Header */}
-        <AnimatedSection direction="fade" className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+        <AnimatedSection direction="fade" className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>
             {title}
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+          <p className={styles.sectionSubtitle}>
             {subtitle}
           </p>
         </AnimatedSection>
         
         {/* Testimonials Grid */}
-        <StaggerContainer className={`grid ${getGridClass()} gap-8`} staggerDelay={0.1}>
+        <StaggerContainer className={`grid ${styles.gridClasses} gap-8`} staggerDelay={0.1}>
           {testimonialsToShow.map((testimonial) => (
             <StaggerItem key={testimonial._id}>
               <TestimonialCard 
@@ -93,15 +135,47 @@ interface TestimonialCardProps {
 
 function TestimonialCard({ testimonial, showRating, variant }: TestimonialCardProps) {
   const isCompact = variant === 'compact'
+  
+  const [cardStyles, setCardStyles] = useState({
+    card: 'bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 h-full',
+    starRating: 'text-lg',
+    starActive: 'text-accent',
+    starInactive: 'text-gray-300'
+  })
+
+  useEffect(() => {
+    const loadCardStyles = async () => {
+      try {
+        const [card, starRating, starActive, starInactive] = await Promise.all([
+          getCardClasses('testimonial'),
+          getStyleClasses('components', 'starRating'),
+          getStyleClasses('components', 'starActive'),
+          getStyleClasses('components', 'starInactive')
+        ])
+
+        setCardStyles({
+          card: card || 'bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 h-full',
+          starRating: starRating || 'text-lg',
+          starActive: starActive || 'text-accent',
+          starInactive: starInactive || 'text-gray-300'
+        })
+      } catch (error) {
+        console.error('Error loading card styles:', error)
+      }
+    }
+
+    loadCardStyles()
+  }, [])
 
   // Render star rating
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
       <span
         key={i}
-        className={`text-lg ${
-          i < rating ? 'text-accent' : 'text-gray-300'
-        }`}
+        className={combineClasses(
+          cardStyles.starRating,
+          i < rating ? cardStyles.starActive : cardStyles.starInactive
+        )}
       >
         ★
       </span>
@@ -109,7 +183,7 @@ function TestimonialCard({ testimonial, showRating, variant }: TestimonialCardPr
   }
 
   return (
-    <HoverCard className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 h-full">
+    <HoverCard className={cardStyles.card}>
       <div className="flex flex-col h-full">
         {/* Rating */}
         {showRating && (
@@ -206,7 +280,7 @@ export function CompactTestimonials({
   return (
     <div className={`bg-white rounded-lg shadow-lg p-6 ${className}`}>
       <h3 className="text-xl font-bold text-black mb-4 text-center">
-        Customer Reviews
+        Review Jamaah
       </h3>
       
       <div className="space-y-4">

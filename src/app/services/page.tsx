@@ -16,13 +16,13 @@ export async function generateMetadata(): Promise<Metadata> {
     })
 
     return {
-      title: siteSettings?.servicesContent?.pageTitle || 'Our Services',
-      description: siteSettings?.servicesContent?.pageDescription || 'Discover our comprehensive range of travel services including tour packages, custom tours, and group travel options.',
+      title: siteSettings?.servicesContent?.pageTitle || 'Layanan Kami',
+      description: siteSettings?.servicesContent?.pageDescription || 'Temukan berbagai layanan perjalanan komprehensif kami termasuk paket wisata, tur khusus, dan opsi perjalanan grup.',
     }
   } catch (error) {
     return {
-      title: 'Our Services',
-      description: 'Discover our comprehensive range of travel services including tour packages, custom tours, and group travel options.',
+      title: 'Layanan Kami',
+      description: 'Temukan berbagai layanan perjalanan komprehensif kami termasuk paket wisata, tur khusus, dan opsi perjalanan grup.',
     }
   }
 }
@@ -60,10 +60,10 @@ export default async function ServicesPage() {
         {/* Page Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-black mb-4">
-            {siteSettings?.servicesContent?.mainTitle || 'Our Services'}
+            {siteSettings?.servicesContent?.mainTitle || 'Layanan Kami'}
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {siteSettings?.servicesContent?.subtitle || 'We offer a comprehensive range of travel services designed to meet every traveler\'s needs, from budget-conscious adventurers to luxury seekers.'}
+            {siteSettings?.servicesContent?.subtitle || 'Bismillah, kami nawarin berbagai layanan perjalanan yang berkah dan komprehensif yang dirancang buat memenuhi kebutuhan setiap jamaah dengan penuh amanah dan barakah.'}
           </p>
         </div>
         
@@ -72,10 +72,10 @@ export default async function ServicesPage() {
           <div className="mb-16">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-black mb-4">
-                {siteSettings?.servicesContent?.popularServicesTitle || 'Popular Services'}
+                {siteSettings?.servicesContent?.popularServicesTitle || 'Layanan Populer'}
               </h2>
               <p className="text-lg text-gray-600">
-                {siteSettings?.servicesContent?.popularServicesSubtitle || 'Our most requested travel experiences'}
+                {siteSettings?.servicesContent?.popularServicesSubtitle || 'Pengalaman perjalanan yang paling banyak diminta'}
               </p>
             </div>
             <ServicesGrid 
@@ -91,10 +91,10 @@ export default async function ServicesPage() {
           <div className="mb-16">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-black mb-4">
-                {siteSettings?.servicesContent?.allServicesTitle || 'All Services'}
+                {siteSettings?.servicesContent?.allServicesTitle }
               </h2>
               <p className="text-lg text-gray-600">
-                {siteSettings?.servicesContent?.allServicesSubtitle || 'Complete range of travel solutions'}
+                {siteSettings?.servicesContent?.allServicesSubtitle}
               </p>
             </div>
             <ServicesGrid services={services} variant="default" />
@@ -112,25 +112,25 @@ export default async function ServicesPage() {
         {/* Call to Action Section */}
         <div className="text-center bg-white rounded-lg shadow-lg p-8">
           <h2 className="text-3xl font-bold text-black mb-4">
-            {siteSettings?.servicesContent?.ctaTitle || 'Ready to Plan Your Adventure?'}
+            {siteSettings?.servicesContent?.ctaTitle || 'Siap Merencanakan Petualangan Anda?'}
           </h2>
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            {siteSettings?.servicesContent?.ctaDescription || 'Our travel experts are here to help you create the perfect itinerary. Contact us today to start planning your dream vacation.'}
+            {siteSettings?.servicesContent?.ctaDescription || 'Para ahli perjalanan kami siap membantu Anda membuat itinerary yang sempurna. Hubungi kami hari ini untuk mulai merencanakan liburan impian Anda.'}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="bg-primary text-white px-8 py-4 rounded-lg font-semibold text-lg 
-                       hover:bg-primary-dark transition-colors duration-200 shadow-lg"
+              className="bg-accent text-primary-dark px-8 py-4 rounded-lg font-semibold text-lg 
+                       hover:bg-primary-light transition-colors duration-200 shadow-lg"
             >
-              {siteSettings?.servicesContent?.contactButtonText || 'Contact Us'}
+              {siteSettings?.servicesContent?.contactButtonText || 'Hubungi Kami'}
             </Link>
             <Link
               href="/about"
               className="bg-white text-primary border-2 border-primary px-8 py-4 rounded-lg font-semibold text-lg 
-                       hover:bg-primary hover:text-white transition-colors duration-200 shadow-lg"
+                       hover:bg-accent hover:text-primary-dark transition-colors duration-200 shadow-lg"
             >
-              {siteSettings?.servicesContent?.aboutButtonText || 'About Us'}
+              {siteSettings?.servicesContent?.aboutButtonText || 'Tentang Kami'}
             </Link>
           </div>
         </div>

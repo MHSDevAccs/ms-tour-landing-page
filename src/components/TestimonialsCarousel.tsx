@@ -106,10 +106,10 @@ const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
       <div className="text-center py-12">
         <div className="text-6xl mb-4">"</div>
         <h3 className="text-xl font-semibold text-gray-900 mb-2">
-          Belum Ada Testimonial
+          Belum Ada Testimoni Jamaah
         </h3>
         <p className="text-gray-600">
-          Testimonial pelanggan akan segera tersedia.
+          InsyaAllah testimoni jamaah akan segera hadir. Sabar ya, barakallahu fiikum.
         </p>
       </div>
     )
@@ -143,7 +143,7 @@ const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
           <button
             onClick={goToPrevious}
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 p-3 bg-white shadow-lg hover:shadow-xl text-primary hover:text-primary-dark rounded-full transition-all duration-200 hover:scale-110"
-            aria-label="Previous testimonial"
+            aria-label="Testimonial sebelumnya"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
@@ -151,7 +151,7 @@ const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
           <button
             onClick={goToNext}
             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 p-3 bg-white shadow-lg hover:shadow-xl text-primary hover:text-primary-dark rounded-full transition-all duration-200 hover:scale-110"
-            aria-label="Next testimonial"
+            aria-label="Testimonial selanjutnya"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
@@ -170,7 +170,7 @@ const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
                   ? 'bg-primary scale-125'
                   : 'bg-gray-300 hover:bg-gray-400'
               }`}
-              aria-label={`Go to testimonial ${index + 1}`}
+              aria-label={`Ke testimonial ${index + 1}`}
             />
           ))}
         </div>
@@ -182,7 +182,7 @@ const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
           <button
             onClick={toggleAutoPlay}
             className="p-2 bg-black/20 hover:bg-black/30 text-white rounded-full transition-colors"
-            aria-label={isPlaying ? 'Pause slideshow' : 'Play slideshow'}
+            aria-label={isPlaying ? 'Jeda slideshow' : 'Putar slideshow'}
           >
             {isPlaying ? (
               <Pause className="w-4 h-4" />

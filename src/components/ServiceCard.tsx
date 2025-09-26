@@ -78,17 +78,28 @@ export default function ServiceCard({
     return `${amount}/${price.unit === 'person' ? 'orang' : price.unit}`
   }
 
+  // Theme configuration with fallbacks
+  const themeConfig = {
+    cardBase: theme?.cards?.service || 'bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300',
+    primaryColor: 'bg-primary text-white',
+    primaryText: 'text-primary',
+    textPrimary: 'text-gray-900',
+    textSecondary: 'text-gray-600',
+    gradientBg: 'bg-gradient-to-br from-primary to-primary-dark',
+    border: 'border-2 border-primary'
+  }
+
   return (
     <div className={`
-      ${theme?.cards?.service || 'bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300'}
-      ${isFeatured ? `border-2 ${theme?.colors?.primary ? `border-[${theme.colors.primary}]` : 'border-primary'} transform hover:scale-105` : ''}
+      ${themeConfig.cardBase}
+      ${isFeatured ? `${themeConfig.border} transform hover:scale-105` : ''}
       ${isCompact ? 'h-full' : ''}
     `}>
       {/* Popular Badge */}
       {service.isPopular && (
         <div className="relative">
-          <div className={`absolute top-4 right-4 z-10 ${theme?.colors?.primary || 'bg-primary'} text-white px-3 py-1 rounded-full text-sm font-semibold`}>
-            Popular
+          <div className={`absolute top-4 right-4 z-10 ${themeConfig.primaryColor} px-3 py-1 rounded-full text-sm font-semibold`}>
+            Populer
           </div>
         </div>
       )}
@@ -105,7 +116,7 @@ export default function ServiceCard({
             className="object-cover"
           />
         ) : (
-          <div className={`w-full h-full ${theme?.colors?.primary && theme?.colors?.primaryDark ? `bg-gradient-to-br from-[${theme.colors.primary}] to-[${theme.colors.primaryDark}]` : 'bg-gradient-to-br from-primary to-primary-dark'} flex items-center justify-center`}>
+          <div className={`w-full h-full ${themeConfig.gradientBg} flex items-center justify-center`}>
             <span className="text-white text-3xl font-bold">
               {service.title[0]}
             </span>
@@ -116,13 +127,13 @@ export default function ServiceCard({
       {/* Service Content */}
       <div className={`p-6 ${isCompact ? 'p-4' : ''}`}>
         {/* Title and Description */}
-        <h3 className={`font-semibold ${theme?.colors?.textPrimary || 'text-black'} mb-2 ${
+        <h3 className={`font-semibold ${themeConfig.textPrimary} mb-2 ${
           isFeatured ? 'text-2xl' : isCompact ? 'text-lg' : 'text-xl'
         }`}>
           {service.title}
         </h3>
         
-        <p className={`${theme?.colors?.textSecondary || 'text-gray-600'} mb-4 ${
+        <p className={`${themeConfig.textSecondary} mb-4 ${
           isCompact ? 'text-sm line-clamp-2' : 'text-base'
         }`}>
           {service.description}
@@ -131,7 +142,7 @@ export default function ServiceCard({
         {/* Price */}
         {showPrice && service.price && (
           <div className="mb-4">
-            <span className={`font-bold ${theme?.colors?.primary || 'text-primary'} ${
+            <span className={`font-bold ${themeConfig.primaryText} ${
               isFeatured ? 'text-2xl' : 'text-lg'
             }`}>
               {formatPrice(service.price)}
@@ -144,14 +155,14 @@ export default function ServiceCard({
           <div className="mb-4">
             <ul className={`space-y-1 ${isCompact ? 'text-sm' : 'text-sm'}`}>
               {service.features.slice(0, isCompact ? 2 : 4).map((feature, index) => (
-                <li key={index} className={`flex items-center ${theme?.colors?.textSecondary || 'text-gray-600'}`}>
-                  <span className={`${theme?.colors?.primary || 'text-primary'} mr-2`}>✓</span>
+                <li key={index} className={`flex items-center ${themeConfig.textSecondary}`}>
+                  <span className={`${themeConfig.primaryText} mr-2`}>✓</span>
                   {feature}
                 </li>
               ))}
               {isCompact && service.features.length > 2 && (
                 <li className="text-gray-400 text-xs">
-                  +{service.features.length - 2} more features
+                  +{service.features.length - 2} fitur lainnya
                 </li>
               )}
             </ul>
@@ -165,12 +176,12 @@ export default function ServiceCard({
             inline-block w-full text-center px-6 py-3 rounded-lg font-semibold 
             transition-colors duration-200 shadow-md hover:shadow-lg
             ${isFeatured 
-              ? theme?.buttons?.primary || 'bg-primary text-white hover:bg-primary-dark'
-              : theme?.buttons?.secondary || 'bg-primary-light text-primary-dark hover:bg-primary hover:text-white'
+              ? 'bg-primary text-white hover:bg-primary-dark'
+              : 'bg-primary-light text-primary-dark hover:bg-primary hover:text-white'
             }
           `}
         >
-          Learn More
+          Pelajari Lebih Lanjut
         </Link>
       </div>
     </div>
@@ -198,7 +209,7 @@ export function ServicesGrid({
   if (!services || services.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-600">No services available at the moment.</p>
+        <p className="text-gray-600">Tidak ada layanan tersedia saat ini.</p>
       </div>
     )
   }

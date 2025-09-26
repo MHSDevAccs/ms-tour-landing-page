@@ -116,7 +116,7 @@ export function CompactSocialSharing({
 
   return (
     <div className={`flex items-center space-x-2 ${className}`}>
-      <span className="text-sm text-gray-600 mr-2">Share:</span>
+      <span className="text-sm text-gray-600 mr-2">Bagikan:</span>
       
       <button
         onClick={() => handleShare('facebook')}

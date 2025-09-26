@@ -7,6 +7,7 @@ import { urlFor } from '@/sanity/lib/image'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import AnimatedSection from '@/components/AnimatedSection'
 import GalleryGrid from '@/components/GalleryGrid'
+import ShareButton from '@/components/ShareButton'
 import { 
   MapPin, 
   Calendar, 
@@ -14,8 +15,6 @@ import {
   Eye, 
   User, 
   Tag,
-  Share2,
-  Download,
   ArrowLeft,
   Clock
 } from 'lucide-react'
@@ -138,7 +137,7 @@ export default async function GalleryDetailPage({ params }: Props) {
         accommodation: 'Akomodasi',
         transportation: 'Transportasi',
         activities: 'Aktivitas',
-        customers: 'Momen Pelanggan'
+        customers: 'Momen Jamaah'
       }
       return nameMap[category] || 'Galeri'
     }
@@ -260,55 +259,36 @@ export default async function GalleryDetailPage({ params }: Props) {
 
                 {/* Related Tour Package */}
                 {gallery.tourPackage && 'title' in gallery.tourPackage && (
-                  <div className="bg-primary-lighter border border-accent rounded-lg p-4">
-                    <div className="flex items-center gap-2 text-primary font-medium mb-2">
-                      <Tag className="w-4 h-4" />
-                      Paket Tur Terkait
-                    </div>
-                    <div className="space-y-2">
-                      <h4 className="font-semibold text-gray-900">
-                        {gallery.tourPackage.title}
-                      </h4>
-                      {gallery.tourPackage.description && (
-                        <p className="text-sm text-gray-600">
-                          {gallery.tourPackage.description}
-                        </p>
-                      )}
-                      {gallery.tourPackage.price && (
-                        <div className="text-lg font-bold text-primary">
-                          Rp {gallery.tourPackage.price.toLocaleString('id-ID')}
-                        </div>
-                      )}
-                      <Link
-                        href={`/services/${gallery.tourPackage.slug?.current}`}
-                        className="inline-block bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors"
-                      >
-                        Lihat Detail Paket →
-                      </Link>
-                    </div>
+                  <div className="space-y-3">
+                    <h4 className="font-semibold text-gray-900 flex items-center gap-2">
+                      <Tag className="w-4 h-4 text-gray-600" />
+                      Paket Tur Terkait: {gallery.tourPackage.title}
+                    </h4>
+                    {gallery.tourPackage.description && (
+                      <p className="text-gray-600">
+                        {gallery.tourPackage.description}
+                      </p>
+                    )}
+                    {gallery.tourPackage.price && (
+                      <p className="text-lg font-bold text-primary">
+                        Rp {gallery.tourPackage.price.toLocaleString('id-ID')}
+                      </p>
+                    )}
+                    <Link
+                      href={`/services/${gallery.tourPackage.slug?.current}`}
+                      className="bg-accent text-primary-dark px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-light transition-colors duration-200"
+                    >
+                      Lihat Detail Paket →
+                    </Link>
                   </div>
                 )}
 
                 {/* Share Actions */}
                 <div className="flex gap-3">
-                  <button
-                    onClick={async () => {
-                      try {
-                        await navigator.share({
-                          title: gallery.title,
-                          text: gallery.description || `Lihat galeri foto ${gallery.title}`,
-                          url: window.location.href
-                        })
-                      } catch (error) {
-                        await navigator.clipboard.writeText(window.location.href)
-                        alert('Link telah disalin ke clipboard!')
-                      }
-                    }}
-                    className="flex-1 bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-dark transition-colors flex items-center justify-center gap-2"
-                  >
-                    <Share2 className="w-4 h-4" />
-                    Bagikan
-                  </button>
+                  <ShareButton
+                    title={gallery.title}
+                    description={gallery.description || `Lihat galeri foto ${gallery.title}`}
+                  />
                 </div>
               </div>
             </div>
@@ -372,13 +352,13 @@ export default async function GalleryDetailPage({ params }: Props) {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
-                className="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-secondary-light transition-colors"
+                className="bg-accent text-primary-dark px-8 py-3 rounded-lg font-semibold hover:bg-primary-light transition-colors"
               >
                  {siteSettings?.pageContent?.galleryDetailCtaContactButton || 'Konsultasi Gratis'}
               </Link>
               <Link
                 href="/services"
-                className="bg-primary-dark text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary transition-colors border border-accent"
+                className="bg-accent text-primary-dark px-8 py-3 rounded-lg font-semibold hover:bg-primary-light transition-colors border border-primary-light"
               >
                  {siteSettings?.pageContent?.galleryDetailCtaServicesButton || 'Lihat Semua Paket'}
               </Link>

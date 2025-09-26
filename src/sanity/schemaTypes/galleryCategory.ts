@@ -40,7 +40,7 @@ export default {
           { title: 'Accommodation', value: 'accommodation' },
           { title: 'Transportation', value: 'transportation' },
           { title: 'Activities', value: 'activities' },
-          { title: 'Customers', value: 'customers' }
+          { title: 'Jamaah', value: 'customers' }
         ],
         layout: 'dropdown',
         initialValue: 'destinations'

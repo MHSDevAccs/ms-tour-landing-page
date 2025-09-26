@@ -326,7 +326,7 @@ export default async function BlogPostPage({
                     <Link
                       key={tag}
                       href={`/blog?tag=${encodeURIComponent(tag)}`}
-                      className="inline-flex items-center px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-full hover:bg-primary hover:text-white transition-all duration-200"
+                      className="inline-flex items-center px-3 py-1 text-sm bg-accent text-primary-dark rounded-full hover:bg-primary-light transition-colors duration-200"
                     >
                       #{tag}
                     </Link>
@@ -368,7 +368,7 @@ export default async function BlogPostPage({
                 <div className="text-center mt-12">
                   <Link
                     href="/blog"
-                    className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark transition-colors duration-200"
+                    className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md bg-accent text-primary-dark hover:bg-primary-light transition-colors duration-200"
                   >
                     Lihat Semua Artikel
                   </Link>

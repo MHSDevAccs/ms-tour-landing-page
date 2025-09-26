@@ -60,7 +60,13 @@ export const structure: StructureResolver = (S) =>
                     .documentId('heroSection')
                 ),
               S.listItem()
-                .title('Testimonials')
+                .title('✨ Features')
+                .child(
+                  S.documentTypeList('featuresSection')
+                    .title('Features Section')
+                ),
+              S.listItem()
+                .title('💬 Testimonials')
                 .child(
                   S.documentTypeList('testimonial')
                     .title('Customer Testimonials')
@@ -76,10 +82,16 @@ export const structure: StructureResolver = (S) =>
             .title('Services & Tours')
             .items([
               S.listItem()
-                .title('Service Packages')
+                .title('📦 Service Packages')
                 .child(
                   S.documentTypeList('servicePackage')
-                    .title('Tour Packages')
+                    .title('Service Packages')
+                ),
+              S.listItem()
+                .title('✨ Service Features')
+                .child(
+                  S.documentTypeList('featuresSection')
+                    .title('Service Features')
                 ),
             ])
         ),
@@ -92,10 +104,10 @@ export const structure: StructureResolver = (S) =>
             .title('Gallery & Portfolio')
             .items([
               S.listItem()
-                .title('Galleries')
+                .title('🖼️ Galleries')
                 .child(S.documentTypeList('gallery').title('Photo Galleries')),
               S.listItem()
-                .title('Gallery Categories')
+                .title('📂 Gallery Categories')
                 .child(S.documentTypeList('galleryCategory').title('Gallery Categories')),
             ])
         ),
@@ -119,7 +131,7 @@ export const structure: StructureResolver = (S) =>
       
       S.divider(),
       
-      // Blog & Content Section
+      // Blog & Content
       S.listItem()
         .title('Blog & Content')
         .child(
@@ -127,12 +139,12 @@ export const structure: StructureResolver = (S) =>
             .title('Blog & Content')
             .items([
               S.listItem()
-                .title('Blog Posts')
+                .title('📝 Blog Posts')
                 .child(S.documentTypeList('blogPost').title('Blog Articles')),
             ])
         ),
       
-      // Customer Data Section
+      // Customer Data
       S.listItem()
         .title('Customer Data')
         .child(
@@ -140,7 +152,7 @@ export const structure: StructureResolver = (S) =>
             .title('Customer Data')
             .items([
               S.listItem()
-                .title('Contact Submissions')
+                .title('📧 Contact Submissions')
                 .child(S.documentTypeList('contactSubmission').title('Contact Form Submissions')),
             ])
         ),

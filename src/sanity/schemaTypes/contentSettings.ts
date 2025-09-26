@@ -67,11 +67,10 @@ export const contentSettings = defineType({
           initialValue: 'Galeri Foto'
         }),
         defineField({
-          name: 'tourPackagesTitle',
-          title: 'Tour Packages Title',
-          type: 'string',
-          initialValue: 'Paket Wisata'
-        }),
+           name: 'tourPackagesTitle',
+           title: 'Tour Packages Title',
+           type: 'string'
+         }),
         defineField({
           name: 'customTourTitle',
           title: 'Custom Tour Title',
@@ -212,7 +211,7 @@ export const contentSettings = defineType({
           title: 'Tour Package Options',
           type: 'array',
           of: [{ type: 'string' }],
-          initialValue: ['Paket Wisata Reguler', 'Paket Wisata Premium', 'Paket Wisata VIP']
+          initialValue: ['Reguler', 'Premium', 'VIP']
         }),
         defineField({
           name: 'customTourOptions',

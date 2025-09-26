@@ -51,7 +51,7 @@ export default async function GalleryPage() {
   ])
 
   return (
-    <main className="min-h-screen bg-gray-50">
+    <main className="min-h-screen bg-secondary-light">
       {/* Hero Section */}
       <AnimatedSection className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -116,26 +116,21 @@ export default async function GalleryPage() {
             // Empty state
             <div className="text-center py-20">
               <div className="text-8xl mb-6">📸</div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl font-bold text-black mb-4">
                 {siteSettings?.pageContent?.galleryEmptyTitle || 'Galeri Akan Segera Hadir'}
               </h2>
               <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
                 {siteSettings?.pageContent?.galleryEmptyDescription || 'Tim kami sedang mempersiapkan koleksi foto-foto menakjubkan dari berbagai destinasi wisata dan pengalaman tur. Nantikan kehadiran galeri kami!'}
               </p>
-              <div className="bg-primary-lighter border border-accent rounded-lg p-6 max-w-md mx-auto">
-                <div className="text-primary font-medium mb-2">
-                  {siteSettings?.pageContent?.galleryEmptyTipTitle || '💡 Sementara itu...'}
-                </div>
-                <p className="text-primary-dark text-sm">
-                  {siteSettings?.pageContent?.galleryEmptyTipDescription || 'Jelajahi layanan tur kami dan temukan petualangan yang menanti Anda!'}
-                </p>
-                <a
-                  href="/services"
-                  className="inline-block mt-4 bg-primary text-white px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors"
-                >
-                  {siteSettings?.pageContent?.galleryEmptyButtonText || 'Lihat Layanan Tur →'}
-                </a>
-              </div>
+              <p className="text-lg text-gray-600 mb-4">
+                {siteSettings?.pageContent?.galleryEmptyTipDescription || 'Jelajahi layanan tur kami dan temukan petualangan yang menanti Anda!'}
+              </p>
+              <a
+                href="/services"
+                className="bg-accent text-primary-dark px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-light transition-colors duration-200"
+              >
+                {siteSettings?.pageContent?.galleryEmptyButtonText || 'Lihat Layanan Tur →'}
+              </a>
             </div>
           )}
         </div>
@@ -146,7 +141,7 @@ export default async function GalleryPage() {
         <AnimatedSection className="bg-white py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
                 {siteSettings?.pageContent?.galleryFeaturedTitle || ' Galeri Unggulan'}
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -170,7 +165,7 @@ export default async function GalleryPage() {
             {siteSettings?.pageContent?.galleryCtaTitle || 'Siap Menciptakan Momen Indah Bersama Kami?'}
           </h2>
           <p className="text-xl text-primary-lighter mb-8">
-            {siteSettings?.pageContent?.galleryCtaDescription || 'Bergabunglah dengan ribuan wisatawan yang telah mempercayai kami untuk memberikan pengalaman wisata terbaik di Indonesia'}
+            {siteSettings?.pageContent?.galleryCtaDescription || 'Alhamdulillah, gabung yuk sama ribuan jamaah yang udah merasakan berkah perjalanan bersama kami. InsyaAllah pengalaman yang penuh barakah menanti!'}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

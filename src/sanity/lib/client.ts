@@ -5,7 +5,7 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: true, // Set to false if statically generating pages, using ISR or tag-based revalidation
+  useCdn: false, // Set to false for development to get fresh data
 })
 
 // Helper function for fetching data with error handling
@@ -34,7 +34,7 @@ export async function sanityFetch<T>({
 export const queries = {
   // Hero Section - More flexible query
   getHeroSection: (language: string = 'id') => `
-    *[_type == "heroSection"][0] {
+    *[_type == "heroSection" && language == "${language}" && isActive == true] | order(_updatedAt desc) [0] {
       _id,
       title,
       subtitle,
@@ -57,7 +57,7 @@ export const queries = {
 
   // Features Section - More flexible query  
   getFeaturesSection: (language: string = 'id') => `
-    *[_type == "featuresSection"] | order(_createdAt desc) [0] {
+    *[_type == "featuresSection" && language == "${language}" && isActive == true] | order(_updatedAt desc) [0] {
       _id,
       sectionTitle,
       sectionSubtitle,

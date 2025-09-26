@@ -68,7 +68,6 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       <WhatsAppFloat 
         phoneNumber={whatsappNumber || '+6281234567890'}
         message="Halo! Saya tertarik dengan layanan tour Anda. Bisa bantu saya dengan informasi lebih lanjut?"
-        theme={siteSettings?.theme}
       />
     </div>
   )

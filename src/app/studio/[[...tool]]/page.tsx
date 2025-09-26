@@ -20,7 +20,7 @@ export const runtime = 'edge'
 function StudioLoading() {
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <div className="text-lg">Loading Sanity Studio...</div>
+      <div className="text-lg">Memuat Sanity Studio...</div>
     </div>
   )
 }

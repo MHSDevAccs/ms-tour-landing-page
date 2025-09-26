@@ -122,10 +122,10 @@ export default function BlogSearch({
         <button
           type="submit"
           className={`
-            px-4 py-3 font-medium text-white transition-colors duration-200
+            px-4 py-3 font-medium transition-colors duration-200
             ${query.trim() 
-              ? 'bg-primary hover:bg-primary-dark' 
-              : 'bg-gray-300 cursor-not-allowed'
+              ? 'bg-accent text-primary-dark hover:bg-primary-light' 
+              : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }
           `}
           disabled={!query.trim()}

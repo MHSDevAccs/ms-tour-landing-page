@@ -41,7 +41,7 @@ export default {
           { title: 'Accommodation', value: 'accommodation' },
           { title: 'Transportation', value: 'transportation' },
           { title: 'Activities', value: 'activities' },
-          { title: 'Customer Moments', value: 'customers' }
+          { title: 'Momen Jamaah', value: 'customers' }
         ]
       },
       validation: (Rule: any) => Rule.required()

@@ -19,6 +19,8 @@ interface BlogPaginationProps {
   showPageNumbers?: boolean
   maxPageNumbers?: number
   className?: string
+  previousText?: string
+  nextText?: string
 }
 
 export default function BlogPagination({
@@ -27,7 +29,9 @@ export default function BlogPagination({
   currentParams = {},
   showPageNumbers = true,
   maxPageNumbers = 5,
-  className = ''
+  className = '',
+  previousText = 'Sebelumnya',
+  nextText = 'Selanjutnya'
 }: BlogPaginationProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -121,12 +125,12 @@ export default function BlogPagination({
           className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-primary transition-colors duration-200"
         >
           <ChevronLeft className="w-4 h-4 mr-1" />
-          <span className="hidden sm:inline">Sebelumnya</span>
+          <span className="hidden sm:inline">{previousText}</span>
         </Link>
       ) : (
         <div className="flex items-center px-3 py-2 text-sm font-medium text-gray-400 bg-gray-100 border border-gray-200 rounded-md cursor-not-allowed">
           <ChevronLeft className="w-4 h-4 mr-1" />
-          <span className="hidden sm:inline">Sebelumnya</span>
+          <span className="hidden sm:inline">{previousText}</span>
         </div>
       )}
 
@@ -179,12 +183,12 @@ export default function BlogPagination({
           href={buildUrl(current + 1)}
           className="flex items-center px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 hover:text-primary transition-colors duration-200"
         >
-          <span className="hidden sm:inline">Selanjutnya</span>
+          <span className="hidden sm:inline">{nextText}</span>
           <ChevronRight className="w-4 h-4 ml-1" />
         </Link>
       ) : (
         <div className="flex items-center px-3 py-2 text-sm font-medium text-gray-400 bg-gray-100 border border-gray-200 rounded-md cursor-not-allowed">
-          <span className="hidden sm:inline">Selanjutnya</span>
+          <span className="hidden sm:inline">{nextText}</span>
           <ChevronRight className="w-4 h-4 ml-1" />
         </div>
       )}

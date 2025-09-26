@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { urlFor } from '@/sanity/lib/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Gallery, GalleryCategory, GalleryGridProps } from '@/types/gallery'
@@ -16,7 +16,6 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
   columns = 3,
   loading = false
 }) => {
-  const router = useRouter()
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [hoveredGallery, setHoveredGallery] = useState<string | null>(null)
   const [lightboxGallery, setLightboxGallery] = useState<Gallery | null>(null)
@@ -37,7 +36,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
   const categoryOptions = useMemo(() => {
     const allOption = {
       value: 'all',
-      label: 'All Galleries',
+      label: 'Semua Galeri',
       count: galleries.filter(g => g.isPublished).length,
       icon: '🖼️'
     }
@@ -93,10 +92,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
     setLightboxIndex(0)
   }
 
-  const handleGalleryClick = (gallery: Gallery) => {
-    // Navigate to gallery detail page
-    router.push(`/gallery/${gallery.slug.current}`)
-  }
+
 
   const getCategoryIcon = (category: string) => {
     const iconMap: Record<string, string> = {
@@ -229,7 +225,6 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
             <GalleryCard
               key={gallery._id}
               gallery={gallery}
-              onClick={handleGalleryClick}
               isHovered={hoveredGallery === gallery._id}
               onHover={setHoveredGallery}
             />
@@ -273,14 +268,12 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
 // Gallery Card Component
 interface GalleryCardProps {
   gallery: Gallery
-  onClick?: (gallery: Gallery) => void
   isHovered: boolean
   onHover: (id: string | null) => void
 }
 
 const GalleryCard: React.FC<GalleryCardProps> = ({
   gallery,
-  onClick,
   isHovered,
   onHover
 }) => {
@@ -308,17 +301,17 @@ const GalleryCard: React.FC<GalleryCardProps> = ({
   }
 
   return (
-    <motion.div
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0 }
-      }}
-      whileHover={{ y: -5 }}
-      onMouseEnter={() => onHover(gallery._id)}
-      onMouseLeave={() => onHover(null)}
-      className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group"
-      onClick={() => onClick?.(gallery)}
-    >
+    <Link href={`/gallery/${gallery.slug.current}`}>
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: { opacity: 1, y: 0 }
+        }}
+        whileHover={{ y: -5 }}
+        onMouseEnter={() => onHover(gallery._id)}
+        onMouseLeave={() => onHover(null)}
+        className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group"
+      >
       {/* Featured Badge */}
       {gallery.isFeatured && (
         <div className="absolute top-3 left-3 z-10">
@@ -402,7 +395,8 @@ const GalleryCard: React.FC<GalleryCardProps> = ({
           </span>
         </div>
       </div>
-    </motion.div>
+      </motion.div>
+    </Link>
   )
 }
 

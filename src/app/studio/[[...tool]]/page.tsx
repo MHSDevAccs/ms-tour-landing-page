@@ -15,7 +15,6 @@ import { Suspense } from 'react'
 
 // Force client-side rendering and disable SSR completely
 export const dynamic = 'force-dynamic'
-export const runtime = 'edge'
 
 function StudioLoading() {
   return (

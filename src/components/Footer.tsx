@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
 
@@ -70,28 +70,19 @@ const Footer = () => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchSiteSettings = async () => {
       try {
-        const [settings, servicePackages] = await Promise.all([
-          sanityFetch<SiteSettings>({
-            query: queries.getSiteSettings(),
-            tags: ['siteSettings'],
-          }),
-          sanityFetch<any[]>({
-            query: queries.getPopularServices(4),
-            tags: ['servicePackage'],
-          })
-        ])
+        const settings = await sanityFetch<SiteSettings>({
+          query: queries.getSiteSettings(),
+          tags: ['siteSettings'],
+        })
         setSiteSettings(settings)
-        setServices(servicePackages)
       } catch (error) {
-        console.error('Failed to fetch data:', error)
-      } finally {
-        setIsLoading(false)
+        console.error('Failed to fetch site settings:', error)
       }
     }
 
-    fetchData()
+    fetchSiteSettings()
   }, [])
 
   // Theme configuration with proper fallbacks
@@ -177,19 +168,13 @@ const Footer = () => {
           {/* Company Info */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center mb-6">
-              {siteSettings?.logo ? (
-                <Image
-                  src={urlFor(siteSettings.logo).width(200).height(60).url()}
-                  alt={siteSettings.logoAlt || 'Logo Perusahaan'}
-                  width={200}
-                  height={60}
-                  className="h-10 w-auto brightness-0 invert"
-                />
-              ) : (
-                <span className="text-xl sm:text-2xl font-bold text-primary-light">
-                  {siteSettings?.siteName || 'Mahabbatussholihin Tour & Travel'}
-                </span>
-              )}
+              <Image
+                src="/main-logo.png"
+                alt="Mahabbatussholihin Tour & Travel"
+                width={400}
+                height={400}
+                className="h-24 w-auto brightness-0 invert"
+              />
             </div>
             <p className="text-gray-300 mb-6 text-sm sm:text-base leading-relaxed">
               {siteSettings?.content?.tagline || 'Mitra terpercaya Anda untuk pengalaman perjalanan yang tak terlupakan. Kami menciptakan kenangan yang bertahan seumur hidup dengan paket wisata yang dirancang ahli.'}

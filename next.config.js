@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  
+  // output: 'export', // Disabled for dynamic routes compatibility
+
   // Basic Next.js configuration for Sanity compatibility
   experimental: {
     // Disable turbo for studio route to fix HMR issues
@@ -20,6 +23,8 @@ const nextConfig = {
         pathname: '/images/**',
       },
     ],
+    // Disable optimization in development to prevent caching issues
+    unoptimized: process.env.NODE_ENV === 'development',
   },
   
   // Transpile Sanity packages

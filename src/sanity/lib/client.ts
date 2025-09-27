@@ -6,6 +6,11 @@ export const client = createClient({
   dataset,
   apiVersion,
   useCdn: false, // Set to false for development to get fresh data
+  perspective: 'published', // Only fetch published documents
+  stega: {
+    enabled: process.env.NODE_ENV === 'development',
+    studioUrl: '/studio',
+  },
 })
 
 // Helper function for fetching data with error handling
@@ -13,17 +18,26 @@ export async function sanityFetch<T>({
   query,
   params = {},
   tags,
+  revalidate,
 }: {
   query: string
   params?: any
   tags?: string[]
+  revalidate?: number | false
 }): Promise<T> {
   try {
-    return await client.fetch<T>(query, params, {
+    const fetchOptions: any = {
       next: {
         tags,
       },
-    })
+    }
+    
+    // Add revalidate option if provided
+    if (revalidate !== undefined) {
+      fetchOptions.next.revalidate = revalidate
+    }
+    
+    return await client.fetch<T>(query, params, fetchOptions)
   } catch (error) {
     console.error('Sanity fetch error:', error)
     throw error

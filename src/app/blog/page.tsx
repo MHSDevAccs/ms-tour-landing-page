@@ -49,14 +49,38 @@ export async function generateMetadata({
     return {
       title,
       description,
+      keywords: [
+        'blog travel', 'tips perjalanan', 'destinasi wisata', 'panduan travel',
+        'artikel wisata', 'pengalaman travel', 'informasi destinasi', 'review tempat wisata',
+        'tips backpacker', 'panduan umroh', 'travel guide indonesia', 'wisata domestik',
+        'wisata internasional', 'budaya lokal', 'kuliner khas', 'hotel terbaik',
+        'transportasi travel', 'itinerary perjalanan', 'budget travel', 'family travel'
+      ],
       openGraph: {
         title,
         description,
+        url: 'https://tour.mahabbatussholihin.com/blog',
+        siteName: 'Mahabbatussholihin Tour & Travel',
+        locale: 'id_ID',
         type: 'website',
+        images: [
+          {
+            url: '/og-blog.jpg',
+            width: 1200,
+            height: 630,
+            alt: 'Blog Mahabbatussholihin Tour & Travel',
+          }
+        ],
       },
       twitter: {
+        card: 'summary_large_image',
+        site: '@mhstour',
         title,
         description,
+        images: ['/og-blog.jpg'],
+      },
+      alternates: {
+        canonical: 'https://tour.mahabbatussholihin.com/blog',
       },
     }
   } catch (error) {
@@ -152,7 +176,7 @@ export default async function BlogPage({
     }
 
     // Generate structured data
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mhstour.com'
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tour.mahabbatussholihin.com'
     const jsonLd = generateBlogListJsonLd(blogData.posts, baseUrl)
     const breadcrumbJsonLd = generateBreadcrumbJsonLd([
       { name: 'Beranda', url: '/' },

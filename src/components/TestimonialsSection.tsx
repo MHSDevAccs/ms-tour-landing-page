@@ -38,7 +38,7 @@ interface TestimonialsSectionProps {
 
 export default function TestimonialsSection({ 
   testimonials,
-  title = "Testimoni Jamaah - Barakallahu Fiikum",
+  title = "Testimoni Jamaah - Barakallohu Fiikum",
   subtitle = "Alhamdulillah, dengerin langsung cerita jamaah yang udah merasakan berkah perjalanan bersama kami",
   variant = 'default',
   maxTestimonials = 6,

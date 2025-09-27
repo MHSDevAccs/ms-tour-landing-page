@@ -8,6 +8,9 @@ import { sanityFetch, queries } from '@/sanity/lib/client'
 import AnimatedSection from '@/components/AnimatedSection'
 import GalleryGrid from '@/components/GalleryGrid'
 import ShareButton from '@/components/ShareButton'
+
+// Force dynamic rendering to prevent static export issues
+export const dynamic = 'force-dynamic'
 import { 
   MapPin, 
   Calendar, 
@@ -23,18 +26,7 @@ interface Props {
   params: { slug: string }
 }
 
-// Generate static paths for all published galleries
-export async function generateStaticParams() {
-  try {
-    const galleries = await galleryService.getAllGalleries()
-    return galleries.map((gallery) => ({
-      slug: gallery.slug.current,
-    }))
-  } catch (error) {
-    console.error('Error generating static params:', error)
-    return []
-  }
-}
+
 
 // Generate metadata for SEO
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

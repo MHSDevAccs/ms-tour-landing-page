@@ -109,7 +109,7 @@ const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
           Belum Ada Testimoni Jamaah
         </h3>
         <p className="text-gray-600">
-          InsyaAllah testimoni jamaah akan segera hadir. Sabar ya, barakallahu fiikum.
+          Insyaalloh testimoni jamaah akan segera hadir. Sabar ya, barakallohu fiikum.
         </p>
       </div>
     )

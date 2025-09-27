@@ -3,7 +3,7 @@ import { blogService } from '@/lib/blogService'
 import { galleryService } from '@/lib/galleryService'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mhstour.com'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tour.mahabbatussholihin.com'
 
   // Static pages
   const staticPages = [

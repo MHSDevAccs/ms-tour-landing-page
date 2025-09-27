@@ -943,14 +943,14 @@ export const siteSettings = defineType({
           name: 'thankYouMessage',
           title: 'Thank You Message',
           type: 'text',
-          initialValue: 'Barakallahu fiikum atas kepercayaan Anda kepada Mahabbatussholihin Tour & Travel.',
+          initialValue: 'Barakallohu fiikum atas kepercayaan Anda kepada Mahabbatussholihin Tour & Travel.',
           description: 'Thank you message in customer email'
         },
         {
           name: 'responseMessage',
           title: 'Response Message',
           type: 'text',
-          initialValue: 'InsyaAllah kami akan segera merespons pertanyaan Anda dalam waktu 24 jam.',
+          initialValue: 'Insyaalloh kami akan segera merespons pertanyaan Anda dalam waktu 24 jam.',
           description: 'Response time message in customer email'
         },
         {

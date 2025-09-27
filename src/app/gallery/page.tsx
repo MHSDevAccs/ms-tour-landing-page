@@ -3,6 +3,7 @@ import { galleryService } from '@/lib/galleryService'
 import GalleryGrid from '@/components/GalleryGrid'
 import AnimatedSection from '@/components/AnimatedSection'
 import { sanityFetch, queries } from '@/sanity/lib/client'
+import { generateBreadcrumbJsonLd } from '@/lib/jsonLd'
 
 // Generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
@@ -17,11 +18,31 @@ export async function generateMetadata(): Promise<Metadata> {
       description: siteSettings?.pageContent?.galleryDescription || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan pengalaman bersama MHS Tour & Travel.',
       keywords: siteSettings?.pageContent?.galleryKeywords || 'galeri foto, destinasi wisata, tur budaya, petualangan, Indonesia, MHS Tour',
       openGraph: {
-        title: siteSettings?.pageContent?.galleryTitle || 'Galeri Foto - MHS Tour & Travel',
+        title: siteSettings?.pageContent?.galleryTitle || 'Galeri Foto - Mahabbatussholihin Tour & Travel',
         description: siteSettings?.pageContent?.galleryDescription || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata dan pengalaman tur.',
+        url: 'https://tour.mahabbatussholihin.com/gallery',
+        siteName: 'Mahabbatussholihin Tour & Travel',
+        locale: 'id_ID',
         type: 'website',
-        siteName: siteSettings?.siteName || 'MHS Tour & Travel'
-      }
+        images: [
+          {
+            url: '/og-gallery.jpg',
+            width: 1200,
+            height: 630,
+            alt: 'Galeri Foto Mahabbatussholihin Tour & Travel',
+          }
+        ],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        site: '@mhstour',
+        title: siteSettings?.pageContent?.galleryTitle || 'Galeri Foto - Mahabbatussholihin Tour & Travel',
+        description: siteSettings?.pageContent?.galleryDescription || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata dan pengalaman tur.',
+        images: ['/og-gallery.jpg'],
+      },
+      alternates: {
+        canonical: 'https://tour.mahabbatussholihin.com/gallery',
+      },
     }
   } catch (error) {
     return {
@@ -50,8 +71,20 @@ export default async function GalleryPage() {
     })
   ])
 
+  // Generate structured data
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tour.mahabbatussholihin.com'
+  const breadcrumbJsonLd = generateBreadcrumbJsonLd([
+    { name: 'Beranda', url: baseUrl },
+    { name: 'Galeri', url: `${baseUrl}/gallery` }
+  ], baseUrl)
+
   return (
     <main className="min-h-screen bg-secondary-light">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Hero Section */}
       <AnimatedSection className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -60,7 +93,7 @@ export default async function GalleryPage() {
               {siteSettings?.pageContent?.galleryMainTitle || 'Galeri Foto'}
             </h1>
             <p className="text-xl md:text-2xl text-primary-lighter mb-8 max-w-3xl mx-auto">
-              {siteSettings?.pageContent?.gallerySubtitle || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan momen berharga bersama MHS Tour & Travel'}
+              {siteSettings?.pageContent?.gallerySubtitle || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan momen berharga bersama MS Tour & Travel'}
             </p>
             
             {/* Stats */}
@@ -165,7 +198,7 @@ export default async function GalleryPage() {
             {siteSettings?.pageContent?.galleryCtaTitle || 'Siap Menciptakan Momen Indah Bersama Kami?'}
           </h2>
           <p className="text-xl text-primary-lighter mb-8">
-            {siteSettings?.pageContent?.galleryCtaDescription || 'Alhamdulillah, gabung yuk sama ribuan jamaah yang udah merasakan berkah perjalanan bersama kami. InsyaAllah pengalaman yang penuh barakah menanti!'}
+            {siteSettings?.pageContent?.galleryCtaDescription || 'Alhamdulillah, gabung yuk sama ribuan jamaah yang udah merasakan berkah perjalanan bersama kami. InsyaAlloh pengalaman yang penuh barakah menanti!'}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

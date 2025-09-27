@@ -3,11 +3,12 @@ import Link from 'next/link'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import { ServicesGrid, ServicePackage } from '@/components/ServiceCard'
 import FeaturesSection from '@/components/FeaturesSection'
+import { generateServicePageJsonLd, generateBreadcrumbJsonLd } from '@/lib/jsonLd'
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic'
 
-// Generate metadata dynamically
+// Generate comprehensive metadata for services page
 export async function generateMetadata(): Promise<Metadata> {
   try {
     const siteSettings = await sanityFetch<any>({
@@ -15,14 +16,49 @@ export async function generateMetadata(): Promise<Metadata> {
       tags: ['siteSettings']
     })
 
+    const title = siteSettings?.servicesContent?.pageTitle || 'Layanan Travel & Tour Terlengkap - Mahabbatussholihin Tour'
+    const description = siteSettings?.servicesContent?.pageDescription || 'Dapatkan layanan travel terpercaya dengan paket wisata domestik, internasional, umroh, dan corporate travel. Harga terbaik, pelayanan profesional, pengalaman tak terlupakan.'
+
     return {
-      title: siteSettings?.servicesContent?.pageTitle || 'Layanan Kami',
-      description: siteSettings?.servicesContent?.pageDescription || 'Temukan berbagai layanan perjalanan komprehensif kami termasuk paket wisata, tur khusus, dan opsi perjalanan grup.',
+      title,
+      description,
+      keywords: [
+        'layanan travel', 'paket wisata', 'tour domestik', 'tour internasional',
+        'paket umroh', 'corporate travel', 'group tour', 'honeymoon package',
+        'family trip', 'adventure tour', 'cultural tour', 'beach holiday',
+        'mountain trekking', 'city tour', 'custom itinerary', 'travel consultation'
+      ],
+      openGraph: {
+        title,
+        description,
+        url: 'https://tour.mahabbatussholihin.com/services',
+        siteName: 'Mahabbatussholihin Tour & Travel',
+        locale: 'id_ID',
+        type: 'website',
+        images: [
+          {
+            url: '/og-services.jpg',
+            width: 1200,
+            height: 630,
+            alt: 'Layanan Travel & Tour Mahabbatussholihin',
+          }
+        ],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        site: '@mhstour',
+        title,
+        description,
+        images: ['/og-services.jpg'],
+      },
+      alternates: {
+        canonical: 'https://tour.mahabbatussholihin.com/services',
+      },
     }
   } catch (error) {
     return {
-      title: 'Layanan Kami',
-      description: 'Temukan berbagai layanan perjalanan komprehensif kami termasuk paket wisata, tur khusus, dan opsi perjalanan grup.',
+      title: 'Layanan Travel & Tour Terlengkap - Mahabbatussholihin Tour',
+      description: 'Dapatkan layanan travel terpercaya dengan paket wisata domestik, internasional, umroh, dan corporate travel. Harga terbaik, pelayanan profesional, pengalaman tak terlupakan.',
     }
   }
 }
@@ -54,8 +90,25 @@ export default async function ServicesPage() {
     console.error('Error fetching services:', error)
   }
 
+  // Generate structured data
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tour.mahabbatussholihin.com'
+  const servicePageJsonLd = generateServicePageJsonLd(baseUrl, siteSettings || undefined)
+  const breadcrumbJsonLd = generateBreadcrumbJsonLd([
+    { name: 'Beranda', url: baseUrl },
+    { name: 'Layanan', url: `${baseUrl}/services` }
+  ], baseUrl)
+
   return (
     <div className="min-h-screen bg-secondary-light py-16">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicePageJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Page Header */}
         <div className="text-center mb-12">

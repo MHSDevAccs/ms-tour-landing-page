@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
@@ -101,20 +101,14 @@ const Header = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">
-              {siteSettings?.logo ? (
-                <Image
-                  src={urlFor(siteSettings.logo).width(200).height(60).url()}
-                  alt={siteSettings.logoAlt || 'Logo Perusahaan'}
-                  width={200}
-                  height={60}
-                  className="h-10 w-auto"
-                  priority
-                />
-              ) : (
-                <span className="text-2xl font-bold text-primary">
-                  {siteSettings?.siteName }
-                </span>
-              )}
+              <Image
+                src="/main-logo.png"
+                alt="Mahabbatussholihin Tour & Travel"
+                width={400}
+                height={400}
+                className="h-24 w-auto"
+                priority
+              />
             </Link>
           </div>
 
@@ -136,13 +130,7 @@ const Header = () => {
           </nav>
 
           {/* CTA Button */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Link
-              href="/contact"
-              className={siteSettings?.theme?.buttons?.primaryButton || 'bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors duration-200'}
-            >
-              {siteSettings?.content?.bookNowText || 'Pesan Sekarang'}
-            </Link>
+          <div className="hidden md:flex items-center space-x-8">
           </div>
 
           {/* Mobile menu button */}

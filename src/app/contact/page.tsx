@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import AnimatedSection, { PageTransition, StaggerContainer, StaggerItem } from '@/components/AnimatedSection'
+import { generateContactPageJsonLd, generateBreadcrumbJsonLd } from '@/lib/jsonLd'
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic'
@@ -12,14 +13,49 @@ export async function generateMetadata(): Promise<Metadata> {
       tags: ['siteSettings']
     })
 
+    const title = siteSettings?.contactContent?.pageTitle || 'Hubungi Kami - Mahabbatussholihin Tour & Travel'
+    const description = siteSettings?.contactContent?.pageDescription || 'Butuh bantuan atau informasi? Hubungi tim professional Mahabbatussholihin Tour & Travel. Konsultasi gratis untuk semua kebutuhan perjalanan Anda. WhatsApp, telepon, atau email tersedia 24/7.'
+
     return {
-      title: siteSettings?.contactContent?.pageTitle || 'Hubungi Kami',
-      description: siteSettings?.contactContent?.pageDescription || siteSettings?.content?.contactCtaText || 'Hubungi kami untuk informasi lebih lanjut tentang layanan perjalanan kami.',
+      title,
+      description,
+      keywords: [
+        'hubungi mahabbatussholihin', 'kontak travel agent', 'konsultasi travel', 'booking tour',
+        'informasi paket wisata', 'customer service', 'travel consultation', 'whatsapp travel',
+        'telepon travel agency', 'email travel', 'alamat kantor travel', 'jam operasional',
+        'konsultasi gratis', 'tanya jawab travel', 'bantuan booking', 'layanan pelanggan'
+      ],
+      openGraph: {
+        title,
+        description,
+        url: 'https://tour.mahabbatussholihin.com/contact',
+        siteName: 'Mahabbatussholihin Tour & Travel',
+        locale: 'id_ID',
+        type: 'website',
+        images: [
+          {
+            url: '/og-contact.jpg',
+            width: 1200,
+            height: 630,
+            alt: 'Hubungi Mahabbatussholihin Tour & Travel',
+          }
+        ],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        site: '@mhstour',
+        title,
+        description,
+        images: ['/og-contact.jpg'],
+      },
+      alternates: {
+        canonical: 'https://tour.mahabbatussholihin.com/contact',
+      },
     }
   } catch (error) {
     return {
-      title: 'Hubungi Kami',
-      description: 'Hubungi kami untuk informasi lebih lanjut tentang layanan perjalanan kami.',
+      title: 'Hubungi Kami - Mahabbatussholihin Tour & Travel',
+      description: 'Butuh bantuan atau informasi? Hubungi tim professional Mahabbatussholihin Tour & Travel. Konsultasi gratis untuk semua kebutuhan perjalanan Anda. WhatsApp, telepon, atau email tersedia 24/7.',
     }
   }
 }
@@ -37,8 +73,25 @@ export default async function ContactPage() {
     console.error('Failed to fetch site settings:', error)
   }
 
+  // Generate structured data
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tour.mahabbatussholihin.com'
+  const contactPageJsonLd = generateContactPageJsonLd(baseUrl, siteSettings || undefined)
+  const breadcrumbJsonLd = generateBreadcrumbJsonLd([
+    { name: 'Beranda', url: baseUrl },
+    { name: 'Kontak', url: `${baseUrl}/contact` }
+  ], baseUrl)
+
   return (
     <PageTransition className="min-h-screen bg-secondary-light">
+      {/* Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(contactPageJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       {/* Page Header */}
       <div className="bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 py-12">

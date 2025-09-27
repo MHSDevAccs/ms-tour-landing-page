@@ -65,7 +65,7 @@ export const businessInfo = defineType({
           name: 'email',
           title: 'Email Address',
           type: 'string',
-          placeholder: 'info@mhstour.com'
+          placeholder: 'info@mahabbatussholihin.com'
         },
         {
           name: 'address',

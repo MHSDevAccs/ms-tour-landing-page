@@ -14,21 +14,10 @@ import { generateBlogPostJsonLd, generateBreadcrumbJsonLd } from '@/lib/jsonLd'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import { Calendar, User, Clock, Tag, ArrowLeft, Share2 } from 'lucide-react'
 
-// Force dynamic rendering
+// Force dynamic rendering to prevent static export issues
 export const dynamic = 'force-dynamic'
 
-// Generate static params for published posts
-export async function generateStaticParams() {
-  try {
-    const posts = await blogService.getAllPosts('id', 1, 50)
-    return posts.posts.map((post) => ({
-      slug: post.slug.current,
-    }))
-  } catch (error) {
-    console.error('Error generating static params:', error)
-    return []
-  }
-}
+
 
 // Generate metadata
 export async function generateMetadata({
@@ -180,7 +169,7 @@ export default async function BlogPostPage({
 
     const readingTime = blogUtils.calculateReadingTime(post.content)
     const publishedDate = blogUtils.formatDate(post.publishedAt)
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://mhstour.com'
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tour.mahabbatussholihin.com'
 
     // Generate structured data
     const jsonLd = generateBlogPostJsonLd(post, baseUrl)

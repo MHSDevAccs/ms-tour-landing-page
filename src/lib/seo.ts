@@ -59,7 +59,7 @@ export const defaultBusinessSEO: BusinessSEO = {
 
 // Generate comprehensive meta tags
 export function generateMetaTags(seoData: SEOData, businessInfo: BusinessSEO = defaultBusinessSEO) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://tour.mahabbatussholihin.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://travel.mahabbatussholihin.com';
   const fullUrl = seoData.url ? `${baseUrl}${seoData.url}` : baseUrl;
   const imageUrl = seoData.image ? 
     (seoData.image.startsWith('http') ? seoData.image : `${baseUrl}${seoData.image}`) 
@@ -252,7 +252,7 @@ export function generateBreadcrumbs(pathname: string): Array<{name: string, url:
 
 // Schema.org markup for local business
 export function generateLocalBusinessSchema(businessInfo: BusinessSEO = defaultBusinessSEO) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://tour.mahabbatussholihin.com';
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://travel.mahabbatussholihin.com';
   
   return {
     '@context': 'https://schema.org',

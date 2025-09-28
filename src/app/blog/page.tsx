@@ -59,7 +59,7 @@ export async function generateMetadata({
       openGraph: {
         title,
         description,
-        url: 'https://tour.mahabbatussholihin.com/blog',
+        url: 'https://travel.mahabbatussholihin.com/blog',
         siteName: 'Mahabbatussholihin Tour & Travel',
         locale: 'id_ID',
         type: 'website',
@@ -80,7 +80,7 @@ export async function generateMetadata({
         images: ['/og-blog.jpg'],
       },
       alternates: {
-        canonical: 'https://tour.mahabbatussholihin.com/blog',
+        canonical: 'https://travel.mahabbatussholihin.com/blog',
       },
     }
   } catch (error) {
@@ -176,7 +176,7 @@ export default async function BlogPage({
     }
 
     // Generate structured data
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tour.mahabbatussholihin.com'
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://travel.mahabbatussholihin.com'
     const jsonLd = generateBlogListJsonLd(blogData.posts, baseUrl)
     const breadcrumbJsonLd = generateBreadcrumbJsonLd([
       { name: 'Beranda', url: '/' },

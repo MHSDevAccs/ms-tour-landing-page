@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
       openGraph: {
         title: siteSettings?.pageContent?.galleryTitle || 'Galeri Foto - Mahabbatussholihin Tour & Travel',
         description: siteSettings?.pageContent?.galleryDescription || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata dan pengalaman tur.',
-        url: 'https://tour.mahabbatussholihin.com/gallery',
+        url: 'https://travel.mahabbatussholihin.com/gallery',
         siteName: 'Mahabbatussholihin Tour & Travel',
         locale: 'id_ID',
         type: 'website',
@@ -41,7 +41,7 @@ export async function generateMetadata(): Promise<Metadata> {
         images: ['/og-gallery.jpg'],
       },
       alternates: {
-        canonical: 'https://tour.mahabbatussholihin.com/gallery',
+        canonical: 'https://travel.mahabbatussholihin.com/gallery',
       },
     }
   } catch (error) {
@@ -72,7 +72,7 @@ export default async function GalleryPage() {
   ])
 
   // Generate structured data
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tour.mahabbatussholihin.com'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://travel.mahabbatussholihin.com'
   const breadcrumbJsonLd = generateBreadcrumbJsonLd([
     { name: 'Beranda', url: baseUrl },
     { name: 'Galeri', url: `${baseUrl}/gallery` }

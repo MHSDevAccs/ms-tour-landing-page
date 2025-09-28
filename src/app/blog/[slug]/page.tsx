@@ -169,7 +169,7 @@ export default async function BlogPostPage({
 
     const readingTime = blogUtils.calculateReadingTime(post.content)
     const publishedDate = blogUtils.formatDate(post.publishedAt)
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tour.mahabbatussholihin.com'
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://travel.mahabbatussholihin.com'
 
     // Generate structured data
     const jsonLd = generateBlogPostJsonLd(post, baseUrl)

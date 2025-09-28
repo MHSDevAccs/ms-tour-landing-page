@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
       openGraph: {
         title,
         description,
-        url: 'https://tour.mahabbatussholihin.com/services',
+        url: 'https://travel.mahabbatussholihin.com/services',
         siteName: 'Mahabbatussholihin Tour & Travel',
         locale: 'id_ID',
         type: 'website',
@@ -52,7 +52,7 @@ export async function generateMetadata(): Promise<Metadata> {
         images: ['/og-services.jpg'],
       },
       alternates: {
-        canonical: 'https://tour.mahabbatussholihin.com/services',
+        canonical: 'https://travel.mahabbatussholihin.com/services',
       },
     }
   } catch (error) {
@@ -91,7 +91,7 @@ export default async function ServicesPage() {
   }
 
   // Generate structured data
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tour.mahabbatussholihin.com'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://travel.mahabbatussholihin.com'
   const servicePageJsonLd = generateServicePageJsonLd(baseUrl, siteSettings || undefined)
   const breadcrumbJsonLd = generateBreadcrumbJsonLd([
     { name: 'Beranda', url: baseUrl },

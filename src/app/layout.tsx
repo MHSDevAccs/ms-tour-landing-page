@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://tour.mahabbatussholihin.com'),
+  metadataBase: new URL('https://travel.mahabbatussholihin.com'),
   alternates: {
     canonical: '/',
     languages: {
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Mahabbatussholihin Tour & Travel - Mitra Perjalanan Terpercaya Anda",
     description: "Jelajahi dunia bersama Mahabbatussholihin Tour & Travel - Mitra terpercaya untuk pengalaman perjalanan yang tak terlupakan. Paket wisata domestik, internasional, dan umroh terbaik.",
-    url: 'https://tour.mahabbatussholihin.com',
+    url: 'https://travel.mahabbatussholihin.com',
     siteName: 'Mahabbatussholihin Tour & Travel',
     locale: 'id_ID',
     alternateLocale: ['en_US'],
@@ -156,14 +156,14 @@ export default function RootLayout({
               '@graph': [
                 {
                   '@type': 'TravelAgency',
-                  '@id': 'https://tour.mahabbatussholihin.com#organization',
+                  '@id': 'https://travel.mahabbatussholihin.com#organization',
                   name: 'Mahabbatussholihin Tour & Travel',
                   alternateName: ['MHS Tour', 'Mahabbatussholihin Travel'],
                   description: 'Agen perjalanan terpercaya yang menyediakan paket wisata domestik, internasional, dan layanan umroh dengan pengalaman lebih dari 10 tahun',
-                  url: 'https://tour.mahabbatussholihin.com',
+                  url: 'https://travel.mahabbatussholihin.com',
                   logo: {
                     '@type': 'ImageObject',
-                    url: 'https://tour.mahabbatussholihin.com/logo.png'
+                    url: 'https://travel.mahabbatussholihin.com/logo.png'
                   },
                   contactPoint: {
                     '@type': 'ContactPoint',
@@ -186,19 +186,19 @@ export default function RootLayout({
                 },
                 {
                   '@type': 'WebSite', 
-                  '@id': 'https://tour.mahabbatussholihin.com#website',
-                  url: 'https://tour.mahabbatussholihin.com',
+                  '@id': 'https://travel.mahabbatussholihin.com#website',
+                  url: 'https://travel.mahabbatussholihin.com',
                   name: 'Mahabbatussholihin Tour & Travel',
                   description: 'Situs resmi Mahabbatussholihin Tour & Travel - Partner terpercaya untuk perjalanan wisata dan umroh Anda',
                   publisher: {
-                    '@id': 'https://tour.mahabbatussholihin.com#organization'
+                    '@id': 'https://travel.mahabbatussholihin.com#organization'
                   },
                   potentialAction: [
                     {
                       '@type': 'SearchAction',
                       target: {
                         '@type': 'EntryPoint',
-                        urlTemplate: 'https://tour.mahabbatussholihin.com/blog?search={search_term_string}'
+                        urlTemplate: 'https://travel.mahabbatussholihin.com/blog?search={search_term_string}'
                       },
                       'query-input': 'required name=search_term_string'
                     }

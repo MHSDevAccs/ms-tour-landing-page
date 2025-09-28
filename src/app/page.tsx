@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
       openGraph: {
         title,
         description,
-        url: 'https://tour.mahabbatussholihin.com',
+        url: 'https://travel.mahabbatussholihin.com',
         siteName: 'Mahabbatussholihin Tour & Travel',
         locale: 'id_ID',
         type: 'website',
@@ -59,7 +59,7 @@ export async function generateMetadata(): Promise<Metadata> {
         images: ['/og-home.jpg'],
       },
       alternates: {
-        canonical: 'https://tour.mahabbatussholihin.com',
+        canonical: 'https://travel.mahabbatussholihin.com',
       },
     }
   } catch (error) {
@@ -236,7 +236,7 @@ export default async function Home() {
   }
 
   // Generate comprehensive structured data
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tour.mahabbatussholihin.com'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://travel.mahabbatussholihin.com'
   const organizationJsonLd = generateOrganizationJsonLd(baseUrl, siteSettings || undefined)
   const travelServiceJsonLd = generateTravelServiceJsonLd(baseUrl, siteSettings || undefined)
   const websiteJsonLd = generateWebsiteJsonLd(baseUrl, siteSettings || undefined)

@@ -11,7 +11,7 @@ import BlogCard from '@/components/BlogCard'
 import AnimatedSection, { PageTransition, StaggerContainer, StaggerItem } from '@/components/AnimatedSection'
 import { generateOrganizationJsonLd, generateTravelServiceJsonLd, generateWebsiteJsonLd } from '@/lib/jsonLd'
 
-// Force dynamic rendering and disable caching for development
+// Force dynamic rendering and disable caching for development (test change)
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 

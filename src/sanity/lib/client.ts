@@ -9,7 +9,7 @@ export const client = createClient({
   perspective: 'published', // Only fetch published documents
   stega: {
     enabled: process.env.NODE_ENV === 'development',
-    studioUrl: '/studio',
+    studioUrl: process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || `https://${projectId}.sanity.studio`,
   },
 })
 

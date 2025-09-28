@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
 import MainLayout from "../layouts/MainLayout";
-import { headers } from "next/headers";
 
 
 
@@ -146,10 +145,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const headersList = headers();
-  const pathname = headersList.get('x-pathname') || '';
-  const isStudioRoute = pathname.startsWith('/studio');
-
   return (
     <html lang="id">
       <head>
@@ -217,7 +212,7 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} font-poppins antialiased`}
       >
-        {isStudioRoute ? children : <MainLayout>{children}</MainLayout>}
+        <MainLayout>{children}</MainLayout>
       </body>
     </html>
   );

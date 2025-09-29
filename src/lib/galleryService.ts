@@ -26,6 +26,7 @@ export const galleryQueries = {
       },
       caption
     },
+    isPublished,
     isFeatured,
     publishDate,
     viewCount
@@ -52,6 +53,8 @@ export const galleryQueries = {
       }
     },
     destination,
+    isPublished,
+    isFeatured,
     publishDate,
     viewCount
   }`,
@@ -77,6 +80,7 @@ export const galleryQueries = {
         alt
       }
     },
+    isPublished,
     isFeatured,
     publishDate,
     viewCount
@@ -114,6 +118,7 @@ export const galleryQueries = {
       price,
       duration
     },
+    isPublished,
     isFeatured,
     publishDate,
     seoTitle,
@@ -159,6 +164,7 @@ export const galleryQueries = {
         alt
       }
     },
+    isPublished,
     isFeatured,
     publishDate,
     viewCount
@@ -402,6 +408,8 @@ export const galleryService = {
             alt
           }
         },
+        isPublished,
+        isFeatured,
         publishDate,
         viewCount
       }`
@@ -438,6 +446,8 @@ export const getRecentGalleries = async (limit: number = 6): Promise<Gallery[]> 
       },
       "imageCount": count(images),
       destination,
+      isPublished,
+      isFeatured,
       publishDate,
       viewCount
     }`
@@ -470,6 +480,8 @@ export const getRelatedGalleries = async (currentGalleryId: string, category: st
       },
       "imageCount": count(images),
       destination,
+      isPublished,
+      isFeatured,
       publishDate,
       viewCount
     }`

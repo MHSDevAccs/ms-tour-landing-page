@@ -51,12 +51,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     // Get all blog posts
     const blogData = await blogService.getAllPosts('id', 1, 100)
-    blogPages = blogData.posts.map((post) => ({
-      url: `${baseUrl}/blog/${post.slug.current}`,
-      lastModified: new Date(post.publishedAt),
-      changeFrequency: 'weekly' as const,
-      priority: post.isFeatured ? 0.9 : 0.7,
-    }))
+    blogPages = blogData.posts.map((post) => {
+      // Validate and fallback for publishedAt date
+      const publishedDate = post.publishedAt ? new Date(post.publishedAt) : new Date()
+      const validDate = isNaN(publishedDate.getTime()) ? new Date() : publishedDate
+      
+      return {
+        url: `${baseUrl}/blog/${post.slug.current}`,
+        lastModified: validDate,
+        changeFrequency: 'weekly' as const,
+        priority: post.isFeatured ? 0.9 : 0.7,
+      }
+    })
   } catch (error) {
     console.error('Error fetching blog posts for sitemap:', error)
   }
@@ -64,12 +70,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     // Get all galleries
     const galleries = await galleryService.getAllGalleries()
-    galleryPages = galleries.map((gallery) => ({
-      url: `${baseUrl}/gallery/${gallery.slug.current}`,
-      lastModified: new Date(gallery._updatedAt || gallery._createdAt),
-      changeFrequency: 'monthly' as const,
-      priority: gallery.isFeatured ? 0.8 : 0.6,
-    }))
+    galleryPages = galleries.map((gallery) => {
+      // Validate and fallback for gallery dates
+      const galleryDate = gallery._updatedAt || gallery._createdAt
+      const parsedDate = galleryDate ? new Date(galleryDate) : new Date()
+      const validDate = isNaN(parsedDate.getTime()) ? new Date() : parsedDate
+      
+      return {
+        url: `${baseUrl}/gallery/${gallery.slug.current}`,
+        lastModified: validDate,
+        changeFrequency: 'monthly' as const,
+        priority: gallery.isFeatured ? 0.8 : 0.6,
+      }
+    })
   } catch (error) {
     console.error('Error fetching galleries for sitemap:', error)
   }

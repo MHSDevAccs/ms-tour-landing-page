@@ -66,7 +66,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       
       {/* Floating WhatsApp Button */}
       <WhatsAppFloat 
-        phoneNumber={whatsappNumber || '+6281234567890'}
+        phoneNumber={whatsappNumber || '+6281110002477'}
         message="Halo! Saya tertarik dengan layanan tour Anda. Bisa bantu saya dengan informasi lebih lanjut?"
       />
     </div>

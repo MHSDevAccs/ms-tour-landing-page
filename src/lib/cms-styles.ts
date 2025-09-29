@@ -31,6 +31,7 @@ interface SiteSettings {
     facebook?: string
     youtube?: string
     twitter?: string
+    tiktok?: string
   }
   content?: {
     tagline?: string

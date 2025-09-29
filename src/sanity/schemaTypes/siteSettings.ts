@@ -132,6 +132,11 @@ export const siteSettings = defineType({
           name: 'twitter',
           title: 'Twitter URL',
           type: 'url',
+        },
+        {
+          name: 'tiktok',
+          title: 'TikTok URL',
+          type: 'url',
         }
       ]
     }),

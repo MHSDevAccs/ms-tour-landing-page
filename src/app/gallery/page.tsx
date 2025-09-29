@@ -74,6 +74,8 @@ export default async function GalleryPage() {
     })
   ])
 
+
+
   // Generate structured data
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://travel.mahabbatussholihin.com'
   const breadcrumbJsonLd = generateBreadcrumbJsonLd([

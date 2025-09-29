@@ -80,9 +80,17 @@ export async function sanityFetch<T>({
         fetchOptions.next.revalidate = revalidate
       }
       
-      // Add cache control for production
+      // Add cache control for production - avoid conflicts with revalidate
       if (process.env.NODE_ENV === 'production') {
-        fetchOptions.cache = revalidate === false ? 'no-store' : 'force-cache'
+        if (revalidate === false) {
+          // Only set no-store when explicitly disabling cache
+          fetchOptions.cache = 'no-store'
+        } else if (revalidate === undefined) {
+          // Only set force-cache when revalidate is not specified at all
+          fetchOptions.cache = 'force-cache'
+        }
+        // When revalidate is a number, don't set any cache option to avoid conflicts
+        // Next.js will handle caching based on the revalidate value
       }
       
       const result = await client.fetch<T>(query, params, fetchOptions)
@@ -412,7 +420,8 @@ export const queries = {
         instagram,
         facebook,
         youtube,
-        twitter
+        twitter,
+        tiktok
       },
       content {
         tagline,
@@ -629,6 +638,43 @@ export const queries = {
       isPopular,
       link,
       order
+    }
+  `,
+
+  // Business Information
+  getBusinessInfo: () => `
+    *[_type == "businessInfo"][0] {
+      _id,
+      logo {
+        asset-> {
+          _id,
+          url,
+          metadata {
+            dimensions
+          }
+        },
+        alt
+      },
+      logoAlt,
+      siteName,
+      siteTitle,
+      siteDescription,
+      contactInfo {
+        phone,
+        email,
+        address,
+        whatsapp
+      },
+      businessHours {
+        mondayFriday,
+        saturday,
+        sunday,
+        timezone
+      },
+      content {
+        tagline,
+        copyrightText
+      }
     }
   `
 }

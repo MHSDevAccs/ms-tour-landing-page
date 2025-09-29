@@ -32,7 +32,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
     )
   }, [galleries, selectedCategory])
 
-  // Category options with counts
+  // Category options with counts - using hardcoded categories from schema
   const categoryOptions = useMemo(() => {
     const allOption = {
       value: 'all',
@@ -41,20 +41,33 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
       icon: '🖼️'
     }
 
-    const categoryOptionsWithCounts = categories
-      .filter(cat => cat.isActive)
+    // Hardcoded categories from gallery schema
+    const hardcodedCategories = [
+      { value: 'destinations', label: 'Tour Destinations', icon: '🏞️' },
+      { value: 'cultural', label: 'Cultural Tours', icon: '🏛️' },
+      { value: 'adventure', label: 'Adventure Tours', icon: '🏔️' },
+      { value: 'religious', label: 'Religious Tours', icon: '🕌' },
+      { value: 'nature', label: 'Nature & Landscape', icon: '🌿' },
+      { value: 'culinary', label: 'Food & Culinary', icon: '🍽️' },
+      { value: 'accommodation', label: 'Accommodation', icon: '🏨' },
+      { value: 'transportation', label: 'Transportation', icon: '🚌' },
+      { value: 'activities', label: 'Activities', icon: '🎯' },
+      { value: 'customers', label: 'Momen Jamaah', icon: '📸' }
+    ]
+
+    const categoryOptionsWithCounts = hardcodedCategories
       .map(category => ({
-        value: category.slug.current,
-        label: category.title,
+        value: category.value,
+        label: category.label,
         count: galleries.filter(
-          g => g.isPublished && g.category === category.slug.current
+          g => g.isPublished && g.category === category.value
         ).length,
         icon: category.icon
       }))
       .filter(option => option.count > 0)
 
     return [allOption, ...categoryOptionsWithCounts]
-  }, [galleries, categories])
+  }, [galleries])
 
   const containerVariants = {
     hidden: { opacity: 0 },

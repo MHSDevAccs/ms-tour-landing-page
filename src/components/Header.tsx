@@ -97,7 +97,7 @@ const Header = () => {
   return (
     <header className={`${headerBgClasses} sticky top-0 z-50`}>
       <div className={containerClasses}>
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center">

@@ -10,7 +10,7 @@ interface WhatsAppFloatProps {
 
 export default function WhatsAppFloat({ 
   phoneNumber = '+62 811 1000 2477',
-  message = 'Halo! Saya tertarik dengan layanan tour Anda. Bisa bantu saya dengan informasi lebih lanjut?'
+  message = '"Assalamualaikum bisa bantu saya dengan informasi lebih lanjut?"'
 }: WhatsAppFloatProps) {
   const [isVisible, setIsVisible] = useState(false)
 

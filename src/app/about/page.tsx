@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { sanityFetch, queries } from '@/sanity/lib/client'
+import { PageTransition } from '@/components/AnimatedSection'
 import { generateOrganizationJsonLd, generateBreadcrumbJsonLd } from '@/lib/jsonLd'
 
 // Generate comprehensive metadata for about page
@@ -34,7 +35,7 @@ export async function generateMetadata(): Promise<Metadata> {
             url: '/og-about.jpg',
             width: 1200,
             height: 630,
-            alt: 'Tentang Mahabbatussholihin Tour & Travel',
+            alt: 'Tentang Kami',
           }
         ],
       },
@@ -80,7 +81,8 @@ export default async function AboutPage() {
   ], baseUrl)
 
   return (
-    <div className="min-h-screen bg-secondary-light py-16">
+    <PageTransition>
+      <div className="min-h-screen bg-gray-50">
       {/* Structured Data */}
       <script
         type="application/ld+json"
@@ -90,15 +92,21 @@ export default async function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-black mb-4">
-            {siteSettings?.aboutContent?.mainTitle || 'Tentang Mahabbatussholihin Tour & Travel'}
+      
+      {/* About Header - HARDCODED */}
+        <div className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h1 className="text-4xl font-bold mb-4">
+            {siteSettings?.aboutContent?.mainTitle || 'Tentang Kami'}
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-primary-lighter">
             {siteSettings?.aboutContent?.subtitle || 'Mitra terpercaya Anda untuk pengalaman perjalanan tak terlupakan sejak didirikan.'}
           </p>
         </div>
+      </div>
+
+      {/* Content Section */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         
         <div className="bg-white rounded-lg shadow-md p-8">
           <h2 className="text-2xl font-semibold text-black mb-4">
@@ -136,5 +144,6 @@ export default async function AboutPage() {
         </div>
       </div>
     </div>
+    </PageTransition>
   )
 }

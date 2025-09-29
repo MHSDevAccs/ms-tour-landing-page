@@ -82,7 +82,7 @@ export default async function ContactPage() {
   ], baseUrl)
 
   return (
-    <PageTransition className="min-h-screen bg-secondary-light">
+    <PageTransition className="min-h-screen bg-gray-50">
       {/* Structured Data */}
       <script
         type="application/ld+json"
@@ -92,17 +92,15 @@ export default async function ContactPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      {/* Page Header */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="container mx-auto px-4 py-12">
-          <AnimatedSection direction="fade" className="text-center">
-            <h1 className="text-4xl font-bold text-black mb-4">
-              {siteSettings?.contactContent?.pageTitle || 'Hubungi Kami'}
-            </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              {siteSettings?.contactContent?.pageDescription || siteSettings?.content?.contactCtaText || 'Kami siap membantu Anda merencanakan perjalanan yang berkesan'}
-            </p>
-          </AnimatedSection>
+      {/* Contact Header - HARDCODED */}
+        <div className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h1 className="text-4xl font-bold mb-4">
+            {siteSettings?.contactContent?.pageTitle || 'Hubungi Kami'}
+          </h1>
+          <p className="text-xl text-primary-lighter">
+            {siteSettings?.contactContent?.pageDescription || siteSettings?.content?.contactCtaText || 'Kami siap membantu Anda merencanakan perjalanan yang berkesan'}
+          </p>
         </div>
       </div>
 

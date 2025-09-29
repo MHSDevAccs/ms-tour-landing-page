@@ -92,14 +92,24 @@ export default {
       name: 'images',
       title: 'Gallery Images',
       type: 'array',
+      options: {
+        modal: { type: 'dialog', width: 0.8 },
+        editModal: 'popover'
+      },
       of: [
         {
           type: 'object',
+          name: 'galleryImage',
+          title: 'Gallery Image',
+          options: {
+            modal: { type: 'dialog', width: 0.9 }
+          },
           fields: [
             {
               name: 'image',
               title: 'Image',
               type: 'image',
+              validation: (Rule: any) => Rule.required(),
               options: {
                 hotspot: true,
               },
@@ -108,7 +118,8 @@ export default {
                   name: 'alt',
                   type: 'string',
                   title: 'Alt Text',
-                  description: 'Describe the image for accessibility'
+                  description: 'Describe the image for accessibility',
+                  validation: (Rule: any) => Rule.required().min(3).max(200)
                 }
               ]
             },

@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { galleryService } from '@/lib/galleryService'
 import GalleryGrid from '@/components/GalleryGrid'
-import AnimatedSection from '@/components/AnimatedSection'
+import AnimatedSection, { PageTransition } from '@/components/AnimatedSection'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import { generateBreadcrumbJsonLd } from '@/lib/jsonLd'
 
@@ -79,61 +79,24 @@ export default async function GalleryPage() {
   ], baseUrl)
 
   return (
-    <main className="min-h-screen bg-secondary-light">
+    <PageTransition>
+      <main className="min-h-screen bg-gray-50">
       {/* Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      {/* Hero Section */}
-      <AnimatedSection className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              {siteSettings?.pageContent?.galleryMainTitle || 'Galeri Foto'}
-            </h1>
-            <p className="text-xl md:text-2xl text-primary-lighter mb-8 max-w-3xl mx-auto">
-              {siteSettings?.pageContent?.gallerySubtitle || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan momen berharga bersama MS Tour & Travel'}
-            </p>
-            
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-accent">
-                  {stats.totalGalleries}
-                </div>
-                <div className="text-primary-lighter text-sm md:text-base">
-                  {siteSettings?.pageContent?.galleryStatsLabels?.totalGalleries || 'Total Galeri'}
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-secondary">
-                  {stats.totalImages}
-                </div>
-                <div className="text-primary-lighter text-sm md:text-base">
-                  {siteSettings?.pageContent?.galleryStatsLabels?.totalPhotos || 'Total Foto'}
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-accent">
-                  {stats.featuredCount}
-                </div>
-                <div className="text-primary-lighter text-sm md:text-base">
-                  {siteSettings?.pageContent?.galleryStatsLabels?.featuredGalleries || 'Galeri Unggulan'}
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-secondary">
-                  {Object.keys(stats.categoryCounts).length}
-                </div>
-                <div className="text-primary-lighter text-sm md:text-base">
-                  {siteSettings?.pageContent?.galleryStatsLabels?.categories || 'Kategori'}
-                </div>
-              </div>
-            </div>
-          </div>
+      {/* Gallery Header - HARDCODED */}
+        <div className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h1 className="text-4xl font-bold mb-4">
+            {siteSettings?.pageContent?.galleryMainTitle || 'Galeri Foto'}
+          </h1>
+          <p className="text-xl text-primary-lighter">
+            {siteSettings?.pageContent?.gallerySubtitle || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan momen berharga bersama MS Tour & Travel'}
+          </p>
         </div>
-      </AnimatedSection>
+      </div>
 
       {/* Gallery Content */}
       <AnimatedSection className="py-16">
@@ -148,7 +111,6 @@ export default async function GalleryPage() {
           ) : (
             // Empty state
             <div className="text-center py-20">
-              <div className="text-8xl mb-6">📸</div>
               <h2 className="text-3xl font-bold text-black mb-4">
                 {siteSettings?.pageContent?.galleryEmptyTitle || 'Galeri Akan Segera Hadir'}
               </h2>
@@ -217,5 +179,6 @@ export default async function GalleryPage() {
         </div>
       </AnimatedSection>
     </main>
+    </PageTransition>
   )
 }

@@ -193,24 +193,20 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Informasi */}
           <div className="mt-8 sm:mt-0">
-            <h3 className="text-lg font-semibold mb-6 text-white">Tautan Cepat</h3>
+            <h3 className="text-lg font-semibold mb-6 text-white">Informasi</h3>
             <ul className="space-y-3">
-              {navigation.main.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={item.href}
-                    className="text-gray-300 hover:text-primary-light transition-colors duration-200 text-sm sm:text-base block py-1"
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link
+                  href="/kebijakan-privasi"
+                  className="text-gray-300 hover:text-primary-light transition-colors duration-200 text-sm sm:text-base block py-1"
+                >
+                  Kebijakan Privasi
+                </Link>
+              </li>
             </ul>
           </div>
-
-
 
           {/* Contact Info */}
           <div className="mt-8 lg:mt-0 sm:col-span-2 lg:col-span-1">

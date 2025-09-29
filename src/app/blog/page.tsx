@@ -11,109 +11,27 @@ import AnimatedSection, { PageTransition, StaggerContainer, StaggerItem } from '
 import { generateBlogListJsonLd, generateBreadcrumbJsonLd } from '@/lib/jsonLd'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import { Suspense } from 'react'
-import { Search, Filter, Calendar, User, Tag } from 'lucide-react'
+import { Calendar } from 'lucide-react'
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic'
 
-// Generate metadata
-export async function generateMetadata({
-  searchParams,
-}: {
-  searchParams: { category?: string; tag?: string; search?: string; page?: string }
-}): Promise<Metadata> {
-  const { category, tag, search, page } = searchParams
-  
-  try {
-    const siteSettings = await sanityFetch<any>({
-      query: queries.getSiteSettings(),
-      tags: ['siteSettings']
-    })
-
-    let title = siteSettings?.blogContent?.pageTitle || 'Blog - Mahabbatussholihin Tour & Travel'
-    let description = siteSettings?.blogContent?.pageDescription || 'Temukan tips perjalanan, destinasi wisata, dan panduan lengkap untuk petualangan Anda bersama Mahabbatussholihin Tour & Travel.'
-
-    if (category) {
-      title = `${category} - ${siteSettings?.blogContent?.categoryTitleSuffix || 'Blog MHS Tour'}`
-      description = siteSettings?.blogContent?.categoryDescription?.replace('{category}', category) || `Artikel dan tips tentang ${category} dari Mahabbatussholihin Tour & Travel.`
-    } else if (tag) {
-      title = `${tag} - ${siteSettings?.blogContent?.tagTitleSuffix || 'Blog MHS Tour'}`
-      description = siteSettings?.blogContent?.tagDescription?.replace('{tag}', tag) || `Artikel dengan tag ${tag} dari Mahabbatussholihin Tour & Travel.`
-    } else if (search) {
-      title = `${siteSettings?.blogContent?.searchTitlePrefix || 'Pencarian'}: ${search} - ${siteSettings?.blogContent?.searchTitleSuffix || 'Blog MHS Tour'}`
-      description = siteSettings?.blogContent?.searchDescription?.replace('{search}', search) || `Hasil pencarian untuk "${search}" di blog Mahabbatussholihin Tour & Travel.`
-    } else if (page && parseInt(page) > 1) {
-      title = `${siteSettings?.blogContent?.pageTitle || 'Blog'} - ${siteSettings?.blogContent?.pageNumberPrefix || 'Halaman'} ${page} - ${siteSettings?.siteName || 'Mahabbatussholihin Tour & Travel'}`
-    }
-
-    return {
-      title,
-      description,
-      keywords: [
-        'blog travel', 'tips perjalanan', 'destinasi wisata', 'panduan travel',
-        'artikel wisata', 'pengalaman travel', 'informasi destinasi', 'review tempat wisata',
-        'tips backpacker', 'panduan umroh', 'travel guide indonesia', 'wisata domestik',
-        'wisata internasional', 'budaya lokal', 'kuliner khas', 'hotel terbaik',
-        'transportasi travel', 'itinerary perjalanan', 'budget travel', 'family travel'
-      ],
-      openGraph: {
-        title,
-        description,
-        url: 'https://travel.mahabbatussholihin.com/blog',
-        siteName: 'Mahabbatussholihin Tour & Travel',
-        locale: 'id_ID',
-        type: 'website',
-        images: [
-          {
-            url: '/og-blog.jpg',
-            width: 1200,
-            height: 630,
-            alt: 'Blog Mahabbatussholihin Tour & Travel',
-          }
-        ],
-      },
-      twitter: {
-        card: 'summary_large_image',
-        site: '@mhstour',
-        title,
-        description,
-        images: ['/og-blog.jpg'],
-      },
-      alternates: {
-        canonical: 'https://travel.mahabbatussholihin.com/blog',
-      },
-    }
-  } catch (error) {
-    let title = 'Blog - Mahabbatussholihin Tour & Travel'
-    let description = 'Temukan tips perjalanan, destinasi wisata, dan panduan lengkap untuk petualangan Anda bersama Mahabbatussholihin Tour & Travel.'
-
-    if (category) {
-      title = `${category} - Blog MHS Tour`
-      description = `Artikel dan tips tentang ${category} dari Mahabbatussholihin Tour & Travel.`
-    } else if (tag) {
-      title = `${tag} - Blog MHS Tour`
-      description = `Artikel dengan tag ${tag} dari Mahabbatussholihin Tour & Travel.`
-    } else if (search) {
-      title = `Pencarian: ${search} - Blog MHS Tour`
-      description = `Hasil pencarian untuk "${search}" di blog Mahabbatussholihin Tour & Travel.`
-    } else if (page && parseInt(page) > 1) {
-      title = `Blog - Halaman ${page} - Mahabbatussholihin Tour & Travel`
-    }
-
-    return {
-      title,
-      description,
-      openGraph: {
-        title,
-        description,
-        type: 'website',
-      },
-      twitter: {
-        title,
-        description,
-      },
-    }
-  }
+// Simple metadata for now
+export const metadata: Metadata = {
+  title: 'Blog - Mahabbatussholihin Tour & Travel',
+  description: 'Temukan tips perjalanan, destinasi wisata, dan panduan lengkap untuk petualangan Anda bersama Mahabbatussholihin Tour & Travel.',
+  keywords: [
+    'blog travel', 'tips perjalanan', 'destinasi wisata', 'panduan travel',
+    'artikel wisata', 'pengalaman travel', 'informasi destinasi', 'review tempat wisata'
+  ],
+  openGraph: {
+    title: 'Blog - Mahabbatussholihin Tour & Travel',
+    description: 'Temukan tips perjalanan, destinasi wisata, dan panduan lengkap untuk petualangan Anda bersama Mahabbatussholihin Tour & Travel.',
+    url: 'https://travel.mahabbatussholihin.com/blog',
+    siteName: 'Mahabbatussholihin Tour & Travel',
+    locale: 'id_ID',
+    type: 'website',
+  },
 }
 
 export default async function BlogPage({
@@ -125,47 +43,47 @@ export default async function BlogPage({
   const currentPage = parseInt(page) || 1
 
   try {
-    // Fetch site settings and blog data concurrently
-    const [siteSettings, blogDataResult, categories, featuredPostsResult] = await Promise.all([
-      sanityFetch<any>({
-        query: queries.getSiteSettings(),
-        tags: ['siteSettings']
-      }).catch(() => null),
-      (async () => {
-        if (search) {
-          const posts = await blogService.searchPosts(search, 'id', 12)
-          return {
-            posts,
-            pagination: {
-              current: 1,
-              total: 1,
-              hasNext: false,
-              hasPrev: false,
-              totalCount: posts.length
-            }
-          }
-        } else if (category) {
-          return await blogService.getPostsByCategory(category, 'id', currentPage)
-        } else if (tag) {
-          return await blogService.getPostsByTag(tag, 'id', currentPage)
-        } else {
-          return await blogService.getAllPosts('id', currentPage)
+    // Fetch site settings for CMS content
+    const siteSettings = await sanityFetch<any>({
+      query: queries.getSiteSettings(),
+      tags: ['siteSettings']
+    }).catch(() => null)
+
+    // Fetch blog data
+    let blogDataResult
+    let categories: string[] = []
+    let featuredPosts: BlogPost[] = []
+
+    if (search) {
+      const posts = await blogService.searchPosts(search, 'id', 12)
+      blogDataResult = {
+        posts,
+        pagination: {
+          current: 1,
+          total: 1,
+          hasNext: false,
+          hasPrev: false,
+          totalCount: posts.length
         }
-      })(),
-      blogService.getCategories('id'),
-      category || tag || search ? Promise.resolve([]) : blogService.getFeaturedPosts('id', 3)
-    ])
+      }
+    } else if (category) {
+      blogDataResult = await blogService.getPostsByCategory(category, 'id', currentPage)
+    } else if (tag) {
+      blogDataResult = await blogService.getPostsByTag(tag, 'id', currentPage)
+    } else {
+      blogDataResult = await blogService.getAllPosts('id', currentPage)
+      featuredPosts = await blogService.getFeaturedPosts('id', 3)
+    }
 
-    const blogData = blogDataResult
-    const featuredPosts = featuredPostsResult
+    categories = await blogService.getCategories('id')
 
-    // Set dynamic page titles and subtitles
+    // Use CMS content for page titles and subtitles with fallbacks
     let pageTitle = siteSettings?.blogContent?.pageTitle || 'Blog'
     let pageSubtitle = siteSettings?.blogContent?.pageSubtitle || 'Temukan tips perjalanan, destinasi wisata, dan inspirasi untuk petualangan Anda'
 
     if (search) {
       pageTitle = siteSettings?.blogContent?.searchResultTitle?.replace('{search}', search) || `Hasil Pencarian: "${search}"`
-      pageSubtitle = siteSettings?.blogContent?.searchResultSubtitle?.replace('{count}', blogData.posts.length.toString()) || `Ditemukan ${blogData.posts.length} artikel untuk pencarian Anda`
+      pageSubtitle = siteSettings?.blogContent?.searchResultSubtitle?.replace('{count}', blogDataResult.posts.length.toString()) || `Ditemukan ${blogDataResult.posts.length} artikel untuk pencarian Anda`
     } else if (category) {
       const categoryName = category.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())
       pageTitle = siteSettings?.blogContent?.categoryPageTitle?.replace('{category}', categoryName) || `Kategori: ${categoryName}`
@@ -177,35 +95,50 @@ export default async function BlogPage({
 
     // Generate structured data
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://travel.mahabbatussholihin.com'
-    const jsonLd = generateBlogListJsonLd(blogData.posts, baseUrl)
+    const jsonLd = generateBlogListJsonLd(blogDataResult.posts, baseUrl)
     const breadcrumbJsonLd = generateBreadcrumbJsonLd([
       { name: 'Beranda', url: '/' },
       { name: 'Blog', url: '/blog' }
     ], baseUrl)
 
-    if (!blogData.posts || blogData.posts.length === 0) {
+    if (!blogDataResult.posts || blogDataResult.posts.length === 0) {
       return (
         <PageTransition>
-          <div className="min-h-screen bg-secondary-light py-12">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center">
-                <h1 className="text-3xl font-bold text-black mb-4">
-                  {siteSettings?.blogContent?.emptyStateTitle || 'Tidak Ada Artikel'}
+          <div className="min-h-screen bg-gray-50">
+            {/* Blog Header */}
+            <div className="bg-primary text-white py-16">
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h1 className="text-4xl font-bold mb-4">
+                  {pageTitle}
                 </h1>
-                <p className="text-gray-600 mb-8">
-                  {search 
-                    ? siteSettings?.blogContent?.emptySearchMessage?.replace('{search}', search) || `Tidak ditemukan artikel dengan kata kunci "${search}"`
-                    : siteSettings?.blogContent?.emptyStateMessage || 'Belum ada artikel yang dipublikasikan.'
-                  }
+                <p className="text-xl text-primary-lighter">
+                  {pageSubtitle}
                 </p>
-                {(search || category || tag) && (
-                  <Link
-                    href="/blog"
-                    className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark transition-colors duration-200"
-                  >
-                    {siteSettings?.blogContent?.viewAllArticlesButton || 'Lihat Semua Artikel'}
-                  </Link>
-                )}
+              </div>
+            </div>
+
+            {/* Content */}
+            <div className="py-16">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center">
+                  <h2 className="text-3xl font-bold text-black mb-4">
+                    Tidak Ada Artikel
+                  </h2>
+                  <p className="text-xl text-gray-600 mb-8">
+                    {search 
+                      ? `Tidak ditemukan artikel dengan kata kunci "${search}"`
+                      : 'Belum ada artikel yang dipublikasikan.'
+                    }
+                  </p>
+                  {(search || category || tag) && (
+                    <Link
+                      href="/blog"
+                      className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark transition-colors duration-200"
+                    >
+                      Lihat Semua Artikel
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -225,39 +158,41 @@ export default async function BlogPage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
         />
         
-        <div className="min-h-screen bg-secondary-light">
-          {/* Blog Header */}
-          <AnimatedSection className="bg-white border-b border-gray-200">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-              <div className="text-center">
-                <h1 className="text-3xl md:text-4xl font-bold text-black mb-4">
-                  {pageTitle}
-                </h1>
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
-                  {pageSubtitle}
-                </p>
+        <div className="min-h-screen bg-gray-50">
+          {/* Blog Header - HARDCODED */}
+          <div className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+              <h1 className="text-4xl font-bold mb-4 text-white">
+                {pageTitle}
+              </h1>
+              <p className="text-xl text-white/90">
+                {pageSubtitle}
+              </p>
+            </div>
+          </div>
+
+          {/* Search and Filters Section */}
+          <div className="bg-white border-b border-gray-200 py-8">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-2xl mx-auto">
+                <Suspense fallback={<div className="w-full h-10 bg-gray-200 rounded-md animate-pulse" />}>
+                  <BlogSearch
+                    initialValue={search}
+                    placeholder="Cari artikel..."
+                    className="flex-1"
+                  />
+                </Suspense>
                 
-                {/* Search and Filters */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-2xl mx-auto">
-                  <Suspense fallback={<div className="w-full h-10 bg-gray-200 rounded-md animate-pulse" />}>
-                    <BlogSearch
-                      initialValue={search}
-                      placeholder={siteSettings?.blogContent?.searchPlaceholderText || 'Cari artikel...'}
-                      className="flex-1"
-                    />
-                  </Suspense>
-                  
-                  <Suspense fallback={<div className="w-48 h-10 bg-gray-200 rounded-md animate-pulse" />}>
-                    <BlogCategoryFilter
-                      categories={categories}
-                      selectedCategory={category}
-                      className="w-full sm:w-auto"
-                    />
-                  </Suspense>
-                </div>
+                <Suspense fallback={<div className="w-48 h-10 bg-gray-200 rounded-md animate-pulse" />}>
+                  <BlogCategoryFilter
+                    categories={categories}
+                    selectedCategory={category}
+                    className="w-full sm:w-auto"
+                  />
+                </Suspense>
               </div>
             </div>
-          </AnimatedSection>
+          </div>
 
           {/* Featured Posts */}
           {featuredPosts.length > 0 && (
@@ -270,7 +205,7 @@ export default async function BlogPage({
                     </svg>
                   </div>
                   <h2 className="text-2xl font-bold text-black">
-                    {siteSettings?.blogContent?.featuredPostsTitle || 'Artikel Unggulan'}
+                    Artikel Unggulan
                   </h2>
                 </div>
                 
@@ -284,7 +219,6 @@ export default async function BlogPage({
                         showAuthor={true}
                         showDate={true}
                         showReadingTime={true}
-                        theme={siteSettings?.theme}
                       />
                     </StaggerItem>
                   ))}
@@ -301,9 +235,9 @@ export default async function BlogPage({
                 <div className="flex items-center text-gray-600">
                   <Calendar className="w-5 h-5 mr-2" />
                   <span>
-                    {blogData.pagination?.totalCount ? 
-                      siteSettings?.blogContent?.showingResultsText?.replace('{showing}', blogData.posts.length.toString()).replace('{total}', blogData.pagination.totalCount.toString()) || `Menampilkan ${blogData.posts.length} dari ${blogData.pagination.totalCount} artikel` :
-                      siteSettings?.blogContent?.articlesCountText?.replace('{count}', blogData.posts.length.toString()) || `${blogData.posts.length} artikel`
+                    {blogDataResult.pagination?.totalCount ? 
+                      `Menampilkan ${blogDataResult.posts.length} dari ${blogDataResult.pagination.totalCount} artikel` :
+                      `${blogDataResult.posts.length} artikel`
                     }
                   </span>
                 </div>
@@ -313,14 +247,14 @@ export default async function BlogPage({
                     href="/blog"
                     className="text-primary hover:text-primary-dark transition-colors duration-200 text-sm font-medium"
                   >
-                    {siteSettings?.blogContent?.backToAllArticlesText || '← Kembali ke semua artikel'}
+                    ← Kembali ke semua artikel
                   </Link>
                 )}
               </div>
 
               {/* Blog Grid */}
               <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                {blogData.posts.map((post) => (
+                {blogDataResult.posts.map((post) => (
                   <StaggerItem key={post._id}>
                     <BlogCard
                       post={post}
@@ -330,20 +264,19 @@ export default async function BlogPage({
                       showDate={true}
                       showCategories={true}
                       showReadingTime={true}
-                      theme={siteSettings?.theme}
                     />
                   </StaggerItem>
                 ))}
               </StaggerContainer>
 
               {/* Pagination */}
-              {blogData.pagination && blogData.pagination.total > 1 && (
+              {blogDataResult.pagination && blogDataResult.pagination.total > 1 && (
                 <BlogPagination
-                  pagination={blogData.pagination}
+                  pagination={blogDataResult.pagination}
                   baseUrl="/blog"
                   currentParams={{ category, tag, search }}
-                  previousText={siteSettings?.blogContent?.previousPageText || 'Sebelumnya'}
-                  nextText={siteSettings?.blogContent?.nextPageText || 'Selanjutnya'}
+                  previousText="Sebelumnya"
+                  nextText="Selanjutnya"
                 />
               )}
             </div>
@@ -353,16 +286,16 @@ export default async function BlogPage({
           <AnimatedSection className="bg-primary py-16">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <h2 className="text-3xl font-bold text-white mb-4">
-                {siteSettings?.blogContent?.newsletterTitle || 'Dapatkan Tips Perjalanan Terbaru'}
+                Dapatkan Tips Perjalanan Terbaru
               </h2>
               <p className="text-primary-lighter mb-8 text-lg">
-                {siteSettings?.blogContent?.newsletterDescription || 'Bergabunglah dengan newsletter kami dan dapatkan artikel terbaru, tips perjalanan, dan penawaran eksklusif.'}
+                Bergabunglah dengan newsletter kami dan dapatkan artikel terbaru, tips perjalanan, dan penawaran eksklusif.
               </p>
               <Link
                 href="/contact"
                 className="inline-flex items-center px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-primary transition-all duration-300"
               >
-                {siteSettings?.blogContent?.newsletterButtonText || 'Berlangganan Newsletter'}
+                Berlangganan Newsletter
               </Link>
             </div>
           </AnimatedSection>

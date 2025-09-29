@@ -179,7 +179,7 @@ export default function RootLayout({
                   },
                   sameAs: [
                     'https://facebook.com/mhstour',
-                    'https://instagram.com/mhstour',
+                    'https://instagram.com/mstravel.asia',
                     'https://twitter.com/mhstour',
                     'https://youtube.com/mhstour'
                   ]

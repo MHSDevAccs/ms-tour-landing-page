@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { sanityFetch, queries } from '@/sanity/lib/client'
+import { PageTransition } from '@/components/AnimatedSection'
 import { ServicesGrid, ServicePackage } from '@/components/ServiceCard'
 import FeaturesSection from '@/components/FeaturesSection'
 import { generateServicePageJsonLd, generateBreadcrumbJsonLd } from '@/lib/jsonLd'
@@ -99,7 +100,8 @@ export default async function ServicesPage() {
   ], baseUrl)
 
   return (
-    <div className="min-h-screen bg-secondary-light py-16">
+    <PageTransition>
+      <div className="min-h-screen bg-gray-50">
       {/* Structured Data */}
       <script
         type="application/ld+json"
@@ -109,16 +111,19 @@ export default async function ServicesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Page Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-black mb-4">
+      {/* Services Header - HARDCODED */}
+        <div className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h1 className="text-4xl font-bold mb-4">
             {siteSettings?.servicesContent?.mainTitle || 'Layanan Kami'}
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-primary-lighter">
             {siteSettings?.servicesContent?.subtitle || 'Bismillah, kami nawarin berbagai layanan perjalanan yang berkah dan komprehensif yang dirancang buat memenuhi kebutuhan setiap jamaah dengan penuh amanah dan barakah.'}
           </p>
         </div>
+      </div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         
         {/* Popular Services Section */}
         {services.filter(s => s.isPopular).length > 0 && (
@@ -189,5 +194,6 @@ export default async function ServicesPage() {
         </div>
       </div>
     </div>
+    </PageTransition>
   )
 }

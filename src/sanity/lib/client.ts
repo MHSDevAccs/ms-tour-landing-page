@@ -14,7 +14,7 @@ export const client = createClient({
   useCdn: config.useCdn,
   perspective: 'published', // Only fetch published documents
   // Add authentication token for write operations (if needed)
-  token: process.env.NEXT_PUBLIC_SANITY_API_TOKEN,
+  token: process.env.SANITY_API_TOKEN || process.env.NEXT_PUBLIC_SANITY_API_TOKEN,
   // Optimize for production
   ignoreBrowserTokenWarning: true,
   // Environment-specific timeout settings

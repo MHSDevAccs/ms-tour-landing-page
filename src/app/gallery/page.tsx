@@ -5,6 +5,9 @@ import AnimatedSection, { PageTransition } from '@/components/AnimatedSection'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import { generateBreadcrumbJsonLd } from '@/lib/jsonLd'
 
+// Force dynamic rendering to avoid build-time authentication issues
+export const dynamic = 'force-dynamic'
+
 // Generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {
   try {

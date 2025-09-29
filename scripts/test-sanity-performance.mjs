@@ -17,7 +17,7 @@
  *   - all: Run all tests (default)
  */
 
-const { performanceTests, runAllPerformanceTests } = require('../src/sanity/lib/performance-test')
+import { performanceTests, runAllPerformanceTests } from '../src/sanity/lib/performance-test.js'
 
 async function main() {
   const testType = process.argv[2] || 'all'

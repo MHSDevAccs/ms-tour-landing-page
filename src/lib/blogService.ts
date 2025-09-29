@@ -2,7 +2,7 @@ import { client, sanityFetch } from '@/sanity/lib/client'
 
 // GROQ queries for blog posts
 export const blogQueries = {
-  // Get all published blog posts with pagination
+  // Optimized: Reduced fields for list views, no content field
   getAllBlogPosts: (language: string = 'id', limit: number = 12, offset: number = 0) => `
     *[_type == "blogPost" && isPublished == true && language == "${language}"] 
     | order(publishedAt desc) 
@@ -16,8 +16,7 @@ export const blogQueries = {
           _id,
           url,
           metadata {
-            dimensions,
-            lqip
+            dimensions
           }
         },
         alt
@@ -27,7 +26,8 @@ export const blogQueries = {
       categories,
       tags,
       isFeatured,
-      language
+      language,
+      "readingTime": round(length(pt::text(content)) / 200)
     }
   `,
 
@@ -36,7 +36,7 @@ export const blogQueries = {
     count(*[_type == "blogPost" && isPublished == true && language == "${language}"])
   `,
 
-  // Get single blog post by slug
+  // Optimized: Full content only for single post view
   getBlogPostBySlug: (slug: string, language: string = 'id') => `
     *[_type == "blogPost" && slug.current == "${slug}" && isPublished == true && language == "${language}"][0] {
       _id,
@@ -62,11 +62,12 @@ export const blogQueries = {
       seoTitle,
       seoDescription,
       isFeatured,
-      language
+      language,
+      "readingTime": round(length(pt::text(content)) / 200)
     }
   `,
 
-  // Get featured blog posts
+  // Optimized: Reduced metadata for featured posts
   getFeaturedBlogPosts: (language: string = 'id', limit: number = 3) => `
     *[_type == "blogPost" && isPublished == true && isFeatured == true && language == "${language}"] 
     | order(publishedAt desc) 
@@ -80,8 +81,7 @@ export const blogQueries = {
           _id,
           url,
           metadata {
-            dimensions,
-            lqip
+            dimensions
           }
         },
         alt
@@ -90,11 +90,12 @@ export const blogQueries = {
       publishedAt,
       categories,
       tags,
-      language
+      language,
+      "readingTime": round(length(pt::text(content)) / 200)
     }
   `,
 
-  // Get blog posts by category
+  // Optimized: Reduced fields for category listing
   getBlogPostsByCategory: (category: string, language: string = 'id', limit: number = 12, offset: number = 0) => `
     *[_type == "blogPost" && isPublished == true && "${category}" in categories && language == "${language}"] 
     | order(publishedAt desc) 
@@ -108,8 +109,7 @@ export const blogQueries = {
           _id,
           url,
           metadata {
-            dimensions,
-            lqip
+            dimensions
           }
         },
         alt
@@ -118,11 +118,12 @@ export const blogQueries = {
       publishedAt,
       categories,
       tags,
-      language
+      language,
+      "readingTime": round(length(pt::text(content)) / 200)
     }
   `,
 
-  // Get blog posts by tag
+  // Optimized: Reduced fields for tag listing
   getBlogPostsByTag: (tag: string, language: string = 'id', limit: number = 12, offset: number = 0) => `
     *[_type == "blogPost" && isPublished == true && "${tag}" in tags && language == "${language}"] 
     | order(publishedAt desc) 
@@ -136,8 +137,7 @@ export const blogQueries = {
           _id,
           url,
           metadata {
-            dimensions,
-            lqip
+            dimensions
           }
         },
         alt
@@ -146,11 +146,12 @@ export const blogQueries = {
       publishedAt,
       categories,
       tags,
-      language
+      language,
+      "readingTime": round(length(pt::text(content)) / 200)
     }
   `,
 
-  // Get related blog posts (by categories/tags)
+  // Optimized: Minimal fields for related posts
   getRelatedBlogPosts: (currentPostId: string, categories: string[], tags: string[], language: string = 'id', limit: number = 3) => `
     *[_type == "blogPost" && isPublished == true && _id != "${currentPostId}" && language == "${language}" 
       && (${categories.map(cat => `"${cat}" in categories`).join(' || ')} || ${tags.map(tag => `"${tag}" in tags`).join(' || ')})] 
@@ -165,8 +166,7 @@ export const blogQueries = {
           _id,
           url,
           metadata {
-            dimensions,
-            lqip
+            dimensions
           }
         },
         alt
@@ -204,8 +204,7 @@ export const blogQueries = {
           _id,
           url,
           metadata {
-            dimensions,
-            lqip
+            dimensions
           }
         },
         alt
@@ -214,7 +213,8 @@ export const blogQueries = {
       publishedAt,
       categories,
       tags,
-      language
+      language,
+      "readingTime": round(length(pt::text(content)) / 200)
     }
   `
 }
@@ -229,16 +229,18 @@ export const blogService = {
       const [posts, totalCount] = await Promise.all([
         sanityFetch<any[]>({
           query: blogQueries.getAllBlogPosts(language, limit, offset),
-          tags: ['blogPost']
+          tags: ['blogPost'],
+          revalidate: 300 // 5 minutes
         }),
         sanityFetch<number>({
           query: blogQueries.getBlogPostsCount(language),
-          tags: ['blogPost']
+          tags: ['blogPost'],
+          revalidate: 600 // 10 minutes
         })
       ])
 
       return {
-        posts,
+        posts: posts || [],
         pagination: {
           current: page,
           total: Math.ceil(totalCount / limit),
@@ -258,8 +260,9 @@ export const blogService = {
     try {
       return await sanityFetch<any>({
         query: blogQueries.getBlogPostBySlug(slug, language),
-        tags: ['blogPost', `post-${slug}`]
-      })
+        tags: ['blogPost', `post-${slug}`],
+        revalidate: 1800 // 30 minutes for individual posts
+      }) || null
     } catch (error) {
       console.error('Error fetching blog post by slug:', error)
       throw error
@@ -271,8 +274,9 @@ export const blogService = {
     try {
       return await sanityFetch<any[]>({
         query: blogQueries.getFeaturedBlogPosts(language, limit),
-        tags: ['blogPost']
-      })
+        tags: ['blogPost'],
+        revalidate: 900 // 15 minutes for featured content
+      }) || []
     } catch (error) {
       console.error('Error fetching featured blog posts:', error)
       throw error
@@ -286,8 +290,9 @@ export const blogService = {
     try {
       const posts = await sanityFetch<any[]>({
         query: blogQueries.getBlogPostsByCategory(category, language, limit, offset),
-        tags: ['blogPost']
-      })
+        tags: ['blogPost', `category-${category}`],
+        revalidate: 600 // 10 minutes
+      }) || []
 
       return {
         posts,
@@ -313,8 +318,9 @@ export const blogService = {
     try {
       const posts = await sanityFetch<any[]>({
         query: blogQueries.getBlogPostsByTag(tag, language, limit, offset),
-        tags: ['blogPost']
-      })
+        tags: ['blogPost', `tag-${tag}`],
+        revalidate: 600 // 10 minutes
+      }) || []
 
       return {
         posts,
@@ -342,8 +348,9 @@ export const blogService = {
     try {
       return await sanityFetch<any[]>({
         query: blogQueries.getRelatedBlogPosts(currentPostId, categories, tags, language, limit),
-        tags: ['blogPost']
-      })
+        tags: ['blogPost'],
+        revalidate: 1200 // 20 minutes for related posts
+      }) || []
     } catch (error) {
       console.error('Error fetching related blog posts:', error)
       return []
@@ -355,8 +362,9 @@ export const blogService = {
     try {
       return await sanityFetch<string[]>({
         query: blogQueries.getCategories(language),
-        tags: ['blogPost']
-      })
+        tags: ['blogPost'],
+        revalidate: 3600 // 1 hour for categories (rarely change)
+      }) || []
     } catch (error) {
       console.error('Error fetching categories:', error)
       return []
@@ -368,8 +376,9 @@ export const blogService = {
     try {
       return await sanityFetch<string[]>({
         query: blogQueries.getTags(language),
-        tags: ['blogPost']
-      })
+        tags: ['blogPost'],
+        revalidate: 3600 // 1 hour for tags (rarely change)
+      }) || []
     } catch (error) {
       console.error('Error fetching tags:', error)
       return []
@@ -385,8 +394,9 @@ export const blogService = {
     try {
       return await sanityFetch<any[]>({
         query: blogQueries.searchBlogPosts(searchTerm.trim(), language, limit),
-        tags: ['blogPost']
-      })
+        tags: ['blogPost'],
+        revalidate: 180 // 3 minutes for search results
+      }) || []
     } catch (error) {
       console.error('Error searching blog posts:', error)
       return []

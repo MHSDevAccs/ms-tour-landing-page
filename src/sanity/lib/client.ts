@@ -1,47 +1,257 @@
 import { createClient } from 'next-sanity'
 import { apiVersion, dataset, projectId } from '../env'
+import { getCurrentConfig, isMonitoringEnabled, getSlowQueryThreshold } from './config'
 
+// Get environment-specific configuration
+const config = getCurrentConfig()
+
+// Production-optimized Sanity client configuration
 export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: false, // Set to false for development to get fresh data
+  // Use environment-specific CDN setting
+  useCdn: config.useCdn,
   perspective: 'published', // Only fetch published documents
+  // Add authentication token for write operations (if needed)
+  token: process.env.NEXT_PUBLIC_SANITY_API_TOKEN,
+  // Optimize for production
+  ignoreBrowserTokenWarning: true,
+  // Environment-specific timeout settings
+  timeout: config.timeout,
+  // Enable stega only in development
   stega: {
     enabled: process.env.NODE_ENV === 'development',
     studioUrl: process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || `https://${projectId}.sanity.studio`,
   },
 })
 
-// Helper function for fetching data with error handling
+// Performance monitoring helper
+const logPerformance = (operation: string, startTime: number, success: boolean) => {
+  if (!isMonitoringEnabled()) return
+  
+  const duration = Date.now() - startTime
+  const slowThreshold = getSlowQueryThreshold()
+  
+  if (process.env.NODE_ENV === 'development') {
+    console.log(`[Sanity ${operation}] ${success ? 'Success' : 'Error'} - ${duration}ms`)
+  }
+  
+  // Log slow queries in any environment
+  if (duration > slowThreshold) {
+    console.warn(`[Sanity ${operation}] Slow query detected: ${duration}ms (threshold: ${slowThreshold}ms)`)
+  }
+  
+  // In production, you might want to send this to your analytics service
+  if (process.env.NODE_ENV === 'production' && !success) {
+    console.error(`[Sanity ${operation}] Failed after ${duration}ms`)
+  }
+}
+
+// Enhanced helper function for fetching data with error handling, retry logic, and performance monitoring
 export async function sanityFetch<T>({
   query,
   params = {},
   tags,
   revalidate,
+  retries = config.retries,
 }: {
   query: string
   params?: any
   tags?: string[]
   revalidate?: number | false
+  retries?: number
 }): Promise<T> {
-  try {
-    const fetchOptions: any = {
-      next: {
-        tags,
-      },
+  const startTime = Date.now()
+  const operation = `fetch${tags ? ` [${tags.join(', ')}]` : ''}`
+  
+  let lastError: Error | null = null
+  
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const fetchOptions: any = {
+        next: {
+          tags,
+        },
+      }
+      
+      // Add revalidate option if provided
+      if (revalidate !== undefined) {
+        fetchOptions.next.revalidate = revalidate
+      }
+      
+      // Add cache control for production
+      if (process.env.NODE_ENV === 'production') {
+        fetchOptions.cache = revalidate === false ? 'no-store' : 'force-cache'
+      }
+      
+      const result = await client.fetch<T>(query, params, fetchOptions)
+       
+       // Record successful operation
+       healthMonitor.recordSuccess()
+       logPerformance(operation, startTime, true)
+       
+       return result
+    } catch (error) {
+      lastError = error as Error
+      
+      // Don't retry on certain types of errors
+      if (error instanceof Error) {
+        // Don't retry on syntax errors or authentication errors
+        if (error.message.includes('GROQ syntax error') || 
+            error.message.includes('Unauthorized') ||
+            error.message.includes('Forbidden')) {
+          break
+        }
+      }
+      
+      // If this is the last attempt, don't wait
+      if (attempt === retries) {
+        break
+      }
+      
+      // Exponential backoff: wait 2^attempt * 100ms
+      const delay = Math.pow(2, attempt) * 100
+      await new Promise(resolve => setTimeout(resolve, delay))
+      
+      if (process.env.NODE_ENV === 'development') {
+        console.warn(`[Sanity ${operation}] Retry ${attempt + 1}/${retries} after ${delay}ms`)
+      }
     }
-    
-    // Add revalidate option if provided
-    if (revalidate !== undefined) {
-      fetchOptions.next.revalidate = revalidate
-    }
-    
-    return await client.fetch<T>(query, params, fetchOptions)
-  } catch (error) {
-    console.error('Sanity fetch error:', error)
-    throw error
   }
+  
+  // Record failed operation
+   healthMonitor.recordFailure()
+   logPerformance(operation, startTime, false)
+   
+   // Enhance error message with context
+  const enhancedError = new Error(
+    `Sanity fetch failed after ${retries + 1} attempts: ${lastError?.message || 'Unknown error'}`
+  )
+  enhancedError.cause = lastError
+  
+  console.error('Sanity fetch error:', {
+    query: query.substring(0, 200) + (query.length > 200 ? '...' : ''),
+    params,
+    tags,
+    attempts: retries + 1,
+    error: lastError?.message,
+  })
+  
+  throw enhancedError
+}
+
+// Specialized fetch function for critical data with higher retry count
+export async function sanityFetchCritical<T>(options: Parameters<typeof sanityFetch>[0]): Promise<T> {
+  return sanityFetch<T>({
+    ...options,
+    retries: 5, // More retries for critical data
+  })
+}
+
+// Specialized fetch function for non-critical data with faster failure
+export async function sanityFetchOptional<T>(options: Parameters<typeof sanityFetch>[0]): Promise<T | null> {
+  try {
+    return await sanityFetch<T>({
+      ...options,
+      retries: 1, // Fewer retries for optional data
+    })
+  } catch (error) {
+    console.warn('Optional Sanity fetch failed, returning null:', error)
+    return null
+  }
+}
+
+// Query optimization utilities
+export const queryOptimizer = {
+  // Add projection to limit fields and improve performance
+  addProjection: (query: string, fields: string[]) => {
+    if (query.includes('{') && !query.includes('...')) {
+      return query
+    }
+    const projection = `{ ${fields.join(', ')} }`
+    return query.replace(/\s*$/, ` ${projection}`)
+  },
+  
+  // Add ordering for consistent results and better caching
+  addOrdering: (query: string, orderBy: string = '_updatedAt desc') => {
+    if (query.includes('| order(')) {
+      return query
+    }
+    const orderClause = ` | order(${orderBy})`
+    const bracketIndex = query.lastIndexOf(']')
+    if (bracketIndex > -1) {
+      return query.slice(0, bracketIndex) + orderClause + query.slice(bracketIndex)
+    }
+    return query + orderClause
+  },
+  
+  // Add limit for pagination and performance
+  addLimit: (query: string, limit: number, offset: number = 0) => {
+    const limitClause = ` [${offset}...${offset + limit}]`
+    if (query.includes('[') && query.includes('...]')) {
+      return query
+    }
+    return query + limitClause
+  }
+}
+
+// Cache management utilities
+export const cacheManager = {
+  // Generate cache tags based on content type and identifiers
+  generateTags: (contentType: string, identifiers?: string[]): string[] => {
+    const baseTags = [contentType, `${contentType}s`]
+    if (identifiers) {
+      baseTags.push(...identifiers.map(id => `${contentType}:${id}`))
+    }
+    return baseTags
+  },
+  
+  // Get appropriate revalidation time based on content type
+  getRevalidationTime: (contentType: string, priority: 'high' | 'medium' | 'low' = 'medium'): number => {
+    const baseTimes = {
+      high: 60, // 1 minute
+      medium: 300, // 5 minutes  
+      low: 900, // 15 minutes
+    }
+    
+    const contentMultipliers: Record<string, number> = {
+      'siteSettings': 6, // 6x longer (site settings change rarely)
+      'heroSection': 3, // 3x longer
+      'featuresSection': 3,
+      'testimonial': 2, // 2x longer
+      'blogPost': 1, // Base time
+      'gallery': 1,
+      'servicePackage': 2,
+    }
+    
+    const multiplier = contentMultipliers[contentType] || 1
+    return baseTimes[priority] * multiplier
+  }
+}
+
+// Connection health monitoring
+let connectionHealth = {
+  lastSuccessfulRequest: Date.now(),
+  consecutiveFailures: 0,
+  isHealthy: true,
+}
+
+export const healthMonitor = {
+  recordSuccess: () => {
+    connectionHealth.lastSuccessfulRequest = Date.now()
+    connectionHealth.consecutiveFailures = 0
+    connectionHealth.isHealthy = true
+  },
+  
+  recordFailure: () => {
+    connectionHealth.consecutiveFailures++
+    connectionHealth.isHealthy = connectionHealth.consecutiveFailures < 5
+  },
+  
+  getHealth: () => ({ ...connectionHealth }),
+  
+  isHealthy: () => connectionHealth.isHealthy,
 }
 
 // Common GROQ queries for the website

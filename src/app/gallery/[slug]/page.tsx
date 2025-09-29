@@ -7,6 +7,7 @@ import { urlFor } from '@/sanity/lib/image'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import AnimatedSection from '@/components/AnimatedSection'
 import GalleryGrid from '@/components/GalleryGrid'
+import GalleryImageGrid from '@/components/GalleryImageGrid'
 import ShareButton from '@/components/ShareButton'
 
 // Force dynamic rendering to prevent static export issues
@@ -301,11 +302,7 @@ export default async function GalleryDetailPage({ params }: Props) {
               </div>
 
               {/* Single Gallery with Lightbox */}
-              <GalleryGrid
-                galleries={[gallery]}
-                showFilters={false}
-                columns={4}
-              />
+              <GalleryImageGrid gallerySlug={gallery.slug.current} />
             </div>
           </AnimatedSection>
         )}

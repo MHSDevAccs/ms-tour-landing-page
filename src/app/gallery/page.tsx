@@ -92,16 +92,20 @@ export default async function GalleryPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Gallery Header - HARDCODED */}
-        <div className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h1 className="text-4xl font-bold mb-4">
-            {siteSettings?.pageContent?.galleryMainTitle || 'Galeri Foto'}
-          </h1>
-          <p className="text-xl text-primary-lighter">
-            {siteSettings?.pageContent?.gallerySubtitle || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan momen berharga bersama MS Tour & Travel'}
-          </p>
+      <AnimatedSection direction="fade" className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <AnimatedSection direction="up" delay={0.2}>
+            <h1 className="text-4xl font-bold mb-4">
+              {siteSettings?.pageContent?.galleryMainTitle || 'Galeri Foto'}
+            </h1>
+          </AnimatedSection>
+          <AnimatedSection direction="up" delay={0.4}>
+            <p className="text-xl text-primary-lighter">
+              {siteSettings?.pageContent?.gallerySubtitle || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan momen berharga bersama MS Tour & Travel'}
+            </p>
+          </AnimatedSection>
         </div>
-      </div>
+      </AnimatedSection>
 
       {/* Gallery Content */}
       <AnimatedSection className="py-16">

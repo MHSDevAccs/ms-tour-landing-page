@@ -39,12 +39,12 @@ export const urlForGallery = (source: any) => {
     .quality(85)
 }
 
-// Product/Package images - 3:2 ratio for product showcase
+// Product/Package images - 4:5 portrait ratio for service cards
 export const urlForProduct = (source: any) => {
   return builder
     .image(source)
-    .width(600)
-    .height(400) // 3:2 ratio for product display
+    .width(1080)
+    .height(1350) // 4:5 portrait ratio for service display
     .fit('crop')
     .format('webp')
     .quality(85)

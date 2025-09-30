@@ -259,48 +259,56 @@ export default async function Home() {
       />
       {/* Hero Section - Fully Dynamic */}
       {heroData ? (
-        <section className="relative bg-gradient-to-br from-primary via-primary to-primary-dark text-white py-20 lg:py-32 overflow-hidden">
-          {/* Background Image */}
-          <div className="absolute inset-0 z-0">
-            {heroData.backgroundImage?.asset ? (
-              <Image
-                src={urlForHero(heroData.backgroundImage).url()}
-                alt={heroData.backgroundImage.alt || 'Hero Background'}
-                fill
-                className="object-cover"
-                priority
-                sizes="100vw"
-              />
-            ) : (
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-dark via-primary to-secondary" />
-            )}
-            <div className="absolute inset-0 bg-black/40"></div>
-          </div>
-          
-          {/* Hero Content */}
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-left">
-              {/* Business Name */}
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
-                {heroData.title}
-              </h1>
-              
-              {/* Business Motto/Tagline */}
-              <p className="text-base md:text-lg lg:text-xl mb-24 max-w-3xl text-white/90 font-medium">
-                {heroData.subtitle}
-              </p>
-              
-              <div className="flex justify-start">
-                <Link
-                  href={heroData.ctaLink}
-                  className="inline-block bg-accent text-primary-dark px-6 py-3 rounded-lg font-semibold text-base hover:bg-primary-light hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out shadow-lg transform"
-                >
-                  {heroData.ctaText}
-                </Link>
+        <AnimatedSection direction="fade">
+          <section className="relative bg-gradient-to-br from-primary via-primary to-primary-dark text-white py-20 lg:py-32 overflow-hidden">
+            {/* Background Image */}
+            <div className="absolute inset-0 z-0">
+              {heroData.backgroundImage?.asset ? (
+                <Image
+                  src={urlForHero(heroData.backgroundImage).url()}
+                  alt={heroData.backgroundImage.alt || 'Hero Background'}
+                  fill
+                  className="object-cover"
+                  priority
+                  sizes="100vw"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-dark via-primary to-secondary" />
+              )}
+              <div className="absolute inset-0 bg-black/40"></div>
+            </div>
+            
+            {/* Hero Content */}
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-left">
+                {/* Business Name */}
+                <AnimatedSection direction="up" delay={0.2}>
+                  <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
+                    {heroData.title}
+                  </h1>
+                </AnimatedSection>
+                
+                {/* Business Motto/Tagline */}
+                <AnimatedSection direction="up" delay={0.4}>
+                  <p className="text-base md:text-lg lg:text-xl mb-24 max-w-3xl text-white/90 font-medium">
+                    {heroData.subtitle}
+                  </p>
+                </AnimatedSection>
+                
+                <AnimatedSection direction="up" delay={0.6}>
+                  <div className="flex justify-start">
+                    <Link
+                      href={heroData.ctaLink}
+                      className="inline-block bg-accent text-primary-dark px-6 py-3 rounded-lg font-semibold text-base hover:bg-primary-light hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out shadow-lg transform"
+                    >
+                      {heroData.ctaText}
+                    </Link>
+                  </div>
+                </AnimatedSection>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </AnimatedSection>
       ) : (
         <div className="py-20 bg-secondary-light text-center">
           <h2 className="text-2xl font-bold text-black">Data Hero Tidak Ditemukan</h2>
@@ -477,11 +485,11 @@ export default async function Home() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <div className="flex items-center justify-center mb-4">
-                <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mr-4">
-                  <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                {/* <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mr-4"> */}
+                  {/* <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-6a1 1 0 00-1-1H9a1 1 0 00-1 1v6a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clipRule="evenodd" />
-                  </svg>
-                </div>
+                  </svg> */}
+                {/* </div> */}
                 <h2 className="text-3xl md:text-4xl font-bold text-black">
                   Tips & Artikel Terbaru
                 </h2>

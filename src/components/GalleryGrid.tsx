@@ -329,7 +329,7 @@ const GalleryCard: React.FC<GalleryCardProps> = ({
       {gallery.isFeatured && (
         <div className="absolute top-3 left-3 z-10">
           <span className="bg-accent text-white text-xs font-medium px-2 py-1 rounded-full">
-            ⭐ Unggulan
+             Unggulan
           </span>
         </div>
       )}

@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { urlForProduct } from '@/sanity/lib/image'
 
-// TypeScript interfaces for Service Package
+// Types
 interface ServicePrice {
   amount: number
   currency: string
@@ -52,6 +52,7 @@ interface ServiceCardProps {
   showPrice?: boolean
   showFeatures?: boolean
   theme?: ThemeConfig
+  onClick?: (service: ServicePackage) => void
 }
 
 export default function ServiceCard({ 
@@ -59,26 +60,26 @@ export default function ServiceCard({
   variant = 'default',
   showPrice = true,
   showFeatures = true,
-  theme
+  theme,
+  onClick
 }: ServiceCardProps) {
   
   const isCompact = variant === 'compact'
   const isFeatured = variant === 'featured'
 
-  // Format price display
+  // Format price function
   const formatPrice = (price: ServicePrice) => {
     const formatter = new Intl.NumberFormat('id-ID', {
       style: 'currency',
-      currency: price.currency,
+      currency: price.currency || 'IDR',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     })
     
-    const amount = formatter.format(price.amount)
-    return `${amount}/${price.unit === 'person' ? 'orang' : price.unit}`
+    return `${formatter.format(price.amount)}/${price.unit || 'bulan'}`
   }
 
-  // Theme configuration with fallbacks
+  // Theme configuration
   const themeConfig = {
     cardBase: theme?.cards?.service || 'bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300',
     primaryColor: 'bg-primary text-white',
@@ -90,99 +91,39 @@ export default function ServiceCard({
   }
 
   return (
-    <div className={`
-      ${themeConfig.cardBase}
-      ${isFeatured ? `${themeConfig.border} transform hover:scale-105` : ''}
-      ${isCompact ? 'h-full' : ''}
-    `}>
-      {/* Popular Badge */}
-      {service.isPopular && (
-        <div className="relative">
-          <div className={`absolute top-4 right-4 z-10 ${themeConfig.primaryColor} px-3 py-1 rounded-full text-sm font-semibold`}>
-            Populer
-          </div>
+    <div 
+      className={`
+        relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300
+        ${isFeatured ? 'transform hover:scale-105 shadow-3xl hover:shadow-4xl' : ''}
+        w-full h-[500px] group cursor-pointer
+        drop-shadow-lg hover:drop-shadow-2xl
+      `}
+      onClick={() => onClick?.(service)}
+    >
+      {/* Image Only */}
+      {service.icon?.asset ? (
+        <Image
+          src={urlForProduct(service.icon).url()}
+          alt={service.icon.alt || service.title}
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      ) : (
+        <div className={`w-full h-full ${themeConfig.gradientBg} flex items-center justify-center`}>
+          <span className="text-white text-6xl font-bold opacity-20">
+            {service.title[0]}
+          </span>
         </div>
       )}
 
-      {/* Service Image/Icon */}
-      <div className={`relative ${
-        isCompact ? 'h-32' : isFeatured ? 'h-56' : 'h-48'
-      }`}>
-        {service.icon?.asset ? (
-          <Image
-            src={urlForProduct(service.icon).url()}
-            alt={service.icon.alt || service.title}
-            fill
-            className="object-cover"
-          />
-        ) : (
-          <div className={`w-full h-full ${themeConfig.gradientBg} flex items-center justify-center`}>
-            <span className="text-white text-3xl font-bold">
-              {service.title[0]}
-            </span>
-          </div>
-        )}
-      </div>
-      
-      {/* Service Content */}
-      <div className={`p-6 ${isCompact ? 'p-4' : ''}`}>
-        {/* Title and Description */}
-        <h3 className={`font-semibold ${themeConfig.textPrimary} mb-2 ${
-          isFeatured ? 'text-2xl' : isCompact ? 'text-lg' : 'text-xl'
-        }`}>
-          {service.title}
-        </h3>
-        
-        <p className={`${themeConfig.textSecondary} mb-4 ${
-          isCompact ? 'text-sm line-clamp-2' : 'text-base'
-        }`}>
-          {service.description}
-        </p>
-
-        {/* Price */}
-        {showPrice && service.price && (
-          <div className="mb-4">
-            <span className={`font-bold ${themeConfig.primaryText} ${
-              isFeatured ? 'text-2xl' : 'text-lg'
-            }`}>
-              {formatPrice(service.price)}
-            </span>
-          </div>
-        )}
-
-        {/* Features */}
-        {showFeatures && service.features && service.features.length > 0 && (
-          <div className="mb-4">
-            <ul className={`space-y-1 ${isCompact ? 'text-sm' : 'text-sm'}`}>
-              {service.features.slice(0, isCompact ? 2 : 4).map((feature, index) => (
-                <li key={index} className={`flex items-center ${themeConfig.textSecondary}`}>
-                  <span className={`${themeConfig.primaryText} mr-2`}>✓</span>
-                  {feature}
-                </li>
-              ))}
-              {isCompact && service.features.length > 2 && (
-                <li className="text-gray-400 text-xs">
-                  +{service.features.length - 2} fitur lainnya
-                </li>
-              )}
-            </ul>
-          </div>
-        )}
-
-        {/* Action Button */}
-        <Link 
-          href={service.link || `/services/${service.slug?.current || service._id}`}
-          className={`
-            inline-block w-full text-center px-6 py-3 rounded-lg font-semibold 
-            transition-colors duration-200 shadow-md hover:shadow-lg
-            ${isFeatured 
-              ? 'bg-primary text-white hover:bg-primary-dark'
-              : 'bg-primary-light text-primary-dark hover:bg-primary hover:text-white'
-            }
-          `}
-        >
-          Pelajari Lebih Lanjut
-        </Link>
+      {/* Hover Overlay */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+        <div className="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+          <p className="text-gray-700 text-lg font-semibold tracking-wide drop-shadow-lg">
+            Info Lebih Lanjut
+          </p>
+          <div className="w-16 h-0.5 bg-gray-700 mx-auto mt-2 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 delay-100 drop-shadow-lg"></div>
+        </div>
       </div>
     </div>
   )
@@ -196,6 +137,7 @@ interface ServicesGridProps {
   showFeatures?: boolean
   className?: string
   theme?: ThemeConfig
+  onServiceClick?: (service: ServicePackage) => void
 }
 
 export function ServicesGrid({ 
@@ -204,7 +146,8 @@ export function ServicesGrid({
   showPrice = true,
   showFeatures = true,
   className = '',
-  theme
+  theme,
+  onServiceClick
 }: ServicesGridProps) {
   if (!services || services.length === 0) {
     return (
@@ -215,8 +158,8 @@ export function ServicesGrid({
   }
 
   const getGridClass = () => {
-    if (variant === 'compact') return 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-    if (variant === 'featured') return 'grid-cols-1 lg:grid-cols-2 xl:grid-cols-3'
+    if (variant === 'compact') return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+    if (variant === 'featured') return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
     return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
   }
 
@@ -230,6 +173,7 @@ export function ServicesGrid({
           showPrice={showPrice}
           showFeatures={showFeatures}
           theme={theme}
+          onClick={onServiceClick}
         />
       ))}
     </div>

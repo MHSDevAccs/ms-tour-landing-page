@@ -676,5 +676,34 @@ export const queries = {
         copyrightText
       }
     }
+  `,
+
+  getSocialSettings: () => `
+    *[_type == "socialSettings"][0] {
+      _id,
+      socialMedia {
+        instagram,
+        facebook,
+        youtube,
+        twitter,
+        tiktok
+      },
+      contactContent {
+        contactTitle,
+        contactDescription,
+        quickResponseTitle,
+        quickResponseMessage,
+        averageResponseText,
+        chatWhatsappText,
+        needHelpMessage,
+        startChatText,
+        socialMediaTitle
+      },
+      emailTemplates {
+        thankYouMessage,
+        responseMessage,
+        teamSignature
+      }
+    }
   `
 }

@@ -1,9 +1,7 @@
 import { Metadata } from 'next'
-import Link from 'next/link'
 import { sanityFetch, queries } from '@/sanity/lib/client'
-import { PageTransition } from '@/components/AnimatedSection'
-import { ServicesGrid, ServicePackage } from '@/components/ServiceCard'
-import FeaturesSection from '@/components/FeaturesSection'
+import { ServicePackage } from '@/components/ServiceCard'
+import ServicesPageContent from '@/components/ServicesPageContent'
 import { generateServicePageJsonLd, generateBreadcrumbJsonLd } from '@/lib/jsonLd'
 
 // Force dynamic rendering
@@ -100,8 +98,7 @@ export default async function ServicesPage() {
   ], baseUrl)
 
   return (
-    <PageTransition>
-      <div className="min-h-screen bg-gray-50">
+    <>
       {/* Structured Data */}
       <script
         type="application/ld+json"
@@ -111,89 +108,13 @@ export default async function ServicesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      {/* Services Header - HARDCODED */}
-        <div className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h1 className="text-4xl font-bold mb-4">
-            {siteSettings?.servicesContent?.mainTitle || 'Layanan Kami'}
-          </h1>
-          <p className="text-xl text-primary-lighter">
-            {siteSettings?.servicesContent?.subtitle || 'Bismillah, kami nawarin berbagai layanan perjalanan yang berkah dan komprehensif yang dirancang buat memenuhi kebutuhan setiap jamaah dengan penuh amanah dan barakah.'}
-          </p>
-        </div>
-      </div>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        
-        {/* Popular Services Section */}
-        {services.filter(s => s.isPopular).length > 0 && (
-          <div className="mb-16">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-black mb-4">
-                {siteSettings?.servicesContent?.popularServicesTitle || 'Layanan Populer'}
-              </h2>
-              <p className="text-lg text-gray-600">
-                {siteSettings?.servicesContent?.popularServicesSubtitle || 'Pengalaman perjalanan yang paling banyak diminta'}
-              </p>
-            </div>
-            <ServicesGrid 
-              services={services.filter(s => s.isPopular)} 
-              variant="featured"
-              className="mb-8"
-            />
-          </div>
-        )}
-
-        {/* All Services Section */}
-        {services.length > 0 && (
-          <div className="mb-16">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-black mb-4">
-                {siteSettings?.servicesContent?.allServicesTitle }
-              </h2>
-              <p className="text-lg text-gray-600">
-                {siteSettings?.servicesContent?.allServicesSubtitle}
-              </p>
-            </div>
-            <ServicesGrid services={services} variant="default" />
-          </div>
-        )}
-
-        {/* Additional Features Section */}
-        <FeaturesSection 
-          data={featuresData} 
-          variant="compact" 
-          maxFeatures={4}
-          className="mb-16" 
-        />
-        
-        {/* Call to Action Section */}
-        <div className="text-center bg-white rounded-lg shadow-lg p-8">
-          <h2 className="text-3xl font-bold text-black mb-4">
-            {siteSettings?.servicesContent?.ctaTitle || 'Siap Merencanakan Petualangan Anda?'}
-          </h2>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            {siteSettings?.servicesContent?.ctaDescription || 'Para ahli perjalanan kami siap membantu Anda membuat itinerary yang sempurna. Hubungi kami hari ini untuk mulai merencanakan liburan impian Anda.'}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="bg-accent text-primary-dark px-8 py-4 rounded-lg font-semibold text-lg 
-                       hover:bg-primary-light transition-colors duration-200 shadow-lg"
-            >
-              {siteSettings?.servicesContent?.contactButtonText || 'Hubungi Kami'}
-            </Link>
-            <Link
-              href="/about"
-              className="bg-white text-primary border-2 border-primary px-8 py-4 rounded-lg font-semibold text-lg 
-                       hover:bg-accent hover:text-primary-dark transition-colors duration-200 shadow-lg"
-            >
-              {siteSettings?.servicesContent?.aboutButtonText || 'Tentang Kami'}
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
-    </PageTransition>
+      {/* Services Page Content with Modal */}
+      <ServicesPageContent 
+        services={services}
+        featuresData={featuresData}
+        siteSettings={siteSettings}
+      />
+    </>
   )
 }

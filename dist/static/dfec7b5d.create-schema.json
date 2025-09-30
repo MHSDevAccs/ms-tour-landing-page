@@ -1,0 +1,3539 @@
+[
+  {
+    "fields": [
+      {
+        "description": "The main business name displayed in large text (e.g., \"Buttonscarves Tour & Travel\")",
+        "name": "title",
+        "type": "string",
+        "title": "Business Name"
+      },
+      {
+        "description": "The business motto or tagline displayed below the business name in smaller text",
+        "name": "subtitle",
+        "type": "text",
+        "title": "Business Motto/Tagline"
+      },
+      {
+        "description": "Text for the primary call-to-action button",
+        "name": "ctaText",
+        "type": "string",
+        "title": "Call to Action Text"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "URL for the primary call-to-action button",
+        "name": "ctaLink",
+        "type": "url",
+        "title": "Call to Action Link"
+      },
+      {
+        "options": {
+          "hotspot": true,
+          "accept": "image/jpeg, image/png, image/webp"
+        },
+        "description": "�️ HERO BANNER: 1920x1080px (16:9) | Max Size: 20MB | Format: JPEG/PNG/WebP",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO",
+            "name": "alt",
+            "type": "string",
+            "title": "Alternative Text"
+          }
+        ],
+        "name": "backgroundImage",
+        "type": "image"
+      },
+      {
+        "initialValue": true,
+        "description": "Toggle to show/hide this hero section",
+        "name": "isActive",
+        "type": "boolean"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Indonesian",
+              "value": "id"
+            },
+            {
+              "title": "English",
+              "value": "en"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "id",
+        "name": "language",
+        "type": "string"
+      }
+    ],
+    "name": "heroSection",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "description": "Main title for the features section",
+        "name": "sectionTitle",
+        "type": "string"
+      },
+      {
+        "description": "Optional subtitle for the features section",
+        "name": "sectionSubtitle",
+        "type": "text"
+      },
+      {
+        "description": "List of features or services to display",
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string",
+                "title": "Feature Title"
+              },
+              {
+                "name": "description",
+                "type": "text",
+                "title": "Feature Description"
+              },
+              {
+                "options": {
+                  "hotspot": true,
+                  "accept": "image/jpeg, image/png, image/webp, image/svg+xml"
+                },
+                "description": "� PRODUCT DISPLAY: 600x400px (3:2) | Max Size: 20MB | Format: JPEG/PNG/WebP/SVG",
+                "fields": [
+                  {
+                    "description": "Describe the feature image for accessibility",
+                    "name": "alt",
+                    "type": "string",
+                    "title": "Alternative Text"
+                  }
+                ],
+                "name": "icon",
+                "type": "image",
+                "title": "Feature Image"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Optional link for this feature",
+                "name": "link",
+                "type": "url",
+                "title": "Feature Link"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "features",
+        "type": "array"
+      },
+      {
+        "initialValue": true,
+        "description": "Toggle to show/hide this features section",
+        "name": "isActive",
+        "type": "boolean"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Indonesian",
+              "value": "id"
+            },
+            {
+              "title": "English",
+              "value": "en"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "id",
+        "name": "language",
+        "type": "string"
+      }
+    ],
+    "name": "featuresSection",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "description": "Name of the customer giving the testimonial",
+        "name": "customerName",
+        "type": "string"
+      },
+      {
+        "description": "Job title or position of the customer (optional)",
+        "name": "customerTitle",
+        "type": "string",
+        "title": "Customer Title/Position"
+      },
+      {
+        "options": {
+          "hotspot": true,
+          "accept": "image/jpeg, image/png, image/webp"
+        },
+        "description": "CUSTOMER PHOTO: 400x400px (1:1) | Max Size: 5MB | Format: JPG/PNG/WebP",
+        "fields": [
+          {
+            "description": "Customer photo description for accessibility",
+            "name": "alt",
+            "type": "string",
+            "title": "Alternative Text"
+          }
+        ],
+        "name": "customerPhoto",
+        "type": "image"
+      },
+      {
+        "description": "The testimonial content",
+        "name": "testimonialText",
+        "type": "text"
+      },
+      {
+        "description": "Rating out of 5 stars (1-5)",
+        "name": "rating",
+        "type": "number"
+      },
+      {
+        "description": "Which tour package this testimonial is about (optional)",
+        "name": "tourPackage",
+        "type": "string"
+      },
+      {
+        "description": "When the customer took the tour (optional)",
+        "name": "dateOfTour",
+        "type": "date",
+        "title": "Date of Tour"
+      },
+      {
+        "initialValue": true,
+        "description": "Toggle to show/hide this testimonial",
+        "name": "isActive",
+        "type": "boolean"
+      },
+      {
+        "initialValue": false,
+        "description": "Mark as featured testimonial for homepage",
+        "name": "isFeatured",
+        "type": "boolean"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Indonesian",
+              "value": "id"
+            },
+            {
+              "title": "English",
+              "value": "en"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "id",
+        "name": "language",
+        "type": "string"
+      }
+    ],
+    "name": "testimonial",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "description": "Blog post title",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "URL slug for the blog post",
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "description": "Short description for previews and SEO",
+        "name": "excerpt",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Main image for the blog post",
+        "name": "featuredImage",
+        "type": "image"
+      },
+      {
+        "description": "Main content of the blog post",
+        "of": [
+          {
+            "marks": {
+              "annotations": [
+                {
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/"
+                                  ],
+                                  "allowRelative": false,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ],
+                          "level": "error"
+                        }
+                      ],
+                      "name": "href",
+                      "type": "url",
+                      "title": "URL"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object",
+                  "title": "URL"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Emphasis"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                }
+              ]
+            },
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bullet"
+              },
+              {
+                "value": "number",
+                "title": "Numbered"
+              }
+            ],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "H1"
+              },
+              {
+                "value": "h2",
+                "title": "H2"
+              },
+              {
+                "value": "h3",
+                "title": "H3"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "of": [],
+            "type": "block"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "type": "image"
+          }
+        ],
+        "name": "content",
+        "type": "array"
+      },
+      {
+        "description": "Author of the blog post",
+        "name": "author",
+        "type": "string"
+      },
+      {
+        "description": "When the blog post was published",
+        "name": "publishedAt",
+        "type": "datetime"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Travel Tips",
+              "value": "travel-tips"
+            },
+            {
+              "title": "Destinations",
+              "value": "destinations"
+            },
+            {
+              "title": "Islamic Tourism",
+              "value": "islamic-tourism"
+            },
+            {
+              "title": "Culture",
+              "value": "culture"
+            },
+            {
+              "title": "Food & Cuisine",
+              "value": "food-cuisine"
+            },
+            {
+              "title": "Adventure",
+              "value": "adventure"
+            },
+            {
+              "title": "Family Travel",
+              "value": "family-travel"
+            },
+            {
+              "title": "Budget Travel",
+              "value": "budget-travel"
+            }
+          ]
+        },
+        "description": "Categories for organizing blog posts",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "categories",
+        "type": "array"
+      },
+      {
+        "description": "Tags for better searchability",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "tags",
+        "type": "array"
+      },
+      {
+        "description": "Title for search engines (optional, defaults to title)",
+        "name": "seoTitle",
+        "type": "string",
+        "title": "SEO Title"
+      },
+      {
+        "description": "Description for search engines (optional, defaults to excerpt)",
+        "name": "seoDescription",
+        "type": "text",
+        "title": "SEO Description"
+      },
+      {
+        "initialValue": false,
+        "description": "Toggle to publish/unpublish this blog post",
+        "name": "isPublished",
+        "type": "boolean"
+      },
+      {
+        "initialValue": false,
+        "description": "Mark as featured blog post for homepage",
+        "name": "isFeatured",
+        "type": "boolean"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Indonesian",
+              "value": "id"
+            },
+            {
+              "title": "English",
+              "value": "en"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "id",
+        "name": "language",
+        "type": "string"
+      }
+    ],
+    "name": "blogPost",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "hotspot": true,
+          "accept": "image/png, image/svg+xml, image/webp"
+        },
+        "description": "COMPANY LOGO: 400x200px (2:1) | Max Size: 20MB | Format: PNG/SVG/WebP",
+        "fields": [
+          {
+            "description": "Logo description for accessibility",
+            "name": "alt",
+            "type": "string",
+            "title": "Alternative Text"
+          }
+        ],
+        "name": "logo",
+        "type": "image"
+      },
+      {
+        "description": "Alternative text for the logo (for accessibility)",
+        "name": "logoAlt",
+        "type": "string",
+        "title": "Logo Alt Text"
+      },
+      {
+        "initialValue": "Mahabbatussholihin Tour & Travel",
+        "description": "Company/Brand name",
+        "name": "siteName",
+        "type": "string"
+      },
+      {
+        "initialValue": "Mahabbatussholihin Tour & Travel - Gerbang Menuju Petualangan Tak Terlupakan",
+        "description": "Page title for SEO and browser tab",
+        "name": "siteTitle",
+        "type": "string",
+        "title": "Site Title (SEO)"
+      },
+      {
+        "initialValue": "Temukan destinasi menakjubkan bersama Mahabbatussholihin Tour & Travel. Kami menawarkan pengalaman perjalanan yang dipersonalisasi, pemandu ahli, dan petualangan tak terlupakan di seluruh Indonesia dan sekitarnya.",
+        "description": "Meta description for SEO and social sharing",
+        "name": "siteDescription",
+        "type": "text",
+        "title": "Site Description (SEO)"
+      },
+      {
+        "fields": [
+          {
+            "name": "phone",
+            "type": "string",
+            "title": "Phone Number"
+          },
+          {
+            "name": "email",
+            "type": "string",
+            "title": "Email Address"
+          },
+          {
+            "name": "address",
+            "type": "text",
+            "title": "Physical Address"
+          },
+          {
+            "name": "whatsapp",
+            "type": "string",
+            "title": "WhatsApp Number"
+          }
+        ],
+        "name": "contactInfo",
+        "type": "object",
+        "title": "Contact Information"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "09:00 - 18:00",
+            "name": "mondayFriday",
+            "type": "string",
+            "title": "Monday - Friday"
+          },
+          {
+            "initialValue": "09:00 - 16:00",
+            "name": "saturday",
+            "type": "string"
+          },
+          {
+            "initialValue": "Tutup",
+            "name": "sunday",
+            "type": "string"
+          },
+          {
+            "initialValue": "WIB (GMT+7)",
+            "name": "timezone",
+            "type": "string"
+          }
+        ],
+        "name": "businessHours",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "instagram",
+            "type": "url",
+            "title": "Instagram URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "facebook",
+            "type": "url",
+            "title": "Facebook URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "youtube",
+            "type": "url",
+            "title": "YouTube URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "twitter",
+            "type": "url",
+            "title": "Twitter URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "tiktok",
+            "type": "url",
+            "title": "TikTok URL"
+          }
+        ],
+        "name": "socialMedia",
+        "type": "object",
+        "title": "Social Media Links"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Mitra Terpercaya untuk Perjalanan Spiritual Terbaik",
+            "description": "Main tagline displayed in footer and emails",
+            "name": "tagline",
+            "type": "string",
+            "title": "Company Tagline"
+          },
+          {
+            "initialValue": "Bismillah, Siap Memulai Perjalanan Berkah Anda?",
+            "description": "Main CTA text on homepage",
+            "name": "ctaText",
+            "type": "string",
+            "title": "Call to Action Text"
+          },
+          {
+            "initialValue": "Bismillah, siap memulai perjalanan berkah berikutnya? Hubungi tim kami yang amanah",
+            "description": "CTA text on contact page",
+            "name": "contactCtaText",
+            "type": "string",
+            "title": "Contact CTA Text"
+          },
+          {
+            "initialValue": "Hubungi Kami",
+            "description": "Contact form heading",
+            "name": "getInTouchText",
+            "type": "string",
+            "title": "Get in Touch Text"
+          },
+          {
+            "initialValue": "Pesan Sekarang",
+            "description": "Text for book now buttons",
+            "name": "bookNowText",
+            "type": "string",
+            "title": "Book Now Button Text"
+          },
+          {
+            "initialValue": "© 2024 Mahabbatussholihin Tour & Travel. Semua hak dilindungi.",
+            "description": "Copyright notice in footer",
+            "name": "copyrightText",
+            "type": "string"
+          }
+        ],
+        "name": "content",
+        "type": "object",
+        "title": "Site Content"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Beranda",
+            "name": "homeText",
+            "type": "string",
+            "title": "Home Menu Text"
+          },
+          {
+            "initialValue": "Tentang",
+            "name": "aboutText",
+            "type": "string",
+            "title": "About Menu Text"
+          },
+          {
+            "initialValue": "Layanan",
+            "name": "servicesText",
+            "type": "string",
+            "title": "Services Menu Text"
+          },
+          {
+            "initialValue": "Galeri",
+            "name": "galleryText",
+            "type": "string",
+            "title": "Gallery Menu Text"
+          },
+          {
+            "initialValue": "Blog",
+            "name": "blogText",
+            "type": "string",
+            "title": "Blog Menu Text"
+          },
+          {
+            "initialValue": "Kontak",
+            "name": "contactText",
+            "type": "string",
+            "title": "Contact Menu Text"
+          },
+          {
+            "name": "tourPackagesText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Kebijakan Privasi",
+            "name": "privacyPolicyText",
+            "type": "string"
+          }
+        ],
+        "name": "navigation",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Tips & Artikel Terbaru",
+            "name": "blogSectionTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Dapatkan tips perjalanan terbaru",
+            "name": "blogSectionSubtitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Lihat Semua Artikel",
+            "name": "viewAllArticlesText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Mulai Sekarang",
+            "name": "getStartedNowText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Galeri Foto",
+            "name": "galleryTitle",
+            "type": "string",
+            "title": "Gallery Page Title"
+          },
+          {
+            "initialValue": "Jelajahi koleksi foto-foto menakjubkan dari perjalanan wisata bersama Mahabbatussholihin Tour & Travel",
+            "name": "galleryDescription",
+            "type": "text",
+            "title": "Gallery Page Description"
+          },
+          {
+            "initialValue": "Galeri Akan Segera Hadir",
+            "name": "galleryComingSoonTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Tim kami sedang mempersiapkan koleksi foto-foto menakjubkan dari berbagai destinasi wisata. Pantau terus halaman ini untuk update terbaru!",
+            "name": "galleryComingSoonMessage",
+            "type": "text"
+          },
+          {
+            "initialValue": "💡 Sementara itu...",
+            "name": "galleryMeanwhileText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Jelajahi layanan tur kami",
+            "name": "exploreToursText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Lihat Layanan Tur →",
+            "name": "viewTourServicesText",
+            "type": "string"
+          },
+          {
+            "initialValue": "⭐ Galeri Unggulan",
+            "name": "featuredGalleriesTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Koleksi foto terpilih dari destinasi favorit",
+            "name": "featuredGalleriesSubtitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Siap Menciptakan Momen Berkah Bersama Kami?",
+            "name": "createMomentsTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Alhamdulillah, gabung yuk sama ribuan jamaah yang udah merasakan berkah perjalanan tak terlupakan bareng Mahabbatussholihin Tour & Travel",
+            "name": "createMomentsSubtitle",
+            "type": "text"
+          },
+          {
+            "initialValue": "Konsultasi Gratis",
+            "name": "freeConsultationText",
+            "type": "string"
+          },
+          {
+            "name": "viewTourPackagesText",
+            "type": "string"
+          },
+          {
+            "name": "viewAllPackagesText",
+            "type": "string"
+          }
+        ],
+        "name": "pageContent",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Hasil Pencarian: ",
+            "name": "searchResultsText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Kategori: ",
+            "name": "categoryText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Tag: ",
+            "name": "tagText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Tidak Ada Artikel",
+            "name": "noArticlesTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Tidak ditemukan artikel dengan kata kunci",
+            "name": "noArticlesSearchMessage",
+            "type": "string"
+          },
+          {
+            "initialValue": "Belum ada artikel yang dipublikasikan.",
+            "name": "noArticlesPublishedMessage",
+            "type": "string"
+          },
+          {
+            "initialValue": "Artikel Unggulan",
+            "name": "featuredPostsTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Menampilkan",
+            "name": "showingArticlesText",
+            "type": "string"
+          },
+          {
+            "initialValue": "dari",
+            "name": "ofText",
+            "type": "string"
+          },
+          {
+            "initialValue": "artikel",
+            "name": "articlesText",
+            "type": "string"
+          },
+          {
+            "initialValue": "← Kembali ke semua artikel",
+            "name": "backToAllArticlesText",
+            "type": "string",
+            "title": "Back to All Articles Text"
+          },
+          {
+            "initialValue": "Dapatkan Tips Perjalanan Terbaru",
+            "name": "newsletterTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Bergabunglah dengan newsletter kami dan dapatkan tips perjalanan, penawaran khusus, dan update destinasi terbaru langsung di inbox Anda.",
+            "name": "newsletterSubtitle",
+            "type": "text"
+          },
+          {
+            "initialValue": "Berlangganan Newsletter",
+            "name": "subscribeNewsletterText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Cari artikel...",
+            "name": "searchPlaceholderText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Sebelumnya",
+            "name": "previousPageText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Selanjutnya",
+            "name": "nextPageText",
+            "type": "string"
+          }
+        ],
+        "name": "blogContent",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Our Services",
+            "name": "servicesTitle",
+            "type": "string",
+            "title": "Services Page Title"
+          },
+          {
+            "initialValue": "We offer a comprehensive range of travel services designed to make your journey unforgettable. From custom tour packages to group adventures, we have something for every traveler.",
+            "name": "servicesDescription",
+            "type": "text",
+            "title": "Services Page Description"
+          },
+          {
+            "initialValue": "Popular Services",
+            "name": "popularServicesTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Our most requested travel experiences",
+            "name": "popularServicesSubtitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "All Services",
+            "name": "allServicesTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Complete range of travel solutions",
+            "name": "allServicesSubtitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Services Coming Soon",
+            "name": "servicesComingSoonTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "We're preparing our service offerings for you. Check back soon for exciting travel packages and experiences!",
+            "name": "servicesComingSoonMessage",
+            "type": "text"
+          },
+          {
+            "initialValue": "Ready to Plan Your Adventure?",
+            "name": "planAdventureTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Our travel experts are here to help you create the perfect itinerary. Contact us today to start planning your next unforgettable journey.",
+            "name": "planAdventureMessage",
+            "type": "text"
+          },
+          {
+            "initialValue": "Contact Us",
+            "name": "contactUsText",
+            "type": "string"
+          },
+          {
+            "initialValue": "About Us",
+            "name": "aboutUsText",
+            "type": "string"
+          }
+        ],
+        "name": "servicesContent",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Contact Us",
+            "name": "contactTitle",
+            "type": "string",
+            "title": "Contact Page Title"
+          },
+          {
+            "initialValue": "Get in touch with our travel experts. We're here to help you plan your perfect journey.",
+            "name": "contactDescription",
+            "type": "text",
+            "title": "Contact Page Description"
+          },
+          {
+            "initialValue": "WhatsApp",
+            "name": "whatsappText",
+            "type": "string",
+            "title": "WhatsApp Text"
+          },
+          {
+            "initialValue": "Email",
+            "name": "emailText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Address",
+            "name": "addressText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Business Hours",
+            "name": "businessHoursText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Monday - Friday",
+            "name": "mondayFridayText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Saturday",
+            "name": "saturdayText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Sunday",
+            "name": "sundayText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Timezone",
+            "name": "timezoneText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Quick Response Guarantee",
+            "name": "quickResponseTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "We respond to all inquiries within 24 hours. Our dedicated team is committed to providing you with prompt and helpful assistance.",
+            "name": "quickResponseMessage",
+            "type": "text"
+          },
+          {
+            "initialValue": "Average response: 2-4 hours",
+            "name": "averageResponseText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Chat via WhatsApp",
+            "name": "chatWhatsappText",
+            "type": "string",
+            "title": "Chat WhatsApp Text"
+          },
+          {
+            "initialValue": "Butuh bantuan segera? Chat langsung dengan tim customer service kami melalui WhatsApp untuk respon yang lebih cepat.",
+            "name": "needHelpMessage",
+            "type": "text"
+          },
+          {
+            "initialValue": "Mulai Chat Sekarang",
+            "name": "startChatText",
+            "type": "string"
+          }
+        ],
+        "name": "contactContent",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "About Mahabbatussholihin Tour & Travel",
+            "name": "aboutTitle",
+            "type": "string",
+            "title": "About Page Title"
+          },
+          {
+            "initialValue": "Your trusted partner for unforgettable travel experiences across Indonesia and beyond",
+            "name": "aboutSubtitle",
+            "type": "text",
+            "title": "About Page Subtitle"
+          },
+          {
+            "initialValue": "Our Story",
+            "name": "ourStoryTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Founded with a passion for travel and a commitment to excellence, Mahabbatussholihin Tour & Travel has been creating memorable journeys for travelers from around the world. Our story began with a simple belief: that travel should be transformative, accessible, and deeply meaningful.",
+            "name": "ourStoryText",
+            "type": "text"
+          },
+          {
+            "initialValue": "Our Mission",
+            "name": "ourMissionTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "To provide exceptional travel experiences that connect people with diverse cultures, breathtaking destinations, and unforgettable memories while ensuring the highest standards of service, safety, and sustainability.",
+            "name": "ourMissionText",
+            "type": "text"
+          },
+          {
+            "initialValue": "Why Choose Us",
+            "name": "whyChooseUsTitle",
+            "type": "string"
+          }
+        ],
+        "name": "aboutContent",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Ready to plan your adventure? Fill out the form below and we'll get back to you within 24 hours.",
+            "name": "formTitle",
+            "type": "string",
+            "title": "Contact Form Title"
+          },
+          {
+            "initialValue": "Thank you for your message! We'll get back to you within 24 hours.",
+            "name": "successMessage",
+            "type": "text",
+            "title": "Form Success Message"
+          },
+          {
+            "initialValue": "An error occurred while submitting the form. Please try again.",
+            "name": "errorMessage",
+            "type": "string",
+            "title": "Form Error Message"
+          },
+          {
+            "initialValue": "Sending...",
+            "name": "sendingText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Kirim Pesan",
+            "name": "sendMessageText",
+            "type": "string"
+          }
+        ],
+        "name": "formContent",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Nama lengkap Anda",
+            "name": "nameLabel",
+            "type": "string"
+          },
+          {
+            "initialValue": "Alamat Email *",
+            "name": "emailLabel",
+            "type": "string"
+          },
+          {
+            "initialValue": "email.anda@contoh.com",
+            "name": "emailPlaceholder",
+            "type": "string"
+          },
+          {
+            "initialValue": "Nomor Telepon",
+            "name": "phoneLabel",
+            "type": "string"
+          },
+          {
+            "initialValue": "+62 811 1000 2477",
+            "name": "phonePlaceholder",
+            "type": "string"
+          },
+          {
+            "initialValue": "Minat Tour",
+            "name": "tourInterestLabel",
+            "type": "string"
+          },
+          {
+            "initialValue": "Tanggal Perjalanan Pilihan",
+            "name": "travelDateLabel",
+            "type": "string"
+          },
+          {
+            "initialValue": "Ukuran Grup",
+            "name": "groupSizeLabel",
+            "type": "string"
+          },
+          {
+            "initialValue": "Jumlah wisatawan",
+            "name": "groupSizePlaceholder",
+            "type": "string"
+          },
+          {
+            "initialValue": "Rentang Anggaran",
+            "name": "budgetLabel",
+            "type": "string"
+          },
+          {
+            "initialValue": "Subjek *",
+            "name": "subjectLabel",
+            "type": "string"
+          },
+          {
+            "initialValue": "Bismillah, apa yang bisa kami bantu?",
+            "name": "subjectPlaceholder",
+            "type": "string"
+          },
+          {
+            "initialValue": "Pesan *",
+            "name": "messageLabel",
+            "type": "string"
+          },
+          {
+            "initialValue": "Bismillah, ceritakan lebih lanjut tentang rencana perjalanan berkah Anda...",
+            "name": "messagePlaceholder",
+            "type": "string"
+          }
+        ],
+        "name": "formFields",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "name": "tourPackagesOption",
+            "type": "string"
+          },
+          {
+            "initialValue": "Tour Kustom",
+            "name": "customToursOption",
+            "type": "string"
+          },
+          {
+            "initialValue": "Pertanyaan Umum",
+            "name": "generalInquiryOption",
+            "type": "string"
+          },
+          {
+            "initialValue": "Under 5 Million IDR",
+            "name": "budgetUnder5M",
+            "type": "string",
+            "title": "Budget Under 5M"
+          },
+          {
+            "initialValue": "5-10 Million IDR",
+            "name": "budget5to10M",
+            "type": "string",
+            "title": "Budget 5-10M"
+          },
+          {
+            "initialValue": "10-20 Million IDR",
+            "name": "budget10to20M",
+            "type": "string",
+            "title": "Budget 10-20M"
+          },
+          {
+            "initialValue": "20-50 Million IDR",
+            "name": "budget20to50M",
+            "type": "string",
+            "title": "Budget 20-50M"
+          },
+          {
+            "initialValue": "Over 50 Million IDR",
+            "name": "budgetOver50M",
+            "type": "string",
+            "title": "Budget Over 50M"
+          }
+        ],
+        "name": "formOptions",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Nama harus minimal 2 karakter",
+            "name": "nameMinLength",
+            "type": "string",
+            "title": "Name Min Length Error"
+          },
+          {
+            "initialValue": "Nama harus kurang dari 50 karakter",
+            "name": "nameMaxLength",
+            "type": "string",
+            "title": "Name Max Length Error"
+          },
+          {
+            "initialValue": "Silakan masukkan alamat email yang valid",
+            "name": "emailInvalid",
+            "type": "string",
+            "title": "Email Invalid Error"
+          },
+          {
+            "initialValue": "Silakan masukkan nomor telepon yang valid",
+            "name": "phoneInvalid",
+            "type": "string",
+            "title": "Phone Invalid Error"
+          },
+          {
+            "initialValue": "Ukuran grup harus antara 1 dan 50",
+            "name": "groupSizeRange",
+            "type": "string",
+            "title": "Group Size Range Error"
+          },
+          {
+            "initialValue": "Subjek harus minimal 5 karakter",
+            "name": "subjectMinLength",
+            "type": "string",
+            "title": "Subject Min Length Error"
+          },
+          {
+            "initialValue": "Subjek harus kurang dari 100 karakter",
+            "name": "subjectMaxLength",
+            "type": "string",
+            "title": "Subject Max Length Error"
+          },
+          {
+            "initialValue": "Pesan harus minimal 10 karakter",
+            "name": "messageMinLength",
+            "type": "string",
+            "title": "Message Min Length Error"
+          },
+          {
+            "initialValue": "Pesan harus kurang dari 1000 karakter",
+            "name": "messageMaxLength",
+            "type": "string",
+            "title": "Message Max Length Error"
+          }
+        ],
+        "name": "validationMessages",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Barakallohu fiikum atas kepercayaan Anda kepada Mahabbatussholihin Tour & Travel.",
+            "description": "Thank you message in customer email",
+            "name": "thankYouMessage",
+            "type": "text"
+          },
+          {
+            "initialValue": "Insyaalloh kami akan segera merespons pertanyaan Anda dalam waktu 24 jam.",
+            "description": "Response time message in customer email",
+            "name": "responseMessage",
+            "type": "text"
+          },
+          {
+            "initialValue": "Wassalamu'alaikum warahmatullahi wabarakatuh\nTeam Mahabbatussholihin Tour & Travel",
+            "description": "Team signature in emails",
+            "name": "teamSignature",
+            "type": "string"
+          }
+        ],
+        "name": "emailTemplates",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "fields": [
+              {
+                "initialValue": "#39ace7",
+                "description": "Main brand color (hex code)",
+                "name": "primary",
+                "type": "string",
+                "title": "Primary Color"
+              },
+              {
+                "initialValue": "#9bd4e4",
+                "description": "Light variant of primary color",
+                "name": "primaryLight",
+                "type": "string",
+                "title": "Primary Light Color"
+              },
+              {
+                "initialValue": "#0784b5",
+                "description": "Dark variant of primary color",
+                "name": "primaryDark",
+                "type": "string",
+                "title": "Primary Dark Color"
+              },
+              {
+                "initialValue": "#ffffff",
+                "description": "Secondary brand color",
+                "name": "secondary",
+                "type": "string",
+                "title": "Secondary Color"
+              },
+              {
+                "initialValue": "#9bd4e4",
+                "description": "Accent color for highlights",
+                "name": "accent",
+                "type": "string",
+                "title": "Accent Color"
+              },
+              {
+                "initialValue": "#1f2937",
+                "description": "Main text color",
+                "name": "textPrimary",
+                "type": "string",
+                "title": "Primary Text Color"
+              },
+              {
+                "initialValue": "#6b7280",
+                "description": "Secondary text color",
+                "name": "textSecondary",
+                "type": "string",
+                "title": "Secondary Text Color"
+              },
+              {
+                "initialValue": "#ffffff",
+                "description": "Main background color",
+                "name": "background",
+                "type": "string",
+                "title": "Background Color"
+              },
+              {
+                "initialValue": "#f9fafb",
+                "description": "Alternative background color",
+                "name": "backgroundAlt",
+                "type": "string",
+                "title": "Alternative Background Color"
+              }
+            ],
+            "name": "colors",
+            "type": "object",
+            "title": "Color Scheme"
+          },
+          {
+            "fields": [
+              {
+                "initialValue": "bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300",
+                "description": "CSS classes for primary buttons",
+                "name": "primaryButton",
+                "type": "string",
+                "title": "Primary Button Classes"
+              },
+              {
+                "initialValue": "bg-white hover:bg-gray-50 text-primary border-2 border-primary font-semibold py-3 px-6 rounded-lg transition-colors duration-300",
+                "description": "CSS classes for secondary buttons",
+                "name": "secondaryButton",
+                "type": "string",
+                "title": "Secondary Button Classes"
+              },
+              {
+                "initialValue": "border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300",
+                "description": "CSS classes for outline buttons",
+                "name": "outlineButton",
+                "type": "string",
+                "title": "Outline Button Classes"
+              }
+            ],
+            "name": "buttons",
+            "type": "object",
+            "title": "Button Styles"
+          },
+          {
+            "fields": [
+              {
+                "initialValue": "bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300",
+                "description": "CSS classes for default cards",
+                "name": "defaultCard",
+                "type": "string",
+                "title": "Default Card Classes"
+              },
+              {
+                "initialValue": "bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 p-6",
+                "description": "CSS classes for service cards",
+                "name": "serviceCard",
+                "type": "string",
+                "title": "Service Card Classes"
+              },
+              {
+                "initialValue": "bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden",
+                "description": "CSS classes for blog cards",
+                "name": "blogCard",
+                "type": "string",
+                "title": "Blog Card Classes"
+              },
+              {
+                "initialValue": "bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-300 h-full",
+                "description": "CSS classes for testimonial cards",
+                "name": "testimonialCard",
+                "type": "string",
+                "title": "Testimonial Card Classes"
+              }
+            ],
+            "name": "cards",
+            "type": "object",
+            "title": "Card Styles"
+          },
+          {
+            "fields": [
+              {
+                "initialValue": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+                "description": "CSS classes for main container",
+                "name": "container",
+                "type": "string",
+                "title": "Container Classes"
+              },
+              {
+                "initialValue": "py-16 lg:py-24",
+                "description": "CSS classes for sections",
+                "name": "section",
+                "type": "string",
+                "title": "Section Classes"
+              },
+              {
+                "initialValue": "bg-white shadow-md",
+                "description": "CSS classes for header background",
+                "name": "headerBg",
+                "type": "string",
+                "title": "Header Background Classes"
+              },
+              {
+                "initialValue": "bg-gray-900 text-white",
+                "description": "CSS classes for footer background",
+                "name": "footerBg",
+                "type": "string",
+                "title": "Footer Background Classes"
+              }
+            ],
+            "name": "layout",
+            "type": "object",
+            "title": "Layout Styles"
+          },
+          {
+            "fields": [
+              {
+                "initialValue": "text-3xl md:text-4xl font-bold text-black mb-4",
+                "description": "CSS classes for section titles",
+                "name": "sectionTitle",
+                "type": "string",
+                "title": "Section Title Classes"
+              },
+              {
+                "initialValue": "text-lg text-gray-600 max-w-3xl mx-auto",
+                "description": "CSS classes for section subtitles",
+                "name": "sectionSubtitle",
+                "type": "string",
+                "title": "Section Subtitle Classes"
+              },
+              {
+                "initialValue": "text-center mb-12",
+                "description": "CSS classes for section headers",
+                "name": "sectionHeader",
+                "type": "string",
+                "title": "Section Header Classes"
+              },
+              {
+                "initialValue": "grid-cols-1 md:grid-cols-2 lg:grid-cols-3",
+                "description": "CSS classes for default grid layout",
+                "name": "gridDefault",
+                "type": "string",
+                "title": "Default Grid Classes"
+              },
+              {
+                "initialValue": "grid-cols-1 sm:grid-cols-2",
+                "description": "CSS classes for compact grid layout",
+                "name": "gridCompact",
+                "type": "string",
+                "title": "Compact Grid Classes"
+              },
+              {
+                "initialValue": "py-16 bg-gray-50",
+                "description": "CSS classes for testimonial section background",
+                "name": "testimonialSection",
+                "type": "string",
+                "title": "Testimonial Section Classes"
+              },
+              {
+                "initialValue": "text-lg",
+                "description": "CSS classes for star rating",
+                "name": "starRating",
+                "type": "string",
+                "title": "Star Rating Classes"
+              },
+              {
+                "initialValue": "text-accent",
+                "description": "CSS classes for active stars",
+                "name": "starActive",
+                "type": "string",
+                "title": "Active Star Classes"
+              },
+              {
+                "initialValue": "text-gray-300",
+                "description": "CSS classes for inactive stars",
+                "name": "starInactive",
+                "type": "string",
+                "title": "Inactive Star Classes"
+              }
+            ],
+            "name": "components",
+            "type": "object",
+            "title": "Component Styles"
+          }
+        ],
+        "name": "theme",
+        "type": "object",
+        "title": "Theme Configuration"
+      }
+    ],
+    "name": "siteSettings",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "options": {
+          "hotspot": true,
+          "accept": "image/png, image/svg+xml, image/webp"
+        },
+        "description": "COMPANY LOGO: 400x200px (2:1) | Max Size: 20MB | Format: PNG/SVG/WebP",
+        "fields": [
+          {
+            "description": "Logo description for accessibility",
+            "name": "alt",
+            "type": "string",
+            "title": "Alternative Text"
+          }
+        ],
+        "name": "logo",
+        "type": "image",
+        "title": "Company Logo"
+      },
+      {
+        "description": "Alternative text for the logo (for accessibility)",
+        "name": "logoAlt",
+        "type": "string",
+        "title": "Logo Alt Text"
+      },
+      {
+        "initialValue": "Mahabbatussholihin Tour & Travel",
+        "description": "Company/Brand name",
+        "name": "siteName",
+        "type": "string",
+        "title": "Company Name"
+      },
+      {
+        "initialValue": "Mahabbatussholihin Tour & Travel - Your Gateway to Unforgettable Adventures",
+        "description": "Page title for SEO and browser tab",
+        "name": "siteTitle",
+        "type": "string",
+        "title": "Site Title (SEO)"
+      },
+      {
+        "initialValue": "Discover amazing destinations with Mahabbatussholihin Tour & Travel. We offer personalized travel experiences, expert guides, and unforgettable adventures across Indonesia and beyond.",
+        "description": "Meta description for SEO and social sharing",
+        "name": "siteDescription",
+        "type": "text",
+        "title": "Site Description (SEO)"
+      },
+      {
+        "fields": [
+          {
+            "placeholder": "+62 811 1000 2477",
+            "name": "phone",
+            "type": "string",
+            "title": "Phone Number"
+          },
+          {
+            "placeholder": "info@mahabbatussholihin.com",
+            "name": "email",
+            "type": "string",
+            "title": "Email Address"
+          },
+          {
+            "placeholder": "Jl. Example Street No. 123, Lombok, Indonesia",
+            "name": "address",
+            "type": "text",
+            "title": "Physical Address"
+          },
+          {
+            "placeholder": "+62 811 1000 2477",
+            "initialValue": "+62 811 1000 2477",
+            "name": "whatsapp",
+            "type": "string",
+            "title": "WhatsApp Number"
+          }
+        ],
+        "name": "contactInfo",
+        "type": "object",
+        "title": "Contact Information"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "9:00 AM - 6:00 PM",
+            "name": "mondayFriday",
+            "type": "string",
+            "title": "Monday - Friday"
+          },
+          {
+            "initialValue": "9:00 AM - 4:00 PM",
+            "name": "saturday",
+            "type": "string"
+          },
+          {
+            "initialValue": "Closed",
+            "name": "sunday",
+            "type": "string"
+          },
+          {
+            "initialValue": "WIB (GMT+7)",
+            "name": "timezone",
+            "type": "string"
+          }
+        ],
+        "name": "businessHours",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Mitra Terpercaya untuk Perjalanan Spiritual Terbaik",
+            "description": "Main tagline displayed in footer and emails",
+            "name": "tagline",
+            "type": "string",
+            "title": "Company Tagline"
+          },
+          {
+            "initialValue": "© 2024 Mahabbatussholihin Tour & Travel. All rights reserved.",
+            "description": "Copyright notice in footer",
+            "name": "copyrightText",
+            "type": "string"
+          }
+        ],
+        "name": "content",
+        "type": "object",
+        "title": "Company Content"
+      }
+    ],
+    "name": "businessInfo",
+    "type": "document",
+    "title": "Business Information"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "initialValue": "#39ace7",
+            "description": "Main brand color (hex code)",
+            "name": "primary",
+            "type": "string",
+            "title": "Primary Color"
+          },
+          {
+            "initialValue": "#9bd4e4",
+            "description": "Light variant of primary color",
+            "name": "primaryLight",
+            "type": "string",
+            "title": "Primary Light Color"
+          },
+          {
+            "initialValue": "#0784b5",
+            "description": "Dark variant of primary color",
+            "name": "primaryDark",
+            "type": "string",
+            "title": "Primary Dark Color"
+          },
+          {
+            "initialValue": "#ffffff",
+            "description": "Secondary brand color",
+            "name": "secondary",
+            "type": "string",
+            "title": "Secondary Color"
+          },
+          {
+            "initialValue": "#9bd4e4",
+            "description": "Accent color for highlights",
+            "name": "accent",
+            "type": "string",
+            "title": "Accent Color"
+          },
+          {
+            "initialValue": "#1f2937",
+            "description": "Main text color",
+            "name": "textPrimary",
+            "type": "string",
+            "title": "Primary Text Color"
+          },
+          {
+            "initialValue": "#6b7280",
+            "description": "Secondary text color",
+            "name": "textSecondary",
+            "type": "string",
+            "title": "Secondary Text Color"
+          },
+          {
+            "initialValue": "#ffffff",
+            "description": "Main background color",
+            "name": "background",
+            "type": "string",
+            "title": "Background Color"
+          },
+          {
+            "initialValue": "#f9fafb",
+            "description": "Alternative background color",
+            "name": "backgroundAlt",
+            "type": "string",
+            "title": "Alternative Background Color"
+          }
+        ],
+        "name": "colors",
+        "type": "object",
+        "title": "Color Scheme"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300",
+            "description": "CSS classes for primary buttons",
+            "name": "primaryButton",
+            "type": "string",
+            "title": "Primary Button Classes"
+          },
+          {
+            "initialValue": "bg-white hover:bg-gray-50 text-primary border-2 border-primary font-semibold py-3 px-6 rounded-lg transition-colors duration-300",
+            "description": "CSS classes for secondary buttons",
+            "name": "secondaryButton",
+            "type": "string",
+            "title": "Secondary Button Classes"
+          },
+          {
+            "initialValue": "border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300",
+            "description": "CSS classes for outline buttons",
+            "name": "outlineButton",
+            "type": "string",
+            "title": "Outline Button Classes"
+          }
+        ],
+        "name": "buttons",
+        "type": "object",
+        "title": "Button Styles"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300",
+            "description": "CSS classes for default cards",
+            "name": "defaultCard",
+            "type": "string",
+            "title": "Default Card Classes"
+          },
+          {
+            "initialValue": "bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 p-6",
+            "description": "CSS classes for service cards",
+            "name": "serviceCard",
+            "type": "string",
+            "title": "Service Card Classes"
+          },
+          {
+            "initialValue": "bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden",
+            "description": "CSS classes for blog cards",
+            "name": "blogCard",
+            "type": "string",
+            "title": "Blog Card Classes"
+          }
+        ],
+        "name": "cards",
+        "type": "object",
+        "title": "Card Styles"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+            "description": "CSS classes for main container",
+            "name": "container",
+            "type": "string",
+            "title": "Container Classes"
+          },
+          {
+            "initialValue": "py-16 lg:py-24",
+            "description": "CSS classes for sections",
+            "name": "section",
+            "type": "string",
+            "title": "Section Classes"
+          },
+          {
+            "initialValue": "bg-white shadow-md",
+            "description": "CSS classes for header background",
+            "name": "headerBg",
+            "type": "string",
+            "title": "Header Background Classes"
+          },
+          {
+            "initialValue": "bg-gray-900 text-white",
+            "description": "CSS classes for footer background",
+            "name": "footerBg",
+            "type": "string",
+            "title": "Footer Background Classes"
+          }
+        ],
+        "name": "layout",
+        "type": "object",
+        "title": "Layout Styles"
+      }
+    ],
+    "name": "themeSettings",
+    "type": "document",
+    "title": "Theme & Design Settings"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "placeholder": "https://instagram.com/mhstour",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "instagram",
+            "type": "url",
+            "title": "Instagram URL"
+          },
+          {
+            "placeholder": "https://facebook.com/mhstour",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "facebook",
+            "type": "url",
+            "title": "Facebook URL"
+          },
+          {
+            "placeholder": "https://youtube.com/@mhstour",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "youtube",
+            "type": "url",
+            "title": "YouTube URL"
+          },
+          {
+            "placeholder": "https://twitter.com/mhstour",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "twitter",
+            "type": "url",
+            "title": "Twitter URL"
+          },
+          {
+            "placeholder": "https://tiktok.com/@mhstour",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "tiktok",
+            "type": "url",
+            "title": "TikTok URL"
+          }
+        ],
+        "name": "socialMedia",
+        "type": "object",
+        "title": "Social Media Links"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Terima kasih telah menghubungi Mahabbatussholihin Tour & Travel.",
+            "description": "Thank you message in customer email",
+            "name": "thankYouMessage",
+            "type": "text"
+          },
+          {
+            "initialValue": "Kami akan segera merespons pertanyaan Anda dalam waktu 24 jam.",
+            "description": "Response time message in customer email",
+            "name": "responseMessage",
+            "type": "text"
+          },
+          {
+            "initialValue": "Team Mahabbatussholihin Tour & Travel",
+            "description": "Team signature in emails",
+            "name": "teamSignature",
+            "type": "string"
+          }
+        ],
+        "name": "emailTemplates",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Contact Us",
+            "name": "contactTitle",
+            "type": "string",
+            "title": "Contact Page Title"
+          },
+          {
+            "initialValue": "Get in touch with our travel experts. We're here to help you plan your perfect journey.",
+            "name": "contactDescription",
+            "type": "text",
+            "title": "Contact Page Description"
+          },
+          {
+            "initialValue": "Quick Response Guarantee",
+            "name": "quickResponseTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "We respond to all inquiries within 24 hours. Our dedicated team is committed to providing you with prompt and helpful assistance.",
+            "name": "quickResponseMessage",
+            "type": "text"
+          },
+          {
+            "initialValue": "Average response: 2-4 hours",
+            "name": "averageResponseText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Chat via WhatsApp",
+            "name": "chatWhatsappText",
+            "type": "string",
+            "title": "Chat WhatsApp Text"
+          },
+          {
+            "initialValue": "Butuh bantuan segera? Chat langsung dengan tim customer service kami melalui WhatsApp untuk respon yang lebih cepat.",
+            "name": "needHelpMessage",
+            "type": "text"
+          },
+          {
+            "initialValue": "Mulai Chat Sekarang",
+            "name": "startChatText",
+            "type": "string"
+          }
+        ],
+        "name": "contactContent",
+        "type": "object",
+        "title": "Contact Page Content"
+      }
+    ],
+    "name": "socialSettings",
+    "type": "document",
+    "title": "Social Media & Communication"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "initialValue": "Beranda",
+            "name": "homeText",
+            "type": "string",
+            "title": "Home Menu Text"
+          },
+          {
+            "initialValue": "Layanan",
+            "name": "servicesText",
+            "type": "string",
+            "title": "Services Menu Text"
+          },
+          {
+            "initialValue": "Galeri",
+            "name": "galleryText",
+            "type": "string",
+            "title": "Gallery Menu Text"
+          },
+          {
+            "initialValue": "Blog",
+            "name": "blogText",
+            "type": "string",
+            "title": "Blog Menu Text"
+          },
+          {
+            "initialValue": "Tentang",
+            "name": "aboutText",
+            "type": "string",
+            "title": "About Menu Text"
+          },
+          {
+            "initialValue": "Kontak",
+            "name": "contactText",
+            "type": "string",
+            "title": "Contact Menu Text"
+          }
+        ],
+        "name": "navigation",
+        "type": "object",
+        "title": "Navigation Content"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Blog & Artikel",
+            "name": "blogPageTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Galeri Foto",
+            "name": "galleryPageTitle",
+            "type": "string"
+          },
+          {
+            "name": "tourPackagesTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Tur Kustom",
+            "name": "customTourTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Destinasi",
+            "name": "destinationsTitle",
+            "type": "string"
+          }
+        ],
+        "name": "pageContent",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Hubungi Kami",
+            "name": "contactFormTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Pesan Sekarang",
+            "name": "bookingFormTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Kirim Pertanyaan",
+            "name": "inquiryFormTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Terima kasih! Pesan Anda telah berhasil dikirim. Kami akan segera menghubungi Anda.",
+            "name": "successMessage",
+            "type": "text",
+            "title": "Form Success Message"
+          },
+          {
+            "initialValue": "Maaf, terjadi kesalahan. Silakan coba lagi atau hubungi kami langsung.",
+            "name": "errorMessage",
+            "type": "text",
+            "title": "Form Error Message"
+          }
+        ],
+        "name": "formContent",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Nama Lengkap",
+            "name": "nameLabel",
+            "type": "string",
+            "title": "Name Field Label"
+          },
+          {
+            "initialValue": "Masukkan nama lengkap Anda",
+            "name": "namePlaceholder",
+            "type": "string",
+            "title": "Name Field Placeholder"
+          },
+          {
+            "initialValue": "Email",
+            "name": "emailLabel",
+            "type": "string",
+            "title": "Email Field Label"
+          },
+          {
+            "initialValue": "contoh@email.com",
+            "name": "emailPlaceholder",
+            "type": "string",
+            "title": "Email Field Placeholder"
+          },
+          {
+            "initialValue": "Nomor Telepon",
+            "name": "phoneLabel",
+            "type": "string",
+            "title": "Phone Field Label"
+          },
+          {
+            "initialValue": "+62 812 3456 7890",
+            "name": "phonePlaceholder",
+            "type": "string",
+            "title": "Phone Field Placeholder"
+          },
+          {
+            "initialValue": "Jumlah Peserta",
+            "name": "groupSizeLabel",
+            "type": "string",
+            "title": "Group Size Field Label"
+          },
+          {
+            "initialValue": "Budget Range",
+            "name": "budgetLabel",
+            "type": "string",
+            "title": "Budget Field Label"
+          },
+          {
+            "initialValue": "Subjek",
+            "name": "subjectLabel",
+            "type": "string",
+            "title": "Subject Field Label"
+          },
+          {
+            "initialValue": "Pilih topik pertanyaan",
+            "name": "subjectPlaceholder",
+            "type": "string",
+            "title": "Subject Field Placeholder"
+          },
+          {
+            "initialValue": "Pesan",
+            "name": "messageLabel",
+            "type": "string",
+            "title": "Message Field Label"
+          },
+          {
+            "initialValue": "Tulis pesan atau pertanyaan Anda di sini...",
+            "name": "messagePlaceholder",
+            "type": "string",
+            "title": "Message Field Placeholder"
+          }
+        ],
+        "name": "formFields",
+        "type": "object",
+        "title": "Form Field Labels"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": [
+              "Reguler",
+              "Premium",
+              "VIP"
+            ],
+            "of": [
+              {
+                "type": "string"
+              }
+            ],
+            "name": "tourPackageOptions",
+            "type": "array"
+          },
+          {
+            "initialValue": [
+              "Tur Pribadi",
+              "Tur Keluarga",
+              "Tur Grup"
+            ],
+            "of": [
+              {
+                "type": "string"
+              }
+            ],
+            "name": "customTourOptions",
+            "type": "array"
+          },
+          {
+            "initialValue": [
+              "Informasi Umum",
+              "Pertanyaan Harga",
+              "Jadwal Keberangkatan",
+              "Lainnya"
+            ],
+            "of": [
+              {
+                "type": "string"
+              }
+            ],
+            "name": "inquiryOptions",
+            "type": "array",
+            "title": "General Inquiry Options"
+          },
+          {
+            "initialValue": [
+              "< Rp 1.000.000",
+              "Rp 1.000.000 - Rp 3.000.000",
+              "Rp 3.000.000 - Rp 5.000.000",
+              "> Rp 5.000.000"
+            ],
+            "of": [
+              {
+                "type": "string"
+              }
+            ],
+            "name": "budgetRanges",
+            "type": "array",
+            "title": "Budget Range Options"
+          }
+        ],
+        "name": "formOptions",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Nama lengkap wajib diisi",
+            "name": "nameRequired",
+            "type": "string",
+            "title": "Name Required Message"
+          },
+          {
+            "initialValue": "Email wajib diisi",
+            "name": "emailRequired",
+            "type": "string",
+            "title": "Email Required Message"
+          },
+          {
+            "initialValue": "Format email tidak valid",
+            "name": "emailInvalid",
+            "type": "string",
+            "title": "Email Invalid Message"
+          },
+          {
+            "initialValue": "Nomor telepon wajib diisi",
+            "name": "phoneRequired",
+            "type": "string",
+            "title": "Phone Required Message"
+          },
+          {
+            "initialValue": "Format nomor telepon tidak valid",
+            "name": "phoneInvalid",
+            "type": "string",
+            "title": "Phone Invalid Message"
+          },
+          {
+            "initialValue": "Jumlah peserta wajib diisi",
+            "name": "groupSizeRequired",
+            "type": "string",
+            "title": "Group Size Required Message"
+          },
+          {
+            "initialValue": "Subjek wajib dipilih",
+            "name": "subjectRequired",
+            "type": "string",
+            "title": "Subject Required Message"
+          },
+          {
+            "initialValue": "Pesan wajib diisi",
+            "name": "messageRequired",
+            "type": "string",
+            "title": "Message Required Message"
+          },
+          {
+            "initialValue": "Pesan minimal 10 karakter",
+            "name": "messageMinLength",
+            "type": "string",
+            "title": "Message Min Length Message"
+          }
+        ],
+        "name": "validationMessages",
+        "type": "object"
+      }
+    ],
+    "name": "contentSettings",
+    "type": "document",
+    "title": "Content Management"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 3
+              },
+              {
+                "flag": "max",
+                "constraint": 100
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Service Title"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 50
+              },
+              {
+                "flag": "max",
+                "constraint": 300
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "fields": [
+          {
+            "description": "Alternative text for screen readers. Very important for SEO and accessibility.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt text"
+          }
+        ],
+        "name": "icon",
+        "type": "image",
+        "title": "Service Icon/Image"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 3
+              },
+              {
+                "flag": "max",
+                "constraint": 6
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "features",
+        "type": "array",
+        "title": "Service Features"
+      },
+      {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "number",
+            "title": "Price Amount"
+          },
+          {
+            "options": {
+              "list": [
+                {
+                  "title": "Indonesian Rupiah (IDR)",
+                  "value": "IDR"
+                },
+                {
+                  "title": "US Dollar (USD)",
+                  "value": "USD"
+                },
+                {
+                  "title": "Euro (EUR)",
+                  "value": "EUR"
+                }
+              ]
+            },
+            "initialValue": "IDR",
+            "name": "currency",
+            "type": "string"
+          },
+          {
+            "options": {
+              "list": [
+                {
+                  "title": "Per Person",
+                  "value": "person"
+                },
+                {
+                  "title": "Per Group",
+                  "value": "group"
+                },
+                {
+                  "title": "Per Day",
+                  "value": "day"
+                },
+                {
+                  "title": "Per Package",
+                  "value": "package"
+                }
+              ]
+            },
+            "initialValue": "person",
+            "name": "unit",
+            "type": "string",
+            "title": "Price Unit"
+          }
+        ],
+        "name": "price",
+        "type": "object",
+        "title": "Starting Price"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Tour Packages",
+              "value": "packages"
+            },
+            {
+              "title": "Custom Tours",
+              "value": "custom"
+            },
+            {
+              "title": "Group Tours",
+              "value": "group"
+            },
+            {
+              "title": "Private Tours",
+              "value": "private"
+            },
+            {
+              "title": "Adventure Tours",
+              "value": "adventure"
+            },
+            {
+              "title": "Cultural Tours",
+              "value": "cultural"
+            }
+          ]
+        },
+        "name": "category",
+        "type": "string",
+        "title": "Service Category"
+      },
+      {
+        "initialValue": false,
+        "description": "Mark this service as popular to feature it prominently",
+        "name": "isPopular",
+        "type": "boolean",
+        "title": "Popular Service"
+      },
+      {
+        "description": "URL path for this service (e.g., /services/custom-tours)",
+        "name": "link",
+        "type": "string",
+        "title": "Service Link"
+      },
+      {
+        "description": "Lower numbers appear first",
+        "name": "order",
+        "type": "number",
+        "title": "Display Order"
+      }
+    ],
+    "name": "servicePackage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Full Name"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "email",
+        "type": "string",
+        "title": "Email Address"
+      },
+      {
+        "name": "phone",
+        "type": "string",
+        "title": "Phone Number"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "subject",
+        "type": "string"
+      },
+      {
+        "rows": 5,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 10
+              },
+              {
+                "flag": "max",
+                "constraint": 1000
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "message",
+        "type": "text"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Tour Packages",
+              "value": "packages"
+            },
+            {
+              "title": "Custom Tours",
+              "value": "custom"
+            },
+            {
+              "title": "Group Tours",
+              "value": "group"
+            },
+            {
+              "title": "Private Tours",
+              "value": "private"
+            },
+            {
+              "title": "Adventure Tours",
+              "value": "adventure"
+            },
+            {
+              "title": "Cultural Tours",
+              "value": "cultural"
+            },
+            {
+              "title": "General Inquiry",
+              "value": "general"
+            }
+          ]
+        },
+        "name": "tourInterest",
+        "type": "string"
+      },
+      {
+        "name": "travelDate",
+        "type": "date",
+        "title": "Preferred Travel Date"
+      },
+      {
+        "name": "groupSize",
+        "type": "number"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Under 5 Million",
+              "value": "under-5m"
+            },
+            {
+              "title": "5-10 Million",
+              "value": "5-10m"
+            },
+            {
+              "title": "10-20 Million",
+              "value": "10-20m"
+            },
+            {
+              "title": "20-50 Million",
+              "value": "20-50m"
+            },
+            {
+              "title": "Over 50 Million",
+              "value": "over-50m"
+            }
+          ]
+        },
+        "name": "budget",
+        "type": "string",
+        "title": "Budget Range (IDR)"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "New",
+              "value": "new"
+            },
+            {
+              "title": "In Progress",
+              "value": "in-progress"
+            },
+            {
+              "title": "Responded",
+              "value": "responded"
+            },
+            {
+              "title": "Closed",
+              "value": "closed"
+            }
+          ]
+        },
+        "initialValue": "new",
+        "name": "status",
+        "type": "string"
+      },
+      {
+        "name": "submittedAt",
+        "type": "datetime"
+      },
+      {
+        "readOnly": true,
+        "name": "ipAddress",
+        "type": "string",
+        "title": "IP Address"
+      },
+      {
+        "readOnly": true,
+        "name": "userAgent",
+        "type": "string"
+      }
+    ],
+    "name": "contactSubmission",
+    "type": "document",
+    "title": "Contact Form Submission"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 3
+              },
+              {
+                "flag": "max",
+                "constraint": 100
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Gallery Title"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 300
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "description",
+        "type": "text",
+        "title": "Gallery Description"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Tour Destinations",
+              "value": "destinations"
+            },
+            {
+              "title": "Cultural Tours",
+              "value": "cultural"
+            },
+            {
+              "title": "Adventure Tours",
+              "value": "adventure"
+            },
+            {
+              "title": "Religious Tours",
+              "value": "religious"
+            },
+            {
+              "title": "Nature & Landscape",
+              "value": "nature"
+            },
+            {
+              "title": "Food & Culinary",
+              "value": "culinary"
+            },
+            {
+              "title": "Accommodation",
+              "value": "accommodation"
+            },
+            {
+              "title": "Transportation",
+              "value": "transportation"
+            },
+            {
+              "title": "Activities",
+              "value": "activities"
+            },
+            {
+              "title": "Momen Jamaah",
+              "value": "customers"
+            }
+          ]
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "destinations",
+                  "cultural",
+                  "adventure",
+                  "religious",
+                  "nature",
+                  "culinary",
+                  "accommodation",
+                  "transportation",
+                  "activities",
+                  "customers"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "category",
+        "type": "string",
+        "title": "Gallery Category"
+      },
+      {
+        "fields": [
+          {
+            "placeholder": "e.g., Yogyakarta, Bandung, Jakarta",
+            "name": "name",
+            "type": "string",
+            "title": "Location Name"
+          },
+          {
+            "placeholder": "e.g., DI Yogyakarta, Jawa Barat",
+            "name": "province",
+            "type": "string"
+          },
+          {
+            "description": "Optional: GPS location for mapping",
+            "name": "coordinates",
+            "type": "geopoint",
+            "title": "GPS Coordinates"
+          }
+        ],
+        "name": "destination",
+        "type": "object",
+        "title": "Destination/Location"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "📸 FEATURED: 1200x800px (3:2 ratio) | Max Size: 20MB | Format: JPEG/PNG/WebP",
+        "fields": [
+          {
+            "description": "Important for SEO and accessibility",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "featuredImage",
+        "type": "image"
+      },
+      {
+        "options": {
+          "modal": {
+            "type": "dialog",
+            "width": 0.8
+          },
+          "editModal": "popover"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 1
+              },
+              {
+                "flag": "max",
+                "constraint": 50
+              }
+            ],
+            "level": "error",
+            "message": "Gallery must have 1-50 images"
+          }
+        ],
+        "of": [
+          {
+            "options": {
+              "modal": {
+                "type": "dialog",
+                "width": 0.9
+              }
+            },
+            "fields": [
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "fields": [
+                  {
+                    "validation": [
+                      {
+                        "rules": [
+                          {
+                            "flag": "presence",
+                            "constraint": "required"
+                          },
+                          {
+                            "flag": "min",
+                            "constraint": 3
+                          },
+                          {
+                            "flag": "max",
+                            "constraint": 200
+                          }
+                        ],
+                        "level": "error"
+                      }
+                    ],
+                    "description": "Describe the image for accessibility",
+                    "name": "alt",
+                    "type": "string",
+                    "title": "Alt Text"
+                  }
+                ],
+                "name": "image",
+                "type": "image"
+              },
+              {
+                "description": "Optional caption for the image",
+                "name": "caption",
+                "type": "string"
+              },
+              {
+                "description": "When was this photo taken?",
+                "name": "dateTaken",
+                "type": "datetime"
+              },
+              {
+                "description": "Photo credit (optional)",
+                "name": "photographer",
+                "type": "string"
+              },
+              {
+                "options": {
+                  "layout": "tags"
+                },
+                "description": "Keywords for searchability",
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "tags",
+                "type": "array",
+                "title": "Image Tags"
+              }
+            ],
+            "type": "object",
+            "name": "galleryImage"
+          }
+        ],
+        "name": "images",
+        "type": "array",
+        "title": "Gallery Images"
+      },
+      {
+        "description": "Link to related tour service (optional)",
+        "to": [
+          {
+            "type": "servicePackage"
+          }
+        ],
+        "name": "tourPackage",
+        "type": "reference",
+        "title": "Related Tour Package"
+      },
+      {
+        "initialValue": true,
+        "description": "Only published galleries will appear on the website",
+        "name": "isPublished",
+        "type": "boolean",
+        "title": "Published"
+      },
+      {
+        "initialValue": false,
+        "description": "Featured galleries appear prominently on homepage",
+        "name": "isFeatured",
+        "type": "boolean",
+        "title": "Featured Gallery"
+      },
+      {
+        "description": "When should this gallery be published?",
+        "name": "publishDate",
+        "type": "datetime"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 60
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Title for search engines (max 60 characters)",
+        "name": "seoTitle",
+        "type": "string",
+        "title": "SEO Title"
+      },
+      {
+        "rows": 2,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 160
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Description for search engines (max 160 characters)",
+        "name": "seoDescription",
+        "type": "text",
+        "title": "SEO Description"
+      },
+      {
+        "initialValue": 0,
+        "description": "Number of times this gallery has been viewed",
+        "readOnly": true,
+        "name": "viewCount",
+        "type": "number"
+      }
+    ],
+    "name": "gallery",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 3
+              },
+              {
+                "flag": "max",
+                "constraint": 50
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Category Name"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 200
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "description",
+        "type": "text",
+        "title": "Category Description"
+      },
+      {
+        "options": [
+          {
+            "title": "Destinations",
+            "value": "destinations"
+          },
+          {
+            "title": "Cultural",
+            "value": "cultural"
+          },
+          {
+            "title": "Adventure",
+            "value": "adventure"
+          },
+          {
+            "title": "Religious",
+            "value": "religious"
+          },
+          {
+            "title": "Nature",
+            "value": "nature"
+          },
+          {
+            "title": "Culinary",
+            "value": "culinary"
+          },
+          {
+            "title": "Accommodation",
+            "value": "accommodation"
+          },
+          {
+            "title": "Transportation",
+            "value": "transportation"
+          },
+          {
+            "title": "Activities",
+            "value": "activities"
+          },
+          {
+            "title": "Jamaah",
+            "value": "customers"
+          }
+        ],
+        "layout": "dropdown",
+        "initialValue": "destinations",
+        "name": "icon",
+        "type": "string",
+        "title": "Category Icon"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "COVER: 800x600px (4:3 ratio) | Max Size: 10MB | Format: JPEG/PNG/WebP",
+        "fields": [
+          {
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "coverImage",
+        "type": "image",
+        "title": "Category Cover Image"
+      },
+      {
+        "initialValue": 0,
+        "description": "Lower numbers appear first",
+        "name": "sortOrder",
+        "type": "number"
+      },
+      {
+        "initialValue": true,
+        "description": "Only active categories will be shown",
+        "name": "isActive",
+        "type": "boolean",
+        "title": "Active Category"
+      }
+    ],
+    "name": "galleryCategory",
+    "type": "document",
+    "title": "Gallery Categories"
+  }
+]

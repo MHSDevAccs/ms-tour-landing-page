@@ -39,11 +39,11 @@ export const imageResolutions = {
     function: 'urlForGallery()'
   },
 
-  // Product Images - Package/tour/feature displays
+  // Product Images - Service card displays
   product: {
-    width: 600,
-    height: 400,   // 3:2 ratio
-    usage: 'Tour packages, feature showcases, product displays',
+    width: 1080,
+    height: 1350,   // 4:5 portrait ratio
+    usage: 'Service cards, tour packages, feature showcases',
     function: 'urlForProduct()'
   },
 
@@ -77,7 +77,7 @@ export const schemaDescriptions = {
   hero: '🖼️ HERO BANNER: 1920x1080px (16:9) | Max Size: 20MB | Format: JPEG/PNG/WebP',
   card: '🔲 CARD ICON: 400x400px (Square) | Max Size: 20MB | Format: JPEG/PNG/WebP/SVG',
   gallery: '📸 GALLERY PHOTO: 800x600px (4:3) | Max Size: 20MB | Format: JPEG/PNG/WebP',
-  product: '📦 PRODUCT IMAGE: 600x400px (3:2) | Max Size: 20MB | Format: JPEG/PNG/WebP',
+  product: '📦 SERVICE CARD: 1080x1350px (4:5) | Max Size: 20MB | Format: JPEG/PNG/WebP',
   profile: '👤 PROFILE PHOTO: 400x400px (Square) | Max Size: 20MB | Format: JPEG/PNG/WebP',
   logo: '🏢 COMPANY LOGO: 400x200px (2:1) | Max Size: 20MB | Format: PNG/SVG/WebP',
   icon: '⭐ SMALL ICON: 100x100px (Square) | Max Size: 20MB | Format: PNG/SVG/WebP'

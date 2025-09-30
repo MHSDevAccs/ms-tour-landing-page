@@ -33,6 +33,12 @@ export const socialSettings = defineType({
           title: 'Twitter URL',
           type: 'url',
           placeholder: 'https://twitter.com/mhstour'
+        },
+        {
+          name: 'tiktok',
+          title: 'TikTok URL',
+          type: 'url',
+          placeholder: 'https://tiktok.com/@mhstour'
         }
       ]
     }),

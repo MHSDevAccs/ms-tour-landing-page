@@ -115,34 +115,57 @@ const Footer = () => {
           revalidate: 0,
         })
 
+        console.log('Footer: Fetched siteSettings:', settings)
         setSiteSettings(settings)
 
-        // Use siteSettings contact info as primary source
-        if (settings?.contactInfo) {
-          setBusinessInfo({
-            _id: settings._id,
-            siteName: settings.siteName,
-            contactInfo: settings.contactInfo,
-            businessHours: undefined // siteSettings doesn't have businessHours
+        // Fetch business info for contact information (primary source)
+        try {
+          console.log('Footer: Attempting to fetch businessInfo...')
+          const business = await sanityFetch<BusinessInfo>({
+            query: queries.getBusinessInfo(),
+            tags: ['businessInfo'],
+            revalidate: 0,
           })
-        } else {
-          // Try to fetch business info as fallback
-          try {
-            const business = await sanityFetch<BusinessInfo>({
-              query: queries.getBusinessInfo(),
-              tags: ['businessInfo'],
-              revalidate: 0,
-            })
-            
-            if (business && business.contactInfo) {
-              setBusinessInfo(business)
+          
+          console.log('Footer: Fetched businessInfo:', business)
+          console.log('Footer: contactInfo from businessInfo:', business?.contactInfo)
+          console.log('Footer: businessInfo query used:', queries.getBusinessInfo())
+          
+          if (business) {
+            setBusinessInfo(business)
+          } else {
+            // Fallback to siteSettings contact info if businessInfo doesn't exist
+            if (settings) {
+              const businessData = {
+                _id: settings._id,
+                siteName: settings.siteName,
+                contactInfo: settings.contactInfo,
+                businessHours: undefined // siteSettings doesn't have businessHours
+              }
+              
+              console.log('Footer: Fallback to siteSettings contactInfo:', businessData)
+              setBusinessInfo(businessData)
             }
-          } catch (businessError) {
-            console.log('No contact information found in siteSettings or businessInfo')
+          }
+        } catch (businessError) {
+          console.log('Failed to fetch businessInfo, using siteSettings as fallback')
+          // Fallback to siteSettings contact info
+          if (settings) {
+            const businessData = {
+              _id: settings._id,
+              siteName: settings.siteName,
+              contactInfo: settings.contactInfo,
+              businessHours: undefined
+            }
+            
+            console.log('Footer: Fallback businessInfo from siteSettings:', businessData)
+            setBusinessInfo(businessData)
           }
         }
       } catch (error) {
         console.error('Failed to fetch data:', error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
@@ -159,14 +182,7 @@ const Footer = () => {
   }
 
   const navigation = {
-    main: [
-      { name: siteSettings?.navigation?.homeText || 'Beranda', href: '/' },
-      { name: siteSettings?.navigation?.aboutText || 'Tentang', href: '/about' },
-      { name: siteSettings?.navigation?.servicesText || 'Layanan', href: '/services' },
-      { name: siteSettings?.navigation?.galleryText || 'Galeri', href: '/gallery' },
-      { name: siteSettings?.navigation?.blogText || 'Blog', href: '/blog' },
-      { name: siteSettings?.navigation?.contactText || 'Kontak', href: '/contact' },
-    ],
+    
     services: services.map(service => ({
       name: service.title,
       href: service.link || `/services/${service.slug?.current || service.category}`
@@ -285,18 +301,18 @@ const Footer = () => {
           <div className="mt-8 lg:mt-0 sm:col-span-2 lg:col-span-1">
             <h3 className="text-lg font-semibold mb-6 text-white">Info Kontak</h3>
             <div className="space-y-4">
-              {(businessInfo?.contactInfo?.address || true) && (
+              {businessInfo?.contactInfo?.address && businessInfo.contactInfo.address.trim() && (
                 <div className="flex items-start">
                   <svg className="h-5 w-5 text-primary-light mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                   <p className="text-gray-300 text-sm whitespace-pre-line">
-                    {businessInfo?.contactInfo?.address || 'Jl. Raya Bogor No. 123, Bogor, Jawa Barat 16151, Indonesia'}
+                    {businessInfo.contactInfo.address}
                   </p>
                 </div>
               )}
-              {businessInfo?.contactInfo?.whatsapp && (
+              {businessInfo?.contactInfo?.whatsapp && businessInfo.contactInfo.whatsapp.trim() && (
                 <div className="flex items-center">
                   <svg className="h-5 w-5 text-primary-light mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -309,10 +325,23 @@ const Footer = () => {
                   </a>
                 </div>
               )}
-              {businessInfo?.contactInfo?.email && (
+              {businessInfo?.contactInfo?.phone && businessInfo.contactInfo.phone.trim() && (
                 <div className="flex items-center">
                   <svg className="h-5 w-5 text-primary-light mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
+                  <a 
+                    href={`tel:${businessInfo.contactInfo.phone}`} 
+                    className="text-gray-300 hover:text-primary-light transition-colors text-sm"
+                  >
+                    {businessInfo.contactInfo.phone}
+                  </a>
+                </div>
+              )}
+              {businessInfo?.contactInfo?.email && businessInfo.contactInfo.email.trim() && (
+                <div className="flex items-center">
+                  <svg className="h-5 w-5 text-primary-light mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 002 2z" />
                   </svg>
                   <a 
                     href={`mailto:${businessInfo.contactInfo.email}`}

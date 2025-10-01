@@ -92,23 +92,19 @@ export default async function GalleryPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       {/* Gallery Header - HARDCODED */}
-      <AnimatedSection direction="fade" className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <AnimatedSection direction="up" delay={0.2}>
-            <h1 className="text-4xl font-bold mb-4">
-              {siteSettings?.pageContent?.galleryMainTitle || 'Galeri Foto'}
-            </h1>
-          </AnimatedSection>
-          <AnimatedSection direction="up" delay={0.4}>
-            <p className="text-xl text-primary-lighter">
-              {siteSettings?.pageContent?.gallerySubtitle || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan momen berharga bersama MS Tour & Travel'}
-            </p>
-          </AnimatedSection>
+          <h1 className="text-4xl font-bold mb-4">
+            {siteSettings?.pageContent?.galleryMainTitle || 'Galeri Foto'}
+          </h1>
+          <p className="text-xl text-primary-lighter">
+            {siteSettings?.pageContent?.gallerySubtitle || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan momen berharga bersama MS Tour & Travel'}
+          </p>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* Gallery Content */}
-      <AnimatedSection className="py-16">
+      <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {galleries.length > 0 ? (
             <GalleryGrid
@@ -138,11 +134,11 @@ export default async function GalleryPage() {
             </div>
           )}
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* Featured Galleries Section (if we have featured galleries) */}
       {galleries.some(g => g.isFeatured) && (
-        <AnimatedSection className="bg-white py-16">
+        <section className="bg-white py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
@@ -159,11 +155,11 @@ export default async function GalleryPage() {
               columns={4}
             />
           </div>
-        </AnimatedSection>
+        </section>
       )}
 
       {/* Call to Action */}
-      <AnimatedSection className="bg-gradient-to-r from-primary to-primary-dark text-white py-16">
+      <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             {siteSettings?.pageContent?.galleryCtaTitle || 'Siap Menciptakan Momen Indah Bersama Kami?'}
@@ -172,21 +168,17 @@ export default async function GalleryPage() {
             {siteSettings?.pageContent?.galleryCtaDescription || 'Alhamdulillah, gabung yuk sama ribuan jamaah yang udah merasakan berkah perjalanan bersama kami. InsyaAlloh pengalaman yang penuh barakah menanti!'}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/contact"
-              className="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-secondary-light transition-colors"
-            >
-              {siteSettings?.pageContent?.galleryCtaContactButton || 'Konsultasi Gratis'}
-            </a>
-            <a
-              href="/services"
-              className="bg-primary-dark text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary transition-colors border border-accent"
-            >
-              {siteSettings?.pageContent?.galleryCtaServicesButton || 'Lihat Paket Tour'}
-            </a>
+            <AnimatedSection>
+              <a
+                href="https://wa.me/6281110002477"
+                className="inline-flex items-center px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-primary transition-all duration-300"
+              >
+                {siteSettings?.pageContent?.galleryCtaServicesButton || 'Info Lebih Lanjut'}
+              </a>
+            </AnimatedSection>
           </div>
         </div>
-      </AnimatedSection>
+      </section>
     </main>
     </PageTransition>
   )

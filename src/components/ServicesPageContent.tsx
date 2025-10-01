@@ -119,16 +119,10 @@ export default function ServicesPageContent({
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="https://wa.me/6281234567890"
-                  className="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary-dark transition-colors duration-200"
-                >
-                  {siteSettings?.servicesContent?.ctaButtonText || 'Konsultasi Gratis'}
-                </a>
-                <a
-                  href="/contact"
+                  href="https://wa.me/6281110002477"
                   className="border-2 border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors duration-200"
                 >
-                  {siteSettings?.servicesContent?.ctaSecondaryButtonText || 'Hubungi Kami'}
+                  {siteSettings?.servicesContent?.ctaSecondaryButtonText || 'Konsultasi Gratis'}
                 </a>
               </div>
             </div>

@@ -256,14 +256,6 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ duration: 0.2 }}
-                    className="flex-1 bg-primary text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary-dark hover:shadow-lg transform transition-all duration-300 ease-in-out"
-                  >
-                    Pesan Sekarang
-                  </motion.button>
-                  <motion.button 
-                    whileHover={{ scale: 1.05, y: -2 }}
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
                     className="flex-1 border-2 border-primary text-primary py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold hover:bg-primary hover:text-white hover:shadow-lg transform transition-all duration-300 ease-in-out"
                   >
                     Konsultasi Gratis

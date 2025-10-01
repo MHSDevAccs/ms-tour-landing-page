@@ -259,56 +259,50 @@ export default async function Home() {
       />
       {/* Hero Section - Fully Dynamic */}
       {heroData ? (
-        <AnimatedSection direction="fade">
-          <section className="relative bg-gradient-to-br from-primary via-primary to-primary-dark text-white py-20 lg:py-32 overflow-hidden">
-            {/* Background Image */}
-            <div className="absolute inset-0 z-0">
-              {heroData.backgroundImage?.asset ? (
-                <Image
-                  src={urlForHero(heroData.backgroundImage).url()}
-                  alt={heroData.backgroundImage.alt || 'Hero Background'}
-                  fill
-                  className="object-cover"
-                  priority
-                  sizes="100vw"
-                />
-              ) : (
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-dark via-primary to-secondary" />
-              )}
-              <div className="absolute inset-0 bg-black/40"></div>
-            </div>
-            
-            {/* Hero Content */}
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-left">
-                {/* Business Name */}
-                <AnimatedSection direction="up" delay={0.2}>
-                  <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
-                    {heroData.title}
-                  </h1>
-                </AnimatedSection>
-                
-                {/* Business Motto/Tagline */}
-                <AnimatedSection direction="up" delay={0.4}>
-                  <p className="text-base md:text-lg lg:text-xl mb-24 max-w-3xl text-white/90 font-medium">
-                    {heroData.subtitle}
-                  </p>
-                </AnimatedSection>
-                
-                <AnimatedSection direction="up" delay={0.6}>
-                  <div className="flex justify-start">
-                    <Link
-                      href={heroData.ctaLink}
-                      className="inline-block bg-accent text-primary-dark px-6 py-3 rounded-lg font-semibold text-base hover:bg-primary-light hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out shadow-lg transform"
-                    >
-                      {heroData.ctaText}
-                    </Link>
-                  </div>
+        <section className="relative bg-gradient-to-br from-primary via-primary to-primary-dark text-white py-20 lg:py-32 overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+            {heroData.backgroundImage?.asset ? (
+              <Image
+                src={urlForHero(heroData.backgroundImage).url()}
+                alt={heroData.backgroundImage.alt || 'Hero Background'}
+                fill
+                className="object-cover"
+                priority
+                sizes="100vw"
+              />
+            ) : (
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-dark via-primary to-secondary" />
+            )}
+            <div className="absolute inset-0 bg-black/40"></div>
+          </div>
+          
+          {/* Hero Content */}
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-left">
+              {/* Business Name */}
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
+                {heroData.title}
+              </h1>
+              
+              {/* Business Motto/Tagline */}
+              <p className="text-base md:text-lg lg:text-xl mb-24 max-w-3xl text-white/90 font-medium">
+                {heroData.subtitle}
+              </p>
+              
+              <div className="flex justify-start">
+                <AnimatedSection direction="fade">
+                  <Link
+                    href={heroData.ctaLink}
+                    className="inline-flex items-center px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-primary transition-all duration-300"
+                  >
+                    {heroData.ctaText}
+                  </Link>
                 </AnimatedSection>
               </div>
             </div>
-          </section>
-        </AnimatedSection>
+          </div>
+        </section>
       ) : (
         <div className="py-20 bg-secondary-light text-center">
           <h2 className="text-2xl font-bold text-black">Data Hero Tidak Ditemukan</h2>
@@ -320,7 +314,7 @@ export default async function Home() {
       <FeaturesSection data={featuresData} variant="default" maxFeatures={3} />
 
       {/* Fasilitas Jamaah Section */}
-      <AnimatedSection className="py-16 bg-gradient-to-br from-gray-50 to-white">
+      <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <p className="text-sm font-semibold text-gray-600 tracking-wide uppercase mb-2">
@@ -468,7 +462,7 @@ export default async function Home() {
             </StaggerItem>
           </StaggerContainer>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* Testimonials Section */}
       {testimonials && testimonials.length > 0 && (
@@ -481,15 +475,10 @@ export default async function Home() {
 
       {/* Featured Blog Posts Section */}
       {featuredBlogPosts && featuredBlogPosts.length > 0 && (
-        <AnimatedSection className="py-16 bg-secondary-light">
+        <section className="py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <div className="flex items-center justify-center mb-4">
-                {/* <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mr-4"> */}
-                  {/* <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-6a1 1 0 00-1-1H9a1 1 0 00-1 1v6a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clipRule="evenodd" />
-                  </svg> */}
-                {/* </div> */}
                 <h2 className="text-3xl md:text-4xl font-bold text-black">
                   Tips & Artikel Terbaru
                 </h2>
@@ -518,20 +507,20 @@ export default async function Home() {
             <div className="text-center">
               <Link
                 href="/blog"
-                className="inline-flex items-center px-8 py-4 border border-transparent text-lg font-semibold rounded-lg text-primary-dark bg-accent hover:bg-primary-light hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out shadow-lg transform"
+                className="border-2 border-primary text-primary px-8 py-4 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors duration-200"
               >
                 Lihat Semua Artikel
-                <svg className="ml-2 -mr-1 w-4 h-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1" fill="currentColor" viewBox="0 0 20 20">
+                {/* <svg className="ml-2 -mr-1 w-4 h-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg>
+                </svg> */}
               </Link>
             </div>
           </div>
-        </AnimatedSection>
+        </section>
       )}
 
       {/* Call to Action Section - Uses Site Settings */}
-      <AnimatedSection direction="up" className="py-16 bg-primary text-white">
+      <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
             {siteSettings?.content?.ctaText || 'Siap Memulai Perjalanan Anda?'}
@@ -539,21 +528,17 @@ export default async function Home() {
           <p className="text-xl mb-8 text-primary-lighter">
             Hubungi {siteSettings?.siteName || 'kami'} hari ini untuk merencanakan petualangan sempurna Anda.
           </p>
-          <Link
-            href="/contact"
-            className="bg-accent text-primary-dark px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary-light hover:scale-105 hover:shadow-xl transition-all duration-300 ease-in-out shadow-lg inline-block transform"
-          >
-            Mulai Sekarang
-          </Link>
+          <AnimatedSection direction="fade">
+            <Link
+              href="https://wa.me/6281110002477"
+              className="inline-flex items-center px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-primary transition-all duration-300"          >
+              Konsultasi Gratis
+            </Link>
+          </AnimatedSection>
         </div>
-      </AnimatedSection>
+      </section>
 
-      {/* FAQ Section with Structured Data
-      <FAQSection 
-        title="Pertanyaan yang Sering Diajukan"
-        subtitle="Temukan jawaban untuk pertanyaan umum tentang layanan travel kami"
-        showStructuredData={true}
-      /> */}
+
     </PageTransition>
   )
 }

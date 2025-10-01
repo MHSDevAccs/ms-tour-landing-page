@@ -145,17 +145,7 @@ export const structure: StructureResolver = (S) =>
         ),
       
       // Customer Data
-      S.listItem()
-        .title('Customer Data')
-        .child(
-          S.list()
-            .title('Customer Data')
-            .items([
-              S.listItem()
-                .title('📧 Contact Submissions')
-                .child(S.documentTypeList('contactSubmission').title('Contact Form Submissions')),
-            ])
-        ),
+      
       
       S.divider(),
       

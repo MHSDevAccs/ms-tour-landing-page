@@ -78,7 +78,7 @@ export default {
           type: 'string',
           options: {
             list: [
-              { title: 'Per Person', value: 'person' },
+              { title: 'Per Orang', value: 'person' },
               { title: 'Per Group', value: 'group' },
               { title: 'Per Day', value: 'day' },
               { title: 'Per Package', value: 'package' }

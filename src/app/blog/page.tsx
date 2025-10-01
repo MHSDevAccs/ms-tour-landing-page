@@ -133,9 +133,9 @@ export default async function BlogPage({
                   {(search || category || tag) && (
                     <Link
                       href="/blog"
-                      className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary-dark transition-colors duration-200"
+                      className="border-2 border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors duration-200"
                     >
-                      Lihat Semua Artikel
+                      
                     </Link>
                   )}
                 </div>
@@ -160,20 +160,16 @@ export default async function BlogPage({
         
         <div className="min-h-screen bg-gray-50">
           {/* Blog Header - HARDCODED */}
-          <AnimatedSection direction="fade" className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
+          <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-              <AnimatedSection direction="up" delay={0.2}>
-                <h1 className="text-4xl font-bold mb-4 text-white">
-                  {pageTitle}
-                </h1>
-              </AnimatedSection>
-              <AnimatedSection direction="up" delay={0.4}>
-                <p className="text-xl text-white/90">
-                  {pageSubtitle}
-                </p>
-              </AnimatedSection>
+              <h1 className="text-4xl font-bold mb-4 text-white">
+                {pageTitle}
+              </h1>
+              <p className="text-xl text-white/90">
+                {pageSubtitle}
+              </p>
             </div>
-          </AnimatedSection>
+          </section>
 
           {/* Search and Filters Section */}
           <div className="bg-white border-b border-gray-200 py-8">
@@ -200,7 +196,7 @@ export default async function BlogPage({
 
           {/* Featured Posts */}
           {featuredPosts.length > 0 && (
-            <AnimatedSection className="py-12 bg-white">
+            <section className="py-12 bg-white">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center mb-8">
                   <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center mr-3">
@@ -228,7 +224,7 @@ export default async function BlogPage({
                   ))}
                 </StaggerContainer>
               </div>
-            </AnimatedSection>
+            </section>
           )}
 
           {/* Blog Posts Grid */}
@@ -287,7 +283,7 @@ export default async function BlogPage({
           </div>
 
           {/* Newsletter CTA */}
-          <AnimatedSection className="bg-primary py-16">
+          <section className="bg-primary py-16">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <h2 className="text-3xl font-bold text-white mb-4">
                 Dapatkan Tips Perjalanan Terbaru
@@ -295,14 +291,16 @@ export default async function BlogPage({
               <p className="text-primary-lighter mb-8 text-lg">
                 Bergabunglah dengan newsletter kami dan dapatkan artikel terbaru, tips perjalanan, dan penawaran eksklusif.
               </p>
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-primary transition-all duration-300"
-              >
-                Berlangganan Newsletter
-              </Link>
+              <AnimatedSection>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-primary transition-all duration-300"
+                >
+                  Info Lebih Lanjut
+                </Link>
+              </AnimatedSection>
             </div>
-          </AnimatedSection>
+          </section>
         </div>
       </PageTransition>
     )

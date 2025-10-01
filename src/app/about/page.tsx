@@ -94,47 +94,37 @@ export default async function AboutPage() {
       />
       
       {/* About Header - HARDCODED */}
-      <AnimatedSection direction="fade" className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <AnimatedSection direction="up" delay={0.2}>
-            <h1 className="text-4xl font-bold mb-4">
-              {siteSettings?.aboutContent?.mainTitle || 'Tentang Kami'}
-            </h1>
-          </AnimatedSection>
-          <AnimatedSection direction="up" delay={0.4}>
-            <p className="text-xl text-primary-lighter">
-              {siteSettings?.aboutContent?.subtitle || 'Mitra terpercaya Anda untuk pengalaman perjalanan tak terlupakan sejak didirikan.'}
-            </p>
-          </AnimatedSection>
+          <h1 className="text-4xl font-bold mb-4">
+            {siteSettings?.aboutContent?.mainTitle || 'Tentang Kami'}
+          </h1>
+          <p className="text-xl text-primary-lighter">
+            {siteSettings?.aboutContent?.subtitle || 'Mitra terpercaya Anda untuk pengalaman perjalanan tak terlupakan sejak didirikan.'}
+          </p>
         </div>
-      </AnimatedSection>
+      </section>
 
       {/* Content Section */}
-      <AnimatedSection direction="up" delay={0.2} className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-white rounded-lg shadow-md p-8">
-          <AnimatedSection direction="up" delay={0.3}>
-            <h2 className="text-2xl font-semibold text-black mb-4">
-              {siteSettings?.aboutContent?.ourStoryTitle || 'Cerita Kami'}
-            </h2>
-            <p className="text-gray-700 mb-6">
-              {siteSettings?.aboutContent?.ourStoryDescription || 'Mahabbatussholihin Tour & Travel didirikan dengan misi sederhana: menciptakan pengalaman perjalanan berkesan yang menghubungkan orang dengan destinasi menakjubkan di seluruh dunia. Kami percaya bahwa perjalanan memiliki kekuatan untuk mengubah hidup, memperluas perspektif, dan menciptakan kenangan abadi.'}
-            </p>
-          </AnimatedSection>
+          <h2 className="text-2xl font-semibold text-black mb-4">
+            {siteSettings?.aboutContent?.ourStoryTitle || 'Cerita Kami'}
+          </h2>
+          <p className="text-gray-700 mb-6">
+            {siteSettings?.aboutContent?.ourStoryDescription || 'Mahabbatussholihin Tour & Travel didirikan dengan misi sederhana: menciptakan pengalaman perjalanan berkesan yang menghubungkan orang dengan destinasi menakjubkan di seluruh dunia. Kami percaya bahwa perjalanan memiliki kekuatan untuk mengubah hidup, memperluas perspektif, dan menciptakan kenangan abadi.'}
+          </p>
           
-          <AnimatedSection direction="up" delay={0.4}>
-            <h2 className="text-2xl font-semibold text-black mb-4">
-              {siteSettings?.aboutContent?.ourMissionTitle || 'Misi Kami'}
-            </h2>
-            <p className="text-gray-700 mb-6">
-              {siteSettings?.aboutContent?.ourMissionDescription || 'Dengan ridho Alloh SWT, kami berkomitmen nyediain layanan perjalanan yang berkah dan penuh makna yang bisa melampaui ekspektasi jamaah kami sambil menjaga amanah dan tanggung jawab dalam setiap langkah perjalanan.'}
-            </p>
-          </AnimatedSection>
+          <h2 className="text-2xl font-semibold text-black mb-4">
+            {siteSettings?.aboutContent?.ourMissionTitle || 'Misi Kami'}
+          </h2>
+          <p className="text-gray-700 mb-6">
+            {siteSettings?.aboutContent?.ourMissionDescription || 'Dengan ridho Alloh SWT, kami berkomitmen nyediain layanan perjalanan yang berkah dan penuh makna yang bisa melampaui ekspektasi jamaah kami sambil menjaga amanah dan tanggung jawab dalam setiap langkah perjalanan.'}
+          </p>
           
-          <AnimatedSection direction="up" delay={0.5}>
-            <h2 className="text-2xl font-semibold text-black mb-6">
-              {siteSettings?.aboutContent?.whyChooseUsTitle || 'Mengapa Memilih Kami'}
-            </h2>
-          </AnimatedSection>
+          <h2 className="text-2xl font-semibold text-black mb-6">
+            {siteSettings?.aboutContent?.whyChooseUsTitle || 'Mengapa Memilih Kami'}
+          </h2>
           
           <StaggerContainer className="space-y-4">
             {siteSettings?.aboutContent?.whyChooseUsItems && siteSettings.aboutContent.whyChooseUsItems.length > 0 ? (
@@ -176,7 +166,7 @@ export default async function AboutPage() {
             )}
           </StaggerContainer>
         </div>
-      </AnimatedSection>
+      </section>
     </div>
     </PageTransition>
   )

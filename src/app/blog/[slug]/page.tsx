@@ -357,7 +357,7 @@ export default async function BlogPostPage({
                 <div className="text-center mt-12">
                   <Link
                     href="/blog"
-                    className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md bg-accent text-primary-dark hover:bg-primary-light transition-colors duration-200"
+                    className="border-2 border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors duration-200"
                   >
                     Lihat Semua Artikel
                   </Link>

@@ -81,7 +81,7 @@ export default function ServiceCard({
 
   // Theme configuration
   const themeConfig = {
-    cardBase: theme?.cards?.service || 'bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300',
+    cardBase: theme?.cards?.service || 'bg-white rounded-lg shadow-lg overflow-hidden',
     primaryColor: 'bg-primary text-white',
     primaryText: 'text-primary',
     textPrimary: 'text-gray-900',
@@ -93,10 +93,10 @@ export default function ServiceCard({
   return (
     <div 
       className={`
-        relative overflow-hidden rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-300
-        ${isFeatured ? 'transform hover:scale-105 shadow-3xl hover:shadow-4xl' : ''}
-        w-full h-[500px] group cursor-pointer
-        drop-shadow-lg hover:drop-shadow-2xl
+        relative overflow-hidden rounded-2xl shadow-2xl
+        ${isFeatured ? 'shadow-3xl' : ''}
+        w-full h-[500px] cursor-pointer
+        drop-shadow-lg
       `}
       onClick={() => onClick?.(service)}
     >
@@ -106,7 +106,7 @@ export default function ServiceCard({
           src={urlForProduct(service.icon).url()}
           alt={service.icon.alt || service.title}
           fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          className="object-cover"
         />
       ) : (
         <div className={`w-full h-full ${themeConfig.gradientBg} flex items-center justify-center`}>
@@ -116,13 +116,24 @@ export default function ServiceCard({
         </div>
       )}
 
-      {/* Hover Overlay */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-        <div className="text-center transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-          <p className="text-gray-700 text-lg font-semibold tracking-wide drop-shadow-lg">
-            Info Lebih Lanjut
+      {/* Service Info Overlay - Always Visible */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent">
+        <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+          <h3 className="text-xl font-bold mb-2">
+            {service.title}
+          </h3>
+          <p className="text-sm text-gray-200 mb-4 line-clamp-2">
+            {service.description}
           </p>
-          <div className="w-16 h-0.5 bg-gray-700 mx-auto mt-2 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 delay-100 drop-shadow-lg"></div>
+          <button 
+            className="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-300 hover:scale-105 shadow-lg"
+            onClick={(e) => {
+              e.stopPropagation()
+              onClick?.(service)
+            }}
+          >
+            Detail Paket
+          </button>
         </div>
       </div>
     </div>

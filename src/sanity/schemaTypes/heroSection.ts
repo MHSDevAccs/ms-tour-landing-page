@@ -31,7 +31,7 @@ export const heroSection = defineType({
     }),
     defineField({
       name: 'backgroundImage',
-      title: 'Background Image',
+      title: 'Background Image (Legacy)',
       type: 'image',
       options: {
         hotspot: true,
@@ -45,7 +45,106 @@ export const heroSection = defineType({
           description: 'Important for accessibility and SEO'
         }
       ],
-      description: '�️ HERO BANNER: 1920x1080px (16:9) | Max Size: 20MB | Format: JPEG/PNG/WebP'
+      description: '🖼️ LEGACY: Single background image (use Slider Images instead for new content)',
+       hidden: ({ document }) => !!(document?.sliderImages && Array.isArray(document.sliderImages) && document.sliderImages.length > 0)
+    }),
+    defineField({
+      name: 'sliderImages',
+      title: 'Slider Images',
+      type: 'array',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {
+              name: 'image',
+              title: 'Image',
+              type: 'image',
+              options: {
+                hotspot: true,
+                accept: 'image/jpeg, image/png, image/webp',
+              },
+              validation: Rule => Rule.required()
+            },
+            {
+              name: 'alt',
+              title: 'Alternative Text',
+              type: 'string',
+              description: 'Important for accessibility and SEO',
+              validation: Rule => Rule.required()
+            },
+            {
+              name: 'caption',
+              title: 'Caption (Optional)',
+              type: 'string',
+              description: 'Optional caption text overlay on the image'
+            }
+          ],
+          preview: {
+            select: {
+              title: 'alt',
+              subtitle: 'caption',
+              media: 'image'
+            },
+            prepare(selection) {
+              const { title, subtitle } = selection
+              return {
+                title: title || 'Untitled Image',
+                subtitle: subtitle || 'No caption'
+              }
+            }
+          }
+        }
+      ],
+      validation: Rule => Rule.min(1).max(10).error('Please add between 1-10 slider images'),
+      description: '🎠 HERO SLIDER: 1920x1080px (16:9) | Max Size: 20MB each | Format: JPEG/PNG/WebP | Minimum 1, Maximum 10 images'
+    }),
+    defineField({
+      name: 'sliderSettings',
+      title: 'Slider Settings',
+      type: 'object',
+      fields: [
+        {
+          name: 'autoPlay',
+          title: 'Auto Play',
+          type: 'boolean',
+          initialValue: true,
+          description: 'Automatically advance slides'
+        },
+        {
+          name: 'autoPlayInterval',
+          title: 'Auto Play Interval (seconds)',
+          type: 'number',
+          initialValue: 5,
+          validation: Rule => Rule.min(2).max(30),
+          description: 'Time between slide transitions (2-30 seconds)',
+          hidden: ({ parent }) => !parent?.autoPlay
+        },
+        {
+          name: 'showNavigation',
+          title: 'Show Navigation Arrows',
+          type: 'boolean',
+          initialValue: true,
+          description: 'Show previous/next arrows'
+        },
+        {
+          name: 'showDots',
+          title: 'Show Dot Indicators',
+          type: 'boolean',
+          initialValue: true,
+          description: 'Show dot indicators at bottom'
+        },
+        {
+          name: 'pauseOnHover',
+          title: 'Pause on Hover',
+          type: 'boolean',
+          initialValue: true,
+          description: 'Pause auto-play when user hovers over slider',
+          hidden: ({ parent }) => !parent?.autoPlay
+        }
+      ],
+      description: 'Configure slider behavior and appearance',
+       hidden: ({ document }) => !(document?.sliderImages && Array.isArray(document.sliderImages) && document.sliderImages.length > 1)
     }),
     defineField({
       name: 'isActive',

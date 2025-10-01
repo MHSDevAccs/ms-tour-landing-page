@@ -294,7 +294,7 @@ export default async function BlogPage({
               <AnimatedSection>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-primary transition-all duration-300"
+                  className="inline-flex items-center px-8 py-3 border-2 border-white text-primary bg-white font-semibold rounded-lg"
                 >
                   Info Lebih Lanjut
                 </Link>

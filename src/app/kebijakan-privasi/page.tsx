@@ -2,6 +2,10 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { PageTransition } from '@/components/AnimatedSection'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
+import { sanityFetch, queries } from '@/sanity/lib/client'
+
+// Force dynamic rendering
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Kebijakan Privasi | Mahabbatussholihin Tour & Travel',
@@ -14,7 +18,33 @@ export const metadata: Metadata = {
   },
 }
 
-export default function PrivacyPolicyPage() {
+export default async function PrivacyPolicyPage() {
+  // Fetch business info for contact information
+  let businessInfo: any = null
+  let siteSettings: any = null
+
+  try {
+    businessInfo = await sanityFetch<any>({
+      query: queries.getBusinessInfo(),
+      tags: ['businessInfo']
+    })
+  } catch (error) {
+    console.error('Failed to fetch business info:', error)
+  }
+
+  // Fallback to siteSettings if needed
+  try {
+    siteSettings = await sanityFetch<any>({
+      query: queries.getSiteSettings(),
+      tags: ['siteSettings']
+    })
+  } catch (error) {
+    console.error('Failed to fetch site settings:', error)
+  }
+
+  // Use businessInfo as primary source, fallback to siteSettings
+  const contactData = businessInfo || siteSettings
+
   return (
     <PageTransition>
       <div className="min-h-screen bg-gray-50">
@@ -232,35 +262,52 @@ export default function PrivacyPolicyPage() {
               silakan hubungi kami melalui:
             </p>
             <div className="bg-gray-50 p-4 sm:p-6 rounded-lg">
-              <h3 className="font-semibold text-gray-800 mb-4 text-center sm:text-left">Mahabbatussholihin Tour & Travel</h3>
+              <h3 className="font-semibold text-gray-800 mb-4 text-center sm:text-left">
+                {contactData?.siteName || 'Mahabbatussholihin Tour & Travel'}
+              </h3>
               <div className="space-y-3 text-gray-600">
-                <div className="flex flex-col sm:flex-row sm:items-center">
-                  <strong className="text-gray-800 mb-1 sm:mb-0 sm:mr-2 min-w-[80px]">Email:</strong>
-                  <a href="mailto:info@travel.mahabbatussholihin.com" 
-                     className="text-primary hover:text-primary-dark break-all sm:break-normal transition-colors">
-                    info@travel.mahabbatussholihin.com
-                  </a>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-center">
-                  <strong className="text-gray-800 mb-1 sm:mb-0 sm:mr-2 min-w-[80px]">Telepon:</strong>
-                  <a href="tel:+6281110002477" 
-                     className="text-primary hover:text-primary-dark transition-colors">
-                    +62 811 1000 2477
-                  </a>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-center">
-                  <strong className="text-gray-800 mb-1 sm:mb-0 sm:mr-2 min-w-[80px]">WhatsApp:</strong>
-                  <a href="https://wa.me/6281110002477" 
-                     target="_blank" 
-                     rel="noopener noreferrer"
-                     className="text-primary hover:text-primary-dark transition-colors">
-                    +62 811 1000 2477
-                  </a>
-                </div>
-                <div className="flex flex-col sm:flex-row sm:items-center">
-                  <strong className="text-gray-800 mb-1 sm:mb-0 sm:mr-2 min-w-[80px]">Alamat:</strong>
-                  <span>Bukit Duri, Jak-Sel</span>
-                </div>
+                {/* Email */}
+                {contactData?.contactInfo?.email && (
+                  <div className="flex flex-col sm:flex-row sm:items-center">
+                    <strong className="text-gray-800 mb-1 sm:mb-0 sm:mr-2 min-w-[80px]">Email:</strong>
+                    <a href={`mailto:${contactData.contactInfo.email}`} 
+                       className="text-primary hover:text-primary-dark break-all sm:break-normal transition-colors">
+                      {contactData.contactInfo.email}
+                    </a>
+                  </div>
+                )}
+                
+                {/* Phone */}
+                {contactData?.contactInfo?.phone && (
+                  <div className="flex flex-col sm:flex-row sm:items-center">
+                    <strong className="text-gray-800 mb-1 sm:mb-0 sm:mr-2 min-w-[80px]">Telepon:</strong>
+                    <a href={`tel:${contactData.contactInfo.phone}`} 
+                       className="text-primary hover:text-primary-dark transition-colors">
+                      {contactData.contactInfo.phone}
+                    </a>
+                  </div>
+                )}
+                
+                {/* WhatsApp */}
+                {contactData?.contactInfo?.whatsapp && (
+                  <div className="flex flex-col sm:flex-row sm:items-center">
+                    <strong className="text-gray-800 mb-1 sm:mb-0 sm:mr-2 min-w-[80px]">WhatsApp:</strong>
+                    <a href={`https://wa.me/${contactData.contactInfo.whatsapp.replace(/\D/g, '')}`} 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       className="text-primary hover:text-primary-dark transition-colors">
+                      {contactData.contactInfo.whatsapp}
+                    </a>
+                  </div>
+                )}
+                
+                {/* Address */}
+                {contactData?.contactInfo?.address && (
+                  <div className="flex flex-col sm:flex-row sm:items-center">
+                    <strong className="text-gray-800 mb-1 sm:mb-0 sm:mr-2 min-w-[80px]">Alamat:</strong>
+                    <span>{contactData.contactInfo.address}</span>
+                  </div>
+                )}
               </div>
             </div>
           </section>

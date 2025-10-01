@@ -282,6 +282,27 @@ export const queries = {
         },
         alt
       },
+      sliderImages[] {
+        image {
+          asset-> {
+            _id,
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        },
+        alt,
+        caption
+      },
+      sliderSettings {
+        autoplay,
+        interval,
+        showNavigation,
+        showDots,
+        pauseOnHover
+      },
       isActive,
       language
     }

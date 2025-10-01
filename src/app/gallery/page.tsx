@@ -171,7 +171,7 @@ export default async function GalleryPage() {
             <AnimatedSection>
               <a
                 href="https://wa.me/6281110002477"
-                className="inline-flex items-center px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-primary transition-all duration-300"
+                className="inline-flex items-center px-8 py-3 border-2 border-white text-primary bg-white font-semibold rounded-lg"
               >
                 {siteSettings?.pageContent?.galleryCtaServicesButton || 'Info Lebih Lanjut'}
               </a>

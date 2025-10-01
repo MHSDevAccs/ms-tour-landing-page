@@ -398,9 +398,9 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div className="mt-8 lg:mt-0 sm:col-span-2 lg:col-span-1">
-            <h3 className="text-lg font-semibold mb-6 text-white">Info Kontak</h3>
+            <h3 className="text-lg font-semibold mb-6 text-white">Informasi Kontak</h3>
             <div className="space-y-4">
-              {businessInfo?.contactInfo?.address && businessInfo.contactInfo.address.trim() && (
+              {businessInfo?.contactInfo?.address && (
                 <div className="flex items-start">
                   <svg className="h-5 w-5 text-primary-light mt-1 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />

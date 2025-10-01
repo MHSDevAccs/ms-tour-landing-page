@@ -53,7 +53,7 @@ export default function BlogCard({
 
   const cardVariants = {
     default: 'bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 h-full',
-    featured: 'bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 h-full border border-primary/10',
+    featured: 'bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 h-full border border-primary/10',
     compact: 'bg-white rounded-md shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 flex flex-row',
     horizontal: 'bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col sm:flex-row'
   }

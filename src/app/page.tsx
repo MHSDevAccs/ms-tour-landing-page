@@ -6,8 +6,9 @@ import { urlForHero, urlForProduct } from '@/sanity/lib/image'
 import { blogService } from '@/lib/blogService'
 import FeaturesSection from '@/components/FeaturesSection'
 import TestimonialsSection from '@/components/TestimonialsSection'
-// import FAQSection from '@/components/FAQSection'
+import WhatsAppFloat from '@/components/WhatsAppFloat'
 import BlogCard from '@/components/BlogCard'
+import HeroSlider from '@/components/HeroSlider'
 import AnimatedSection, { PageTransition, StaggerContainer, StaggerItem } from '@/components/AnimatedSection'
 import { generateOrganizationJsonLd, generateTravelServiceJsonLd, generateWebsiteJsonLd } from '@/lib/jsonLd'
 
@@ -90,6 +91,30 @@ interface HeroSection {
       }
     }
     alt?: string
+  }
+  sliderImages?: Array<{
+    image: {
+      asset: {
+        _id: string
+        url: string
+        metadata?: {
+          dimensions: {
+            width: number
+            height: number
+          }
+        }
+      }
+      alt?: string
+    }
+    alt: string
+    caption?: string
+  }>
+  sliderSettings?: {
+    autoplay?: boolean
+    interval?: number
+    showNavigation?: boolean
+    showDots?: boolean
+    pauseOnHover?: boolean
   }
   isActive: boolean
   language: string
@@ -186,6 +211,8 @@ interface SiteSettings {
   }
 }
 
+
+
 export default async function Home() {
   // Fetch CMS data with error handling
   let heroData: HeroSection | null = null
@@ -257,58 +284,24 @@ export default async function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
-      {/* Hero Section - Fully Dynamic */}
-      {heroData ? (
-        <section className="relative bg-gradient-to-br from-primary via-primary to-primary-dark text-white py-20 lg:py-32 overflow-hidden">
-          {/* Background Image */}
-          <div className="absolute inset-0 z-0">
-            {heroData.backgroundImage?.asset ? (
-              <Image
-                src={urlForHero(heroData.backgroundImage).url()}
-                alt={heroData.backgroundImage.alt || 'Hero Background'}
-                fill
-                className="object-cover"
-                priority
-                sizes="100vw"
-              />
-            ) : (
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-dark via-primary to-secondary" />
-            )}
-            <div className="absolute inset-0 bg-black/40"></div>
-          </div>
-          
-          {/* Hero Content */}
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-left">
-              {/* Business Name */}
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
-                {heroData.title}
-              </h1>
-              
-              {/* Business Motto/Tagline */}
-              <p className="text-base md:text-lg lg:text-xl mb-24 max-w-3xl text-white/90 font-medium">
-                {heroData.subtitle}
-              </p>
-              
-              <div className="flex justify-start">
-                <AnimatedSection direction="fade">
-                  <Link
-                    href={heroData.ctaLink}
-                    className="inline-flex items-center px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-primary transition-all duration-300"
-                  >
-                    {heroData.ctaText}
-                  </Link>
-                </AnimatedSection>
-              </div>
-            </div>
-          </div>
-        </section>
-      ) : (
-        <div className="py-20 bg-secondary-light text-center">
-          <h2 className="text-2xl font-bold text-black">Data Hero Tidak Ditemukan</h2>
-          <p className="text-gray-600">Silakan tambahkan konten hero di Sanity Studio</p>
-        </div>
-      )}
+      {/* Hero Section - CMS Content */}
+      <div className="relative">
+        <HeroSlider
+          title={heroData?.title || "Mahabbatussholihin Tour & Travel"}
+          subtitle={heroData?.subtitle || "Mendampingi Jamaah Haji dan Umrah, InsyaAllah Amanah dalam memberangkatkan para Jamaah ke tanah suci"}
+          ctaText={heroData?.ctaText || "Info lebih lanjut"}
+          ctaLink={heroData?.ctaLink || "/services"}
+          sliderImages={heroData?.sliderImages || []}
+          sliderSettings={heroData?.sliderSettings || {
+            autoplay: true,
+            interval: 5000,
+            showNavigation: true,
+            showDots: true,
+            pauseOnHover: true
+          }}
+          backgroundImage={heroData?.backgroundImage}
+        />
+      </div>
 
       {/* Features Section - Reusable Component */}
       <FeaturesSection data={featuresData} variant="default" maxFeatures={3} />
@@ -507,12 +500,9 @@ export default async function Home() {
             <div className="text-center">
               <Link
                 href="/blog"
-                className="border-2 border-primary text-primary px-8 py-4 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors duration-200"
+                className="border-2 border-primary text-white bg-primary px-8 py-4 rounded-lg font-semibold"
               >
                 Lihat Semua Artikel
-                {/* <svg className="ml-2 -mr-1 w-4 h-4 transition-transform duration-300 ease-in-out group-hover:translate-x-1" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                </svg> */}
               </Link>
             </div>
           </div>
@@ -531,7 +521,8 @@ export default async function Home() {
           <AnimatedSection direction="fade">
             <Link
               href="https://wa.me/6281110002477"
-              className="inline-flex items-center px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-primary transition-all duration-300"          >
+              className="inline-flex items-center px-8 py-3 border-2 border-white text-primary font-semibold rounded-lg bg-white"
+            >
               Konsultasi Gratis
             </Link>
           </AnimatedSection>

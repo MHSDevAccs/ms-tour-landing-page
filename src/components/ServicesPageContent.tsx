@@ -120,7 +120,7 @@ export default function ServicesPageContent({
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="https://wa.me/6281110002477"
-                  className="border-2 border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors duration-200"
+                  className="border-2 border-primary text-white bg-primary px-8 py-3 rounded-lg font-semibold"
                 >
                   {siteSettings?.servicesContent?.ctaSecondaryButtonText || 'Konsultasi Gratis'}
                 </a>

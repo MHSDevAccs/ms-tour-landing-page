@@ -167,6 +167,70 @@ export default async function AboutPage() {
           </StaggerContainer>
         </div>
       </section>
+
+      {/* Legalitas Section */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="bg-white rounded-lg shadow-md p-8">
+          <h2 className="text-2xl font-semibold text-black mb-6">
+            Legalitas Perusahaan
+          </h2>
+          
+          <StaggerContainer className="space-y-4">
+            <StaggerItem>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="border-l-4 border-primary pl-4 py-2">
+                    <h3 className="font-semibold text-gray-800 mb-1">Nama Perusahaan</h3>
+                    <p className="text-gray-700">PT MAHABBATUSSHOLIHIN TOUR DAN TRAVEL</p>
+                  </div>
+                   <div className="border-l-4 border-primary pl-4 py-2">
+                    <h3 className="font-semibold text-gray-800 mb-1">NIB</h3>
+                    <p className="text-gray-700">1208250112908</p>
+                  </div>                 
+                  <div className="border-l-4 border-primary pl-4 py-2">
+                    <h3 className="font-semibold text-gray-800 mb-1">Status Penanaman Modal</h3>
+                    <p className="text-gray-700">PMDN (Penanaman Modal Dalam Negeri)</p>
+                  </div>
+                  <div className="border-l-4 border-primary pl-4 py-2">
+                    <h3 className="font-semibold text-gray-800 mb-1">Skala Usaha</h3>
+                    <p className="text-gray-700">Usaha Mikro</p>
+                  </div>
+                </div>
+                
+                
+                
+                <div className="space-y-4">
+                  <div className="border-l-4 border-primary pl-4 py-2">
+                    <h3 className="font-semibold text-gray-800 mb-1">Alamat Kantor</h3>
+                    <p className="text-gray-700">
+                      JLN. CIPINANG MUARA RAYA NO. 02<br />
+                      Desa/Kelurahan Cipinang Muara<br />
+                      Kec. Jatinegara, Kota Adm. Jakarta Timur<br />
+                      Provinsi DKI Jakarta<br />
+                      Kode Pos: 13420
+                    </p>
+                  </div>
+                  
+                  
+                  <div className="border-l-4 border-primary pl-4 py-2">
+                    <h3 className="font-semibold text-gray-800 mb-1">Kontak</h3>
+                    <p className="text-gray-700">
+                      No. Telepon: 081110002477<br />
+                      Email: ptmahabbatussholihin@gmail.com
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </StaggerItem>
+          </StaggerContainer>
+          
+          <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+            <p className="text-sm text-gray-600 text-center">
+              Perusahaan kami beroperasi secara legal dan terdaftar resmi sesuai dengan peraturan perundang-undangan yang berlaku di Indonesia.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
     </PageTransition>
   )

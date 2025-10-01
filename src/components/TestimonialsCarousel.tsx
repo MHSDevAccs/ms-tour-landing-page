@@ -142,7 +142,7 @@ const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
         <>
           <button
             onClick={goToPrevious}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 p-3 bg-white shadow-lg hover:shadow-xl text-primary hover:text-primary-dark rounded-full transition-all duration-200 hover:scale-110"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 p-3 bg-white shadow-lg hover:shadow-xl text-primary hover:text-primary-dark rounded-full transition-all duration-200"
             aria-label="Testimonial sebelumnya"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -150,7 +150,7 @@ const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
           
           <button
             onClick={goToNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 p-3 bg-white shadow-lg hover:shadow-xl text-primary hover:text-primary-dark rounded-full transition-all duration-200 hover:scale-110"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 p-3 bg-white shadow-lg hover:shadow-xl text-primary hover:text-primary-dark rounded-full transition-all duration-200"
             aria-label="Testimonial selanjutnya"
           >
             <ChevronRight className="w-5 h-5" />

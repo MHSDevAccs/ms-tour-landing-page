@@ -726,5 +726,51 @@ export const queries = {
         teamSignature
       }
     }
+  `,
+
+  // About Us
+  getAboutUs: () => `
+    *[_type == "aboutUs"][0] {
+      _id,
+      seoTitle,
+      seoDescription,
+      mainTitle,
+      subtitle,
+      ourStoryTitle,
+      ourStoryDescription,
+      ourMissionTitle,
+      ourMissionDescription,
+      whyChooseUsTitle,
+      whyChooseUsItems[] {
+        title,
+        description,
+        icon {
+          asset-> {
+            _id,
+            url
+          },
+          alt
+        }
+      },
+      companyLegality {
+        legalName,
+        registrationNumber,
+        taxId,
+        businessLicense,
+        establishedYear,
+        certifications[] {
+          name,
+          issuedBy,
+          validUntil,
+          certificateImage {
+            asset-> {
+              _id,
+              url
+            },
+            alt
+          }
+        }
+      }
+    }
   `
 }

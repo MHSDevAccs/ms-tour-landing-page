@@ -179,31 +179,33 @@ const Header = () => {
       </div>
 
       {/* Mobile menu */}
-      <div className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'}`}>
+      <div className={`md:hidden transition-all duration-300 ease-out ${
+        isMenuOpen 
+          ? 'max-h-96 opacity-100 transform scale-y-100' 
+          : 'max-h-0 opacity-0 transform scale-y-0'
+      } origin-top overflow-hidden`}>
         <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200">
-          {navigation.map((item) => (
+          {navigation.map((item, index) => (
             <Link
               key={item.name}
               href={item.href}
-              className={`block px-3 py-2 text-base font-medium transition-colors duration-200 ${
+              className={`block px-3 py-2 text-base font-medium transition-all duration-300 ${
+                isMenuOpen 
+                  ? 'opacity-100 transform translate-x-0' 
+                  : 'opacity-0 transform translate-x-[-10px]'
+              } ${
                 isActive(item.href)
                   ? 'text-primary bg-primary-lighter'
                 : 'text-gray-700 hover:text-primary hover:bg-gray-50'
               }`}
+              style={{
+                transitionDelay: isMenuOpen ? `${index * 100}ms` : '0ms'
+              }}
               onClick={() => setIsMenuOpen(false)}
             >
               {item.name}
             </Link>
           ))}
-          <div className="px-3 py-2">
-            <Link
-              href="/contact"
-              className={`block w-full text-center ${siteSettings?.theme?.buttons?.primaryButton || 'bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors duration-200'}`}
-              onClick={() => setIsMenuOpen(false)}
-            >
-              {siteSettings?.content?.bookNowText || 'Pesan Sekarang'}
-            </Link>
-          </div>
         </div>
       </div>
     </header>

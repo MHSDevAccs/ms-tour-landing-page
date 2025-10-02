@@ -1,10 +1,8 @@
 'use client'
 
-import { useState } from 'react'
 import AnimatedSection, { PageTransition, StaggerContainer, StaggerItem } from '@/components/AnimatedSection'
 import { ServicesGrid, ServicePackage } from '@/components/ServiceCard'
 import FeaturesSection from '@/components/FeaturesSection'
-import ServiceModal from '@/components/ServiceModal'
 
 interface ServicesPageContentProps {
   services: ServicePackage[]
@@ -15,21 +13,8 @@ interface ServicesPageContentProps {
 export default function ServicesPageContent({ 
   services, 
   featuresData, 
-  siteSettings 
+  siteSettings
 }: ServicesPageContentProps) {
-  const [selectedService, setSelectedService] = useState<ServicePackage | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
-
-  const handleServiceClick = (service: ServicePackage) => {
-    setSelectedService(service)
-    setIsModalOpen(true)
-  }
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
-    setSelectedService(null)
-  }
-
   return (
     <PageTransition>
       <div className="min-h-screen bg-gray-50">
@@ -42,7 +27,7 @@ export default function ServicesPageContent({
               </h1>
             </AnimatedSection>
             <AnimatedSection direction="up" delay={0.4}>
-              <p className="text-xl text-primary-lighter">
+              <p className="text-xl text-white">
                 {siteSettings?.servicesContent?.subtitle || 'Bismillah, kami nawarin berbagai layanan perjalanan yang berkah dan komprehensif yang dirancang buat memenuhi kebutuhan setiap jamaah dengan penuh amanah dan barakah.'}
               </p>
             </AnimatedSection>
@@ -69,7 +54,6 @@ export default function ServicesPageContent({
                   services={services.filter(s => s.isPopular)} 
                   variant="featured"
                   className="mb-8"
-                  onServiceClick={handleServiceClick}
                 />
               </AnimatedSection>
             </div>
@@ -79,20 +63,13 @@ export default function ServicesPageContent({
           {services.length > 0 && (
             <div className="mb-16">
               <AnimatedSection direction="up" delay={0.1}>
-                <div className="text-center mb-8">
-                  <h2 className="text-3xl font-bold text-black mb-4">
-                    {siteSettings?.servicesContent?.allServicesTitle || 'Semua Layanan'}
-                  </h2>
-                  <p className="text-lg text-gray-600">
-                    {siteSettings?.servicesContent?.allServicesSubtitle || 'Pilihan lengkap untuk setiap kebutuhan perjalanan'}
-                  </p>
+                <div className="text-center mb-8">                  
                 </div>
               </AnimatedSection>
               <AnimatedSection direction="up" delay={0.3}>
                 <ServicesGrid 
                   services={services} 
                   variant="featured" 
-                  onServiceClick={handleServiceClick}
                 />
               </AnimatedSection>
             </div>
@@ -128,13 +105,6 @@ export default function ServicesPageContent({
             </div>
           </AnimatedSection>
         </div>
-
-        {/* Service Modal */}
-        <ServiceModal
-          service={selectedService}
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-        />
       </div>
     </PageTransition>
   )

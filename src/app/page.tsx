@@ -5,6 +5,8 @@ import { sanityFetch, queries } from '@/sanity/lib/client'
 import { urlForHero, urlForProduct } from '@/sanity/lib/image'
 import { blogService } from '@/lib/blogService'
 import FeaturesSection from '@/components/FeaturesSection'
+import ServicePackagesSection from '@/components/ServicePackagesSection'
+import { ServicePackage } from '@/components/ServiceCard'
 import TestimonialsSection from '@/components/TestimonialsSection'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
 import BlogCard from '@/components/BlogCard'
@@ -220,6 +222,15 @@ export default async function Home() {
   let siteSettings: SiteSettings | null = null
   let testimonials: any[] = []
   let featuredBlogPosts: any[] = []
+  let servicePackages: ServicePackage[] = []
+  try {
+    servicePackages = await sanityFetch<ServicePackage[]>({
+      query: queries.getPopularServices(4),
+      tags: ['servicePackage']
+    })
+  } catch (error) {
+    console.error('Failed to fetch service packages:', error)
+  }
 
   try {
     heroData = await sanityFetch<HeroSection>({
@@ -303,8 +314,15 @@ export default async function Home() {
         />
       </div>
 
+
       {/* Features Section - Reusable Component */}
       <FeaturesSection data={featuresData} variant="default" maxFeatures={3} />
+
+      {/* Service Packages Section */}
+      <ServicePackagesSection 
+        servicePackages={servicePackages}
+        siteSettings={siteSettings}
+      />
 
       {/* Fasilitas Jamaah Section */}
       <section className="py-16 bg-gray-50">
@@ -372,9 +390,9 @@ export default async function Home() {
                     <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z"/>
                   </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-black mb-3 group-hover:text-gray-800 transition-colors duration-300">TL/ Mutawwif</h3>
+                <h3 className="text-lg font-semibold text-black mb-3 group-hover:text-gray-800 transition-colors duration-300">TL/Muthowwif</h3>
                 <p className="text-gray-600 text-sm leading-relaxed">
-                  Umroh ditemani ol leader dan Muthowif yang tersertifikasi
+                  Umroh ditemani tour leader dan Muthowwif yang tersertifikasi
                 </p>
               </div>
             </StaggerItem>

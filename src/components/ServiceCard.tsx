@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import { urlForProduct } from '@/sanity/lib/image'
@@ -52,7 +54,7 @@ interface ServiceCardProps {
   showPrice?: boolean
   showFeatures?: boolean
   theme?: ThemeConfig
-  onClick?: (service: ServicePackage) => void
+  onServiceClick?: (service: ServicePackage) => void
 }
 
 export default function ServiceCard({ 
@@ -61,7 +63,7 @@ export default function ServiceCard({
   showPrice = true,
   showFeatures = true,
   theme,
-  onClick
+  onServiceClick
 }: ServiceCardProps) {
   
   const isCompact = variant === 'compact'
@@ -92,13 +94,14 @@ export default function ServiceCard({
 
   return (
     <div 
+      onClick={() => onServiceClick?.(service)}
       className={`
-        relative overflow-hidden rounded-2xl shadow-2xl
+        relative overflow-hidden rounded-2xl shadow-2xl cursor-pointer
         ${isFeatured ? 'shadow-3xl' : ''}
-        w-full h-[500px] cursor-pointer
-        drop-shadow-lg
+        w-full h-[500px]
+        drop-shadow-lg hover:shadow-3xl transition-all duration-300 transform hover:scale-[1.02]
+        touch-manipulation
       `}
-      onClick={() => onClick?.(service)}
     >
       {/* Image Only */}
       {service.icon?.asset ? (
@@ -117,7 +120,7 @@ export default function ServiceCard({
       )}
 
       {/* Service Info Overlay - Always Visible */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none">
         <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
           <h3 className="text-xl font-bold mb-2">
             {service.title}
@@ -125,15 +128,9 @@ export default function ServiceCard({
           <p className="text-sm text-gray-200 mb-4 line-clamp-2">
             {service.description}
           </p>
-          <button 
-            className="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-300 hover:scale-105 shadow-lg"
-            onClick={(e) => {
-              e.stopPropagation()
-              onClick?.(service)
-            }}
-          >
+          <div className="inline-block bg-primary text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-300 shadow-lg">
             Detail Paket
-          </button>
+          </div>
         </div>
       </div>
     </div>
@@ -175,7 +172,7 @@ export function ServicesGrid({
   }
 
   return (
-    <div className={`grid ${getGridClass()} gap-6 ${className}`}>
+    <div className={`grid ${getGridClass()} gap-6 place-items-center justify-items-center ${className}`}>
       {services.map((service) => (
         <ServiceCard
           key={service._id}
@@ -184,7 +181,7 @@ export function ServicesGrid({
           showPrice={showPrice}
           showFeatures={showFeatures}
           theme={theme}
-          onClick={onServiceClick}
+          onServiceClick={onServiceClick}
         />
       ))}
     </div>

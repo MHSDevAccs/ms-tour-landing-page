@@ -176,27 +176,29 @@ export default function HeroSlider({
             )}
           </div>
         ))}
-        <div className="absolute inset-0 bg-black/40 z-10"></div>
+        <div className="absolute inset-0 bg-black/20 z-10"></div>
       </div>
 
       {/* Hero Content */}
-      <div className="absolute inset-0 z-0 flex items-center justify-start px-4 sm:px-6 lg:px-32 lg:items-start lg:pt-32 lg:pl-64">
-        <div className="max-w-4xl">
-          <h1 className="text-3xl sm:text-3xl md:text-6xl lg:text-7xl font-bold text-white mb-6 drop-shadow-lg text-left">
+      <div className="absolute inset-0 z-0 flex items-center justify-center lg:justify-start px-4 sm:px-6 lg:px-32 lg:items-start lg:pt-32 lg:pl-64">
+        <div className="max-w-4xl text-center lg:text-left">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 drop-shadow-lg">
             Mahabbatussholihin
-            <p className="text-3xl sm:text-3xl md:text-6xl lg:text-7xl font-bold text-white mb-6 drop-shadow-lg text-left">
+            <p className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 drop-shadow-lg">
               Tour & Travel
             </p>
           </h1>
-          <p className="text-md sm:text-lg md:text-xl text-white/90 mb-8 max-w-2xl drop-shadow-lg text-left">
+          <p className="text-md sm:text-lg md:text-xl text-white mb-8 max-w-2xl drop-shadow-lg mx-auto lg:mx-0">
             {subtitle}
           </p>
-          <Link
-            href={ctaLink}
-            className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-          >
-            {ctaText}
-          </Link>
+          <div className="flex justify-center lg:justify-start">
+            <Link
+              href={ctaLink}
+              className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+            >
+              {ctaText}
+            </Link>
+          </div>
         </div>
       </div>
 

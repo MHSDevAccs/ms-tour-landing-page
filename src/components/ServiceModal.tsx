@@ -71,7 +71,8 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
   }
 
   // Handle backdrop click
-  const handleBackdropClick = (e: React.MouseEvent) => {
+  const handleBackdropClick = (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault()
     if (e.target === e.currentTarget) {
       onClose()
     }
@@ -101,15 +102,16 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-gray-500 bg-opacity-30 backdrop-blur-sm"
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-0 sm:p-4 bg-black bg-opacity-50 backdrop-blur-sm overflow-y-auto"
           onClick={handleBackdropClick}
         >
           <motion.div 
-            initial={{ scale: 0.9, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.9, opacity: 0, y: 20 }}
+            initial={{ scale: 0.9, opacity: 0, x: 0, y: 0 }}
+            animate={{ scale: 1, opacity: 1, x: 0, y: 0 }}
+            exit={{ scale: 0.9, opacity: 0, x: 0, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="relative bg-white rounded-xl sm:rounded-2xl shadow-2xl max-w-sm sm:max-w-5xl w-full max-h-[95vh] sm:max-h-[85vh] overflow-hidden"
+            className="relative bg-white rounded-none sm:rounded-2xl shadow-2xl w-full sm:max-w-5xl h-screen sm:h-auto sm:max-h-[90vh] overflow-hidden mx-auto"
+            onClick={(e) => e.stopPropagation()}
           >
         {/* Close Button */}
         <motion.button
@@ -117,15 +119,15 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
           whileHover={{ scale: 1.1, rotate: 90 }}
           whileTap={{ scale: 0.9 }}
           transition={{ duration: 0.2 }}
-          className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 p-1.5 sm:p-2 bg-white bg-opacity-90 rounded-full shadow-lg hover:bg-opacity-100 transition-all duration-300 ease-in-out"
+          className="absolute top-4 right-4 z-20 p-3 bg-white bg-opacity-95 rounded-full shadow-lg hover:bg-opacity-100 transition-all duration-300 ease-in-out touch-manipulation"
         >
           <X className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 hover:text-gray-800 transition-colors duration-200" />
         </motion.button>
 
         {/* Modal Content */}
-        <div className="flex flex-col lg:flex-row overflow-y-auto max-h-[95vh] sm:max-h-[85vh]">
+        <div className="flex flex-col lg:flex-row h-full min-h-screen sm:min-h-0 overflow-y-auto">
           {/* Image Section */}
-          <AnimatedSection direction="left" delay={0.2} className="relative h-64 sm:h-80 lg:h-[600px] lg:w-1/2 overflow-hidden bg-gray-100 rounded-lg lg:rounded-l-lg lg:rounded-r-none">
+          <div className="relative h-64 sm:h-80 lg:h-[600px] lg:w-1/2 overflow-hidden bg-gray-100 flex-shrink-0">
             {service.icon?.asset ? (
               <Image
                 src={urlForProduct(service.icon).url()}
@@ -143,30 +145,16 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
               </div>
             )}
             
-            {/* Popular Badge */}
-            {service.isPopular && (
-              <motion.div
-                initial={{ scale: 0, rotate: -12 }}
-                animate={{ scale: 1, rotate: -12 }}
-                transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.3 }}
-                className="absolute top-4 right-4 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-sm font-semibold shadow-lg"
-              >
-                <Star className="w-4 h-4 inline mr-1" />
-                Popular
-              </motion.div>
-            )}
-           </AnimatedSection>
+            
+           </div>
 
           {/* Content */}
           <div className="p-4 sm:p-6 lg:p-8 lg:w-1/2">
-            <StaggerContainer>
+            <div>
               {/* Header */}
-              <StaggerItem>
+              <div>
                 <div className="mb-4 sm:mb-6">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="bg-primary bg-opacity-10 text-primary px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-medium">
-                      {service.category}
-                    </span>
                   </div>
                   <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
                     {service.title}
@@ -175,99 +163,79 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
                     {service.description}
                   </p>
                 </div>
-              </StaggerItem>
+              </div>
 
               {/* Price */}
               {service.price && (
-                <StaggerItem>
+                <div>
                   <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-gray-50 rounded-xl">
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col justify-between">
                       <span className="text-sm sm:text-base text-gray-600">Harga Mulai Dari:</span>
                       <span className="text-lg sm:text-2xl font-bold text-primary">
                         {formatPrice(service.price)}
                       </span>
                     </div>
                   </div>
-                </StaggerItem>
+                </div>
               )}
 
               {/* Features */}
               {service.features && service.features.length > 0 && (
-                <StaggerItem>
+                <div>
                   <div className="mb-4 sm:mb-6">
                     <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3">
                       Yang Termasuk:
                     </h3>
                     <div className="space-y-2">
                       {service.features.map((feature, index) => (
-                        <motion.div 
+                        <div 
                           key={index} 
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1, duration: 0.3 }}
                           className="flex items-start gap-3"
                         >
                           <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                           <span className="text-gray-700">{feature}</span>
-                        </motion.div>
+                        </div>
                       ))}
                     </div>
                   </div>
-                </StaggerItem>
+                </div>
               )}
 
               {/* Additional Info */}
-              <StaggerItem>
+              <div>
                 <div className="mb-4 sm:mb-6 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
-                  <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1, duration: 0.3 }}
-                    className="flex items-center gap-2 text-gray-600"
-                  >
+                  <div className="flex items-center gap-2 text-gray-600">
                     <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-xs sm:text-sm">Destinasi Terpilih</span>
-                  </motion.div>
-                  <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.3 }}
-                    className="flex items-center gap-2 text-gray-600"
-                  >
+                  </div>
+                  <div className="flex items-center gap-2 text-gray-600">
                     <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-xs sm:text-sm">Fleksibel</span>
-                  </motion.div>
-                  <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3, duration: 0.3 }}
-                    className="flex items-center gap-2 text-gray-600"
-                  >
+                  </div>
+                  <div className="flex items-center gap-2 text-gray-600">
                     <Users className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-xs sm:text-sm">Grup & Pribadi</span>
-                  </motion.div>
+                  </div>
                 </div>
-              </StaggerItem>
+              </div>
 
               {/* Action Buttons */}
-              <StaggerItem>
+              <div>
                 <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                  <motion.a 
+                  <a 
                     href="https://wa.me/6281110002477"
                     target="_blank"
                     rel="noopener noreferrer"
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                    className="flex-1 border-2 border-primary bg-primary text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold text-center inline-block"
+                    className="flex-1 border-2 border-primary bg-primary text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold text-center inline-block hover:bg-primary-dark transition-colors"
                   >
                     Konsultasi Gratis
-                  </motion.a>
+                  </a>
                 </div>
-              </StaggerItem>
-            </StaggerContainer>
+              </div>
+            </div>
           </div>
         </div>
-          </motion.div>
+        </motion.div>
         </motion.div>
       )}
     </AnimatePresence>

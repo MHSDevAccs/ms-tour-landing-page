@@ -97,7 +97,7 @@ export default async function GalleryPage() {
           <h1 className="text-4xl font-bold mb-4">
             {siteSettings?.pageContent?.galleryMainTitle || 'Galeri Foto'}
           </h1>
-          <p className="text-xl text-primary-lighter">
+          <p className="text-xl text-white">
             {siteSettings?.pageContent?.gallerySubtitle || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan momen berharga bersama MS Tour & Travel'}
           </p>
         </div>
@@ -164,7 +164,7 @@ export default async function GalleryPage() {
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             {siteSettings?.pageContent?.galleryCtaTitle || 'Siap Menciptakan Momen Indah Bersama Kami?'}
           </h2>
-          <p className="text-xl text-primary-lighter mb-8">
+          <p className="text-xl text-white mb-8">
             {siteSettings?.pageContent?.galleryCtaDescription || 'Alhamdulillah, gabung yuk sama ribuan jamaah yang udah merasakan berkah perjalanan bersama kami. InsyaAlloh pengalaman yang penuh barakah menanti!'}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

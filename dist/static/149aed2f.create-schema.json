@@ -1,0 +1,6064 @@
+[
+  {
+    "fields": [
+      {
+        "options": {
+          "hotspot": true,
+          "accept": "image/png, image/svg+xml, image/webp"
+        },
+        "description": "COMPANY LOGO: 400x200px (2:1) | Max Size: 20MB | Format: PNG/SVG/WebP",
+        "fields": [
+          {
+            "description": "Logo description for accessibility",
+            "name": "alt",
+            "type": "string",
+            "title": "Alternative Text"
+          }
+        ],
+        "name": "logo",
+        "type": "image",
+        "title": "Company Logo"
+      },
+      {
+        "initialValue": "MS Tour & Travel",
+        "description": "Alternative text for the logo (for accessibility)",
+        "name": "logoAlt",
+        "type": "string",
+        "title": "Logo Alt Text"
+      },
+      {
+        "initialValue": "Mahabbatussholihin Tour & Travel",
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Company/Brand name",
+        "name": "siteName",
+        "type": "string",
+        "title": "Company Name"
+      },
+      {
+        "initialValue": "Mitra Terpercaya untuk Perjalanan Spiritual Terbaik",
+        "description": "Short descriptive phrase about your company",
+        "name": "tagline",
+        "type": "string",
+        "title": "Company Tagline"
+      },
+      {
+        "fields": [
+          {
+            "placeholder": "+62 811 1000 2477",
+            "name": "phone",
+            "type": "string",
+            "title": "Phone Number"
+          },
+          {
+            "placeholder": "info@mahabbatussholihin.com",
+            "name": "email",
+            "type": "string",
+            "title": "Email Address"
+          },
+          {
+            "placeholder": "Jl. Example Street No. 123, Lombok, Indonesia",
+            "name": "address",
+            "type": "text",
+            "title": "Physical Address"
+          },
+          {
+            "placeholder": "+62 811 1000 2477",
+            "initialValue": "+62 811 1000 2477",
+            "name": "whatsapp",
+            "type": "string",
+            "title": "WhatsApp Number"
+          }
+        ],
+        "name": "contactInfo",
+        "type": "object",
+        "title": "Contact Information"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "9:00 AM - 6:00 PM",
+            "name": "mondayFriday",
+            "type": "string",
+            "title": "Monday - Friday"
+          },
+          {
+            "initialValue": "9:00 AM - 4:00 PM",
+            "name": "saturday",
+            "type": "string"
+          },
+          {
+            "initialValue": "Closed",
+            "name": "sunday",
+            "type": "string"
+          },
+          {
+            "initialValue": "WIB (GMT+7)",
+            "name": "timezone",
+            "type": "string"
+          }
+        ],
+        "name": "businessHours",
+        "type": "object"
+      },
+      {
+        "initialValue": "Mahabbatussholihin Tour & Travel - Your Gateway to Unforgettable Adventures",
+        "description": "Legacy site title field for backward compatibility",
+        "name": "siteTitle",
+        "type": "string",
+        "title": "Site Title (Legacy)"
+      },
+      {
+        "initialValue": "Discover amazing destinations with Mahabbatussholihin Tour & Travel. We offer personalized travel experiences, expert guides, and unforgettable adventures across Indonesia and beyond.",
+        "description": "Legacy site description field for backward compatibility",
+        "name": "siteDescription",
+        "type": "text",
+        "title": "Site Description (Legacy)"
+      },
+      {
+        "description": "Legacy content fields for backward compatibility",
+        "fields": [
+          {
+            "initialValue": "© 2024 Mahabbatussholihin Tour & Travel. All rights reserved.",
+            "description": "Legacy copyright text field",
+            "name": "copyrightText",
+            "type": "string",
+            "title": "Copyright Text (Legacy)"
+          },
+          {
+            "initialValue": "Mitra Terpercaya untuk Perjalanan Spiritual Terbaik",
+            "description": "Legacy tagline field",
+            "name": "tagline",
+            "type": "string",
+            "title": "Tagline (Legacy)"
+          }
+        ],
+        "name": "content",
+        "type": "object",
+        "title": "Legacy Content"
+      }
+    ],
+    "name": "businessInfo",
+    "type": "document",
+    "title": "Business Information"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "initialValue": "#2563eb",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "regex",
+                    "constraint": {
+                      "pattern": "/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/",
+                      "invert": false
+                    }
+                  }
+                ],
+                "level": "error",
+                "message": "Please enter a valid hex color code"
+              }
+            ],
+            "description": "Main brand color used for buttons, links, and highlights",
+            "name": "primary",
+            "type": "string",
+            "title": "Primary Color"
+          },
+          {
+            "initialValue": "#64748b",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "regex",
+                    "constraint": {
+                      "pattern": "/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/",
+                      "invert": false
+                    }
+                  }
+                ],
+                "level": "error",
+                "message": "Please enter a valid hex color code"
+              }
+            ],
+            "description": "Secondary color for accents and supporting elements",
+            "name": "secondary",
+            "type": "string",
+            "title": "Secondary Color"
+          },
+          {
+            "initialValue": "#f59e0b",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "regex",
+                    "constraint": {
+                      "pattern": "/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/",
+                      "invert": false
+                    }
+                  }
+                ],
+                "level": "error",
+                "message": "Please enter a valid hex color code"
+              }
+            ],
+            "description": "Accent color for special highlights and call-to-action elements",
+            "name": "accent",
+            "type": "string",
+            "title": "Accent Color"
+          },
+          {
+            "initialValue": "#ffffff",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "regex",
+                    "constraint": {
+                      "pattern": "/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/",
+                      "invert": false
+                    }
+                  }
+                ],
+                "level": "error",
+                "message": "Please enter a valid hex color code"
+              }
+            ],
+            "description": "Main background color",
+            "name": "background",
+            "type": "string",
+            "title": "Background Color"
+          },
+          {
+            "initialValue": "#1f2937",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "regex",
+                    "constraint": {
+                      "pattern": "/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/",
+                      "invert": false
+                    }
+                  }
+                ],
+                "level": "error",
+                "message": "Please enter a valid hex color code"
+              }
+            ],
+            "description": "Primary text color",
+            "name": "text",
+            "type": "string",
+            "title": "Text Color"
+          }
+        ],
+        "name": "colors",
+        "type": "object",
+        "title": "Theme Colors"
+      },
+      {
+        "fields": [
+          {
+            "fields": [
+              {
+                "initialValue": "#2563eb",
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "regex",
+                        "constraint": {
+                          "pattern": "/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/",
+                          "invert": false
+                        }
+                      }
+                    ],
+                    "level": "error",
+                    "message": "Please enter a valid hex color code"
+                  }
+                ],
+                "name": "backgroundColor",
+                "type": "string"
+              },
+              {
+                "initialValue": "#ffffff",
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "regex",
+                        "constraint": {
+                          "pattern": "/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/",
+                          "invert": false
+                        }
+                      }
+                    ],
+                    "level": "error",
+                    "message": "Please enter a valid hex color code"
+                  }
+                ],
+                "name": "textColor",
+                "type": "string"
+              },
+              {
+                "initialValue": "8px",
+                "description": "Button corner roundness (e.g., 4px, 8px, 12px)",
+                "name": "borderRadius",
+                "type": "string"
+              }
+            ],
+            "name": "primaryButton",
+            "type": "object",
+            "title": "Primary Button Style"
+          },
+          {
+            "fields": [
+              {
+                "initialValue": "transparent",
+                "name": "backgroundColor",
+                "type": "string"
+              },
+              {
+                "initialValue": "#2563eb",
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "regex",
+                        "constraint": {
+                          "pattern": "/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/",
+                          "invert": false
+                        }
+                      }
+                    ],
+                    "level": "error",
+                    "message": "Please enter a valid hex color code"
+                  }
+                ],
+                "name": "textColor",
+                "type": "string"
+              },
+              {
+                "initialValue": "#2563eb",
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "regex",
+                        "constraint": {
+                          "pattern": "/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/",
+                          "invert": false
+                        }
+                      }
+                    ],
+                    "level": "error",
+                    "message": "Please enter a valid hex color code"
+                  }
+                ],
+                "name": "borderColor",
+                "type": "string"
+              },
+              {
+                "initialValue": "8px",
+                "description": "Button corner roundness (e.g., 4px, 8px, 12px)",
+                "name": "borderRadius",
+                "type": "string"
+              }
+            ],
+            "name": "secondaryButton",
+            "type": "object",
+            "title": "Secondary Button Style"
+          }
+        ],
+        "name": "buttonStyles",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "1200px",
+            "description": "Maximum width for main content container",
+            "name": "maxWidth",
+            "type": "string",
+            "title": "Maximum Content Width"
+          },
+          {
+            "initialValue": "80px",
+            "description": "Default spacing between sections",
+            "name": "spacing",
+            "type": "string",
+            "title": "Section Spacing"
+          },
+          {
+            "initialValue": "80px",
+            "description": "Height of the main navigation header",
+            "name": "headerHeight",
+            "type": "string"
+          }
+        ],
+        "name": "layout",
+        "type": "object",
+        "title": "Layout Settings"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Inter, sans-serif",
+            "description": "Main font family for the website",
+            "name": "fontFamily",
+            "type": "string",
+            "title": "Primary Font Family"
+          },
+          {
+            "initialValue": "Inter, sans-serif",
+            "description": "Font family for headings",
+            "name": "headingFont",
+            "type": "string",
+            "title": "Heading Font Family"
+          }
+        ],
+        "name": "typography",
+        "type": "object"
+      }
+    ],
+    "name": "themeDesign",
+    "type": "document",
+    "title": "Theme & Design"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "placeholder": "https://facebook.com/mahabbatussholihin",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "url",
+            "type": "url",
+            "title": "Facebook Page URL"
+          },
+          {
+            "initialValue": true,
+            "name": "enabled",
+            "type": "boolean",
+            "title": "Show Facebook Link"
+          }
+        ],
+        "name": "facebook",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "placeholder": "https://instagram.com/mahabbatussholihin",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "url",
+            "type": "url",
+            "title": "Instagram Profile URL"
+          },
+          {
+            "initialValue": true,
+            "name": "enabled",
+            "type": "boolean",
+            "title": "Show Instagram Link"
+          }
+        ],
+        "name": "instagram",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "placeholder": "https://twitter.com/mahabbatussholihin",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "url",
+            "type": "url",
+            "title": "Twitter/X Profile URL"
+          },
+          {
+            "initialValue": false,
+            "name": "enabled",
+            "type": "boolean",
+            "title": "Show Twitter/X Link"
+          }
+        ],
+        "name": "twitter",
+        "type": "object",
+        "title": "Twitter/X"
+      },
+      {
+        "fields": [
+          {
+            "placeholder": "https://youtube.com/@mahabbatussholihin",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "url",
+            "type": "url",
+            "title": "YouTube Channel URL"
+          },
+          {
+            "initialValue": true,
+            "name": "enabled",
+            "type": "boolean",
+            "title": "Show YouTube Link"
+          }
+        ],
+        "name": "youtube",
+        "type": "object",
+        "title": "YouTube"
+      },
+      {
+        "fields": [
+          {
+            "placeholder": "https://tiktok.com/@mahabbatussholihin",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "url",
+            "type": "url",
+            "title": "TikTok Profile URL"
+          },
+          {
+            "initialValue": false,
+            "name": "enabled",
+            "type": "boolean",
+            "title": "Show TikTok Link"
+          }
+        ],
+        "name": "tiktok",
+        "type": "object",
+        "title": "TikTok"
+      },
+      {
+        "fields": [
+          {
+            "placeholder": "+62 811 1000 2477",
+            "description": "Include country code (e.g., +62 for Indonesia)",
+            "name": "number",
+            "type": "string",
+            "title": "WhatsApp Number"
+          },
+          {
+            "placeholder": "Halo, saya tertarik dengan paket tour Anda...",
+            "description": "Pre-filled message when users click WhatsApp link",
+            "name": "message",
+            "type": "text",
+            "title": "Default Message"
+          },
+          {
+            "initialValue": true,
+            "name": "enabled",
+            "type": "boolean",
+            "title": "Show WhatsApp Link"
+          }
+        ],
+        "name": "whatsapp",
+        "type": "object",
+        "title": "WhatsApp"
+      },
+      {
+        "fields": [
+          {
+            "placeholder": "https://t.me/mahabbatussholihin",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "url",
+            "type": "url",
+            "title": "Telegram Channel/Group URL"
+          },
+          {
+            "initialValue": false,
+            "name": "enabled",
+            "type": "boolean",
+            "title": "Show Telegram Link"
+          }
+        ],
+        "name": "telegram",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "placeholder": "https://linkedin.com/company/mahabbatussholihin",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "url",
+            "type": "url",
+            "title": "LinkedIn Company Page URL"
+          },
+          {
+            "initialValue": false,
+            "name": "enabled",
+            "type": "boolean",
+            "title": "Show LinkedIn Link"
+          }
+        ],
+        "name": "linkedin",
+        "type": "object",
+        "title": "LinkedIn"
+      }
+    ],
+    "name": "socialMedia",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "initialValue": "Mahabbatussholihin Tour & Travel - Your Gateway to Unforgettable Adventures",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 60
+                  }
+                ],
+                "level": "warning",
+                "message": "Keep title under 60 characters for better SEO"
+              }
+            ],
+            "description": "Page title for SEO and browser tab",
+            "name": "siteTitle",
+            "type": "string",
+            "title": "Site Title (SEO)"
+          },
+          {
+            "initialValue": "Discover amazing destinations with Mahabbatussholihin Tour & Travel. We offer personalized travel experiences, expert guides, and unforgettable adventures across Indonesia and beyond.",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 160
+                  }
+                ],
+                "level": "warning",
+                "message": "Keep description under 160 characters for better SEO"
+              }
+            ],
+            "description": "Meta description for SEO and social sharing",
+            "name": "siteDescription",
+            "type": "text",
+            "title": "Site Description (SEO)"
+          },
+          {
+            "options": {
+              "layout": "tags"
+            },
+            "description": "Keywords for SEO (separate each keyword)",
+            "of": [
+              {
+                "type": "string"
+              }
+            ],
+            "name": "keywords",
+            "type": "array",
+            "title": "SEO Keywords"
+          },
+          {
+            "options": {
+              "hotspot": true,
+              "accept": "image/png, image/jpg, image/jpeg, image/webp"
+            },
+            "description": "Image shown when sharing on social media (1200x630px recommended)",
+            "fields": [
+              {
+                "description": "Image description for accessibility",
+                "name": "alt",
+                "type": "string",
+                "title": "Alternative Text"
+              }
+            ],
+            "name": "ogImage",
+            "type": "image",
+            "title": "Social Media Image (Open Graph)"
+          }
+        ],
+        "name": "seo",
+        "type": "object",
+        "title": "SEO Settings"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Beranda",
+            "name": "home",
+            "type": "string",
+            "title": "Home Label"
+          },
+          {
+            "initialValue": "Tentang Kami",
+            "name": "about",
+            "type": "string",
+            "title": "About Label"
+          },
+          {
+            "initialValue": "Layanan",
+            "name": "services",
+            "type": "string",
+            "title": "Services Label"
+          },
+          {
+            "initialValue": "Galeri",
+            "name": "gallery",
+            "type": "string",
+            "title": "Gallery Label"
+          },
+          {
+            "initialValue": "Blog",
+            "name": "blog",
+            "type": "string",
+            "title": "Blog Label"
+          },
+          {
+            "initialValue": "Kontak",
+            "name": "contact",
+            "type": "string",
+            "title": "Contact Label"
+          }
+        ],
+        "name": "navigation",
+        "type": "object",
+        "title": "Navigation Labels"
+      },
+      {
+        "initialValue": "Mahabbatussholihin Tour & Travel - Your Gateway to Unforgettable Adventures",
+        "description": "Legacy site title field for backward compatibility",
+        "name": "siteTitle",
+        "type": "string",
+        "title": "Site Title (Legacy)"
+      },
+      {
+        "initialValue": "Discover amazing destinations with Mahabbatussholihin Tour & Travel. We offer personalized travel experiences, expert guides, and unforgettable adventures across Indonesia and beyond.",
+        "description": "Legacy site description field for backward compatibility",
+        "name": "siteDescription",
+        "type": "text",
+        "title": "Site Description (Legacy)"
+      },
+      {
+        "description": "Legacy content fields for backward compatibility",
+        "fields": [
+          {
+            "initialValue": "© 2024 Mahabbatussholihin Tour & Travel. All rights reserved.",
+            "description": "Legacy copyright text field",
+            "name": "copyrightText",
+            "type": "string",
+            "title": "Copyright Text (Legacy)"
+          },
+          {
+            "initialValue": "Mitra Terpercaya untuk Perjalanan Spiritual Terbaik",
+            "description": "Legacy tagline field",
+            "name": "tagline",
+            "type": "string",
+            "title": "Tagline (Legacy)"
+          }
+        ],
+        "name": "content",
+        "type": "object",
+        "title": "Legacy Content"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "© 2024 Mahabbatussholihin Tour & Travel. All rights reserved.",
+            "description": "Copyright notice in footer",
+            "name": "copyrightText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Hubungi Kami",
+            "description": "Default text for call-to-action buttons",
+            "name": "ctaButtonText",
+            "type": "string",
+            "title": "Default CTA Button Text"
+          },
+          {
+            "initialValue": "Baca Selengkapnya",
+            "description": "Text for \"read more\" links",
+            "name": "readMoreText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Muat Lebih Banyak",
+            "description": "Text for \"load more\" buttons",
+            "name": "loadMoreText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Kembali ke Atas",
+            "description": "Text for back to top button",
+            "name": "backToTopText",
+            "type": "string",
+            "title": "Back to Top Text"
+          }
+        ],
+        "name": "globalContent",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Hubungi Kami",
+            "description": "Title displayed above contact forms",
+            "name": "contactFormTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Kirim Pesan",
+            "description": "Text for form submit buttons",
+            "name": "submitButtonText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Terima kasih! Pesan Anda telah berhasil dikirim. Kami akan segera menghubungi Anda.",
+            "description": "Message shown after successful form submission",
+            "name": "successMessage",
+            "type": "text"
+          },
+          {
+            "initialValue": "Maaf, terjadi kesalahan. Silakan coba lagi atau hubungi kami langsung.",
+            "description": "Message shown when form submission fails",
+            "name": "errorMessage",
+            "type": "text"
+          }
+        ],
+        "name": "forms",
+        "type": "object",
+        "title": "Form Settings"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": false,
+            "description": "When enabled, shows maintenance page to visitors",
+            "name": "enabled",
+            "type": "boolean",
+            "title": "Enable Maintenance Mode"
+          },
+          {
+            "initialValue": "Website sedang dalam pemeliharaan. Kami akan segera kembali!",
+            "description": "Message shown during maintenance",
+            "name": "message",
+            "type": "text",
+            "title": "Maintenance Message"
+          },
+          {
+            "placeholder": "2 jam",
+            "description": "Estimated time until maintenance is complete",
+            "name": "estimatedTime",
+            "type": "string",
+            "title": "Estimated Completion Time"
+          }
+        ],
+        "name": "maintenance",
+        "type": "object",
+        "title": "Maintenance Mode"
+      }
+    ],
+    "name": "contentManagement",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "min",
+                    "constraint": 10
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 100
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "title",
+            "type": "string",
+            "title": "Main Title"
+          },
+          {
+            "rows": 3,
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 200
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "subtitle",
+            "type": "text"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 50
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "ctaText",
+            "type": "string",
+            "title": "Call to Action Text"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "ctaLink",
+            "type": "url",
+            "title": "Call to Action Link"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "alt",
+                "type": "string",
+                "title": "Alternative Text"
+              }
+            ],
+            "name": "backgroundImage",
+            "type": "image"
+          },
+          {
+            "of": [
+              {
+                "fields": [
+                  {
+                    "options": {
+                      "hotspot": true
+                    },
+                    "fields": [
+                      {
+                        "validation": [
+                          {
+                            "rules": [
+                              {
+                                "flag": "presence",
+                                "constraint": "required"
+                              }
+                            ],
+                            "level": "error"
+                          }
+                        ],
+                        "name": "alt",
+                        "type": "string",
+                        "title": "Alternative Text"
+                      }
+                    ],
+                    "name": "image",
+                    "type": "image"
+                  },
+                  {
+                    "name": "caption",
+                    "type": "string"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "name": "sliderImages",
+            "type": "array"
+          },
+          {
+            "fields": [
+              {
+                "initialValue": true,
+                "name": "autoplay",
+                "type": "boolean"
+              },
+              {
+                "initialValue": 5,
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "min",
+                        "constraint": 1
+                      },
+                      {
+                        "flag": "max",
+                        "constraint": 30
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "interval",
+                "type": "number",
+                "title": "Autoplay Interval (seconds)"
+              },
+              {
+                "initialValue": true,
+                "name": "showNavigation",
+                "type": "boolean",
+                "title": "Show Navigation Arrows"
+              },
+              {
+                "initialValue": true,
+                "name": "showDots",
+                "type": "boolean",
+                "title": "Show Dots Indicator"
+              },
+              {
+                "initialValue": true,
+                "name": "pauseOnHover",
+                "type": "boolean",
+                "title": "Pause on Hover"
+              }
+            ],
+            "name": "sliderSettings",
+            "type": "object"
+          },
+          {
+            "initialValue": true,
+            "name": "isActive",
+            "type": "boolean"
+          }
+        ],
+        "name": "heroSection",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "min",
+                    "constraint": 5
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 100
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "sectionTitle",
+            "type": "string"
+          },
+          {
+            "rows": 3,
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 300
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "sectionSubtitle",
+            "type": "text"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "min",
+                    "constraint": 1
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 6
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "of": [
+              {
+                "fields": [
+                  {
+                    "validation": [
+                      {
+                        "rules": [
+                          {
+                            "flag": "presence",
+                            "constraint": "required"
+                          },
+                          {
+                            "flag": "min",
+                            "constraint": 3
+                          },
+                          {
+                            "flag": "max",
+                            "constraint": 100
+                          }
+                        ],
+                        "level": "error"
+                      }
+                    ],
+                    "name": "title",
+                    "type": "string",
+                    "title": "Feature Title"
+                  },
+                  {
+                    "rows": 3,
+                    "validation": [
+                      {
+                        "rules": [
+                          {
+                            "flag": "presence",
+                            "constraint": "required"
+                          },
+                          {
+                            "flag": "min",
+                            "constraint": 10
+                          },
+                          {
+                            "flag": "max",
+                            "constraint": 300
+                          }
+                        ],
+                        "level": "error"
+                      }
+                    ],
+                    "name": "description",
+                    "type": "text",
+                    "title": "Feature Description"
+                  },
+                  {
+                    "options": {
+                      "hotspot": true
+                    },
+                    "fields": [
+                      {
+                        "validation": [
+                          {
+                            "rules": [
+                              {
+                                "flag": "presence",
+                                "constraint": "required"
+                              }
+                            ],
+                            "level": "error"
+                          }
+                        ],
+                        "name": "alt",
+                        "type": "string",
+                        "title": "Alternative Text"
+                      }
+                    ],
+                    "name": "icon",
+                    "type": "image",
+                    "title": "Feature Icon"
+                  },
+                  {
+                    "validation": [
+                      {
+                        "rules": [
+                          {
+                            "flag": "uri",
+                            "constraint": {
+                              "options": {
+                                "scheme": [
+                                  "/^http$/",
+                                  "/^https$/"
+                                ],
+                                "allowRelative": false,
+                                "relativeOnly": false,
+                                "allowCredentials": false
+                              }
+                            }
+                          }
+                        ],
+                        "level": "error"
+                      }
+                    ],
+                    "name": "link",
+                    "type": "url",
+                    "title": "Feature Link (Optional)"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "name": "features",
+            "type": "array"
+          },
+          {
+            "initialValue": true,
+            "name": "isActive",
+            "type": "boolean"
+          }
+        ],
+        "name": "featuresSection",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "min",
+                    "constraint": 5
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 100
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "sectionTitle",
+            "type": "string"
+          },
+          {
+            "rows": 3,
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 300
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "sectionSubtitle",
+            "type": "text"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 10
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "of": [
+              {
+                "to": [
+                  {
+                    "type": "testimonial"
+                  }
+                ],
+                "type": "reference",
+                "title": "Reference to testimonial"
+              }
+            ],
+            "name": "testimonials",
+            "type": "array",
+            "title": "Featured Testimonials"
+          },
+          {
+            "initialValue": false,
+            "description": "If enabled, will show all active testimonials instead of just featured ones",
+            "name": "showAllTestimonials",
+            "type": "boolean"
+          },
+          {
+            "initialValue": true,
+            "name": "isActive",
+            "type": "boolean"
+          }
+        ],
+        "name": "testimonialsSection",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 60
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "title",
+            "type": "string",
+            "title": "Page Title"
+          },
+          {
+            "rows": 3,
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 160
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "description",
+            "type": "text",
+            "title": "Meta Description"
+          },
+          {
+            "options": {
+              "layout": "tags"
+            },
+            "of": [
+              {
+                "type": "string"
+              }
+            ],
+            "name": "keywords",
+            "type": "array"
+          }
+        ],
+        "name": "seo",
+        "type": "object",
+        "title": "SEO Settings"
+      }
+    ],
+    "name": "mainPageContent",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "min",
+                    "constraint": 5
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 100
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "title",
+            "type": "string",
+            "title": "Page Title"
+          },
+          {
+            "rows": 3,
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 300
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "subtitle",
+            "type": "text",
+            "title": "Page Subtitle"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "alt",
+                "type": "string",
+                "title": "Alternative Text"
+              }
+            ],
+            "name": "backgroundImage",
+            "type": "image",
+            "title": "Header Background Image"
+          }
+        ],
+        "name": "pageHeader",
+        "type": "object"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "name",
+                "type": "string",
+                "title": "Category Name"
+              },
+              {
+                "rows": 2,
+                "name": "description",
+                "type": "text",
+                "title": "Category Description"
+              },
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "fields": [
+                  {
+                    "validation": [
+                      {
+                        "rules": [
+                          {
+                            "flag": "presence",
+                            "constraint": "required"
+                          }
+                        ],
+                        "level": "error"
+                      }
+                    ],
+                    "name": "alt",
+                    "type": "string",
+                    "title": "Alternative Text"
+                  }
+                ],
+                "name": "icon",
+                "type": "image",
+                "title": "Category Icon"
+              },
+              {
+                "options": {
+                  "source": "name",
+                  "maxLength": 96
+                },
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "custom"
+                      },
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "slug",
+                "type": "slug",
+                "title": "Category Slug"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "serviceCategories",
+        "type": "array"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "sectionTitle",
+            "type": "string"
+          },
+          {
+            "rows": 3,
+            "name": "sectionSubtitle",
+            "type": "text"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 8
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "of": [
+              {
+                "to": [
+                  {
+                    "type": "servicePackage"
+                  }
+                ],
+                "type": "reference",
+                "title": "Reference to service package"
+              }
+            ],
+            "name": "services",
+            "type": "array",
+            "title": "Featured Service Packages"
+          }
+        ],
+        "name": "featuredServices",
+        "type": "object"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "title",
+                "type": "string",
+                "title": "Section Title"
+              },
+              {
+                "of": [
+                  {
+                    "marks": {
+                      "annotations": [
+                        {
+                          "fields": [
+                            {
+                              "validation": [
+                                {
+                                  "rules": [
+                                    {
+                                      "flag": "uri",
+                                      "constraint": {
+                                        "options": {
+                                          "scheme": [
+                                            "/^http$/",
+                                            "/^https$/"
+                                          ],
+                                          "allowRelative": false,
+                                          "relativeOnly": false,
+                                          "allowCredentials": false
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "level": "error"
+                                }
+                              ],
+                              "name": "href",
+                              "type": "url",
+                              "title": "URL"
+                            }
+                          ],
+                          "name": "link",
+                          "type": "object",
+                          "title": "URL"
+                        }
+                      ],
+                      "decorators": [
+                        {
+                          "value": "strong",
+                          "title": "Strong"
+                        },
+                        {
+                          "value": "em",
+                          "title": "Emphasis"
+                        }
+                      ]
+                    },
+                    "lists": [
+                      {
+                        "value": "bullet",
+                        "title": "Bulleted list"
+                      },
+                      {
+                        "value": "number",
+                        "title": "Numbered list"
+                      }
+                    ],
+                    "styles": [
+                      {
+                        "value": "normal",
+                        "title": "Normal"
+                      },
+                      {
+                        "value": "h2",
+                        "title": "H2"
+                      },
+                      {
+                        "value": "h3",
+                        "title": "H3"
+                      },
+                      {
+                        "value": "blockquote",
+                        "title": "Quote"
+                      }
+                    ],
+                    "of": [],
+                    "type": "block"
+                  },
+                  {
+                    "options": {
+                      "hotspot": true
+                    },
+                    "fields": [
+                      {
+                        "validation": [
+                          {
+                            "rules": [
+                              {
+                                "flag": "presence",
+                                "constraint": "required"
+                              }
+                            ],
+                            "level": "error"
+                          }
+                        ],
+                        "name": "alt",
+                        "type": "string",
+                        "title": "Alternative Text"
+                      }
+                    ],
+                    "type": "image"
+                  }
+                ],
+                "name": "content",
+                "type": "array",
+                "title": "Section Content"
+              },
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "fields": [
+                  {
+                    "name": "alt",
+                    "type": "string",
+                    "title": "Alternative Text"
+                  }
+                ],
+                "name": "backgroundImage",
+                "type": "image",
+                "title": "Section Background Image"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "contentSections",
+        "type": "array"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "title",
+            "type": "string",
+            "title": "CTA Title"
+          },
+          {
+            "rows": 3,
+            "name": "description",
+            "type": "text",
+            "title": "CTA Description"
+          },
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "text",
+                "type": "string",
+                "title": "Button Text"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      },
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "link",
+                "type": "url",
+                "title": "Button Link"
+              }
+            ],
+            "name": "primaryButton",
+            "type": "object"
+          },
+          {
+            "fields": [
+              {
+                "name": "text",
+                "type": "string",
+                "title": "Button Text"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "link",
+                "type": "url",
+                "title": "Button Link"
+              }
+            ],
+            "name": "secondaryButton",
+            "type": "object",
+            "title": "Secondary Button (Optional)"
+          }
+        ],
+        "name": "callToAction",
+        "type": "object",
+        "title": "Call to Action"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 60
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "title",
+            "type": "string",
+            "title": "Page Title"
+          },
+          {
+            "rows": 3,
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 160
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "description",
+            "type": "text",
+            "title": "Meta Description"
+          },
+          {
+            "options": {
+              "layout": "tags"
+            },
+            "of": [
+              {
+                "type": "string"
+              }
+            ],
+            "name": "keywords",
+            "type": "array"
+          }
+        ],
+        "name": "seo",
+        "type": "object",
+        "title": "SEO Settings"
+      }
+    ],
+    "name": "servicePageContent",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "min",
+                    "constraint": 5
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 100
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "title",
+            "type": "string",
+            "title": "Page Title"
+          },
+          {
+            "rows": 3,
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 300
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "subtitle",
+            "type": "text",
+            "title": "Page Subtitle"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "alt",
+                "type": "string",
+                "title": "Alternative Text"
+              }
+            ],
+            "name": "backgroundImage",
+            "type": "image",
+            "title": "Header Background Image"
+          }
+        ],
+        "name": "pageHeader",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": true,
+            "name": "showCategoryFilter",
+            "type": "boolean"
+          },
+          {
+            "description": "Category to show by default when page loads",
+            "to": [
+              {
+                "type": "galleryCategory"
+              }
+            ],
+            "name": "defaultCategory",
+            "type": "reference"
+          },
+          {
+            "initialValue": 4,
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "min",
+                    "constraint": 2
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 6
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "categoriesPerRow",
+            "type": "number"
+          }
+        ],
+        "name": "categorySettings",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "sectionTitle",
+            "type": "string"
+          },
+          {
+            "rows": 3,
+            "name": "sectionSubtitle",
+            "type": "text"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 12
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "of": [
+              {
+                "to": [
+                  {
+                    "type": "gallery"
+                  }
+                ],
+                "type": "reference",
+                "title": "Reference to gallery"
+              }
+            ],
+            "name": "galleries",
+            "type": "array",
+            "title": "Featured Gallery Items"
+          }
+        ],
+        "name": "featuredGalleries",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "options": {
+              "list": [
+                {
+                  "title": "Grid",
+                  "value": "grid"
+                },
+                {
+                  "title": "Masonry",
+                  "value": "masonry"
+                },
+                {
+                  "title": "Carousel",
+                  "value": "carousel"
+                }
+              ]
+            },
+            "initialValue": "grid",
+            "name": "layout",
+            "type": "string",
+            "title": "Gallery Layout"
+          },
+          {
+            "initialValue": 12,
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "min",
+                    "constraint": 6
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 24
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "itemsPerPage",
+            "type": "number"
+          },
+          {
+            "initialValue": true,
+            "name": "showPagination",
+            "type": "boolean"
+          },
+          {
+            "initialValue": true,
+            "name": "enableLightbox",
+            "type": "boolean"
+          },
+          {
+            "initialValue": true,
+            "description": "Show title, description, and metadata for images",
+            "name": "showImageInfo",
+            "type": "boolean",
+            "title": "Show Image Information"
+          }
+        ],
+        "name": "displaySettings",
+        "type": "object",
+        "title": "Gallery Display Settings"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "title",
+                "type": "string",
+                "title": "Section Title"
+              },
+              {
+                "of": [
+                  {
+                    "marks": {
+                      "annotations": [
+                        {
+                          "fields": [
+                            {
+                              "validation": [
+                                {
+                                  "rules": [
+                                    {
+                                      "flag": "uri",
+                                      "constraint": {
+                                        "options": {
+                                          "scheme": [
+                                            "/^http$/",
+                                            "/^https$/"
+                                          ],
+                                          "allowRelative": false,
+                                          "relativeOnly": false,
+                                          "allowCredentials": false
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "level": "error"
+                                }
+                              ],
+                              "name": "href",
+                              "type": "url",
+                              "title": "URL"
+                            }
+                          ],
+                          "name": "link",
+                          "type": "object",
+                          "title": "URL"
+                        }
+                      ],
+                      "decorators": [
+                        {
+                          "value": "strong",
+                          "title": "Strong"
+                        },
+                        {
+                          "value": "em",
+                          "title": "Emphasis"
+                        }
+                      ]
+                    },
+                    "lists": [
+                      {
+                        "value": "bullet",
+                        "title": "Bulleted list"
+                      },
+                      {
+                        "value": "number",
+                        "title": "Numbered list"
+                      }
+                    ],
+                    "styles": [
+                      {
+                        "value": "normal",
+                        "title": "Normal"
+                      },
+                      {
+                        "value": "h2",
+                        "title": "H2"
+                      },
+                      {
+                        "value": "h3",
+                        "title": "H3"
+                      },
+                      {
+                        "value": "blockquote",
+                        "title": "Quote"
+                      }
+                    ],
+                    "of": [],
+                    "type": "block"
+                  }
+                ],
+                "name": "content",
+                "type": "array",
+                "title": "Section Content"
+              },
+              {
+                "description": "Optional gallery to display in this section",
+                "to": [
+                  {
+                    "type": "gallery"
+                  }
+                ],
+                "name": "gallery",
+                "type": "reference",
+                "title": "Section Gallery"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "contentSections",
+        "type": "array"
+      },
+      {
+        "fields": [
+          {
+            "name": "title",
+            "type": "string",
+            "title": "CTA Title"
+          },
+          {
+            "rows": 3,
+            "name": "description",
+            "type": "text",
+            "title": "CTA Description"
+          },
+          {
+            "fields": [
+              {
+                "name": "text",
+                "type": "string",
+                "title": "Button Text"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "link",
+                "type": "url",
+                "title": "Button Link"
+              }
+            ],
+            "name": "button",
+            "type": "object",
+            "title": "CTA Button"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "alt",
+                "type": "string",
+                "title": "Alternative Text"
+              }
+            ],
+            "name": "backgroundImage",
+            "type": "image",
+            "title": "CTA Background Image"
+          }
+        ],
+        "name": "callToAction",
+        "type": "object",
+        "title": "Call to Action"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 60
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "title",
+            "type": "string",
+            "title": "Page Title"
+          },
+          {
+            "rows": 3,
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 160
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "description",
+            "type": "text",
+            "title": "Meta Description"
+          },
+          {
+            "options": {
+              "layout": "tags"
+            },
+            "of": [
+              {
+                "type": "string"
+              }
+            ],
+            "name": "keywords",
+            "type": "array"
+          }
+        ],
+        "name": "seo",
+        "type": "object",
+        "title": "SEO Settings"
+      }
+    ],
+    "name": "galleryPageContent",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  },
+                  {
+                    "flag": "min",
+                    "constraint": 5
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 100
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "title",
+            "type": "string",
+            "title": "Page Title"
+          },
+          {
+            "rows": 3,
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 300
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "subtitle",
+            "type": "text",
+            "title": "Page Subtitle"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "alt",
+                "type": "string",
+                "title": "Alternative Text"
+              }
+            ],
+            "name": "backgroundImage",
+            "type": "image",
+            "title": "Header Background Image"
+          }
+        ],
+        "name": "pageHeader",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "sectionTitle",
+            "type": "string"
+          },
+          {
+            "rows": 3,
+            "name": "sectionSubtitle",
+            "type": "text"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 6
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Select up to 6 posts to feature",
+            "of": [
+              {
+                "to": [
+                  {
+                    "type": "blogPost"
+                  }
+                ],
+                "type": "reference",
+                "title": "Reference to blog post"
+              }
+            ],
+            "name": "posts",
+            "type": "array",
+            "title": "Featured Blog Posts"
+          },
+          {
+            "initialValue": true,
+            "name": "showReadMore",
+            "type": "boolean",
+            "title": "Show Read More Button"
+          }
+        ],
+        "name": "featuredPosts",
+        "type": "object",
+        "title": "Featured Posts Section"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": true,
+            "name": "showCategories",
+            "type": "boolean",
+            "title": "Show Categories Section"
+          },
+          {
+            "initialValue": "Browse by Category",
+            "name": "sectionTitle",
+            "type": "string"
+          },
+          {
+            "of": [
+              {
+                "fields": [
+                  {
+                    "validation": [
+                      {
+                        "rules": [
+                          {
+                            "flag": "presence",
+                            "constraint": "required"
+                          }
+                        ],
+                        "level": "error"
+                      }
+                    ],
+                    "name": "name",
+                    "type": "string",
+                    "title": "Category Name"
+                  },
+                  {
+                    "options": {
+                      "source": "name",
+                      "maxLength": 96
+                    },
+                    "validation": [
+                      {
+                        "rules": [
+                          {
+                            "flag": "custom"
+                          },
+                          {
+                            "flag": "presence",
+                            "constraint": "required"
+                          }
+                        ],
+                        "level": "error"
+                      }
+                    ],
+                    "name": "slug",
+                    "type": "slug",
+                    "title": "Category Slug"
+                  },
+                  {
+                    "rows": 3,
+                    "name": "description",
+                    "type": "text",
+                    "title": "Category Description"
+                  },
+                  {
+                    "description": "Icon name or emoji for the category",
+                    "name": "icon",
+                    "type": "string",
+                    "title": "Category Icon"
+                  },
+                  {
+                    "validation": [
+                      {
+                        "rules": [
+                          {
+                            "flag": "regex",
+                            "constraint": {
+                              "pattern": "/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/",
+                              "name": "hex color",
+                              "invert": false
+                            }
+                          }
+                        ],
+                        "level": "error",
+                        "message": "Please enter a valid hex color code (e.g., #FF5733)"
+                      }
+                    ],
+                    "description": "Hex color code (e.g., #FF5733)",
+                    "name": "color",
+                    "type": "string",
+                    "title": "Category Color"
+                  }
+                ],
+                "type": "object"
+              }
+            ],
+            "name": "categories",
+            "type": "array",
+            "title": "Blog Categories"
+          }
+        ],
+        "name": "categoriesSection",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "options": {
+              "list": [
+                {
+                  "title": "Grid",
+                  "value": "grid"
+                },
+                {
+                  "title": "List",
+                  "value": "list"
+                },
+                {
+                  "title": "Masonry",
+                  "value": "masonry"
+                }
+              ]
+            },
+            "initialValue": "grid",
+            "name": "layout",
+            "type": "string",
+            "title": "Blog Layout"
+          },
+          {
+            "initialValue": 9,
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "min",
+                    "constraint": 6
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 24
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "postsPerPage",
+            "type": "number"
+          },
+          {
+            "initialValue": true,
+            "name": "showExcerpt",
+            "type": "boolean",
+            "title": "Show Post Excerpt"
+          },
+          {
+            "initialValue": true,
+            "name": "showAuthor",
+            "type": "boolean",
+            "title": "Show Author Information"
+          },
+          {
+            "initialValue": true,
+            "name": "showPublishDate",
+            "type": "boolean"
+          },
+          {
+            "initialValue": true,
+            "name": "showReadTime",
+            "type": "boolean",
+            "title": "Show Estimated Read Time"
+          },
+          {
+            "initialValue": true,
+            "name": "showTags",
+            "type": "boolean",
+            "title": "Show Post Tags"
+          }
+        ],
+        "name": "displaySettings",
+        "type": "object",
+        "title": "Blog Display Settings"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": true,
+            "name": "showNewsletter",
+            "type": "boolean",
+            "title": "Show Newsletter Signup"
+          },
+          {
+            "initialValue": "Stay Updated",
+            "name": "title",
+            "type": "string",
+            "title": "Newsletter Title"
+          },
+          {
+            "rows": 3,
+            "initialValue": "Subscribe to our newsletter to get the latest updates and travel tips.",
+            "name": "description",
+            "type": "text",
+            "title": "Newsletter Description"
+          },
+          {
+            "initialValue": "Subscribe",
+            "name": "buttonText",
+            "type": "string",
+            "title": "Subscribe Button Text"
+          },
+          {
+            "initialValue": "Enter your email address",
+            "name": "placeholderText",
+            "type": "string",
+            "title": "Email Placeholder Text"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "fields": [
+              {
+                "name": "alt",
+                "type": "string",
+                "title": "Alternative Text"
+              }
+            ],
+            "name": "backgroundImage",
+            "type": "image",
+            "title": "Newsletter Background Image"
+          }
+        ],
+        "name": "newsletter",
+        "type": "object",
+        "title": "Newsletter Signup"
+      },
+      {
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "title",
+                "type": "string",
+                "title": "Section Title"
+              },
+              {
+                "of": [
+                  {
+                    "marks": {
+                      "annotations": [
+                        {
+                          "fields": [
+                            {
+                              "validation": [
+                                {
+                                  "rules": [
+                                    {
+                                      "flag": "uri",
+                                      "constraint": {
+                                        "options": {
+                                          "scheme": [
+                                            "/^http$/",
+                                            "/^https$/"
+                                          ],
+                                          "allowRelative": false,
+                                          "relativeOnly": false,
+                                          "allowCredentials": false
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "level": "error"
+                                }
+                              ],
+                              "name": "href",
+                              "type": "url",
+                              "title": "URL"
+                            }
+                          ],
+                          "name": "link",
+                          "type": "object",
+                          "title": "URL"
+                        }
+                      ],
+                      "decorators": [
+                        {
+                          "value": "strong",
+                          "title": "Strong"
+                        },
+                        {
+                          "value": "em",
+                          "title": "Emphasis"
+                        }
+                      ]
+                    },
+                    "lists": [
+                      {
+                        "value": "bullet",
+                        "title": "Bulleted list"
+                      },
+                      {
+                        "value": "number",
+                        "title": "Numbered list"
+                      }
+                    ],
+                    "styles": [
+                      {
+                        "value": "normal",
+                        "title": "Normal"
+                      },
+                      {
+                        "value": "h2",
+                        "title": "H2"
+                      },
+                      {
+                        "value": "h3",
+                        "title": "H3"
+                      },
+                      {
+                        "value": "blockquote",
+                        "title": "Quote"
+                      }
+                    ],
+                    "of": [],
+                    "type": "block"
+                  }
+                ],
+                "name": "content",
+                "type": "array",
+                "title": "Section Content"
+              },
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "fields": [
+                  {
+                    "name": "alt",
+                    "type": "string",
+                    "title": "Alternative Text"
+                  }
+                ],
+                "name": "image",
+                "type": "image",
+                "title": "Section Image"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "contentSections",
+        "type": "array",
+        "title": "Additional Content Sections"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 60
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "title",
+            "type": "string",
+            "title": "Page Title"
+          },
+          {
+            "rows": 3,
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "max",
+                    "constraint": 160
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "description",
+            "type": "text",
+            "title": "Meta Description"
+          },
+          {
+            "options": {
+              "layout": "tags"
+            },
+            "of": [
+              {
+                "type": "string"
+              }
+            ],
+            "name": "keywords",
+            "type": "array"
+          }
+        ],
+        "name": "seo",
+        "type": "object",
+        "title": "SEO Settings"
+      }
+    ],
+    "name": "blogPageContent",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "initialValue": "Tentang Kami - Mahabbatussholihin Tour & Travel",
+        "description": "Page title for SEO and browser tab",
+        "name": "aboutPageTitle",
+        "type": "string",
+        "title": "About Page Title (SEO)"
+      },
+      {
+        "initialValue": "Mahabbatussholihin Tour & Travel adalah mitra perjalanan terpercaya dengan pengalaman bertahun-tahun. Komitmen kami memberikan pengalaman wisata terbaik dengan pelayanan profesional dan harga kompetitif.",
+        "description": "Meta description for SEO and social sharing",
+        "name": "aboutPageDescription",
+        "type": "text",
+        "title": "About Page Description (SEO)"
+      },
+      {
+        "initialValue": "Tentang Kami",
+        "description": "Main heading on about page",
+        "name": "mainTitle",
+        "type": "string"
+      },
+      {
+        "initialValue": "Mitra terpercaya Anda untuk pengalaman perjalanan tak terlupakan sejak didirikan.",
+        "description": "Subtitle text below main title",
+        "name": "subtitle",
+        "type": "text"
+      },
+      {
+        "initialValue": "Cerita Kami",
+        "description": "Title for our story section",
+        "name": "ourStoryTitle",
+        "type": "string"
+      },
+      {
+        "initialValue": "Mahabbatussholihin Tour & Travel didirikan dengan misi sederhana: menciptakan pengalaman perjalanan berkesan yang menghubungkan orang dengan destinasi menakjubkan di seluruh dunia. Kami percaya bahwa perjalanan memiliki kekuatan untuk mengubah hidup, memperluas perspektif, dan menciptakan kenangan abadi.",
+        "description": "Description text for our story section",
+        "name": "ourStoryDescription",
+        "type": "text"
+      },
+      {
+        "initialValue": "Misi Kami",
+        "description": "Title for our mission section",
+        "name": "ourMissionTitle",
+        "type": "string"
+      },
+      {
+        "initialValue": "Dengan ridho Alloh SWT, kami berkomitmen nyediain layanan perjalanan yang berkah dan penuh makna yang bisa melampaui ekspektasi jamaah kami sambil menjaga amanah dan tanggung jawab dalam setiap langkah perjalanan.",
+        "description": "Description text for our mission section",
+        "name": "ourMissionDescription",
+        "type": "text"
+      },
+      {
+        "initialValue": "Mengapa Memilih Kami",
+        "description": "Title for why choose us section",
+        "name": "whyChooseUsTitle",
+        "type": "string"
+      },
+      {
+        "initialValue": [
+          "Pengetahuan lokal yang ahli dan itinerary yang udah dikurasi dengan penuh barakah",
+          "Dukungan jamaah 24/7 sepanjang perjalanan dengan penuh amanah",
+          "Harga yang berkah dengan kebijakan transparan tanpa biaya tersembunyi",
+          "Praktik perjalanan yang halal dan berkah untuk komunitas lokal",
+          "Opsi pemesanan fleksibel dan paket yang bisa disesuaikan sesuai kebutuhan jamaah"
+        ],
+        "description": "List of reasons why customers should choose us",
+        "of": [
+          {
+            "type": "string",
+            "title": "Reason"
+          }
+        ],
+        "name": "whyChooseUsItems",
+        "type": "array"
+      },
+      {
+        "initialValue": "Legalitas Perusahaan",
+        "description": "Title for company legality section",
+        "name": "companyLegalityTitle",
+        "type": "string"
+      },
+      {
+        "initialValue": "PT. Mahabbatussholihin Wisata Nusantara",
+        "description": "Official company name",
+        "name": "companyName",
+        "type": "string"
+      },
+      {
+        "initialValue": "1234567890123456",
+        "description": "Business identification number",
+        "name": "nib",
+        "type": "string",
+        "title": "NIB (Nomor Induk Berusaha)"
+      },
+      {
+        "initialValue": "PMDN (Penanaman Modal Dalam Negeri)",
+        "description": "Investment classification",
+        "name": "investmentStatus",
+        "type": "string"
+      },
+      {
+        "initialValue": "Usaha Menengah",
+        "description": "Scale of business operations",
+        "name": "businessScale",
+        "type": "string"
+      },
+      {
+        "initialValue": "Jl. Raya Bogor No. 123, Kelurahan Cimanggis, Kecamatan Tapos, Kota Depok, Jawa Barat 16454",
+        "description": "Official office address",
+        "name": "officeAddress",
+        "type": "text"
+      },
+      {
+        "initialValue": "+62 21 8765 4321",
+        "description": "Official contact phone number",
+        "name": "contactPhone",
+        "type": "string"
+      },
+      {
+        "initialValue": "info@mahabbatussholihin.com",
+        "description": "Official contact email address",
+        "name": "contactEmail",
+        "type": "string"
+      }
+    ],
+    "name": "aboutUs",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "description": "Blog post title",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "URL slug for the blog post",
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "description": "Short description for previews and SEO",
+        "name": "excerpt",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Main image for the blog post",
+        "name": "featuredImage",
+        "type": "image"
+      },
+      {
+        "description": "Main content of the blog post",
+        "of": [
+          {
+            "marks": {
+              "annotations": [
+                {
+                  "fields": [
+                    {
+                      "validation": [
+                        {
+                          "rules": [
+                            {
+                              "flag": "uri",
+                              "constraint": {
+                                "options": {
+                                  "scheme": [
+                                    "/^http$/",
+                                    "/^https$/"
+                                  ],
+                                  "allowRelative": false,
+                                  "relativeOnly": false,
+                                  "allowCredentials": false
+                                }
+                              }
+                            }
+                          ],
+                          "level": "error"
+                        }
+                      ],
+                      "name": "href",
+                      "type": "url",
+                      "title": "URL"
+                    }
+                  ],
+                  "name": "link",
+                  "type": "object",
+                  "title": "URL"
+                }
+              ],
+              "decorators": [
+                {
+                  "value": "strong",
+                  "title": "Strong"
+                },
+                {
+                  "value": "em",
+                  "title": "Emphasis"
+                },
+                {
+                  "value": "code",
+                  "title": "Code"
+                }
+              ]
+            },
+            "lists": [
+              {
+                "value": "bullet",
+                "title": "Bullet"
+              },
+              {
+                "value": "number",
+                "title": "Numbered"
+              }
+            ],
+            "styles": [
+              {
+                "value": "normal",
+                "title": "Normal"
+              },
+              {
+                "value": "h1",
+                "title": "H1"
+              },
+              {
+                "value": "h2",
+                "title": "H2"
+              },
+              {
+                "value": "h3",
+                "title": "H3"
+              },
+              {
+                "value": "blockquote",
+                "title": "Quote"
+              }
+            ],
+            "of": [],
+            "type": "block"
+          },
+          {
+            "options": {
+              "hotspot": true
+            },
+            "type": "image"
+          }
+        ],
+        "name": "content",
+        "type": "array"
+      },
+      {
+        "description": "Author of the blog post",
+        "name": "author",
+        "type": "string"
+      },
+      {
+        "description": "When the blog post was published",
+        "name": "publishedAt",
+        "type": "datetime"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Travel Tips",
+              "value": "travel-tips"
+            },
+            {
+              "title": "Destinations",
+              "value": "destinations"
+            },
+            {
+              "title": "Islamic Tourism",
+              "value": "islamic-tourism"
+            },
+            {
+              "title": "Culture",
+              "value": "culture"
+            },
+            {
+              "title": "Food & Cuisine",
+              "value": "food-cuisine"
+            },
+            {
+              "title": "Adventure",
+              "value": "adventure"
+            },
+            {
+              "title": "Family Travel",
+              "value": "family-travel"
+            },
+            {
+              "title": "Budget Travel",
+              "value": "budget-travel"
+            }
+          ]
+        },
+        "description": "Categories for organizing blog posts",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "categories",
+        "type": "array"
+      },
+      {
+        "description": "Tags for better searchability",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "tags",
+        "type": "array"
+      },
+      {
+        "description": "Title for search engines (optional, defaults to title)",
+        "name": "seoTitle",
+        "type": "string",
+        "title": "SEO Title"
+      },
+      {
+        "description": "Description for search engines (optional, defaults to excerpt)",
+        "name": "seoDescription",
+        "type": "text",
+        "title": "SEO Description"
+      },
+      {
+        "initialValue": false,
+        "description": "Toggle to publish/unpublish this blog post",
+        "name": "isPublished",
+        "type": "boolean"
+      },
+      {
+        "initialValue": false,
+        "description": "Mark as featured blog post for homepage",
+        "name": "isFeatured",
+        "type": "boolean"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Indonesian",
+              "value": "id"
+            },
+            {
+              "title": "English",
+              "value": "en"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "id",
+        "name": "language",
+        "type": "string"
+      }
+    ],
+    "name": "blogPost",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 3
+              },
+              {
+                "flag": "max",
+                "constraint": 100
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Service Title"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 50
+              },
+              {
+                "flag": "max",
+                "constraint": 300
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "description",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "fields": [
+          {
+            "description": "Alternative text for screen readers. Very important for SEO and accessibility.",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt text"
+          }
+        ],
+        "name": "icon",
+        "type": "image",
+        "title": "Service Icon/Image"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 3
+              },
+              {
+                "flag": "max",
+                "constraint": 6
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "features",
+        "type": "array",
+        "title": "Service Features"
+      },
+      {
+        "fields": [
+          {
+            "name": "amount",
+            "type": "number",
+            "title": "Price Amount"
+          },
+          {
+            "options": {
+              "list": [
+                {
+                  "title": "Indonesian Rupiah (IDR)",
+                  "value": "IDR"
+                },
+                {
+                  "title": "US Dollar (USD)",
+                  "value": "USD"
+                },
+                {
+                  "title": "Euro (EUR)",
+                  "value": "EUR"
+                }
+              ]
+            },
+            "initialValue": "IDR",
+            "name": "currency",
+            "type": "string"
+          },
+          {
+            "options": {
+              "list": [
+                {
+                  "title": "Per Orang",
+                  "value": "person"
+                },
+                {
+                  "title": "Per Group",
+                  "value": "group"
+                },
+                {
+                  "title": "Per Day",
+                  "value": "day"
+                },
+                {
+                  "title": "Per Package",
+                  "value": "package"
+                }
+              ]
+            },
+            "initialValue": "person",
+            "name": "unit",
+            "type": "string",
+            "title": "Price Unit"
+          }
+        ],
+        "name": "price",
+        "type": "object",
+        "title": "Starting Price"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Tour Packages",
+              "value": "packages"
+            },
+            {
+              "title": "Custom Tours",
+              "value": "custom"
+            },
+            {
+              "title": "Group Tours",
+              "value": "group"
+            },
+            {
+              "title": "Private Tours",
+              "value": "private"
+            },
+            {
+              "title": "Adventure Tours",
+              "value": "adventure"
+            },
+            {
+              "title": "Cultural Tours",
+              "value": "cultural"
+            }
+          ]
+        },
+        "name": "category",
+        "type": "string",
+        "title": "Service Category"
+      },
+      {
+        "initialValue": false,
+        "description": "Mark this service as popular to feature it prominently",
+        "name": "isPopular",
+        "type": "boolean",
+        "title": "Popular Service"
+      },
+      {
+        "description": "URL path for this service (e.g., /services/custom-tours)",
+        "name": "link",
+        "type": "string",
+        "title": "Service Link"
+      },
+      {
+        "description": "Lower numbers appear first",
+        "name": "order",
+        "type": "number",
+        "title": "Display Order"
+      }
+    ],
+    "name": "servicePackage",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 3
+              },
+              {
+                "flag": "max",
+                "constraint": 100
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Gallery Title"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 300
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "description",
+        "type": "text",
+        "title": "Gallery Description"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Tour Destinations",
+              "value": "destinations"
+            },
+            {
+              "title": "Cultural Tours",
+              "value": "cultural"
+            },
+            {
+              "title": "Adventure Tours",
+              "value": "adventure"
+            },
+            {
+              "title": "Religious Tours",
+              "value": "religious"
+            },
+            {
+              "title": "Nature & Landscape",
+              "value": "nature"
+            },
+            {
+              "title": "Food & Culinary",
+              "value": "culinary"
+            },
+            {
+              "title": "Accommodation",
+              "value": "accommodation"
+            },
+            {
+              "title": "Transportation",
+              "value": "transportation"
+            },
+            {
+              "title": "Activities",
+              "value": "activities"
+            },
+            {
+              "title": "Momen Jamaah",
+              "value": "customers"
+            }
+          ]
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "destinations",
+                  "cultural",
+                  "adventure",
+                  "religious",
+                  "nature",
+                  "culinary",
+                  "accommodation",
+                  "transportation",
+                  "activities",
+                  "customers"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "category",
+        "type": "string",
+        "title": "Gallery Category"
+      },
+      {
+        "fields": [
+          {
+            "placeholder": "e.g., Yogyakarta, Bandung, Jakarta",
+            "name": "name",
+            "type": "string",
+            "title": "Location Name"
+          },
+          {
+            "placeholder": "e.g., DI Yogyakarta, Jawa Barat",
+            "name": "province",
+            "type": "string"
+          },
+          {
+            "description": "Optional: GPS location for mapping",
+            "name": "coordinates",
+            "type": "geopoint",
+            "title": "GPS Coordinates"
+          }
+        ],
+        "name": "destination",
+        "type": "object",
+        "title": "Destination/Location"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "📸 FEATURED: 1200x800px (3:2 ratio) | Max Size: 20MB | Format: JPEG/PNG/WebP",
+        "fields": [
+          {
+            "description": "Important for SEO and accessibility",
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "featuredImage",
+        "type": "image"
+      },
+      {
+        "options": {
+          "modal": {
+            "type": "dialog",
+            "width": 0.8
+          },
+          "editModal": "popover"
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 1
+              },
+              {
+                "flag": "max",
+                "constraint": 50
+              }
+            ],
+            "level": "error",
+            "message": "Gallery must have 1-50 images"
+          }
+        ],
+        "of": [
+          {
+            "options": {
+              "modal": {
+                "type": "dialog",
+                "width": 0.9
+              }
+            },
+            "fields": [
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "fields": [
+                  {
+                    "validation": [
+                      {
+                        "rules": [
+                          {
+                            "flag": "presence",
+                            "constraint": "required"
+                          },
+                          {
+                            "flag": "min",
+                            "constraint": 3
+                          },
+                          {
+                            "flag": "max",
+                            "constraint": 200
+                          }
+                        ],
+                        "level": "error"
+                      }
+                    ],
+                    "description": "Describe the image for accessibility",
+                    "name": "alt",
+                    "type": "string",
+                    "title": "Alt Text"
+                  }
+                ],
+                "name": "image",
+                "type": "image"
+              },
+              {
+                "description": "Optional caption for the image",
+                "name": "caption",
+                "type": "string"
+              },
+              {
+                "description": "When was this photo taken?",
+                "name": "dateTaken",
+                "type": "datetime"
+              },
+              {
+                "description": "Photo credit (optional)",
+                "name": "photographer",
+                "type": "string"
+              },
+              {
+                "options": {
+                  "layout": "tags"
+                },
+                "description": "Keywords for searchability",
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "tags",
+                "type": "array",
+                "title": "Image Tags"
+              }
+            ],
+            "type": "object",
+            "name": "galleryImage"
+          }
+        ],
+        "name": "images",
+        "type": "array",
+        "title": "Gallery Images"
+      },
+      {
+        "description": "Link to related tour service (optional)",
+        "to": [
+          {
+            "type": "servicePackage"
+          }
+        ],
+        "name": "tourPackage",
+        "type": "reference",
+        "title": "Related Tour Package"
+      },
+      {
+        "initialValue": true,
+        "description": "Only published galleries will appear on the website",
+        "name": "isPublished",
+        "type": "boolean",
+        "title": "Published"
+      },
+      {
+        "initialValue": false,
+        "description": "Featured galleries appear prominently on homepage",
+        "name": "isFeatured",
+        "type": "boolean",
+        "title": "Featured Gallery"
+      },
+      {
+        "description": "When should this gallery be published?",
+        "name": "publishDate",
+        "type": "datetime"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 60
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Title for search engines (max 60 characters)",
+        "name": "seoTitle",
+        "type": "string",
+        "title": "SEO Title"
+      },
+      {
+        "rows": 2,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 160
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Description for search engines (max 160 characters)",
+        "name": "seoDescription",
+        "type": "text",
+        "title": "SEO Description"
+      },
+      {
+        "initialValue": 0,
+        "description": "Number of times this gallery has been viewed",
+        "readOnly": true,
+        "name": "viewCount",
+        "type": "number"
+      }
+    ],
+    "name": "gallery",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 3
+              },
+              {
+                "flag": "max",
+                "constraint": 50
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Category Name"
+      },
+      {
+        "options": {
+          "source": "title",
+          "maxLength": 96
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "custom"
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "slug",
+        "type": "slug"
+      },
+      {
+        "rows": 3,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "max",
+                "constraint": 200
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "description",
+        "type": "text",
+        "title": "Category Description"
+      },
+      {
+        "options": [
+          {
+            "title": "Destinations",
+            "value": "destinations"
+          },
+          {
+            "title": "Cultural",
+            "value": "cultural"
+          },
+          {
+            "title": "Adventure",
+            "value": "adventure"
+          },
+          {
+            "title": "Religious",
+            "value": "religious"
+          },
+          {
+            "title": "Nature",
+            "value": "nature"
+          },
+          {
+            "title": "Culinary",
+            "value": "culinary"
+          },
+          {
+            "title": "Accommodation",
+            "value": "accommodation"
+          },
+          {
+            "title": "Transportation",
+            "value": "transportation"
+          },
+          {
+            "title": "Activities",
+            "value": "activities"
+          },
+          {
+            "title": "Jamaah",
+            "value": "customers"
+          }
+        ],
+        "layout": "dropdown",
+        "initialValue": "destinations",
+        "name": "icon",
+        "type": "string",
+        "title": "Category Icon"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "description": "COVER: 800x600px (4:3 ratio) | Max Size: 10MB | Format: JPEG/PNG/WebP",
+        "fields": [
+          {
+            "name": "alt",
+            "type": "string",
+            "title": "Alt Text"
+          }
+        ],
+        "name": "coverImage",
+        "type": "image",
+        "title": "Category Cover Image"
+      },
+      {
+        "initialValue": 0,
+        "description": "Lower numbers appear first",
+        "name": "sortOrder",
+        "type": "number"
+      },
+      {
+        "initialValue": true,
+        "description": "Only active categories will be shown",
+        "name": "isActive",
+        "type": "boolean",
+        "title": "Active Category"
+      }
+    ],
+    "name": "galleryCategory",
+    "type": "document",
+    "title": "Gallery Categories"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "name",
+        "type": "string",
+        "title": "Full Name"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "email",
+        "type": "string",
+        "title": "Email Address"
+      },
+      {
+        "name": "phone",
+        "type": "string",
+        "title": "Phone Number"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "subject",
+        "type": "string"
+      },
+      {
+        "rows": 5,
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              },
+              {
+                "flag": "min",
+                "constraint": 10
+              },
+              {
+                "flag": "max",
+                "constraint": 1000
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "message",
+        "type": "text"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Tour Packages",
+              "value": "packages"
+            },
+            {
+              "title": "Custom Tours",
+              "value": "custom"
+            },
+            {
+              "title": "Group Tours",
+              "value": "group"
+            },
+            {
+              "title": "Private Tours",
+              "value": "private"
+            },
+            {
+              "title": "Adventure Tours",
+              "value": "adventure"
+            },
+            {
+              "title": "Cultural Tours",
+              "value": "cultural"
+            },
+            {
+              "title": "General Inquiry",
+              "value": "general"
+            }
+          ]
+        },
+        "name": "tourInterest",
+        "type": "string"
+      },
+      {
+        "name": "travelDate",
+        "type": "date",
+        "title": "Preferred Travel Date"
+      },
+      {
+        "name": "groupSize",
+        "type": "number"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Under 5 Million",
+              "value": "under-5m"
+            },
+            {
+              "title": "5-10 Million",
+              "value": "5-10m"
+            },
+            {
+              "title": "10-20 Million",
+              "value": "10-20m"
+            },
+            {
+              "title": "20-50 Million",
+              "value": "20-50m"
+            },
+            {
+              "title": "Over 50 Million",
+              "value": "over-50m"
+            }
+          ]
+        },
+        "name": "budget",
+        "type": "string",
+        "title": "Budget Range (IDR)"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "New",
+              "value": "new"
+            },
+            {
+              "title": "In Progress",
+              "value": "in-progress"
+            },
+            {
+              "title": "Responded",
+              "value": "responded"
+            },
+            {
+              "title": "Closed",
+              "value": "closed"
+            }
+          ]
+        },
+        "initialValue": "new",
+        "name": "status",
+        "type": "string"
+      },
+      {
+        "name": "submittedAt",
+        "type": "datetime"
+      },
+      {
+        "readOnly": true,
+        "name": "ipAddress",
+        "type": "string",
+        "title": "IP Address"
+      },
+      {
+        "readOnly": true,
+        "name": "userAgent",
+        "type": "string"
+      }
+    ],
+    "name": "contactSubmission",
+    "type": "document",
+    "title": "Contact Form Submission"
+  },
+  {
+    "fields": [
+      {
+        "description": "The main business name displayed in large text (e.g., \"Buttonscarves Tour & Travel\")",
+        "name": "title",
+        "type": "string",
+        "title": "Business Name"
+      },
+      {
+        "description": "The business motto or tagline displayed below the business name in smaller text",
+        "name": "subtitle",
+        "type": "text",
+        "title": "Business Motto/Tagline"
+      },
+      {
+        "description": "Text for the primary call-to-action button",
+        "name": "ctaText",
+        "type": "string",
+        "title": "Call to Action Text"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "URL for the primary call-to-action button",
+        "name": "ctaLink",
+        "type": "url",
+        "title": "Call to Action Link"
+      },
+      {
+        "options": {
+          "hotspot": true,
+          "accept": "image/jpeg, image/png, image/webp"
+        },
+        "description": "🖼️ LEGACY: Single background image (use Slider Images instead for new content)",
+        "fields": [
+          {
+            "description": "Important for accessibility and SEO",
+            "name": "alt",
+            "type": "string",
+            "title": "Alternative Text"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "backgroundImage",
+        "type": "image",
+        "title": "Background Image (Legacy)"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "min",
+                "constraint": 1
+              },
+              {
+                "flag": "max",
+                "constraint": 10
+              }
+            ],
+            "level": "error",
+            "message": "Please add between 1-10 slider images"
+          }
+        ],
+        "description": "🎠 HERO SLIDER: 1920x1080px (16:9) | Max Size: 20MB each | Format: JPEG/PNG/WebP | Minimum 1, Maximum 10 images",
+        "of": [
+          {
+            "fields": [
+              {
+                "options": {
+                  "hotspot": true,
+                  "accept": "image/jpeg, image/png, image/webp"
+                },
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "image",
+                "type": "image"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Important for accessibility and SEO",
+                "name": "alt",
+                "type": "string",
+                "title": "Alternative Text"
+              },
+              {
+                "description": "Optional caption text overlay on the image",
+                "name": "caption",
+                "type": "string",
+                "title": "Caption (Optional)"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "sliderImages",
+        "type": "array"
+      },
+      {
+        "description": "Configure slider behavior and appearance",
+        "fields": [
+          {
+            "initialValue": true,
+            "description": "Automatically advance slides",
+            "name": "autoPlay",
+            "type": "boolean"
+          },
+          {
+            "initialValue": 5,
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "min",
+                    "constraint": 2
+                  },
+                  {
+                    "flag": "max",
+                    "constraint": 30
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Time between slide transitions (2-30 seconds)",
+            "hidden": "conditional",
+            "name": "autoPlayInterval",
+            "type": "number",
+            "title": "Auto Play Interval (seconds)"
+          },
+          {
+            "initialValue": true,
+            "description": "Show previous/next arrows",
+            "name": "showNavigation",
+            "type": "boolean",
+            "title": "Show Navigation Arrows"
+          },
+          {
+            "initialValue": true,
+            "description": "Show dot indicators at bottom",
+            "name": "showDots",
+            "type": "boolean",
+            "title": "Show Dot Indicators"
+          },
+          {
+            "initialValue": true,
+            "description": "Pause auto-play when user hovers over slider",
+            "hidden": "conditional",
+            "name": "pauseOnHover",
+            "type": "boolean",
+            "title": "Pause on Hover"
+          }
+        ],
+        "hidden": "conditional",
+        "name": "sliderSettings",
+        "type": "object"
+      },
+      {
+        "initialValue": true,
+        "description": "Toggle to show/hide this hero section",
+        "name": "isActive",
+        "type": "boolean"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Indonesian",
+              "value": "id"
+            },
+            {
+              "title": "English",
+              "value": "en"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "id",
+        "name": "language",
+        "type": "string"
+      }
+    ],
+    "name": "heroSection",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "description": "Main title for the features section",
+        "name": "sectionTitle",
+        "type": "string"
+      },
+      {
+        "description": "Optional subtitle for the features section",
+        "name": "sectionSubtitle",
+        "type": "text"
+      },
+      {
+        "description": "List of features or services to display",
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "title",
+                "type": "string",
+                "title": "Feature Title"
+              },
+              {
+                "name": "description",
+                "type": "text",
+                "title": "Feature Description"
+              },
+              {
+                "options": {
+                  "hotspot": true,
+                  "accept": "image/jpeg, image/png, image/webp, image/svg+xml"
+                },
+                "description": "� PRODUCT DISPLAY: 600x400px (3:2) | Max Size: 20MB | Format: JPEG/PNG/WebP/SVG",
+                "fields": [
+                  {
+                    "description": "Describe the feature image for accessibility",
+                    "name": "alt",
+                    "type": "string",
+                    "title": "Alternative Text"
+                  }
+                ],
+                "name": "icon",
+                "type": "image",
+                "title": "Feature Image"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Optional link for this feature",
+                "name": "link",
+                "type": "url",
+                "title": "Feature Link"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "features",
+        "type": "array"
+      },
+      {
+        "initialValue": true,
+        "description": "Toggle to show/hide this features section",
+        "name": "isActive",
+        "type": "boolean"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Indonesian",
+              "value": "id"
+            },
+            {
+              "title": "English",
+              "value": "en"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "id",
+        "name": "language",
+        "type": "string"
+      }
+    ],
+    "name": "featuresSection",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "description": "Name of the customer giving the testimonial",
+        "name": "customerName",
+        "type": "string"
+      },
+      {
+        "description": "Job title or position of the customer (optional)",
+        "name": "customerTitle",
+        "type": "string",
+        "title": "Customer Title/Position"
+      },
+      {
+        "options": {
+          "hotspot": true,
+          "accept": "image/jpeg, image/png, image/webp"
+        },
+        "description": "CUSTOMER PHOTO: 400x400px (1:1) | Max Size: 5MB | Format: JPG/PNG/WebP",
+        "fields": [
+          {
+            "description": "Customer photo description for accessibility",
+            "name": "alt",
+            "type": "string",
+            "title": "Alternative Text"
+          }
+        ],
+        "name": "customerPhoto",
+        "type": "image"
+      },
+      {
+        "description": "The testimonial content",
+        "name": "testimonialText",
+        "type": "text"
+      },
+      {
+        "description": "Rating out of 5 stars (1-5)",
+        "name": "rating",
+        "type": "number"
+      },
+      {
+        "description": "Which tour package this testimonial is about (optional)",
+        "name": "tourPackage",
+        "type": "string"
+      },
+      {
+        "description": "When the customer took the tour (optional)",
+        "name": "dateOfTour",
+        "type": "date",
+        "title": "Date of Tour"
+      },
+      {
+        "initialValue": true,
+        "description": "Toggle to show/hide this testimonial",
+        "name": "isActive",
+        "type": "boolean"
+      },
+      {
+        "initialValue": false,
+        "description": "Mark as featured testimonial for homepage",
+        "name": "isFeatured",
+        "type": "boolean"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Indonesian",
+              "value": "id"
+            },
+            {
+              "title": "English",
+              "value": "en"
+            }
+          ],
+          "layout": "radio"
+        },
+        "initialValue": "id",
+        "name": "language",
+        "type": "string"
+      }
+    ],
+    "name": "testimonial",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "options": {
+              "hotspot": true,
+              "accept": "image/png, image/svg+xml, image/webp"
+            },
+            "description": "COMPANY LOGO: 400x200px (2:1) | Max Size: 20MB | Format: PNG/SVG/WebP",
+            "fields": [
+              {
+                "description": "Logo description for accessibility",
+                "name": "alt",
+                "type": "string",
+                "title": "Alternative Text"
+              }
+            ],
+            "name": "logo",
+            "type": "image",
+            "title": "Company Logo"
+          },
+          {
+            "initialValue": "Mahabbatussholihin Tour & Travel",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "presence",
+                    "constraint": "required"
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "description": "Company/Brand name",
+            "name": "siteName",
+            "type": "string",
+            "title": "Company Name"
+          },
+          {
+            "initialValue": "Mitra Terpercaya untuk Perjalanan Spiritual Terbaik",
+            "description": "Main tagline displayed in footer and emails",
+            "name": "tagline",
+            "type": "string",
+            "title": "Company Tagline"
+          },
+          {
+            "fields": [
+              {
+                "name": "phone",
+                "type": "string",
+                "title": "Phone Number"
+              },
+              {
+                "name": "email",
+                "type": "string",
+                "title": "Email Address"
+              },
+              {
+                "name": "address",
+                "type": "text",
+                "title": "Physical Address"
+              },
+              {
+                "name": "whatsapp",
+                "type": "string",
+                "title": "WhatsApp Number"
+              }
+            ],
+            "name": "contactInfo",
+            "type": "object",
+            "title": "Contact Information"
+          },
+          {
+            "fields": [
+              {
+                "initialValue": "09:00 - 18:00",
+                "name": "mondayFriday",
+                "type": "string",
+                "title": "Monday - Friday"
+              },
+              {
+                "initialValue": "09:00 - 16:00",
+                "name": "saturday",
+                "type": "string"
+              },
+              {
+                "initialValue": "Tutup",
+                "name": "sunday",
+                "type": "string"
+              },
+              {
+                "initialValue": "WIB (GMT+7)",
+                "name": "timezone",
+                "type": "string"
+              }
+            ],
+            "name": "businessHours",
+            "type": "object"
+          }
+        ],
+        "name": "businessInfo",
+        "type": "object",
+        "title": "Business Information"
+      },
+      {
+        "fields": [
+          {
+            "fields": [
+              {
+                "initialValue": "#39ace7",
+                "description": "Main brand color (hex code)",
+                "name": "primary",
+                "type": "string",
+                "title": "Primary Color"
+              },
+              {
+                "initialValue": "#9bd4e4",
+                "description": "Light variant of primary color",
+                "name": "primaryLight",
+                "type": "string",
+                "title": "Primary Light Color"
+              },
+              {
+                "initialValue": "#0784b5",
+                "description": "Dark variant of primary color",
+                "name": "primaryDark",
+                "type": "string",
+                "title": "Primary Dark Color"
+              },
+              {
+                "initialValue": "#ffffff",
+                "description": "Secondary brand color",
+                "name": "secondary",
+                "type": "string",
+                "title": "Secondary Color"
+              },
+              {
+                "initialValue": "#9bd4e4",
+                "description": "Accent color for highlights",
+                "name": "accent",
+                "type": "string",
+                "title": "Accent Color"
+              },
+              {
+                "initialValue": "#1f2937",
+                "description": "Main text color",
+                "name": "textPrimary",
+                "type": "string",
+                "title": "Primary Text Color"
+              },
+              {
+                "initialValue": "#6b7280",
+                "description": "Secondary text color",
+                "name": "textSecondary",
+                "type": "string",
+                "title": "Secondary Text Color"
+              },
+              {
+                "initialValue": "#ffffff",
+                "description": "Main background color",
+                "name": "background",
+                "type": "string",
+                "title": "Background Color"
+              },
+              {
+                "initialValue": "#f9fafb",
+                "description": "Alternative background color",
+                "name": "backgroundAlt",
+                "type": "string",
+                "title": "Alternative Background Color"
+              }
+            ],
+            "name": "colors",
+            "type": "object",
+            "title": "Color Scheme"
+          },
+          {
+            "fields": [
+              {
+                "initialValue": "bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300",
+                "description": "CSS classes for primary buttons",
+                "name": "primaryButton",
+                "type": "string",
+                "title": "Primary Button Classes"
+              },
+              {
+                "initialValue": "bg-white hover:bg-gray-50 text-primary border-2 border-primary font-semibold py-3 px-6 rounded-lg transition-colors duration-300",
+                "description": "CSS classes for secondary buttons",
+                "name": "secondaryButton",
+                "type": "string",
+                "title": "Secondary Button Classes"
+              },
+              {
+                "initialValue": "border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300",
+                "description": "CSS classes for outline buttons",
+                "name": "outlineButton",
+                "type": "string",
+                "title": "Outline Button Classes"
+              }
+            ],
+            "name": "buttons",
+            "type": "object",
+            "title": "Button Styles"
+          },
+          {
+            "fields": [
+              {
+                "initialValue": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+                "description": "CSS classes for main container",
+                "name": "container",
+                "type": "string",
+                "title": "Container Classes"
+              },
+              {
+                "initialValue": "py-16 lg:py-24",
+                "description": "CSS classes for sections",
+                "name": "section",
+                "type": "string",
+                "title": "Section Classes"
+              },
+              {
+                "initialValue": "bg-white shadow-md",
+                "description": "CSS classes for header background",
+                "name": "headerBg",
+                "type": "string",
+                "title": "Header Background Classes"
+              },
+              {
+                "initialValue": "bg-gray-900 text-white",
+                "description": "CSS classes for footer background",
+                "name": "footerBg",
+                "type": "string",
+                "title": "Footer Background Classes"
+              }
+            ],
+            "name": "layout",
+            "type": "object",
+            "title": "Layout Styles"
+          }
+        ],
+        "name": "themeDesign",
+        "type": "object",
+        "title": "Theme & Design"
+      },
+      {
+        "fields": [
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "instagram",
+            "type": "url",
+            "title": "Instagram URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "facebook",
+            "type": "url",
+            "title": "Facebook URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "youtube",
+            "type": "url",
+            "title": "YouTube URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "twitter",
+            "type": "url",
+            "title": "Twitter URL"
+          },
+          {
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "tiktok",
+            "type": "url",
+            "title": "TikTok URL"
+          }
+        ],
+        "name": "socialMedia",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "fields": [
+              {
+                "initialValue": "Mahabbatussholihin Tour & Travel - Gerbang Menuju Petualangan Tak Terlupakan",
+                "description": "Page title for SEO and browser tab",
+                "name": "siteTitle",
+                "type": "string",
+                "title": "Site Title (SEO)"
+              },
+              {
+                "initialValue": "Temukan destinasi menakjubkan bersama Mahabbatussholihin Tour & Travel. Kami menawarkan pengalaman perjalanan yang dipersonalisasi, pemandu ahli, dan petualangan tak terlupakan di seluruh Indonesia dan sekitarnya.",
+                "description": "Meta description for SEO and social sharing",
+                "name": "siteDescription",
+                "type": "text",
+                "title": "Site Description (SEO)"
+              },
+              {
+                "options": {
+                  "layout": "tags"
+                },
+                "description": "Keywords for SEO optimization",
+                "of": [
+                  {
+                    "type": "string"
+                  }
+                ],
+                "name": "keywords",
+                "type": "array",
+                "title": "SEO Keywords"
+              }
+            ],
+            "name": "seo",
+            "type": "object",
+            "title": "SEO Settings"
+          },
+          {
+            "fields": [
+              {
+                "initialValue": "Beranda",
+                "name": "homeText",
+                "type": "string",
+                "title": "Home Menu Text"
+              },
+              {
+                "initialValue": "Tentang",
+                "name": "aboutText",
+                "type": "string",
+                "title": "About Menu Text"
+              },
+              {
+                "initialValue": "Layanan",
+                "name": "servicesText",
+                "type": "string",
+                "title": "Services Menu Text"
+              },
+              {
+                "initialValue": "Galeri",
+                "name": "galleryText",
+                "type": "string",
+                "title": "Gallery Menu Text"
+              },
+              {
+                "initialValue": "Blog",
+                "name": "blogText",
+                "type": "string",
+                "title": "Blog Menu Text"
+              },
+              {
+                "initialValue": "Kontak",
+                "name": "contactText",
+                "type": "string",
+                "title": "Contact Menu Text"
+              }
+            ],
+            "name": "navigation",
+            "type": "object",
+            "title": "Navigation Labels"
+          },
+          {
+            "fields": [
+              {
+                "initialValue": "Bismillah, Siap Memulai Perjalanan Berkah Anda?",
+                "description": "Main CTA text on homepage",
+                "name": "ctaText",
+                "type": "string",
+                "title": "Call to Action Text"
+              },
+              {
+                "initialValue": "Pesan Sekarang",
+                "description": "Text for book now buttons",
+                "name": "bookNowText",
+                "type": "string",
+                "title": "Book Now Button Text"
+              },
+              {
+                "initialValue": "© 2024 Mahabbatussholihin Tour & Travel. Semua hak dilindungi.",
+                "description": "Copyright notice in footer",
+                "name": "copyrightText",
+                "type": "string"
+              },
+              {
+                "initialValue": "Konsultasi Gratis",
+                "name": "freeConsultationText",
+                "type": "string"
+              }
+            ],
+            "name": "globalContent",
+            "type": "object"
+          }
+        ],
+        "name": "contentManagement",
+        "type": "object"
+      }
+    ],
+    "name": "siteSettings",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "initialValue": "#39ace7",
+            "description": "Main brand color (hex code)",
+            "name": "primary",
+            "type": "string",
+            "title": "Primary Color"
+          },
+          {
+            "initialValue": "#9bd4e4",
+            "description": "Light variant of primary color",
+            "name": "primaryLight",
+            "type": "string",
+            "title": "Primary Light Color"
+          },
+          {
+            "initialValue": "#0784b5",
+            "description": "Dark variant of primary color",
+            "name": "primaryDark",
+            "type": "string",
+            "title": "Primary Dark Color"
+          },
+          {
+            "initialValue": "#ffffff",
+            "description": "Secondary brand color",
+            "name": "secondary",
+            "type": "string",
+            "title": "Secondary Color"
+          },
+          {
+            "initialValue": "#9bd4e4",
+            "description": "Accent color for highlights",
+            "name": "accent",
+            "type": "string",
+            "title": "Accent Color"
+          },
+          {
+            "initialValue": "#1f2937",
+            "description": "Main text color",
+            "name": "textPrimary",
+            "type": "string",
+            "title": "Primary Text Color"
+          },
+          {
+            "initialValue": "#6b7280",
+            "description": "Secondary text color",
+            "name": "textSecondary",
+            "type": "string",
+            "title": "Secondary Text Color"
+          },
+          {
+            "initialValue": "#ffffff",
+            "description": "Main background color",
+            "name": "background",
+            "type": "string",
+            "title": "Background Color"
+          },
+          {
+            "initialValue": "#f9fafb",
+            "description": "Alternative background color",
+            "name": "backgroundAlt",
+            "type": "string",
+            "title": "Alternative Background Color"
+          }
+        ],
+        "name": "colors",
+        "type": "object",
+        "title": "Color Scheme"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-6 rounded-lg transition-colors duration-300",
+            "description": "CSS classes for primary buttons",
+            "name": "primaryButton",
+            "type": "string",
+            "title": "Primary Button Classes"
+          },
+          {
+            "initialValue": "bg-white hover:bg-gray-50 text-primary border-2 border-primary font-semibold py-3 px-6 rounded-lg transition-colors duration-300",
+            "description": "CSS classes for secondary buttons",
+            "name": "secondaryButton",
+            "type": "string",
+            "title": "Secondary Button Classes"
+          },
+          {
+            "initialValue": "border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300",
+            "description": "CSS classes for outline buttons",
+            "name": "outlineButton",
+            "type": "string",
+            "title": "Outline Button Classes"
+          }
+        ],
+        "name": "buttons",
+        "type": "object",
+        "title": "Button Styles"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300",
+            "description": "CSS classes for default cards",
+            "name": "defaultCard",
+            "type": "string",
+            "title": "Default Card Classes"
+          },
+          {
+            "initialValue": "bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 p-6",
+            "description": "CSS classes for service cards",
+            "name": "serviceCard",
+            "type": "string",
+            "title": "Service Card Classes"
+          },
+          {
+            "initialValue": "bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden",
+            "description": "CSS classes for blog cards",
+            "name": "blogCard",
+            "type": "string",
+            "title": "Blog Card Classes"
+          }
+        ],
+        "name": "cards",
+        "type": "object",
+        "title": "Card Styles"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+            "description": "CSS classes for main container",
+            "name": "container",
+            "type": "string",
+            "title": "Container Classes"
+          },
+          {
+            "initialValue": "py-16 lg:py-24",
+            "description": "CSS classes for sections",
+            "name": "section",
+            "type": "string",
+            "title": "Section Classes"
+          },
+          {
+            "initialValue": "bg-white shadow-md",
+            "description": "CSS classes for header background",
+            "name": "headerBg",
+            "type": "string",
+            "title": "Header Background Classes"
+          },
+          {
+            "initialValue": "bg-gray-900 text-white",
+            "description": "CSS classes for footer background",
+            "name": "footerBg",
+            "type": "string",
+            "title": "Footer Background Classes"
+          }
+        ],
+        "name": "layout",
+        "type": "object",
+        "title": "Layout Styles"
+      }
+    ],
+    "name": "themeSettings",
+    "type": "document",
+    "title": "Theme & Design Settings"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "placeholder": "https://instagram.com/mhstour",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "instagram",
+            "type": "url",
+            "title": "Instagram URL"
+          },
+          {
+            "placeholder": "https://facebook.com/mhstour",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "facebook",
+            "type": "url",
+            "title": "Facebook URL"
+          },
+          {
+            "placeholder": "https://youtube.com/@mhstour",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "youtube",
+            "type": "url",
+            "title": "YouTube URL"
+          },
+          {
+            "placeholder": "https://twitter.com/mhstour",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "twitter",
+            "type": "url",
+            "title": "Twitter URL"
+          },
+          {
+            "placeholder": "https://tiktok.com/@mhstour",
+            "validation": [
+              {
+                "rules": [
+                  {
+                    "flag": "uri",
+                    "constraint": {
+                      "options": {
+                        "scheme": [
+                          "/^http$/",
+                          "/^https$/"
+                        ],
+                        "allowRelative": false,
+                        "relativeOnly": false,
+                        "allowCredentials": false
+                      }
+                    }
+                  }
+                ],
+                "level": "error"
+              }
+            ],
+            "name": "tiktok",
+            "type": "url",
+            "title": "TikTok URL"
+          }
+        ],
+        "name": "socialMedia",
+        "type": "object",
+        "title": "Social Media Links"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Terima kasih telah menghubungi Mahabbatussholihin Tour & Travel.",
+            "description": "Thank you message in customer email",
+            "name": "thankYouMessage",
+            "type": "text"
+          },
+          {
+            "initialValue": "Kami akan segera merespons pertanyaan Anda dalam waktu 24 jam.",
+            "description": "Response time message in customer email",
+            "name": "responseMessage",
+            "type": "text"
+          },
+          {
+            "initialValue": "Team Mahabbatussholihin Tour & Travel",
+            "description": "Team signature in emails",
+            "name": "teamSignature",
+            "type": "string"
+          }
+        ],
+        "name": "emailTemplates",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Contact Us",
+            "name": "contactTitle",
+            "type": "string",
+            "title": "Contact Page Title"
+          },
+          {
+            "initialValue": "Get in touch with our travel experts. We're here to help you plan your perfect journey.",
+            "name": "contactDescription",
+            "type": "text",
+            "title": "Contact Page Description"
+          },
+          {
+            "initialValue": "Quick Response Guarantee",
+            "name": "quickResponseTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "We respond to all inquiries within 24 hours. Our dedicated team is committed to providing you with prompt and helpful assistance.",
+            "name": "quickResponseMessage",
+            "type": "text"
+          },
+          {
+            "initialValue": "Average response: 2-4 hours",
+            "name": "averageResponseText",
+            "type": "string"
+          },
+          {
+            "initialValue": "Chat via WhatsApp",
+            "name": "chatWhatsappText",
+            "type": "string",
+            "title": "Chat WhatsApp Text"
+          },
+          {
+            "initialValue": "Butuh bantuan segera? Chat langsung dengan tim customer service kami melalui WhatsApp untuk respon yang lebih cepat.",
+            "name": "needHelpMessage",
+            "type": "text"
+          },
+          {
+            "initialValue": "Mulai Chat Sekarang",
+            "name": "startChatText",
+            "type": "string"
+          }
+        ],
+        "name": "contactContent",
+        "type": "object",
+        "title": "Contact Page Content"
+      }
+    ],
+    "name": "socialSettings",
+    "type": "document",
+    "title": "Social Media & Communication"
+  },
+  {
+    "fields": [
+      {
+        "fields": [
+          {
+            "initialValue": "Beranda",
+            "name": "homeText",
+            "type": "string",
+            "title": "Home Menu Text"
+          },
+          {
+            "initialValue": "Layanan",
+            "name": "servicesText",
+            "type": "string",
+            "title": "Services Menu Text"
+          },
+          {
+            "initialValue": "Galeri",
+            "name": "galleryText",
+            "type": "string",
+            "title": "Gallery Menu Text"
+          },
+          {
+            "initialValue": "Blog",
+            "name": "blogText",
+            "type": "string",
+            "title": "Blog Menu Text"
+          },
+          {
+            "initialValue": "Tentang",
+            "name": "aboutText",
+            "type": "string",
+            "title": "About Menu Text"
+          },
+          {
+            "initialValue": "Kontak",
+            "name": "contactText",
+            "type": "string",
+            "title": "Contact Menu Text"
+          }
+        ],
+        "name": "navigation",
+        "type": "object",
+        "title": "Navigation Content"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Blog & Artikel",
+            "name": "blogPageTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Galeri Foto",
+            "name": "galleryPageTitle",
+            "type": "string"
+          },
+          {
+            "name": "tourPackagesTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Tur Kustom",
+            "name": "customTourTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Destinasi",
+            "name": "destinationsTitle",
+            "type": "string"
+          }
+        ],
+        "name": "pageContent",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Hubungi Kami",
+            "name": "contactFormTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Pesan Sekarang",
+            "name": "bookingFormTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Kirim Pertanyaan",
+            "name": "inquiryFormTitle",
+            "type": "string"
+          },
+          {
+            "initialValue": "Terima kasih! Pesan Anda telah berhasil dikirim. Kami akan segera menghubungi Anda.",
+            "name": "successMessage",
+            "type": "text",
+            "title": "Form Success Message"
+          },
+          {
+            "initialValue": "Maaf, terjadi kesalahan. Silakan coba lagi atau hubungi kami langsung.",
+            "name": "errorMessage",
+            "type": "text",
+            "title": "Form Error Message"
+          }
+        ],
+        "name": "formContent",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Nama Lengkap",
+            "name": "nameLabel",
+            "type": "string",
+            "title": "Name Field Label"
+          },
+          {
+            "initialValue": "Masukkan nama lengkap Anda",
+            "name": "namePlaceholder",
+            "type": "string",
+            "title": "Name Field Placeholder"
+          },
+          {
+            "initialValue": "Email",
+            "name": "emailLabel",
+            "type": "string",
+            "title": "Email Field Label"
+          },
+          {
+            "initialValue": "contoh@email.com",
+            "name": "emailPlaceholder",
+            "type": "string",
+            "title": "Email Field Placeholder"
+          },
+          {
+            "initialValue": "Nomor Telepon",
+            "name": "phoneLabel",
+            "type": "string",
+            "title": "Phone Field Label"
+          },
+          {
+            "initialValue": "+62 812 3456 7890",
+            "name": "phonePlaceholder",
+            "type": "string",
+            "title": "Phone Field Placeholder"
+          },
+          {
+            "initialValue": "Jumlah Peserta",
+            "name": "groupSizeLabel",
+            "type": "string",
+            "title": "Group Size Field Label"
+          },
+          {
+            "initialValue": "Budget Range",
+            "name": "budgetLabel",
+            "type": "string",
+            "title": "Budget Field Label"
+          },
+          {
+            "initialValue": "Subjek",
+            "name": "subjectLabel",
+            "type": "string",
+            "title": "Subject Field Label"
+          },
+          {
+            "initialValue": "Pilih topik pertanyaan",
+            "name": "subjectPlaceholder",
+            "type": "string",
+            "title": "Subject Field Placeholder"
+          },
+          {
+            "initialValue": "Pesan",
+            "name": "messageLabel",
+            "type": "string",
+            "title": "Message Field Label"
+          },
+          {
+            "initialValue": "Tulis pesan atau pertanyaan Anda di sini...",
+            "name": "messagePlaceholder",
+            "type": "string",
+            "title": "Message Field Placeholder"
+          }
+        ],
+        "name": "formFields",
+        "type": "object",
+        "title": "Form Field Labels"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": [
+              "Reguler",
+              "Premium",
+              "VIP"
+            ],
+            "of": [
+              {
+                "type": "string"
+              }
+            ],
+            "name": "tourPackageOptions",
+            "type": "array"
+          },
+          {
+            "initialValue": [
+              "Tur Pribadi",
+              "Tur Keluarga",
+              "Tur Grup"
+            ],
+            "of": [
+              {
+                "type": "string"
+              }
+            ],
+            "name": "customTourOptions",
+            "type": "array"
+          },
+          {
+            "initialValue": [
+              "Informasi Umum",
+              "Pertanyaan Harga",
+              "Jadwal Keberangkatan",
+              "Lainnya"
+            ],
+            "of": [
+              {
+                "type": "string"
+              }
+            ],
+            "name": "inquiryOptions",
+            "type": "array",
+            "title": "General Inquiry Options"
+          },
+          {
+            "initialValue": [
+              "< Rp 1.000.000",
+              "Rp 1.000.000 - Rp 3.000.000",
+              "Rp 3.000.000 - Rp 5.000.000",
+              "> Rp 5.000.000"
+            ],
+            "of": [
+              {
+                "type": "string"
+              }
+            ],
+            "name": "budgetRanges",
+            "type": "array",
+            "title": "Budget Range Options"
+          }
+        ],
+        "name": "formOptions",
+        "type": "object"
+      },
+      {
+        "fields": [
+          {
+            "initialValue": "Nama lengkap wajib diisi",
+            "name": "nameRequired",
+            "type": "string",
+            "title": "Name Required Message"
+          },
+          {
+            "initialValue": "Email wajib diisi",
+            "name": "emailRequired",
+            "type": "string",
+            "title": "Email Required Message"
+          },
+          {
+            "initialValue": "Format email tidak valid",
+            "name": "emailInvalid",
+            "type": "string",
+            "title": "Email Invalid Message"
+          },
+          {
+            "initialValue": "Nomor telepon wajib diisi",
+            "name": "phoneRequired",
+            "type": "string",
+            "title": "Phone Required Message"
+          },
+          {
+            "initialValue": "Format nomor telepon tidak valid",
+            "name": "phoneInvalid",
+            "type": "string",
+            "title": "Phone Invalid Message"
+          },
+          {
+            "initialValue": "Jumlah peserta wajib diisi",
+            "name": "groupSizeRequired",
+            "type": "string",
+            "title": "Group Size Required Message"
+          },
+          {
+            "initialValue": "Subjek wajib dipilih",
+            "name": "subjectRequired",
+            "type": "string",
+            "title": "Subject Required Message"
+          },
+          {
+            "initialValue": "Pesan wajib diisi",
+            "name": "messageRequired",
+            "type": "string",
+            "title": "Message Required Message"
+          },
+          {
+            "initialValue": "Pesan minimal 10 karakter",
+            "name": "messageMinLength",
+            "type": "string",
+            "title": "Message Min Length Message"
+          }
+        ],
+        "name": "validationMessages",
+        "type": "object"
+      }
+    ],
+    "name": "contentSettings",
+    "type": "document",
+    "title": "Content Management"
+  }
+]

@@ -6,13 +6,13 @@ import { generateOrganizationJsonLd, generateBreadcrumbJsonLd } from '@/lib/json
 // Generate comprehensive metadata for about page
 export async function generateMetadata(): Promise<Metadata> {
   try {
-    const siteSettings = await sanityFetch<any>({
-      query: queries.getSiteSettings(),
-      tags: ['siteSettings']
+    const aboutUs = await sanityFetch<any>({
+      query: queries.getAboutUs(),
+      tags: ['aboutUs']
     })
 
-    const title = siteSettings?.pageContent?.aboutPageTitle || 'Tentang Kami - Mahabbatussholihin Tour & Travel'
-    const description = siteSettings?.pageContent?.aboutPageDescription || 'Mahabbatussholihin Tour & Travel adalah mitra perjalanan terpercaya dengan pengalaman bertahun-tahun. Komitmen kami memberikan pengalaman wisata terbaik dengan pelayanan profesional dan harga kompetitif.'
+    const title = aboutUs?.seoTitle || 'Tentang Kami - Mahabbatussholihin Tour & Travel'
+    const description = aboutUs?.seoDescription || 'Mahabbatussholihin Tour & Travel adalah mitra perjalanan terpercaya dengan pengalaman bertahun-tahun. Komitmen kami memberikan pengalaman wisata terbaik dengan pelayanan profesional dan harga kompetitif.'
 
     return {
       title,
@@ -60,21 +60,21 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  // Fetch site settings for about content
-  let siteSettings: any = null
+  // Fetch about us content
+  let aboutUs: any = null
 
   try {
-    siteSettings = await sanityFetch<any>({
-      query: queries.getSiteSettings(),
-      tags: ['siteSettings']
+    aboutUs = await sanityFetch<any>({
+      query: queries.getAboutUs(),
+      tags: ['aboutUs']
     })
   } catch (error) {
-    console.error('Failed to fetch site settings:', error)
+    console.error('Failed to fetch about us:', error)
   }
 
   // Generate structured data
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://travel.mahabbatussholihin.com'
-  const organizationJsonLd = generateOrganizationJsonLd(baseUrl, siteSettings || undefined)
+  const organizationJsonLd = generateOrganizationJsonLd(baseUrl, aboutUs || undefined)
   const breadcrumbJsonLd = generateBreadcrumbJsonLd([
     { name: 'Beranda', url: baseUrl },
     { name: 'Tentang Kami', url: `${baseUrl}/about` }
@@ -97,10 +97,10 @@ export default async function AboutPage() {
       <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h1 className="text-4xl font-bold mb-4">
-            {siteSettings?.aboutContent?.mainTitle || 'Tentang Kami'}
+            {aboutUs?.mainTitle || 'Tentang Kami'}
           </h1>
-          <p className="text-xl text-primary-lighter">
-            {siteSettings?.aboutContent?.subtitle || 'Mitra terpercaya Anda untuk pengalaman perjalanan tak terlupakan sejak didirikan.'}
+          <p className="text-xl text-white">
+            {aboutUs?.subtitle || 'Mitra terpercaya Anda untuk pengalaman perjalanan tak terlupakan sejak didirikan.'}
           </p>
         </div>
       </section>
@@ -109,55 +109,61 @@ export default async function AboutPage() {
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-white rounded-lg shadow-md p-8">
           <h2 className="text-2xl font-semibold text-black mb-4">
-            {siteSettings?.aboutContent?.ourStoryTitle || 'Cerita Kami'}
+            {aboutUs?.ourStoryTitle || 'Cerita Kami'}
           </h2>
           <p className="text-gray-700 mb-6">
-            {siteSettings?.aboutContent?.ourStoryDescription || 'Mahabbatussholihin Tour & Travel didirikan dengan misi sederhana: menciptakan pengalaman perjalanan berkesan yang menghubungkan orang dengan destinasi menakjubkan di seluruh dunia. Kami percaya bahwa perjalanan memiliki kekuatan untuk mengubah hidup, memperluas perspektif, dan menciptakan kenangan abadi.'}
+            {aboutUs?.ourStoryDescription || 'Mahabbatussholihin Tour & Travel didirikan dengan misi sederhana: menciptakan pengalaman perjalanan berkesan yang menghubungkan orang dengan destinasi menakjubkan di seluruh dunia. Kami percaya bahwa perjalanan memiliki kekuatan untuk mengubah hidup, memperluas perspektif, dan menciptakan kenangan abadi.'}
           </p>
           
           <h2 className="text-2xl font-semibold text-black mb-4">
-            {siteSettings?.aboutContent?.ourMissionTitle || 'Misi Kami'}
+            {aboutUs?.ourMissionTitle || 'Misi Kami'}
           </h2>
           <p className="text-gray-700 mb-6">
-            {siteSettings?.aboutContent?.ourMissionDescription || 'Dengan ridho Alloh SWT, kami berkomitmen nyediain layanan perjalanan yang berkah dan penuh makna yang bisa melampaui ekspektasi jamaah kami sambil menjaga amanah dan tanggung jawab dalam setiap langkah perjalanan.'}
+            {aboutUs?.ourMissionDescription || 'Dengan ridho Alloh SWT, kami berkomitmen nyediain layanan perjalanan yang berkah dan penuh makna yang bisa melampaui ekspektasi jamaah kami sambil menjaga amanah dan tanggung jawab dalam setiap langkah perjalanan.'}
           </p>
           
           <h2 className="text-2xl font-semibold text-black mb-6">
-            {siteSettings?.aboutContent?.whyChooseUsTitle || 'Mengapa Memilih Kami'}
+            {aboutUs?.whyChooseUsTitle || 'Mengapa Memilih Kami'}
           </h2>
           
           <StaggerContainer className="space-y-4">
-            {siteSettings?.aboutContent?.whyChooseUsItems && siteSettings.aboutContent.whyChooseUsItems.length > 0 ? (
-              siteSettings.aboutContent.whyChooseUsItems.map((item: string, index: number) => (
-                <StaggerItem key={index}>
-                  <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
-                    {item}
-                  </p>
-                </StaggerItem>
-              ))
-            ) : (
+              {aboutUs?.whyChooseUsItems && aboutUs.whyChooseUsItems.length > 0 ? (
+                aboutUs.whyChooseUsItems.map((item: any, index: number) => (
+                  <StaggerItem key={index}>
+                    <div className="flex items-start space-x-4 p-4 border-l-4 border-primary">
+                      {item.icon?.asset?.url && (
+                        <img 
+                          src={item.icon.asset.url} 
+                          alt={item.icon.alt || item.title} 
+                          className="w-8 h-8 flex-shrink-0 mt-1"
+                        />
+                      )}
+                      <div>
+                        <h3 className="font-semibold text-gray-800 mb-2">{item.title}</h3>
+                        <p className="text-gray-700 leading-relaxed">{item.description}</p>
+                      </div>
+                    </div>
+                  </StaggerItem>
+                ))
+              ) : (
               <>
                 <StaggerItem>
                   <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
                     Pengetahuan lokal yang ahli dan itinerary yang udah dikurasi dengan penuh barakah
                   </p>
-                </StaggerItem>
-                <StaggerItem>
+
                   <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
                     Dukungan jamaah 24/7 sepanjang perjalanan dengan penuh amanah
                   </p>
-                </StaggerItem>
-                <StaggerItem>
+
                   <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
                     Harga yang berkah dengan kebijakan transparan tanpa biaya tersembunyi
                   </p>
-                </StaggerItem>
-                <StaggerItem>
+
                   <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
                     Praktik perjalanan yang halal dan berkah untuk komunitas lokal
                   </p>
-                </StaggerItem>
-                <StaggerItem>
+
                   <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
                     Opsi pemesanan fleksibel dan paket yang bisa disesuaikan sesuai kebutuhan jamaah
                   </p>

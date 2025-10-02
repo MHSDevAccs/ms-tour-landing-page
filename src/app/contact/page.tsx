@@ -135,7 +135,7 @@ export default async function ContactPage() {
           <h1 className="text-4xl font-bold mb-4">
             {contactData?.content?.contactPageTitle || contactData?.contactContent?.pageTitle || 'Hubungi Kami'}
           </h1>
-          <p className="text-xl text-primary-lighter">
+          <p className="text-xl text-white">
             {contactData?.content?.contactPageDescription || contactData?.contactContent?.pageDescription || contactData?.content?.contactCtaText || 'Kami siap membantu Anda merencanakan perjalanan yang berkesan'}
           </p>
         </div>
@@ -340,7 +340,7 @@ export default async function ContactPage() {
 
               {/* Social Media */}
               {(socialData?.socialMedia?.instagram || socialData?.socialMedia?.facebook || socialData?.socialMedia?.youtube || socialData?.socialMedia?.twitter || socialData?.socialMedia?.tiktok) && (
-                <div className="bg-white rounded-lg border border-gray-200 p-6">
+                <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
                   <h3 className="text-lg font-semibold text-black mb-4">
                     {socialData?.contactContent?.socialMediaTitle || 'Media Sosial'}
                   </h3>

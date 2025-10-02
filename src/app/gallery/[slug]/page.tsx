@@ -335,7 +335,7 @@ export default async function GalleryDetailPage({ params }: Props) {
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
               {siteSettings?.pageContent?.galleryDetailCtaTitle || 'Tertarik dengan Destinasi Ini?'}
             </h2>
-            <p className="text-xl text-primary-lighter mb-8">
+            <p className="text-xl text-white mb-8">
               {siteSettings?.pageContent?.galleryDetailCtaDescription?.replace('{destination}', gallery.destination?.name || 'destinasi menakjubkan ini') || `Hubungi kami untuk merencanakan perjalanan wisata impian Anda ke ${gallery.destination?.name || 'destinasi menakjubkan ini'}`}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

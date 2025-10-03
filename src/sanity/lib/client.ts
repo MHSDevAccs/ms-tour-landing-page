@@ -728,49 +728,42 @@ export const queries = {
     }
   `,
 
-  // About Us
   getAboutUs: () => `
-    *[_type == "aboutUs"][0] {
+    *[_type == "aboutUs" && isActive == true][0] {
       _id,
       seoTitle,
       seoDescription,
       mainTitle,
       subtitle,
-      ourStoryTitle,
-      ourStoryDescription,
-      ourMissionTitle,
-      ourMissionDescription,
-      whyChooseUsTitle,
-      whyChooseUsItems[] {
-        title,
-        description,
-        icon {
-          asset-> {
-            _id,
-            url
-          },
-          alt
-        }
-      },
-      companyLegality {
-        legalName,
-        registrationNumber,
-        taxId,
-        businessLicense,
-        establishedYear,
-        certifications[] {
-          name,
-          issuedBy,
-          validUntil,
-          certificateImage {
-            asset-> {
-              _id,
-              url
-            },
-            alt
+      contentSection {
+        ourStory {
+          title,
+          content
+        },
+        ourMission {
+          title,
+          content
+        },
+        whyChooseUs {
+          title,
+          items[] {
+            title,
+            description,
+            icon
           }
         }
-      }
+      },
+      legalitasSection {
+        title,
+        companyName,
+        nib,
+        address,
+        phone,
+        email,
+        website
+      },
+      isActive,
+      lastUpdated
     }
   `
 }

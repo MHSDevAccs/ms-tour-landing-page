@@ -3,6 +3,8 @@ import { sanityFetch, queries } from '@/sanity/lib/client'
 import AnimatedSection, { PageTransition, StaggerContainer, StaggerItem } from '@/components/AnimatedSection'
 import { generateOrganizationJsonLd, generateBreadcrumbJsonLd } from '@/lib/jsonLd'
 
+
+
 // Generate comprehensive metadata for about page
 export async function generateMetadata(): Promise<Metadata> {
   try {
@@ -93,14 +95,14 @@ export default async function AboutPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       
-      {/* About Header - HARDCODED */}
+      {/* About Header */}
       <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center lg:text-left">
           <h1 className="text-4xl font-bold mb-4">
             {aboutUs?.mainTitle || 'Tentang Kami'}
           </h1>
           <p className="text-xl text-white">
-            {aboutUs?.subtitle || 'Mitra terpercaya Anda untuk pengalaman perjalanan tak terlupakan sejak didirikan.'}
+            {aboutUs?.subtitle || 'Mengenal lebih dekat perjalanan spiritual bersama Mahabbatussholihin Tour & Travel'}
           </p>
         </div>
       </section>
@@ -109,64 +111,101 @@ export default async function AboutPage() {
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-white rounded-lg shadow-md p-8">
           <h2 className="text-2xl font-semibold text-black mb-4">
-            {aboutUs?.ourStoryTitle || 'Cerita Kami'}
+            {aboutUs?.contentSection?.ourStory?.title || 'Cerita Kami'}
           </h2>
-          <p className="text-gray-700 mb-6">
-            {aboutUs?.ourStoryDescription || 'Mahabbatussholihin Tour & Travel didirikan dengan misi sederhana: menciptakan pengalaman perjalanan berkesan yang menghubungkan orang dengan destinasi menakjubkan di seluruh dunia. Kami percaya bahwa perjalanan memiliki kekuatan untuk mengubah hidup, memperluas perspektif, dan menciptakan kenangan abadi.'}
-          </p>
+          <div className="text-gray-700 mb-6">
+            {aboutUs?.contentSection?.ourStory?.content ? (
+              <div className="prose prose-gray max-w-none">
+                {/* For now, we'll render as simple text. Rich text rendering can be added later */}
+                <p>
+                  {Array.isArray(aboutUs.contentSection.ourStory.content) 
+                    ? aboutUs.contentSection.ourStory.content
+                        .filter((block: any) => block._type === 'block')
+                        .map((block: any) => 
+                          block.children?.map((child: any) => child.text).join('') || ''
+                        ).join(' ')
+                    : 'Mahabbatussholihin Tour & Travel didirikan dengan misi sederhana: menciptakan pengalaman perjalanan berkesan yang menghubungkan orang dengan destinasi menakjubkan di seluruh dunia. Kami percaya bahwa perjalanan memiliki kekuatan untuk mengubah hidup, memperluas perspektif, dan menciptakan kenangan abadi.'
+                  }
+                </p>
+              </div>
+            ) : (
+              <p>Mahabbatussholihin Tour & Travel didirikan dengan misi sederhana: menciptakan pengalaman perjalanan berkesan yang menghubungkan orang dengan destinasi menakjubkan di seluruh dunia. Kami percaya bahwa perjalanan memiliki kekuatan untuk mengubah hidup, memperluas perspektif, dan menciptakan kenangan abadi.</p>
+            )}
+          </div>
           
           <h2 className="text-2xl font-semibold text-black mb-4">
-            {aboutUs?.ourMissionTitle || 'Misi Kami'}
+            {aboutUs?.contentSection?.ourMission?.title || 'Misi Kami'}
           </h2>
-          <p className="text-gray-700 mb-6">
-            {aboutUs?.ourMissionDescription || 'Dengan ridho Alloh SWT, kami berkomitmen nyediain layanan perjalanan yang berkah dan penuh makna yang bisa melampaui ekspektasi jamaah kami sambil menjaga amanah dan tanggung jawab dalam setiap langkah perjalanan.'}
-          </p>
+          <div className="text-gray-700 mb-6">
+            {aboutUs?.contentSection?.ourMission?.content ? (
+              <div className="prose prose-gray max-w-none">
+                {/* For now, we'll render as simple text. Rich text rendering can be added later */}
+                <p>
+                  {Array.isArray(aboutUs.contentSection.ourMission.content) 
+                    ? aboutUs.contentSection.ourMission.content
+                        .filter((block: any) => block._type === 'block')
+                        .map((block: any) => 
+                          block.children?.map((child: any) => child.text).join('') || ''
+                        ).join(' ')
+                    : 'Dengan ridho Alloh SWT, kami berkomitmen nyediain layanan perjalanan yang berkah dan penuh makna yang bisa melampaui ekspektasi jamaah kami sambil menjaga amanah dan tanggung jawab dalam setiap langkah perjalanan.'
+                  }
+                </p>
+              </div>
+            ) : (
+              <p>Dengan ridho Alloh SWT, kami berkomitmen nyediain layanan perjalanan yang berkah dan penuh makna yang bisa melampaui ekspektasi jamaah kami sambil menjaga amanah dan tanggung jawab dalam setiap langkah perjalanan.</p>
+            )}
+          </div>
           
           <h2 className="text-2xl font-semibold text-black mb-6">
-            {aboutUs?.whyChooseUsTitle || 'Mengapa Memilih Kami'}
+            {aboutUs?.contentSection?.whyChooseUs?.title || 'Mengapa Memilih Kami'}
           </h2>
           
           <StaggerContainer className="space-y-4">
-              {aboutUs?.whyChooseUsItems && aboutUs.whyChooseUsItems.length > 0 ? (
-                aboutUs.whyChooseUsItems.map((item: any, index: number) => (
+              {aboutUs?.contentSection?.whyChooseUs?.items && aboutUs.contentSection.whyChooseUs.items.length > 0 ? (
+                aboutUs.contentSection.whyChooseUs.items.map((item: any, index: number) => (
                   <StaggerItem key={index}>
-                    <div className="flex items-start space-x-4 p-4 border-l-4 border-primary">
-                      {item.icon?.asset?.url && (
-                        <img 
-                          src={item.icon.asset.url} 
-                          alt={item.icon.alt || item.title} 
-                          className="w-8 h-8 flex-shrink-0 mt-1"
-                        />
-                      )}
-                      <div>
-                        <h3 className="font-semibold text-gray-800 mb-2">{item.title}</h3>
-                        <p className="text-gray-700 leading-relaxed">{item.description}</p>
-                      </div>
+                    <div className="border-l-4 border-primary pl-4 py-2">
+                      <h3 className="font-semibold text-gray-800 mb-2">{item.title}</h3>
+                      <p className="text-gray-700 leading-relaxed">{item.description}</p>
                     </div>
                   </StaggerItem>
                 ))
               ) : (
               <>
                 <StaggerItem>
-                  <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
-                    Pengetahuan lokal yang ahli dan itinerary yang udah dikurasi dengan penuh barakah
-                  </p>
-
-                  <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
-                    Dukungan jamaah 24/7 sepanjang perjalanan dengan penuh amanah
-                  </p>
-
-                  <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
-                    Harga yang berkah dengan kebijakan transparan tanpa biaya tersembunyi
-                  </p>
-
-                  <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
-                    Praktik perjalanan yang halal dan berkah untuk komunitas lokal
-                  </p>
-
-                  <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
-                    Opsi pemesanan fleksibel dan paket yang bisa disesuaikan sesuai kebutuhan jamaah
-                  </p>
+                  <div className="border-l-4 border-primary pl-4 py-2">
+                    <p className="text-gray-700 leading-relaxed">
+                      Pengetahuan lokal yang ahli dan itinerary yang udah dikurasi dengan penuh barakah
+                    </p>
+                  </div>
+                </StaggerItem>
+                <StaggerItem>
+                  <div className="border-l-4 border-primary pl-4 py-2">
+                    <p className="text-gray-700 leading-relaxed">
+                      Dukungan jamaah 24/7 sepanjang perjalanan dengan penuh amanah
+                    </p>
+                  </div>
+                </StaggerItem>
+                <StaggerItem>
+                  <div className="border-l-4 border-primary pl-4 py-2">
+                    <p className="text-gray-700 leading-relaxed">
+                      Harga yang berkah dengan kebijakan transparan tanpa biaya tersembunyi
+                    </p>
+                  </div>
+                </StaggerItem>
+                <StaggerItem>
+                  <div className="border-l-4 border-primary pl-4 py-2">
+                    <p className="text-gray-700 leading-relaxed">
+                      Praktik perjalanan yang halal dan berkah untuk komunitas lokal
+                    </p>
+                  </div>
+                </StaggerItem>
+                <StaggerItem>
+                  <div className="border-l-4 border-primary pl-4 py-2">
+                    <p className="text-gray-700 leading-relaxed">
+                      Opsi pemesanan fleksibel dan paket yang bisa disesuaikan sesuai kebutuhan jamaah
+                    </p>
+                  </div>
                 </StaggerItem>
               </>
             )}
@@ -178,7 +217,7 @@ export default async function AboutPage() {
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-white rounded-lg shadow-md p-8">
           <h2 className="text-2xl font-semibold text-black mb-6">
-            Legalitas Perusahaan
+            {aboutUs?.legalitasSection?.title || 'Legalitas Perusahaan'}
           </h2>
           
           <StaggerContainer className="space-y-4">
@@ -187,19 +226,19 @@ export default async function AboutPage() {
                 <div className="space-y-4">
                   <div className="border-l-4 border-primary pl-4 py-2">
                     <h3 className="font-semibold text-gray-800 mb-1">Nama Perusahaan</h3>
-                    <p className="text-gray-700">PT MAHABBATUSSHOLIHIN TOUR DAN TRAVEL</p>
+                    <p className="text-gray-700">{aboutUs?.legalitasSection?.companyName || 'PT MAHABBATUSSHOLIHIN TOUR DAN TRAVEL'}</p>
                   </div>
                    <div className="border-l-4 border-primary pl-4 py-2">
                     <h3 className="font-semibold text-gray-800 mb-1">NIB</h3>
-                    <p className="text-gray-700">1208250112908</p>
+                    <p className="text-gray-700">{aboutUs?.legalitasSection?.nib || '1208250112908'}</p>
                   </div>                 
                   <div className="border-l-4 border-primary pl-4 py-2">
                     <h3 className="font-semibold text-gray-800 mb-1">Status Penanaman Modal</h3>
-                    <p className="text-gray-700">PMDN (Penanaman Modal Dalam Negeri)</p>
+                    <p className="text-gray-700">{aboutUs?.legalitasSection?.investmentStatus || 'PMDN (Penanaman Modal Dalam Negeri)'}</p>
                   </div>
                   <div className="border-l-4 border-primary pl-4 py-2">
                     <h3 className="font-semibold text-gray-800 mb-1">Skala Usaha</h3>
-                    <p className="text-gray-700">Usaha Mikro</p>
+                    <p className="text-gray-700">{aboutUs?.legalitasSection?.businessScale || 'Usaha Mikro'}</p>
                   </div>
                 </div>
                 
@@ -209,11 +248,17 @@ export default async function AboutPage() {
                   <div className="border-l-4 border-primary pl-4 py-2">
                     <h3 className="font-semibold text-gray-800 mb-1">Alamat Kantor</h3>
                     <p className="text-gray-700">
-                      JLN. CIPINANG MUARA RAYA NO. 02<br />
-                      Desa/Kelurahan Cipinang Muara<br />
-                      Kec. Jatinegara, Kota Adm. Jakarta Timur<br />
-                      Provinsi DKI Jakarta<br />
-                      Kode Pos: 13420
+                      {aboutUs?.legalitasSection?.address ? (
+                        <span dangerouslySetInnerHTML={{ __html: aboutUs.legalitasSection.address.replace(/\n/g, '<br />') }} />
+                      ) : (
+                        <>
+                          JLN. CIPINANG MUARA RAYA NO. 02<br />
+                          Desa/Kelurahan Cipinang Muara<br />
+                          Kec. Jatinegara, Kota Adm. Jakarta Timur<br />
+                          Provinsi DKI Jakarta<br />
+                          Kode Pos: 13420
+                        </>
+                      )}
                     </p>
                   </div>
                   
@@ -221,8 +266,24 @@ export default async function AboutPage() {
                   <div className="border-l-4 border-primary pl-4 py-2">
                     <h3 className="font-semibold text-gray-800 mb-1">Kontak</h3>
                     <p className="text-gray-700">
-                      No. Telepon: 081110002477<br />
-                      Email: ptmahabbatussholihin@gmail.com
+                      No. Telepon: {aboutUs?.legalitasSection?.phone || '081110002477'}<br />
+                      Email: {aboutUs?.legalitasSection?.email ? (
+                        <span className="break-all">
+                          {aboutUs.legalitasSection.email.includes('@') ? (
+                            <>
+                              {aboutUs.legalitasSection.email.split('@')[0]}<br />
+                              @{aboutUs.legalitasSection.email.split('@')[1]}
+                            </>
+                          ) : (
+                            aboutUs.legalitasSection.email
+                          )}
+                        </span>
+                      ) : (
+                        <span className="break-all">
+                          ptmahabbatussholihin<br />
+                          @gmail.com
+                        </span>
+                      )}
                     </p>
                   </div>
                 </div>

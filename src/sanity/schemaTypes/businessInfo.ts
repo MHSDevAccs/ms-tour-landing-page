@@ -4,7 +4,6 @@ export const businessInfo = defineType({
   name: 'businessInfo',
   title: 'Business Information',
   type: 'document',
-  icon: () => '🏢',
   fields: [
     defineField({
       name: 'logo',
@@ -29,7 +28,6 @@ export const businessInfo = defineType({
       title: 'Logo Alt Text',
       type: 'string',
       description: 'Alternative text for the logo (for accessibility)',
-      initialValue: 'MS Tour & Travel'
     }),
     defineField({
       name: 'siteName',
@@ -37,14 +35,20 @@ export const businessInfo = defineType({
       type: 'string',
       description: 'Company/Brand name',
       initialValue: 'Mahabbatussholihin Tour & Travel',
-      validation: (Rule) => Rule.required()
     }),
     defineField({
-      name: 'tagline',
-      title: 'Company Tagline',
+      name: 'siteTitle',
+      title: 'Site Title (SEO)',
       type: 'string',
-      description: 'Short descriptive phrase about your company',
-      initialValue: 'Mitra Terpercaya untuk Perjalanan Spiritual Terbaik'
+      description: 'Page title for SEO and browser tab',
+      initialValue: 'Mahabbatussholihin Tour & Travel - Your Gateway to Unforgettable Adventures',
+    }),
+    defineField({
+      name: 'siteDescription',
+      title: 'Site Description (SEO)',
+      type: 'text',
+      description: 'Meta description for SEO and social sharing',
+      initialValue: 'Discover amazing destinations with Mahabbatussholihin Tour & Travel. We offer personalized travel experiences, expert guides, and unforgettable adventures across Indonesia and beyond.',
     }),
     defineField({
       name: 'contactInfo',
@@ -110,53 +114,31 @@ export const businessInfo = defineType({
       ]
     }),
     defineField({
-      name: 'siteTitle',
-      title: 'Site Title (Legacy)',
-      type: 'string',
-      description: 'Legacy site title field for backward compatibility',
-      initialValue: 'Mahabbatussholihin Tour & Travel - Your Gateway to Unforgettable Adventures'
-    }),
-    defineField({
-      name: 'siteDescription',
-      title: 'Site Description (Legacy)',
-      type: 'text',
-      description: 'Legacy site description field for backward compatibility',
-      initialValue: 'Discover amazing destinations with Mahabbatussholihin Tour & Travel. We offer personalized travel experiences, expert guides, and unforgettable adventures across Indonesia and beyond.'
-    }),
-    defineField({
       name: 'content',
-      title: 'Legacy Content',
+      title: 'Company Content',
       type: 'object',
-      description: 'Legacy content fields for backward compatibility',
       fields: [
         {
-          name: 'copyrightText',
-          title: 'Copyright Text (Legacy)',
-          type: 'string',
-          initialValue: '© 2024 Mahabbatussholihin Tour & Travel. All rights reserved.',
-          description: 'Legacy copyright text field'
-        },
-        {
           name: 'tagline',
-          title: 'Tagline (Legacy)',
+          title: 'Company Tagline',
           type: 'string',
           initialValue: 'Mitra Terpercaya untuk Perjalanan Spiritual Terbaik',
-          description: 'Legacy tagline field'
+          description: 'Main tagline displayed in footer and emails'
+        },
+        {
+          name: 'copyrightText',
+          title: 'Copyright Text',
+          type: 'string',
+          initialValue: '© 2024 Mahabbatussholihin Tour & Travel. All rights reserved.',
+          description: 'Copyright notice in footer'
         }
       ]
-    })
+    }),
   ],
   preview: {
     select: {
       title: 'siteName',
       media: 'logo',
     },
-    prepare(selection) {
-      const { title, media } = selection
-      return {
-        title: title || 'Business Information',
-        media,
-      }
-    }
-  }
+  },
 })

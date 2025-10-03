@@ -93,7 +93,7 @@ export default async function GalleryPage() {
       />
       {/* Gallery Header - HARDCODED */}
       <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center lg:text-left">
           <h1 className="text-4xl font-bold mb-4">
             {siteSettings?.pageContent?.galleryMainTitle || 'Galeri Foto'}
           </h1>

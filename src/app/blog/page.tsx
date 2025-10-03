@@ -107,7 +107,7 @@ export default async function BlogPage({
           <div className="min-h-screen bg-gray-50">
             {/* Blog Header */}
             <div className="bg-primary text-white py-16">
-              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
                 <h1 className="text-4xl font-bold mb-4">
                   {pageTitle}
                 </h1>
@@ -161,7 +161,7 @@ export default async function BlogPage({
         <div className="min-h-screen bg-gray-50">
           {/* Blog Header - HARDCODED */}
           <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center sm:text-left">
               <h1 className="text-4xl font-bold mb-4 text-white">
                 {pageTitle}
               </h1>
@@ -259,22 +259,26 @@ export default async function BlogPage({
             </div>
           </div>
 
-          {/* Newsletter CTA */}
-          <section className="bg-primary py-16">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <h2 className="text-3xl font-bold text-white mb-4">
-                Dapatkan Tips Perjalanan Terbaru
-              </h2>
-              <p className="text-primary-lighter mb-8 text-lg">
-                Bergabunglah dengan newsletter kami dan dapatkan artikel terbaru, tips perjalanan, dan penawaran eksklusif.
-              </p>
-              <AnimatedSection>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center px-8 py-3 border-2 border-white text-primary bg-white font-semibold rounded-lg"
-                >
-                  Info Lebih Lanjut
-                </Link>
+          {/* CTA */}
+          <section className="bg-white py-20 relative overflow-hidden">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <AnimatedSection direction="scale" delay={0.1}>
+                <div className="text-center bg-white rounded-lg shadow-lg p-8">
+                  <h2 className="text-3xl font-bold text-black mb-4">
+                    Butuh Bantuan Merencanakan Perjalanan?
+                  </h2>
+                  <p className="text-lg text-gray-600 mb-6">
+                    Tim ahli kami siap membantu mewujudkan rencana perjalanan Anda. Dapatkan konsultasi personal dan rekomendasi destinasi yang sesuai dengan preferensi dan budget Anda.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Link
+                      href="/contact"
+                      className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+                    >
+                      Konsultasi Gratis
+                    </Link>
+                  </div>
+                </div>
               </AnimatedSection>
             </div>
           </section>

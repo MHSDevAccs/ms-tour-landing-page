@@ -210,11 +210,11 @@ export default async function BlogPostPage({
 
           {/* Article Header */}
           <AnimatedSection className="bg-white py-12">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
               {/* Categories */}
               {post.categories && post.categories.length > 0 && (
                 <div className="mb-6">
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
                     {post.categories.map((category: string) => (
                       <Link
                         key={category}

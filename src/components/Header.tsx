@@ -84,9 +84,9 @@ const Header = () => {
 
   return (
     <>
-      {/* Top Header Bar with Logo and Contact Info - Hidden on Mobile */}
-      <div className="hidden lg:block bg-white h-28 text-gray-800">
-        <div className="container mx-50 px-84 -my-2">
+      {/* Top Header Bar with Logo and Contact Info - Hidden on Mobile & Medium */}
+      <div className="hidden xl:block bg-white h-28 text-gray-800">
+        <div className="container mx-auto md:px-40 lg:px-40 xl:px-54 2xl:px-84 -my-2">
           <div className="flex items-center">
             {/* Logo in Middle-Left */}
             <div className="flex flex-col">
@@ -151,9 +151,9 @@ const Header = () => {
       {/* Main Navigation Header */}
       <div className="sticky top-0 bg-white z-[100] shadow-md border-b border-gray-200">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center lg:h-12">
+          <div className="flex items-center justify-center h-20 xl:h-12">
             {/* Desktop Navigation - Centered */}
-            <div className="hidden lg:flex">
+            <div className="hidden xl:flex">
               <nav className="flex items-center space-x-8">
                 {navigation.map((item) => (
                   <Link
@@ -169,8 +169,8 @@ const Header = () => {
               </nav>
             </div>
 
-            {/* Mobile Layout - Logo centered, menu button on right */}
-            <div className="lg:hidden flex items-center justify-between h-20 w-full py-2">
+            {/* Mobile & Medium & Large Layout - Logo centered, menu button on right */}
+            <div className="xl:hidden flex items-center justify-between h-20 w-full py-2">
             {/* Empty space for balance */}
             <div className="w-10"></div>
             
@@ -232,8 +232,8 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <div className={`md:hidden fixed top-20 left-0 right-0 z-[200] transition-all duration-300 ease-out ${
+      {/* Mobile & Medium & Large menu */}
+      <div className={`xl:hidden fixed top-20 left-0 right-0 z-[200] transition-all duration-300 ease-out ${
         isMenuOpen 
           ? 'max-h-96 opacity-100 transform scale-y-100' 
           : 'max-h-0 opacity-0 transform scale-y-0'

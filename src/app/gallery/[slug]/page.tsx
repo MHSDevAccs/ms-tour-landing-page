@@ -199,9 +199,9 @@ export default async function GalleryDetailPage({ params }: Props) {
               </div>
 
               {/* Gallery Info */}
-              <div className="space-y-6">
+              <div className="space-y-6 text-center lg:text-left">
                 {/* Category */}
-                <div>
+                <div className="flex justify-center lg:justify-start">
                   <span className="inline-flex items-center gap-2 text-sm font-medium text-primary bg-primary-lighter px-3 py-1 rounded-full">
                     {getCategoryIcon(gallery.category)}
                     {getCategoryName(gallery.category)}

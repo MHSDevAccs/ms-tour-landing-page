@@ -93,12 +93,12 @@ export default async function GalleryPage() {
       />
       {/* Gallery Header - HARDCODED */}
       <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center sm:text-left">
           <h1 className="text-4xl font-bold mb-4">
             {siteSettings?.pageContent?.galleryMainTitle || 'Galeri Foto'}
           </h1>
           <p className="text-xl text-white">
-            {siteSettings?.pageContent?.gallerySubtitle || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan momen berharga bersama MS Tour & Travel'}
+            {siteSettings?.pageContent?.galleryMainDescription || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata dan pengalaman tur yang telah kami selenggarakan'}
           </p>
         </div>
       </section>
@@ -159,24 +159,26 @@ export default async function GalleryPage() {
       )}
 
       {/* Call to Action */}
-      <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            {siteSettings?.pageContent?.galleryCtaTitle || 'Siap Menciptakan Momen Indah Bersama Kami?'}
-          </h2>
-          <p className="text-xl text-white mb-8">
-            {siteSettings?.pageContent?.galleryCtaDescription || 'Alhamdulillah, gabung yuk sama ribuan jamaah yang udah merasakan berkah perjalanan bersama kami. InsyaAlloh pengalaman yang penuh barakah menanti!'}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <AnimatedSection>
-              <a
-                href="https://wa.me/6281110002477"
-                className="inline-flex items-center px-8 py-3 border-2 border-white text-primary bg-white font-semibold rounded-lg"
-              >
-                {siteSettings?.pageContent?.galleryCtaServicesButton || 'Info Lebih Lanjut'}
-              </a>
-            </AnimatedSection>
-          </div>
+      <section className="bg-white py-20 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection direction="scale" delay={0.1}>
+            <div className="text-center bg-white rounded-lg shadow-lg p-8">
+              <h2 className="text-3xl font-bold text-black mb-4">
+                {siteSettings?.content?.ctaText || 'Terinspirasi dengan Galeri Kami?'}
+              </h2>
+              <p className="text-lg text-gray-600 mb-6">
+                Wujudkan momen istimewa Anda bersama kami. Dapatkan konsultasi gratis dan penawaran eksklusif untuk menciptakan pengalaman tak terlupakan yang sesuai dengan visi Anda.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="https://wa.me/6281110002477"
+                  className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+                >
+                  Mulai Konsultasi
+                </a>
+              </div>
+            </div>
+          </AnimatedSection>
         </div>
       </section>
     </main>

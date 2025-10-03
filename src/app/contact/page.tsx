@@ -259,44 +259,16 @@ export default async function ContactPage() {
                     <>
                       <div className="flex justify-between items-center py-2 border-b border-gray-100">
                         <span className="text-gray-600">
-                          {contactData?.contactContent?.mondayFridayLabel || 'Senin - Jumat'}
+                          {'Buka Setiap Hari'}
                         </span>
                         <span className="font-medium text-black">
-                          {contactData.businessHours.mondayFriday || '09:00 - 17:00'}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                        <span className="text-gray-600">
-                          {contactData?.contactContent?.saturdayLabel || 'Sabtu'}
-                        </span>
-                        <span className="font-medium text-black">
-                          {contactData.businessHours.saturday || '09:00 - 15:00'}
-                        </span>
-                      </div>
-                      <div className="flex justify-between items-center py-2">
-                        <span className="text-gray-600">
-                          {contactData?.contactContent?.sundayLabel || 'Minggu'}
-                        </span>
-                        <span className="font-medium text-black">
-                          {contactData.businessHours.sunday || contactData?.contactContent?.closedLabel || 'Tutup'}
+                          {'24 Jam'}
                         </span>
                       </div>
                     </>
-                  ) : (
-                    <>
-                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                        <span className="text-gray-600">Senin - Jumat</span>
-                        <span className="font-medium text-black">09:00 - 17:00</span>
-                      </div>
-                      <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                        <span className="text-gray-600">Sabtu</span>
-                        <span className="font-medium text-black">09:00 - 15:00</span>
-                      </div>
-                      <div className="flex justify-between items-center py-2">
-                        <span className="text-gray-600">Minggu</span>
-                        <span className="font-medium text-black">Tutup</span>
-                      </div>
-                    </>
+                  
+                  ): (
+                    <p className="text-gray-600">Tidak ada jam operasional tersedia saat ini.</p>
                   )}
                 </div>
               </div>

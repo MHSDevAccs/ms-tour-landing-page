@@ -166,9 +166,9 @@ export function ServicesGrid({
   }
 
   const getGridClass = () => {
-    if (variant === 'compact') return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
-    if (variant === 'featured') return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-    return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+    // if (variant === 'compact') return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+    // if (variant === 'featured') return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+    return 'grid-cols-1 max-w-sm mx-auto'
   }
 
   return (

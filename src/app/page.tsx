@@ -528,21 +528,25 @@ export default async function Home() {
       )}
 
       {/* Call to Action Section - Uses Site Settings */}
-      <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-            {siteSettings?.content?.ctaText || 'Siap Memulai Perjalanan Anda?'}
-          </h2>
-          <p className="text-xl mb-8 text-primary-lighter">
-            Hubungi {siteSettings?.siteName || 'kami'} hari ini untuk merencanakan petualangan sempurna Anda.
-          </p>
-          <AnimatedSection direction="fade">
-            <Link
-              href="https://wa.me/6281110002477"
-              className="inline-flex items-center px-8 py-3 border-2 border-white text-primary font-semibold rounded-lg bg-white"
-            >
-              Konsultasi Gratis
-            </Link>
+      <section className="bg-white py-20 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <AnimatedSection direction="scale" delay={0.1}>
+            <div className="text-center bg-white rounded-lg shadow-lg p-8">
+              <h2 className="text-3xl font-bold text-black mb-4">
+                {siteSettings?.content?.ctaText || 'Siap Memulai Perjalanan Anda?'}
+              </h2>
+              <p className="text-lg text-gray-600 mb-6">
+                Hubungi kami sekarang untuk konsultasi gratis dan dapatkan penawaran terbaik untuk perjalanan impian Anda.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                  href="https://wa.me/6281110002477"
+                  className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+                >
+                  Konsultasi Gratis
+                </a>
+              </div>
+            </div>
           </AnimatedSection>
         </div>
       </section>

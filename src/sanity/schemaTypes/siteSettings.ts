@@ -16,7 +16,7 @@ export const siteSettings = defineType({
       fields: [
         {
           name: 'alt',
-          type: 'string',
+          type: 'url',
           title: 'Alternative Text',
           description: 'Logo description for accessibility'
         }

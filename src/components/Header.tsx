@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
 
-interface SiteSettings {
+interface BusinessInfo {
   _id: string
   logo?: {
     asset: {
@@ -20,67 +20,59 @@ interface SiteSettings {
         }
       }
     }
+    alt?: string
   }
   logoAlt?: string
   siteName?: string
-  navigation?: {
-    homeText?: string
-    aboutText?: string
-    servicesText?: string
-    galleryText?: string
-    blogText?: string
-    contactText?: string
+  siteTitle?: string
+  siteDescription?: string
+  contactInfo?: {
+    phone?: string
+    email?: string
+    address?: string
+    whatsapp?: string
+  }
+  businessHours?: {
+    mondayFriday?: string
+    saturday?: string
+    sunday?: string
+    timezone?: string
   }
   content?: {
-    bookNowText?: string
-  }
-  theme?: {
-    colors?: {
-      primary?: string
-      primaryLight?: string
-      primaryDark?: string
-      textPrimary?: string
-      textSecondary?: string
-    }
-    buttons?: {
-      primaryButton?: string
-      secondaryButton?: string
-    }
-    layout?: {
-      headerBg?: string
-      container?: string
-    }
+    tagline?: string
+    copyrightText?: string
   }
 }
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null)
+  const [businessInfo, setBusinessInfo] = useState<BusinessInfo | null>(null)
   const pathname = usePathname()
 
   useEffect(() => {
-    const fetchSiteSettings = async () => {
+    const fetchData = async () => {
       try {
-        const settings = await sanityFetch<SiteSettings>({
-          query: queries.getSiteSettings(),
-          tags: ['siteSettings'],
+        // Fetch business info
+        const business = await sanityFetch<BusinessInfo>({
+          query: queries.getBusinessInfo(),
+          tags: ['businessInfo'],
         })
-        setSiteSettings(settings)
+        setBusinessInfo(business)
       } catch (error) {
-        console.error('Failed to fetch site settings:', error)
+        console.error('Failed to fetch data:', error)
       }
     }
 
-    fetchSiteSettings()
+    fetchData()
   }, [])
 
   const navigation = [
-    { name: siteSettings?.navigation?.homeText || 'Beranda', href: '/' },
-    { name: siteSettings?.navigation?.aboutText || 'Tentang', href: '/about' },
-    { name: siteSettings?.navigation?.servicesText || 'Layanan', href: '/services' },
-    { name: siteSettings?.navigation?.galleryText || 'Galeri', href: '/gallery' },
-    { name: siteSettings?.navigation?.blogText || 'Blog', href: '/blog' },
-    { name: siteSettings?.navigation?.contactText || 'Kontak', href: '/contact' },
+    { name: 'Beranda', href: '/' },
+    { name: 'Tentang', href: '/about' },
+    { name: 'Layanan', href: '/services' },
+    { name: 'Galeri', href: '/gallery' },
+    { name: 'Blog', href: '/blog' },
+    { name: 'Kontak', href: '/contact' },
   ]
 
   const isActive = (href: string) => {
@@ -90,129 +82,175 @@ const Header = () => {
     return pathname.startsWith(href)
   }
 
-  // Get dynamic header background classes
-  const headerBgClasses = siteSettings?.theme?.layout?.headerBg || 'bg-white shadow-sm'
-  const containerClasses = siteSettings?.theme?.layout?.container || 'max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'
-
   return (
-    <header className={`${headerBgClasses} sticky top-0 z-50`}>
-      <div className={containerClasses}>
-        {/* Desktop Layout */}
-        <div className="hidden md:flex justify-between items-center h-20">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/main-logo.png"
-                alt="Mahabbatussholihin Tour & Travel"
-                width={400}
-                height={400}
-                className="h-24 w-auto"
-                priority
-              />
-            </Link>
-          </div>
-
-          {/* Desktop Navigation */}
-          <nav className="flex space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                  isActive(item.href)
-                    ? 'text-primary border-b-2 border-primary'
-              : 'text-gray-700 hover:text-primary'
-                }`}
-              >
-                {item.name}
+    <>
+      {/* Top Header Bar with Logo and Contact Info - Hidden on Mobile */}
+      <div className="hidden lg:block bg-white h-28 text-gray-800">
+        <div className="container mx-50 px-84 -my-2">
+          <div className="flex items-center">
+            {/* Logo in Middle-Left */}
+            <div className="flex flex-col">
+              <Link href="/" className="flex items-center">
+                <Image
+                  src="/main-logo.png"  
+                  alt="Mahabbatussholihin Tour & Travel"
+                  width={240}
+                  height={60}
+                  className="h-36 w-auto"
+                  priority
+                />
               </Link>
-            ))}
-          </nav>
-
-          {/* CTA Button */}
-          <div className="flex items-center space-x-8">
+            </div>
+            
+            {/* Contact Information from Middle to Right */}
+            <div className="flex-1 flex items-center justify-end space-x-8">
+              {/* Email */}
+              {businessInfo?.contactInfo?.email && (
+                <div className="flex items-center space-x-2">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                  </svg>
+                  <div className="flex flex-col">
+                    <span className="text-sm">Hubungi Kami</span>
+                    <span className="font-medium">{businessInfo.contactInfo.email}</span>
+                  </div>
+                </div>
+              )}
+              
+              {/* Phone */}
+              {businessInfo?.contactInfo?.phone && (
+                <div className="flex items-center space-x-2">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                  </svg>
+                  <div className="flex flex-col">
+                    <span className="text-sm">Hubungi Kami</span>
+                    <span className="font-medium text-lg">{businessInfo.contactInfo.phone}</span>
+                  </div>
+                </div>
+              )}
+              
+              {/* Operating Hours */}
+              {businessInfo?.businessHours?.mondayFriday && (
+                <div className="flex items-center space-x-2">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                  </svg>
+                  <div className="flex flex-col">
+                    <span className="text-sm">Jam Operasional</span>
+                    <span className="font-medium">{businessInfo.businessHours.mondayFriday}</span>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Mobile Layout - Centered */}
-        <div className="md:hidden flex flex-col items-center justify-center h-20 relative">
-          {/* Mobile menu button - positioned absolutely */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
-            aria-expanded="false"
-          >
-            <span className="sr-only">Buka menu utama</span>
-            {/* Hamburger icon */}
-            <svg
-              className={`${isMenuOpen ? 'hidden' : 'block'} h-6 w-6`}
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-            {/* Close icon */}
-            <svg
-              className={`${isMenuOpen ? 'block' : 'hidden'} h-6 w-6`}
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
+      {/* Main Navigation Header */}
+      <div className="sticky top-0 bg-white z-[100] shadow-md border-b border-gray-200">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-center lg:h-12">
+            {/* Desktop Navigation - Centered */}
+            <div className="hidden lg:flex">
+              <nav className="flex items-center space-x-8">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`text-gray-700 hover:text-primary font-medium transition-colors text-base py-2 border-b-2 border-transparent hover:border-primary ${
+                      isActive(item.href) ? 'text-primary border-primary' : ''
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </nav>
+            </div>
 
-          {/* Logo - centered */}
-          <div className="flex-shrink-0">
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/main-logo.png"
-                alt="Mahabbatussholihin Tour & Travel"
-                width={400}
-                height={400}
-                className="h-20 w-auto"
-                priority
-              />
-            </Link>
+            {/* Mobile Layout - Logo centered, menu button on right */}
+            <div className="lg:hidden flex items-center justify-between h-20 w-full py-2">
+            {/* Empty space for balance */}
+            <div className="w-10"></div>
+            
+            {/* Logo - centered and bigger */}
+            <div className="flex-1 flex justify-center">
+              <Link href="/" className="flex items-center">
+                <Image
+                  src="/main-logo.png"
+                  alt="Mahabbatussholihin Tour & Travel"
+                  width={280}
+                  height={84}
+                  className="h-22 w-auto transition-transform hover:scale-105"
+                  priority
+                />
+              </Link>
+            </div>
+
+            {/* Mobile menu button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 transition-colors"
+              aria-label="Toggle menu"
+            >
+              {/* Hamburger icon */}
+              <svg
+                className={`${isMenuOpen ? 'hidden' : 'block'} h-6 w-6`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+              {/* Close icon */}
+              <svg
+                className={`${isMenuOpen ? 'block' : 'hidden'} h-6 w-6`}
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Mobile menu */}
-      <div className={`md:hidden transition-all duration-300 ease-out ${
+      <div className={`md:hidden fixed top-20 left-0 right-0 z-[200] transition-all duration-300 ease-out ${
         isMenuOpen 
           ? 'max-h-96 opacity-100 transform scale-y-100' 
           : 'max-h-0 opacity-0 transform scale-y-0'
       } origin-top overflow-hidden`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-gray-200 text-center">
+        <div className="px-4 py-4 space-y-2 bg-white border-t border-gray-200 text-center shadow-lg">
           {navigation.map((item, index) => (
             <Link
               key={item.name}
               href={item.href}
-              className={`block px-3 py-2 text-base font-medium transition-all duration-300 rounded-md mx-auto max-w-xs ${
+              className={`block px-4 py-3 text-base font-medium transition-all duration-300 rounded-lg mx-auto max-w-xs ${
                 isMenuOpen 
                   ? 'opacity-100 transform translate-x-0' 
                   : 'opacity-0 transform translate-x-[-10px]'
               } ${
                 isActive(item.href)
                   ? 'text-primary bg-primary-lighter'
-                : 'text-gray-700 hover:text-primary hover:bg-gray-50'
+                : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
               }`}
               style={{
                 transitionDelay: isMenuOpen ? `${index * 100}ms` : '0ms'
@@ -222,9 +260,11 @@ const Header = () => {
               {item.name}
             </Link>
           ))}
+          
+
         </div>
       </div>
-    </header>
+    </>
   )
 }
 

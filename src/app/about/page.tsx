@@ -66,10 +66,11 @@ export default async function AboutPage() {
   let aboutUs: any = null
 
   try {
-    aboutUs = await sanityFetch<any>({
-      query: queries.getAboutUs(),
-      tags: ['aboutUs']
+    const siteSettings = await sanityFetch<any>({
+      query: queries.getSiteSettings(),
+      tags: ['siteSettings']
     })
+    aboutUs = siteSettings?.aboutContent
   } catch (error) {
     console.error('Failed to fetch about us:', error)
   }
@@ -97,7 +98,7 @@ export default async function AboutPage() {
       
       {/* About Header */}
       <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center lg:text-left">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h1 className="text-4xl font-bold mb-4">
             {aboutUs?.mainTitle || 'Tentang Kami'}
           </h1>
@@ -115,19 +116,7 @@ export default async function AboutPage() {
           </h2>
           <div className="text-gray-700 mb-6">
             {aboutUs?.contentSection?.ourStory?.content ? (
-              <div className="prose prose-gray max-w-none">
-                {/* For now, we'll render as simple text. Rich text rendering can be added later */}
-                <p>
-                  {Array.isArray(aboutUs.contentSection.ourStory.content) 
-                    ? aboutUs.contentSection.ourStory.content
-                        .filter((block: any) => block._type === 'block')
-                        .map((block: any) => 
-                          block.children?.map((child: any) => child.text).join('') || ''
-                        ).join(' ')
-                    : 'Mahabbatussholihin Tour & Travel didirikan dengan misi sederhana: menciptakan pengalaman perjalanan berkesan yang menghubungkan orang dengan destinasi menakjubkan di seluruh dunia. Kami percaya bahwa perjalanan memiliki kekuatan untuk mengubah hidup, memperluas perspektif, dan menciptakan kenangan abadi.'
-                  }
-                </p>
-              </div>
+              <div dangerouslySetInnerHTML={{ __html: aboutUs.contentSection.ourStory.content }} />
             ) : (
               <p>Mahabbatussholihin Tour & Travel didirikan dengan misi sederhana: menciptakan pengalaman perjalanan berkesan yang menghubungkan orang dengan destinasi menakjubkan di seluruh dunia. Kami percaya bahwa perjalanan memiliki kekuatan untuk mengubah hidup, memperluas perspektif, dan menciptakan kenangan abadi.</p>
             )}
@@ -138,19 +127,7 @@ export default async function AboutPage() {
           </h2>
           <div className="text-gray-700 mb-6">
             {aboutUs?.contentSection?.ourMission?.content ? (
-              <div className="prose prose-gray max-w-none">
-                {/* For now, we'll render as simple text. Rich text rendering can be added later */}
-                <p>
-                  {Array.isArray(aboutUs.contentSection.ourMission.content) 
-                    ? aboutUs.contentSection.ourMission.content
-                        .filter((block: any) => block._type === 'block')
-                        .map((block: any) => 
-                          block.children?.map((child: any) => child.text).join('') || ''
-                        ).join(' ')
-                    : 'Dengan ridho Alloh SWT, kami berkomitmen nyediain layanan perjalanan yang berkah dan penuh makna yang bisa melampaui ekspektasi jamaah kami sambil menjaga amanah dan tanggung jawab dalam setiap langkah perjalanan.'
-                  }
-                </p>
-              </div>
+              <div dangerouslySetInnerHTML={{ __html: aboutUs.contentSection.ourMission.content }} />
             ) : (
               <p>Dengan ridho Alloh SWT, kami berkomitmen nyediain layanan perjalanan yang berkah dan penuh makna yang bisa melampaui ekspektasi jamaah kami sambil menjaga amanah dan tanggung jawab dalam setiap langkah perjalanan.</p>
             )}
@@ -164,48 +141,43 @@ export default async function AboutPage() {
               {aboutUs?.contentSection?.whyChooseUs?.items && aboutUs.contentSection.whyChooseUs.items.length > 0 ? (
                 aboutUs.contentSection.whyChooseUs.items.map((item: any, index: number) => (
                   <StaggerItem key={index}>
-                    <div className="border-l-4 border-primary pl-4 py-2">
-                      <h3 className="font-semibold text-gray-800 mb-2">{item.title}</h3>
-                      <p className="text-gray-700 leading-relaxed">{item.description}</p>
+                    <div className="flex items-start space-x-4 p-4 border-l-4 border-primary">
+                      {item.icon?.asset?.url && (
+                        <img 
+                          src={item.icon.asset.url} 
+                          alt={item.icon.alt || item.title} 
+                          className="w-8 h-8 flex-shrink-0 mt-1" 
+                        />
+                      )}
+                      <div>
+                        <h3 className="font-semibold text-gray-800 mb-2">{item.title}</h3>
+                        <p className="text-gray-700 leading-relaxed">{item.description}</p>
+                      </div>
                     </div>
                   </StaggerItem>
                 ))
               ) : (
               <>
                 <StaggerItem>
-                  <div className="border-l-4 border-primary pl-4 py-2">
-                    <p className="text-gray-700 leading-relaxed">
-                      Pengetahuan lokal yang ahli dan itinerary yang udah dikurasi dengan penuh barakah
-                    </p>
-                  </div>
-                </StaggerItem>
-                <StaggerItem>
-                  <div className="border-l-4 border-primary pl-4 py-2">
-                    <p className="text-gray-700 leading-relaxed">
-                      Dukungan jamaah 24/7 sepanjang perjalanan dengan penuh amanah
-                    </p>
-                  </div>
-                </StaggerItem>
-                <StaggerItem>
-                  <div className="border-l-4 border-primary pl-4 py-2">
-                    <p className="text-gray-700 leading-relaxed">
-                      Harga yang berkah dengan kebijakan transparan tanpa biaya tersembunyi
-                    </p>
-                  </div>
-                </StaggerItem>
-                <StaggerItem>
-                  <div className="border-l-4 border-primary pl-4 py-2">
-                    <p className="text-gray-700 leading-relaxed">
-                      Praktik perjalanan yang halal dan berkah untuk komunitas lokal
-                    </p>
-                  </div>
-                </StaggerItem>
-                <StaggerItem>
-                  <div className="border-l-4 border-primary pl-4 py-2">
-                    <p className="text-gray-700 leading-relaxed">
-                      Opsi pemesanan fleksibel dan paket yang bisa disesuaikan sesuai kebutuhan jamaah
-                    </p>
-                  </div>
+                  <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
+                    Pengetahuan lokal yang ahli dan itinerary yang udah dikurasi dengan penuh barakah
+                  </p>
+
+                  <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
+                    Dukungan jamaah 24/7 sepanjang perjalanan dengan penuh amanah
+                  </p>
+
+                  <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
+                    Harga yang berkah dengan kebijakan transparan tanpa biaya tersembunyi
+                  </p>
+
+                  <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
+                    Praktik perjalanan yang halal dan berkah untuk komunitas lokal
+                  </p>
+
+                  <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
+                    Opsi pemesanan fleksibel dan paket yang bisa disesuaikan sesuai kebutuhan jamaah
+                  </p>
                 </StaggerItem>
               </>
             )}
@@ -267,23 +239,7 @@ export default async function AboutPage() {
                     <h3 className="font-semibold text-gray-800 mb-1">Kontak</h3>
                     <p className="text-gray-700">
                       No. Telepon: {aboutUs?.legalitasSection?.phone || '081110002477'}<br />
-                      Email: {aboutUs?.legalitasSection?.email ? (
-                        <span className="break-all">
-                          {aboutUs.legalitasSection.email.includes('@') ? (
-                            <>
-                              {aboutUs.legalitasSection.email.split('@')[0]}<br />
-                              @{aboutUs.legalitasSection.email.split('@')[1]}
-                            </>
-                          ) : (
-                            aboutUs.legalitasSection.email
-                          )}
-                        </span>
-                      ) : (
-                        <span className="break-all">
-                          ptmahabbatussholihin<br />
-                          @gmail.com
-                        </span>
-                      )}
+                      Email: {aboutUs?.legalitasSection?.email || 'ptmahabbatussholihin@gmail.com'}
                     </p>
                   </div>
                 </div>

@@ -37,15 +37,6 @@ export const structure: StructureResolver = (S) =>
             ])
         ),
       
-      // About Us Section
-      S.listItem()
-        .title('Tentang Page')
-        .child(
-          S.document()
-            .schemaType('aboutUs')
-            .documentId('aboutUs')
-        ),
-      
       // Services & Tours Section
       S.listItem()
         .title('Layanan Page')
@@ -142,6 +133,6 @@ export const structure: StructureResolver = (S) =>
       
       // All Documents (fallback)
       ...S.documentTypeListItems().filter(
-        (listItem) => !['heroSection', 'featuresSection', 'testimonial', 'siteSettings', 'businessInfo', 'themeSettings', 'socialSettings', 'contentSettings', 'servicePackage', 'gallery', 'galleryCategory', 'blogPost', 'contactSubmission', 'aboutUs'].includes(listItem.getId() || '')
+        (listItem) => !['heroSection', 'featuresSection', 'testimonial', 'siteSettings', 'businessInfo', 'themeSettings', 'socialSettings', 'contentSettings', 'servicePackage', 'gallery', 'galleryCategory', 'blogPost', 'contactSubmission'].includes(listItem.getId() || '')
       ),
     ])

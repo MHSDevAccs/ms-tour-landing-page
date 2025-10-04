@@ -36,6 +36,15 @@ export const structure: StructureResolver = (S) =>
                 ),
             ])
         ),
+
+      // About Us Page
+      S.listItem()
+        .title('Tentang Kami Page')
+        .child(
+          S.document()
+            .schemaType('aboutUs')
+            .documentId('aboutUs')
+        ),
       
       // Services & Tours Section
       S.listItem()
@@ -86,8 +95,7 @@ export const structure: StructureResolver = (S) =>
                 .title('📝 Blog Posts')
                 .child(S.documentTypeList('blogPost').title('Blog Articles')),
             ])
-        ),
-      
+        ),      
       
       S.divider(),
       
@@ -105,13 +113,13 @@ export const structure: StructureResolver = (S) =>
                     .schemaType('businessInfo')
                     .documentId('businessInfo')
                 ),
-              S.listItem()
-                .title('🎨 Theme & Design')
-                .child(
-                  S.document()
-                    .schemaType('themeSettings')
-                    .documentId('themeSettings')
-                ),
+              // S.listItem()
+              //   .title('🎨 Theme & Design')
+              //   .child(
+              //     S.document()
+              //       .schemaType('themeSettings')
+              //       .documentId('themeSettings')
+              //   ),
               S.listItem()
                 .title('📱 Social Media & Communication')
                 .child(
@@ -120,12 +128,19 @@ export const structure: StructureResolver = (S) =>
                     .documentId('socialSettings')
                 ),
               S.listItem()
-                .title('📝 Content Management')
+                .title('📞 Contact & Site Settings')
                 .child(
                   S.document()
-                    .schemaType('contentSettings')
-                    .documentId('contentSettings')
+                    .schemaType('contactData')
+                    .documentId('contactData')
                 ),
+              // S.listItem()
+              //   .title('📝 Content Management')
+              //   .child(
+              //     S.document()
+              //       .schemaType('contentSettings')
+              //       .documentId('contentSettings')
+              //   ),
             ])
         ),
       
@@ -133,6 +148,6 @@ export const structure: StructureResolver = (S) =>
       
       // All Documents (fallback)
       ...S.documentTypeListItems().filter(
-        (listItem) => !['heroSection', 'featuresSection', 'testimonial', 'siteSettings', 'businessInfo', 'themeSettings', 'socialSettings', 'contentSettings', 'servicePackage', 'gallery', 'galleryCategory', 'blogPost', 'contactSubmission'].includes(listItem.getId() || '')
+        (listItem) => !['heroSection', 'featuresSection', 'testimonial', 'siteSettings', 'businessInfo', 'themeSettings', 'socialSettings', 'contentSettings', 'servicePackage', 'gallery', 'galleryCategory', 'blogPost', 'contactSubmission', 'aboutUs', 'contactData'].includes(listItem.getId() || '')
       ),
     ])

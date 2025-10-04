@@ -9,7 +9,7 @@ interface WhatsAppFloatProps {
 }
 
 export default function WhatsAppFloat({ 
-  phoneNumber = '+62 811 1000 2477',
+  phoneNumber = '6287770005801',
   message = '"Assalamualaikum bisa bantu saya dengan informasi lebih lanjut?"'
 }: WhatsAppFloatProps) {
   const [isVisible, setIsVisible] = useState(false)
@@ -23,7 +23,7 @@ export default function WhatsAppFloat({
     }
   }, [])
 
-  const handleClick = () => {
+  const handleClick = () => { 
     const cleanPhoneNumber = phoneNumber.replace(/\D/g, '')
     const encodedMessage = encodeURIComponent(message)
     const whatsappUrl = `https://wa.me/${cleanPhoneNumber}?text=${encodedMessage}`

@@ -728,6 +728,38 @@ export const queries = {
     }
   `,
 
+  getContactData: () => `
+    *[_type == "contactData"][0] {
+      _id,
+      title,
+      contactInfo {
+        phone,
+        address,
+        email
+      },
+      contactWhatsapp,
+      businessHours {
+        mondayFriday,
+        timezone
+      },
+      contactContent {
+        pageTitle,
+        pageDescription,
+        contactDetailsTitle,
+        phoneLabel,
+        emailLabel,
+        addressLabel,
+        whatsappLabel,
+        businessHoursTitle,
+        quickResponseTitle,
+        quickResponseText,
+        whatsappQuickTitle,
+        whatsappQuickText,
+        whatsappButtonText
+      }
+    }
+  `,
+
   getAboutUs: () => `
     *[_type == "aboutUs" && isActive == true][0] {
       _id,

@@ -202,7 +202,7 @@ const Footer = () => {
       href: service.link || `/services/${service.slug?.current || service.category}`
     })),
     legal: [
-      { name: 'Kebijakan Privasi', href: '/privacy' },
+      { name: 'Kebijakan Privasi', href: '/kebijakan-privasi' },
       { name: 'Syarat Layanan', href: '/terms' },
       { name: 'Kebijakan Pembatalan', href: '/cancellation' },
     ],

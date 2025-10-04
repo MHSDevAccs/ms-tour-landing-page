@@ -223,7 +223,7 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
               <div>
                 <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                   <a 
-                    href="https://wa.me/6281110002477"
+                    href="https://wa.me/6287770005801"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex-1 border-2 border-primary bg-primary text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold text-center inline-block hover:bg-primary-dark transition-colors"

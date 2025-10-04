@@ -6,8 +6,9 @@ import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
+import { contactData } from '@/sanity/schemaTypes/contactData' 
 
-interface BusinessInfo {
+interface ContactData {
   _id: string
   logo?: {
     asset: {
@@ -46,18 +47,18 @@ interface BusinessInfo {
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [businessInfo, setBusinessInfo] = useState<BusinessInfo | null>(null)
+  const [contactData, setContactData] = useState<ContactData | null>(null)
   const pathname = usePathname()
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Fetch business info
-        const business = await sanityFetch<BusinessInfo>({
-          query: queries.getBusinessInfo(),
-          tags: ['businessInfo'],
+        // Fetch contact data
+        const contact = await sanityFetch<ContactData>({
+          query: queries.getContactData(),
+          tags: ['contactData'],
         })
-        setBusinessInfo(business)
+        setContactData(contact)         
       } catch (error) {
         console.error('Failed to fetch data:', error)
       }
@@ -105,7 +106,7 @@ const Header = () => {
             {/* Contact Information from Middle to Right */}
             <div className="flex-1 flex items-center justify-end space-x-8">
               {/* Email */}
-              {businessInfo?.contactInfo?.email && (
+              {contactData?.contactInfo?.email && (
                 <div className="flex items-center space-x-2">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
@@ -113,33 +114,33 @@ const Header = () => {
                   </svg>
                   <div className="flex flex-col">
                     <span className="text-sm">Hubungi Kami</span>
-                    <span className="font-medium">{businessInfo.contactInfo.email}</span>
+                    <span className="font-medium">{contactData.contactInfo.email}</span>
                   </div>
                 </div>
               )}
               
               {/* Phone */}
-              {businessInfo?.contactInfo?.phone && (
+              {contactData?.contactInfo?.phone && (   
                 <div className="flex items-center space-x-2">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                   </svg>
                   <div className="flex flex-col">
                     <span className="text-sm">Hubungi Kami</span>
-                    <span className="font-medium text-lg">{businessInfo.contactInfo.phone}</span>
+                    <span className="font-medium text-lg">{contactData.contactInfo.phone}</span>
                   </div>
                 </div>
               )}
               
               {/* Operating Hours */}
-              {businessInfo?.businessHours?.mondayFriday && (
+              {contactData?.businessHours?.mondayFriday && (
                 <div className="flex items-center space-x-2">
                   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                   </svg>
                   <div className="flex flex-col">
                     <span className="text-sm">Jam Operasional</span>
-                    <span className="font-medium">{businessInfo.businessHours.mondayFriday}</span>
+                    <span className="font-medium">{contactData?.businessHours?.mondayFriday}</span>
                   </div>
                 </div>
               )}

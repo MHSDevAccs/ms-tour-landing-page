@@ -329,7 +329,7 @@ export default async function PrivacyPolicyPage() {
       
       {/* Floating WhatsApp Button */}
       <WhatsAppFloat 
-        phoneNumber="+6281110002477"
+        phoneNumber="6287770005801"
         message="Halo! Saya ingin bertanya tentang kebijakan privasi dan layanan tour Anda."
       />
     </div>

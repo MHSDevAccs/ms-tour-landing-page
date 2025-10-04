@@ -360,7 +360,7 @@ export default function ContactForm({ className = '', theme }: ContactFormProps)
               className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
                 errors.phone ? 'border-red-500' : 'border-gray-300'
               }`}
-              placeholder={siteSettings?.contactContent?.phonePlaceholder || '+62 811 1000 2477'}
+              placeholder={siteSettings?.contactContent?.phonePlaceholder || '+6287770005801'}
             />
             {errors.phone && (
               <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>

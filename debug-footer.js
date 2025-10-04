@@ -36,10 +36,10 @@ async function verifyContactInfo() {
     
     console.log('\n✅ Expected vs Actual:')
     const expected = {
-      phone: '+6281110002477',
+      phone: '+6287770005801',
       email: 'info@mahabbatussholihin.com',
       address: 'Bukit Duri, Jak-Sel',
-      whatsapp: '+6281110002477'
+      whatsapp: '+6287770005801'
     }
     
     const actual = siteSettings?.contactInfo || {}

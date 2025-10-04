@@ -3,13 +3,14 @@ import { heroSection } from './heroSection'
 import { featuresSection } from './featuresSection'
 import { testimonial } from './testimonial'
 import { blogPost } from './blogPost'
-import { siteSettings } from './siteSettings'
+// import { siteSettings } from './siteSettings'
 import { businessInfo } from './businessInfo'
-import { themeSettings } from './themeSettings'
+import { contactData } from './contactData'
+// import { themeSettings } from './themeSettings'
 import { socialSettings } from './socialSettings'
-import { contentSettings } from './contentSettings'
+// import { contentSettings } from './contentSettings'
 import servicePackage from './servicePackage'
-import contactSubmission from './contactSubmission'
+// import contactSubmission from './contactSubmission'
 import gallery from './gallery'
 import galleryCategory from './galleryCategory'
 import { aboutUs } from './aboutUs'
@@ -20,13 +21,14 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     featuresSection, 
     testimonial, 
     blogPost, 
-    siteSettings, 
-    businessInfo,
-    themeSettings,
+    // siteSettings, 
+     businessInfo,
+     contactData,
+    // themeSettings,
     socialSettings,
-    contentSettings,
+    // contentSettings,
     servicePackage, 
-    contactSubmission,
+    // contactSubmission,
     gallery,
     galleryCategory,
     aboutUs

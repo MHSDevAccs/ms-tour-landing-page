@@ -237,9 +237,15 @@ export default async function AboutPage() {
                   
                   <div className="border-l-4 border-primary pl-4 py-2">
                     <h3 className="font-semibold text-gray-800 mb-1">Kontak</h3>
-                    <p className="text-gray-700">
+                    <p className="text-gray-700 break-words">
                       No. Telepon: {aboutUs?.legalitasSection?.phone || '081110002477'}<br />
-                      Email: {aboutUs?.legalitasSection?.email || 'ptmahabbatussholihin@gmail.com'}
+                      Email: {aboutUs?.legalitasSection?.email ? (
+                        <span className="break-all">{aboutUs.legalitasSection.email}</span>
+                      ) : (
+                        <span className="break-all">
+                          ptmahabbatussholihin<br />@gmail.com
+                        </span>
+                      )}
                     </p>
                   </div>
                 </div>

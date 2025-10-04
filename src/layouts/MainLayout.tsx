@@ -10,10 +10,8 @@ interface MainLayoutProps {
   children: ReactNode
 }
 
-interface SiteSettings {
-  contactInfo?: {
-    whatsapp?: string
-  }
+interface ContactData {
+  contactWhatsapp?: string
   theme?: {
     colors?: {
       background?: string
@@ -24,33 +22,33 @@ interface SiteSettings {
 
 const MainLayout = ({ children }: MainLayoutProps) => {
   const [whatsappNumber, setWhatsappNumber] = useState('')
-  const [siteSettings, setSiteSettings] = useState<SiteSettings | null>(null)
+  const [contactData, setContactData] = useState<ContactData | null>(null)
 
   useEffect(() => {
-    // Fetch site settings including theme and WhatsApp number from CMS
-    async function fetchSiteSettings() {
+    // Fetch contact data including WhatsApp number from CMS
+    async function fetchContactData() {
       try {
-        const settings = await sanityFetch<SiteSettings>({
-          query: queries.getSiteSettings(),
-          tags: ['siteSettings']
+        const data = await sanityFetch<ContactData>({
+          query: queries.getContactData(),
+          tags: ['contactData']
         })
         
-        setSiteSettings(settings)
+        setContactData(data)
         
-        if (settings?.contactInfo?.whatsapp) {
-          setWhatsappNumber(settings.contactInfo.whatsapp)
+        if (data?.contactWhatsapp) {
+          setWhatsappNumber(data.contactWhatsapp)
         }
       } catch (error) {
-        console.error('Failed to fetch site settings:', error)
+        console.error('Failed to fetch contact data:', error)
       }
     }
 
-    fetchSiteSettings()
+    fetchContactData()
   }, [])
 
   // Apply dynamic background color if available
-  const backgroundStyle = siteSettings?.theme?.colors?.background 
-    ? { backgroundColor: siteSettings.theme.colors.background }
+  const backgroundStyle = contactData?.theme?.colors?.background 
+    ? { backgroundColor: contactData.theme.colors.background }
     : {}
 
   return (
@@ -66,7 +64,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       
       {/* Floating WhatsApp Button */}
       <WhatsAppFloat 
-        phoneNumber={whatsappNumber || '+6281110002477'}
+        phoneNumber={whatsappNumber || '+6287770005801'}
         message="Halo! Saya tertarik dengan layanan tour Anda. Bisa bantu saya dengan informasi lebih lanjut?"
       />
     </div>

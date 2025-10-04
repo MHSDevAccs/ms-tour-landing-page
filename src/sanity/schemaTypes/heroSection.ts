@@ -153,19 +153,6 @@ export const heroSection = defineType({
       initialValue: true,
       description: 'Toggle to show/hide this hero section'
     }),
-    defineField({
-      name: 'language',
-      title: 'Language',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Indonesian', value: 'id' },
-          { title: 'English', value: 'en' }
-        ],
-        layout: 'radio'
-      },
-      initialValue: 'id'
-    })
   ],
   preview: {
     select: {

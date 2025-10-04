@@ -304,7 +304,6 @@ export const queries = {
         pauseOnHover
       },
       isActive,
-      language
     }
   `,
 
@@ -708,22 +707,6 @@ export const queries = {
         youtube,
         twitter,
         tiktok
-      },
-      contactContent {
-        contactTitle,
-        contactDescription,
-        quickResponseTitle,
-        quickResponseMessage,
-        averageResponseText,
-        chatWhatsappText,
-        needHelpMessage,
-        startChatText,
-        socialMediaTitle
-      },
-      emailTemplates {
-        thankYouMessage,
-        responseMessage,
-        teamSignature
       }
     }
   `,
@@ -750,12 +733,7 @@ export const queries = {
         emailLabel,
         addressLabel,
         whatsappLabel,
-        businessHoursTitle,
-        quickResponseTitle,
-        quickResponseText,
-        whatsappQuickTitle,
-        whatsappQuickText,
-        whatsappButtonText
+        businessHoursTitle
       }
     }
   `,

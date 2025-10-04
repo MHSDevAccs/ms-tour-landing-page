@@ -4,8 +4,10 @@ import Image from 'next/image'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import { urlForHero, urlForProduct } from '@/sanity/lib/image'
 import { blogService } from '@/lib/blogService'
+import { galleryService } from '@/lib/galleryService'
 import FeaturesSection from '@/components/FeaturesSection'
 import ServicePackagesSection from '@/components/ServicePackagesSection'
+import FeaturedGallery from '@/components/FeaturedGallery'
 import { ServicePackage } from '@/components/ServiceCard'
 import TestimonialsSection from '@/components/TestimonialsSection'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
@@ -223,6 +225,7 @@ export default async function Home() {
   let testimonials: any[] = []
   let featuredBlogPosts: any[] = []
   let servicePackages: ServicePackage[] = []
+  let featuredGalleries: any[] = []
   try {
     servicePackages = await sanityFetch<ServicePackage[]>({
       query: queries.getPopularServices(4),
@@ -274,6 +277,12 @@ export default async function Home() {
     console.error('Failed to fetch featured blog posts:', error)
   }
 
+  try {
+    featuredGalleries = await galleryService.getFeaturedGalleries()
+  } catch (error) {
+    console.error('Failed to fetch featured galleries:', error)
+  }
+
   // Generate comprehensive structured data
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://travel.mahabbatussholihin.com'
   const organizationJsonLd = generateOrganizationJsonLd(baseUrl, siteSettings || undefined)
@@ -323,6 +332,16 @@ export default async function Home() {
         servicePackages={servicePackages}
         siteSettings={siteSettings}
       />
+
+      {/* Featured Gallery Section */}
+      {featuredGalleries && featuredGalleries.length > 0 && (
+        <FeaturedGallery
+          galleries={featuredGalleries}
+          title="Galeri Perjalanan Terbaik"
+          subtitle="Saksikan momen-momen indah dari perjalanan wisata bersama kami"
+          showMore={true}
+        />
+      )}
 
       {/* Fasilitas Jamaah Section */}
       <section className="py-16 bg-gray-50">

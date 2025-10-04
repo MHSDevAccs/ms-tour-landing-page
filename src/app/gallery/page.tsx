@@ -136,30 +136,11 @@ export default async function GalleryPage() {
         </div>
       </section>
 
-      {/* Featured Galleries Section (if we have featured galleries) */}
-      {galleries.some(g => g.isFeatured) && (
-        <section className="bg-white py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-                {siteSettings?.pageContent?.galleryFeaturedTitle || ' Galeri Unggulan'}
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                {siteSettings?.pageContent?.galleryFeaturedDescription || 'Koleksi foto terpilih yang menampilkan keindahan dan pengalaman terbaik dari perjalanan wisata bersama kami'}
-              </p>
-            </div>
-            
-            <GalleryGrid
-              galleries={galleries.filter(g => g.isFeatured)}
-              showFilters={false}
-              columns={4}
-            />
-          </div>
-        </section>
-      )}
+ 
+      
 
       {/* Call to Action */}
-      <section className="bg-white py-20 relative overflow-hidden">
+      <section className="bg-white py-16 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection direction="scale" delay={0.1}>
             <div className="text-center bg-white rounded-lg shadow-lg p-8">

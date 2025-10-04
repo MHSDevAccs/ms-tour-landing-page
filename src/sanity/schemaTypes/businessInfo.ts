@@ -72,13 +72,6 @@ export const businessInfo = defineType({
           title: 'Alamat Perusahaan',
           type: 'text',
           placeholder: 'Jl. Example Street No. 123, Lombok, Indonesia'
-        },
-        {
-          name: 'whatsapp',
-          title: 'Nomor WhatsApp',
-          type: 'string',
-          placeholder: '+6287770005801',
-          initialValue: '+6287770005801'
         }
       ]
     }),

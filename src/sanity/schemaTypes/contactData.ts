@@ -6,12 +6,6 @@ export const contactData = defineType({
   type: 'document',
   fields: [
     defineField({
-      name: 'title',
-      title: 'Judul Halaman',
-      type: 'string',
-      initialValue: 'Informasi Kontak'
-    }),
-    defineField({
       name: 'contactInfo',
       title: 'Contact Information',
       type: 'object',
@@ -136,49 +130,13 @@ export const contactData = defineType({
           type: 'string',
           initialValue: 'Jam Operasional',
           description: 'Title for business hours section'
-        },
-        {
-          name: 'quickResponseTitle',
-          title: 'Quick Response Title',
-          type: 'string',
-          initialValue: 'Respon Cepat',
-          description: 'Title for quick response section'
-        },
-        {
-          name: 'quickResponseText',
-          title: 'Quick Response Text',
-          type: 'text',
-          initialValue: 'Tim kami siap memberikan respon cepat untuk semua pertanyaan Anda',
-          description: 'Text for quick response section'
-        },
-        {
-          name: 'whatsappQuickTitle',
-          title: 'WhatsApp Quick Contact Title',
-          type: 'string',
-          initialValue: 'Chat WhatsApp',
-          description: 'Title for WhatsApp quick contact section'
-        },
-        {
-          name: 'whatsappQuickText',
-          title: 'WhatsApp Quick Contact Text',
-          type: 'text',
-          initialValue: 'Hubungi kami melalui WhatsApp untuk respon yang lebih cepat',
-          description: 'Text for WhatsApp quick contact section'
-        },
-        {
-          name: 'whatsappButtonText',
-          title: 'WhatsApp Button Text',
-          type: 'string',
-          initialValue: 'Chat Sekarang',
-          description: 'Text for WhatsApp button'
-        }
+        }  
       ]
     }),
   ],
   preview: {
     select: {
-      title: 'title',
-      subtitle: 'title',
+      title: 'contactContent.pageTitle',
     },
-  }
+  },
 })

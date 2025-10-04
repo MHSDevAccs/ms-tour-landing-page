@@ -165,7 +165,7 @@ export default async function BlogPage({
               <h1 className="text-4xl font-bold mb-4 text-white">
                 {pageTitle}
               </h1>
-              <p className="text-xl text-white/90">
+              <p className="text-xl text-white">
                 {pageSubtitle}
               </p>
             </div>

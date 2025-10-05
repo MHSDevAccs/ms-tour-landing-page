@@ -62,6 +62,11 @@ export async function sanityFetch<T>({
   revalidate?: number | false
   retries?: number
 }): Promise<T> {
+  // Auto-apply cache time based on content type if not specified
+  if (revalidate === undefined && tags && tags.length > 0) {
+    const contentType = tags[0]
+    revalidate = cacheManager.getRevalidationTime(contentType)
+  }
   const startTime = Date.now()
   const operation = `fetch${tags ? ` [${tags.join(', ')}]` : ''}`
   
@@ -711,10 +716,21 @@ export const queries = {
     }
   `,
 
+  // Optimized version for components that only need basic social media links
+  getSocialSettingsBasic: () => `
+    *[_type == "socialSettings"][0] {
+      _id,
+      socialMedia {
+        instagram,
+        facebook,
+        youtube
+      }
+    }
+  `,
+
   getContactData: () => `
     *[_type == "contactData"][0] {
       _id,
-      title,
       contactInfo {
         phone,
         address,
@@ -734,6 +750,21 @@ export const queries = {
         addressLabel,
         whatsappLabel,
         businessHoursTitle
+      }
+    }
+  `,
+
+  // Optimized version for layout components that only need basic contact info
+  getContactDataBasic: () => `
+    *[_type == "contactData"][0] {
+      _id,
+      contactInfo {
+        phone,
+        email
+      },
+      contactWhatsapp,
+      businessHours {
+        mondayFriday
       }
     }
   `,

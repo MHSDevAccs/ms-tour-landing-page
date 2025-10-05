@@ -325,14 +325,6 @@ const GalleryCard: React.FC<GalleryCardProps> = ({
         onMouseLeave={() => onHover(null)}
         className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer group"
       >
-      {/* Featured Badge */}
-      {gallery.isFeatured && (
-        <div className="absolute top-3 left-3 z-10">
-          <span className="bg-accent text-white text-xs font-medium px-2 py-1 rounded-full">
-             Unggulan
-          </span>
-        </div>
-      )}
 
       {/* Gallery Image */}
       <div className="aspect-[4/3] relative overflow-hidden">
@@ -370,10 +362,6 @@ const GalleryCard: React.FC<GalleryCardProps> = ({
       <div className="p-4">
         {/* Category & Date */}
         <div className="flex items-center justify-between mb-2">
-          <span className="inline-flex items-center gap-1 text-xs font-medium text-primary bg-primary-lighter px-2 py-1 rounded-full">
-            {getCategoryIcon(gallery.category)}
-            <span className="capitalize">{gallery.category.replace('_', ' ')}</span>
-          </span>
           {gallery.viewCount > 0 && (
             <span className="flex items-center gap-1 text-xs text-gray-500">
               <Eye className="w-3 h-3" />

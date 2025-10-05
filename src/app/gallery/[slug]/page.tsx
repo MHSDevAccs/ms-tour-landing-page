@@ -10,8 +10,8 @@ import GalleryGrid from '@/components/GalleryGrid'
 import GalleryImageGrid from '@/components/GalleryImageGrid'
 import ShareButton from '@/components/ShareButton'
 
-// Force dynamic rendering to prevent static export issues
-export const dynamic = 'force-dynamic'
+// Enable static generation with revalidation
+export const revalidate = 1200 // Revalidate every 20 minutes for individual gallery pages
 import { 
   MapPin, 
   Calendar, 
@@ -141,21 +141,27 @@ export default async function GalleryDetailPage({ params }: Props) {
         <div className="bg-white border-b">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex items-center justify-between">
-              <nav className="flex items-center space-x-2 text-sm text-gray-600">
-                <Link href="/" className="hover:text-primary">Home</Link>
-                <span>/</span>
-                <Link href="/gallery" className="hover:text-primary">Gallery</Link>
-                <span>/</span>
-                <span className="text-gray-900">{gallery.title}</span>
-              </nav>
-              
-              <Link
+              {/* Back Button */}
+              <Link 
                 href="/gallery"
-                className="inline-flex items-center gap-2 text-primary hover:text-primary-dark font-medium"
+                className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors duration-200 group"
               >
-                <ArrowLeft className="w-4 h-4" />
-                Kembali ke Galeri
+                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-200" />
+                <span className="text-sm font-medium">Kembali ke Galeri</span>
               </Link>
+
+              {/* Breadcrumb */}
+              <nav className="hidden sm:flex items-center space-x-2 text-sm text-gray-500">
+                <Link href="/" className="hover:text-gray-700 transition-colors">
+                  Beranda
+                </Link>
+                <span>/</span>
+                <Link href="/gallery" className="hover:text-gray-700 transition-colors">
+                  Galeri
+                </Link>
+                <span>/</span>
+                <span className="text-gray-900 font-medium">{gallery.title}</span>
+              </nav>
             </div>
           </div>
         </div>
@@ -166,7 +172,7 @@ export default async function GalleryDetailPage({ params }: Props) {
             <div className="grid lg:grid-cols-3 gap-8">
               {/* Featured Image */}
               <div className="lg:col-span-2">
-                {gallery.featuredImage ? (
+                {gallery.featuredImage && (
                   <div className="aspect-[4/3] relative rounded-xl overflow-hidden">
                     <Image
                       src={urlFor(gallery.featuredImage).width(800).height(600).url()}
@@ -175,38 +181,12 @@ export default async function GalleryDetailPage({ params }: Props) {
                       className="object-cover"
                       priority
                     />
-                    
-                    {/* Image Count Overlay */}
-                    <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-2 rounded-full flex items-center gap-2">
-                      <Camera className="w-4 h-4" />
-                      <span className="font-medium">{gallery.images?.length || 0} Foto</span>
-                    </div>
-
-                    {/* Featured Badge */}
-                    {gallery.isFeatured && (
-                      <div className="absolute top-4 left-4">
-                        <span className="bg-accent text-white text-sm font-medium px-3 py-1 rounded-full">
-                          Unggulan
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <div className="aspect-[4/3] bg-gradient-to-br from-gray-200 to-gray-300 rounded-xl flex items-center justify-center">
-                    <Camera className="w-16 h-16 text-gray-400" />
                   </div>
                 )}
               </div>
 
               {/* Gallery Info */}
               <div className="space-y-6 text-center lg:text-left">
-                {/* Category */}
-                <div className="flex justify-center lg:justify-start">
-                  <span className="inline-flex items-center gap-2 text-sm font-medium text-primary bg-primary-lighter px-3 py-1 rounded-full">
-                    {getCategoryIcon(gallery.category)}
-                    {getCategoryName(gallery.category)}
-                  </span>
-                </div>
 
                 {/* Title */}
                 <div>
@@ -235,11 +215,6 @@ export default async function GalleryDetailPage({ params }: Props) {
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-primary" />
                     <span>Dipublikasikan {formatDate(gallery.publishDate)}</span>
-                  </div>
-                  
-                  <div className="flex items-center gap-2">
-                    <Eye className="w-4 h-4 text-primary" />
-                    <span>{gallery.viewCount} kali dilihat</span>
                   </div>
 
                   {gallery.images && gallery.images.length > 0 && (
@@ -329,31 +304,7 @@ export default async function GalleryDetailPage({ params }: Props) {
           </AnimatedSection>
         )}
 
-        {/* Call to Action */}
-        <AnimatedSection className="bg-gradient-to-r from-primary to-primary-dark text-white py-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              {siteSettings?.pageContent?.galleryDetailCtaTitle || 'Tertarik dengan Destinasi Ini?'}
-            </h2>
-            <p className="text-xl text-white mb-8">
-              {siteSettings?.pageContent?.galleryDetailCtaDescription?.replace('{destination}', gallery.destination?.name || 'destinasi menakjubkan ini') || `Hubungi kami untuk merencanakan perjalanan wisata impian Anda ke ${gallery.destination?.name || 'destinasi menakjubkan ini'}`}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="bg-accent text-primary-dark px-8 py-3 rounded-lg font-semibold hover:bg-primary-light transition-colors"
-              >
-                 {siteSettings?.pageContent?.galleryDetailCtaContactButton || 'Konsultasi Gratis'}
-              </Link>
-              <Link
-                href="/services"
-                className="bg-accent text-primary-dark px-8 py-3 rounded-lg font-semibold hover:bg-primary-light transition-colors border border-primary-light"
-              >
-                 {siteSettings?.pageContent?.galleryDetailCtaServicesButton || 'Lihat Semua Paket'}
-              </Link>
-            </div>
-          </div>
-        </AnimatedSection>
+        
       </main>
     )
   } catch (error) {

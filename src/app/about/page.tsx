@@ -85,8 +85,7 @@ export default async function AboutPage() {
 
   return (
     <PageTransition>
-      <div className="min-h-screen bg-gray-50">
-      {/* Structured Data */}
+      <div className="min-h-screen bg-gray-50 flex flex-col sm:block">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
@@ -96,8 +95,8 @@ export default async function AboutPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
       
-      {/* About Header */}
-      <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden flex-shrink-0">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center sm:text-left">
           <h1 className="text-4xl font-bold mb-4">
             {aboutUs?.mainTitle || 'Tentang Kami'}
@@ -109,12 +108,12 @@ export default async function AboutPage() {
       </section>
 
       {/* Content Section */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-semibold text-black mb-4">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 flex items-center sm:block">
+        <div className="bg-white rounded-lg shadow-md p-8 w-full">
+          <h2 className="text-2xl font-semibold text-black mb-4 text-center sm:text-left">
             {aboutUs?.contentSection?.ourStory?.title || 'Cerita Kami'}
           </h2>
-          <div className="text-gray-700 mb-6">
+          <div className="text-gray-700 mb-6 text-center sm:text-left">
             {aboutUs?.contentSection?.ourStory?.content ? (
               <div dangerouslySetInnerHTML={{ __html: aboutUs.contentSection.ourStory.content }} />
             ) : (
@@ -122,10 +121,10 @@ export default async function AboutPage() {
             )}
           </div>
           
-          <h2 className="text-2xl font-semibold text-black mb-4">
+          <h2 className="text-2xl font-semibold text-black mb-4 text-center sm:text-left">
             {aboutUs?.contentSection?.ourMission?.title || 'Misi Kami'}
           </h2>
-          <div className="text-gray-700 mb-6">
+          <div className="text-gray-700 mb-6 text-center sm:text-left">
             {aboutUs?.contentSection?.ourMission?.content ? (
               <div dangerouslySetInnerHTML={{ __html: aboutUs.contentSection.ourMission.content }} />
             ) : (
@@ -133,7 +132,7 @@ export default async function AboutPage() {
             )}
           </div>
           
-          <h2 className="text-2xl font-semibold text-black mb-6">
+          <h2 className="text-2xl font-semibold text-black mb-6 text-center sm:text-left">
             {aboutUs?.contentSection?.whyChooseUs?.title || 'Mengapa Memilih Kami'}
           </h2>
           
@@ -186,9 +185,9 @@ export default async function AboutPage() {
       </section>
 
       {/* Legalitas Section */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-semibold text-black mb-6">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 flex items-center sm:block">
+        <div className="bg-white rounded-lg shadow-md p-8 w-full">
+          <h2 className="text-2xl font-semibold text-black mb-6 text-center sm:text-left">
             {aboutUs?.legalitasSection?.title || 'Legalitas Perusahaan'}
           </h2>
           

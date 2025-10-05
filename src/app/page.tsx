@@ -16,9 +16,8 @@ import HeroSlider from '@/components/HeroSlider'
 import AnimatedSection, { PageTransition, StaggerContainer, StaggerItem } from '@/components/AnimatedSection'
 import { generateOrganizationJsonLd, generateTravelServiceJsonLd, generateWebsiteJsonLd } from '@/lib/jsonLd'
 
-// Force dynamic rendering and disable caching for development (test change)
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+// Enable static generation with revalidation for home page
+export const revalidate = 300 // Revalidate every 5 minutes for fresh home page content
 
 // Generate dynamic metadata with enhanced SEO
 export async function generateMetadata(): Promise<Metadata> {

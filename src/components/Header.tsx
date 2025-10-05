@@ -55,8 +55,9 @@ const Header = () => {
       try {
         // Fetch contact data
         const contact = await sanityFetch<ContactData>({
-          query: queries.getContactData(),
+          query: queries.getContactDataBasic(),
           tags: ['contactData'],
+          revalidate: 3600 // Cache for 1 hour since contact data rarely changes
         })
         setContactData(contact)         
       } catch (error) {

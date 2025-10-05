@@ -83,10 +83,10 @@ export default function BlogSearch({
           ? 'ring-2 ring-primary ring-opacity-50 shadow-lg' 
           : 'ring-1 ring-gray-300 shadow-sm hover:ring-gray-400'
         }
-        bg-white rounded-lg overflow-hidden
+        bg-white rounded-lg overflow-hidden min-h-[48px] sm:min-h-[44px]
       `}>
         {/* Search Icon */}
-        <div className="flex items-center pl-4 pr-2">
+        <div className="flex items-center pl-3 sm:pl-4 pr-2">
           <Search className={`
             w-5 h-5 transition-colors duration-200
             ${isFocused ? 'text-primary' : 'text-gray-400'}
@@ -102,7 +102,7 @@ export default function BlogSearch({
           onBlur={() => setIsFocused(false)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className="flex-1 py-3 pr-4 text-gray-900 placeholder-gray-500 bg-transparent border-none focus:outline-none focus:ring-0"
+          className="flex-1 py-3 sm:py-3 pr-2 sm:pr-4 text-base sm:text-sm text-gray-900 placeholder-gray-500 bg-transparent border-none focus:outline-none focus:ring-0"
           autoComplete="off"
         />
 
@@ -111,7 +111,7 @@ export default function BlogSearch({
           <button
             type="button"
             onClick={handleClear}
-            className="flex items-center justify-center w-8 h-8 mr-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors duration-200"
+            className="flex items-center justify-center w-9 h-9 sm:w-8 sm:h-8 mr-2 text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100 transition-colors duration-200 touch-manipulation"
             aria-label="Hapus pencarian"
           >
             <X className="w-4 h-4" />
@@ -122,23 +122,23 @@ export default function BlogSearch({
         <button
           type="submit"
           className={`
-            px-4 py-3 font-medium transition-colors duration-200
+            px-3 sm:px-4 py-3 font-medium transition-colors duration-200 min-w-[48px] sm:min-w-auto touch-manipulation
             ${query.trim() 
-              ? 'bg-accent text-primary-dark hover:bg-primary-light' 
+              ? 'bg-accent text-primary-dark hover:bg-primary-light active:bg-primary' 
               : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }
           `}
           disabled={!query.trim()}
         >
-          <span className="hidden sm:inline">Cari</span>
-          <Search className="w-4 h-4 sm:hidden" />
+          <span className="hidden sm:inline text-sm">Cari</span>
+          <Search className="w-5 h-5 sm:hidden" />
         </button>
       </div>
 
       {/* Search Suggestions (if needed) */}
       {isFocused && query.length > 2 && (
         <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-lg shadow-lg z-10 max-h-64 overflow-y-auto">
-          <div className="p-4 text-sm text-gray-500 text-center">
+          <div className="p-4 sm:p-3 text-base sm:text-sm text-gray-500 text-center">
             Tekan Enter untuk mencari "{query}"
           </div>
         </div>

@@ -14,6 +14,8 @@ export const sanityConfig = {
       blogPosts: 300, // 5 minutes
       galleries: 300, // 5 minutes
       servicePackages: 600, // 10 minutes
+      contactData: 3600, // 1 hour - rarely changes
+      socialSettings: 3600, // 1 hour - rarely changes
     },
     performance: {
       enableMonitoring: true,
@@ -35,6 +37,8 @@ export const sanityConfig = {
       blogPosts: 30, // 30 seconds
       galleries: 30, // 30 seconds
       servicePackages: 30, // 30 seconds
+      contactData: 300, // 5 minutes in development
+      socialSettings: 300, // 5 minutes in development
     },
     performance: {
       enableMonitoring: true,

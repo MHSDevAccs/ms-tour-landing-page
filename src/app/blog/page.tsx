@@ -6,15 +6,15 @@ import { BlogPost } from '@/types/blog'
 import BlogCard from '@/components/BlogCard'
 import BlogPagination from '@/components/BlogPagination'
 import BlogSearch from '@/components/BlogSearch'
-import BlogCategoryFilter from '@/components/BlogCategoryFilter'
+
 import AnimatedSection, { PageTransition, StaggerContainer, StaggerItem } from '@/components/AnimatedSection'
 import { generateBlogListJsonLd, generateBreadcrumbJsonLd } from '@/lib/jsonLd'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import { Suspense } from 'react'
 import { Calendar } from 'lucide-react'
 
-// Force dynamic rendering
-export const dynamic = 'force-dynamic'
+// Enable static generation with revalidation
+export const revalidate = 300 // Revalidate every 5 minutes for fresh blog content
 
 // Simple metadata for now
 export const metadata: Metadata = {
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
 export default async function BlogPage({
   searchParams,
 }: {
-  searchParams: { category?: string; tag?: string; search?: string; page?: string }
+  searchParams: { tag?: string; search?: string; page?: string }
 }) {
-  const { category, tag, search, page = '1' } = searchParams
+  const { tag, search, page = '1' } = searchParams
   const currentPage = parseInt(page) || 1
 
   try {
@@ -51,7 +51,6 @@ export default async function BlogPage({
 
     // Fetch blog data
     let blogDataResult
-    let categories: string[] = []
     let featuredPosts: BlogPost[] = []
 
     if (search) {
@@ -66,16 +65,12 @@ export default async function BlogPage({
           totalCount: posts.length
         }
       }
-    } else if (category) {
-      blogDataResult = await blogService.getPostsByCategory(category, 'id', currentPage)
     } else if (tag) {
       blogDataResult = await blogService.getPostsByTag(tag, 'id', currentPage)
     } else {
       blogDataResult = await blogService.getAllPosts('id', currentPage)
       featuredPosts = await blogService.getFeaturedPosts('id', 3)
     }
-
-    categories = await blogService.getCategories('id')
 
     // Use CMS content for page titles and subtitles with fallbacks
     let pageTitle = siteSettings?.blogContent?.pageTitle || 'Blog'
@@ -84,10 +79,6 @@ export default async function BlogPage({
     if (search) {
       pageTitle = siteSettings?.blogContent?.searchResultTitle?.replace('{search}', search) || `Hasil Pencarian: "${search}"`
       pageSubtitle = siteSettings?.blogContent?.searchResultSubtitle?.replace('{count}', blogDataResult.posts.length.toString()) || `Ditemukan ${blogDataResult.posts.length} artikel untuk pencarian Anda`
-    } else if (category) {
-      const categoryName = category.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())
-      pageTitle = siteSettings?.blogContent?.categoryPageTitle?.replace('{category}', categoryName) || `Kategori: ${categoryName}`
-      pageSubtitle = siteSettings?.blogContent?.categoryPageSubtitle?.replace('{category}', categoryName.toLowerCase()) || `Artikel dan tips seputar ${categoryName.toLowerCase()}`
     } else if (tag) {
       pageTitle = siteSettings?.blogContent?.tagPageTitle?.replace('{tag}', tag) || `Tag: ${tag}`
       pageSubtitle = siteSettings?.blogContent?.tagPageSubtitle?.replace('{tag}', tag) || `Artikel dengan tag "${tag}"`
@@ -130,7 +121,7 @@ export default async function BlogPage({
                       : 'Belum ada artikel yang dipublikasikan.'
                     }
                   </p>
-                  {(search || category || tag) && (
+                  {(search ||  tag) && (
                     <Link
                       href="/blog"
                       className="border-2 border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors duration-200"
@@ -171,23 +162,15 @@ export default async function BlogPage({
             </div>
           </section>
 
-          {/* Search and Filters Section */}
-          <div className="bg-white border-b border-gray-200 py-8">
+          {/* Search Section */}
+          <div className="bg-white border-b border-gray-200 py-6 sm:py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-2xl mx-auto">
-                <Suspense fallback={<div className="w-full h-10 bg-gray-200 rounded-md animate-pulse" />}>
+              <div className="flex justify-center max-w-2xl mx-auto">
+                <Suspense fallback={<div className="w-full h-12 bg-gray-200 rounded-md animate-pulse" />}>
                   <BlogSearch
                     initialValue={search}
                     placeholder="Cari artikel..."
-                    className="flex-1"
-                  />
-                </Suspense>
-                
-                <Suspense fallback={<div className="w-48 h-10 bg-gray-200 rounded-md animate-pulse" />}>
-                  <BlogCategoryFilter
-                    categories={categories}
-                    selectedCategory={category}
-                    className="w-full sm:w-auto"
+                    className="w-full"
                   />
                 </Suspense>
               </div>
@@ -211,20 +194,15 @@ export default async function BlogPage({
               <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center text-gray-600">
                   <Calendar className="w-5 h-5 mr-2" />
-                  <span>
-                    {blogDataResult.pagination?.totalCount ? 
-                      `Menampilkan ${blogDataResult.posts.length} dari ${blogDataResult.pagination.totalCount} artikel` :
-                      `${blogDataResult.posts.length} artikel`
-                    }
-                  </span>
+                  
                 </div>
                 
-                {(category || tag || search) && (
+                {(tag || search) && (
                   <Link
                     href="/blog"
                     className="text-primary hover:text-primary-dark transition-colors duration-200 text-sm font-medium"
                   >
-                    ← Kembali ke semua artikel
+                    Kembali ke semua artikel
                   </Link>
                 )}
               </div>
@@ -239,7 +217,6 @@ export default async function BlogPage({
                       showExcerpt={true}
                       showAuthor={true}
                       showDate={true}
-                      showCategories={true}
                       showReadingTime={true}
                     />
                   </StaggerItem>
@@ -251,7 +228,7 @@ export default async function BlogPage({
                 <BlogPagination
                   pagination={blogDataResult.pagination}
                   baseUrl="/blog"
-                  currentParams={{ category, tag, search }}
+                  currentParams={{ tag, search }}
                   previousText="Sebelumnya"
                   nextText="Selanjutnya"
                 />

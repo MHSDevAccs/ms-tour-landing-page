@@ -29,8 +29,9 @@ const MainLayout = ({ children }: MainLayoutProps) => {
     async function fetchContactData() {
       try {
         const data = await sanityFetch<ContactData>({
-          query: queries.getContactData(),
-          tags: ['contactData']
+          query: queries.getContactDataBasic(),
+          tags: ['contactData'],
+          revalidate: 3600 // Cache for 1 hour since contact data rarely changes
         })
         
         setContactData(data)

@@ -98,16 +98,7 @@ export default function BlogCard({
                 placeholder={post.featuredImage.asset.metadata?.lqip ? 'blur' : 'empty'}
                 blurDataURL={post.featuredImage.asset.metadata?.lqip}
               />
-              
-              {/* Featured Badge */}
-              {variant === 'featured' && post.isFeatured && (
-                <div className="absolute top-4 left-4">
-                  <span className={`${theme?.colors?.primary || 'bg-primary'} text-white px-3 py-1 rounded-full text-xs font-semibold`}>
-                    Unggulan
-                  </span>
-                </div>
-              )}
-              
+                            
               {/* Categories Overlay */}
               {showCategories && post.categories.length > 0 && variant !== 'compact' && (
                 <div className="absolute bottom-4 left-4">

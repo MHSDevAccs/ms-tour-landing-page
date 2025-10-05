@@ -5,7 +5,8 @@ import ServicesPageContent from '@/components/ServicesPageContent'
 import { generateServicePageJsonLd, generateBreadcrumbJsonLd } from '@/lib/jsonLd'
 
 // Force dynamic rendering
-export const dynamic = 'force-dynamic'
+// Enable static generation with revalidation
+export const revalidate = 600 // Revalidate every 10 minutes for services content
 
 // Generate comprehensive metadata for services page
 export async function generateMetadata(): Promise<Metadata> {

@@ -5,7 +5,8 @@ import WhatsAppFloat from '@/components/WhatsAppFloat'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 
 // Force dynamic rendering
-export const dynamic = 'force-dynamic'
+// Enable static generation with revalidation
+export const revalidate = 86400 // Revalidate every 24 hours for privacy policy (rarely changes)
 
 export const metadata: Metadata = {
   title: 'Kebijakan Privasi | Mahabbatussholihin Tour & Travel',

@@ -102,7 +102,7 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-[9999] flex items-center justify-center p-0 sm:p-4 bg-black bg-opacity-50 backdrop-blur-sm overflow-y-auto"
+          className="fixed inset-0 z-[9999] flex items-start justify-center p-0 sm:p-4 bg-black bg-opacity-50 backdrop-blur-sm overflow-y-auto"
           onClick={handleBackdropClick}
         >
           <motion.div 
@@ -110,7 +110,7 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
             animate={{ scale: 1, opacity: 1, x: 0, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, x: 0, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="relative bg-white rounded-none sm:rounded-2xl shadow-2xl w-full sm:max-w-5xl h-screen sm:h-auto sm:max-h-[90vh] overflow-hidden mx-auto"
+            className="relative bg-white rounded-2xl shadow-2xl w-full sm:max-w-5xl min-h-screen sm:min-h-0 sm:my-4 mx-auto"
             onClick={(e) => e.stopPropagation()}
           >
         {/* Close Button */}
@@ -125,9 +125,9 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
         </motion.button>
 
         {/* Modal Content */}
-        <div className="flex flex-col lg:flex-row h-full min-h-screen sm:min-h-0 overflow-y-auto">
-          {/* Image Section */}
-          <div className="relative h-64 sm:h-80 lg:h-[600px] lg:w-1/2 overflow-hidden bg-gray-100 flex-shrink-0">
+        <div className="flex flex-col lg:flex-row min-h-screen sm:min-h-0">
+          {/* Image Section - Full size on mobile (1080x1350 aspect ratio) */}
+          <div className="relative w-full aspect-[1080/1350] sm:h-64 md:h-80 lg:min-h-[600px] lg:w-1/2 lg:aspect-auto overflow-hidden bg-gray-100 flex-shrink-0 rounded-t-2xl lg:rounded-l-2xl lg:rounded-tr-none">
             {service.icon?.asset ? (
               <Image
                 src={urlForProduct(service.icon).url()}
@@ -149,17 +149,17 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
            </div>
 
           {/* Content */}
-          <div className="p-4 sm:p-6 lg:p-8 lg:w-1/2">
+          <div className="p-3 sm:p-6 lg:p-8 lg:w-1/2 flex-1 overflow-y-auto">
             <div>
               {/* Header */}
               <div>
-                <div className="mb-4 sm:mb-6">
-                  <div className="flex items-center gap-2 mb-2">
+                <div className="mb-3 sm:mb-6">
+                  <div className="flex items-center gap-2 mb-1 sm:mb-2">
                   </div>
-                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
+                  <h2 className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 sm:mb-3">
                     {service.title}
                   </h2>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="text-sm sm:text-base text-gray-600 leading-snug sm:leading-relaxed">
                     {service.description}
                   </p>
                 </div>
@@ -168,10 +168,10 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
               {/* Price */}
               {service.price && (
                 <div>
-                  <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-gray-50 rounded-xl">
+                  <div className="mb-3 sm:mb-6 p-2 sm:p-4 bg-gray-50 rounded-lg sm:rounded-xl">
                     <div className="flex flex-col justify-between">
-                      <span className="text-sm sm:text-base text-gray-600">Harga Mulai Dari:</span>
-                      <span className="text-lg sm:text-2xl font-bold text-primary">
+                      <span className="text-xs sm:text-base text-gray-600">Harga Mulai Dari:</span>
+                      <span className="text-base sm:text-2xl font-bold text-primary">
                         {formatPrice(service.price)}
                       </span>
                     </div>
@@ -182,18 +182,18 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
               {/* Features */}
               {service.features && service.features.length > 0 && (
                 <div>
-                  <div className="mb-4 sm:mb-6">
-                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3">
+                  <div className="mb-3 sm:mb-6">
+                    <h3 className="text-sm sm:text-lg font-semibold text-gray-900 mb-1 sm:mb-3">
                       Yang Termasuk:
                     </h3>
-                    <div className="space-y-2">
+                    <div className="space-y-1 sm:space-y-2">
                       {service.features.map((feature, index) => (
                         <div 
                           key={index} 
-                          className="flex items-start gap-3"
+                          className="flex items-start gap-2 sm:gap-3"
                         >
-                          <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">{feature}</span>
+                          <Check className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                          <span className="text-sm sm:text-base text-gray-700">{feature}</span>
                         </div>
                       ))}
                     </div>
@@ -203,17 +203,17 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
 
               {/* Additional Info */}
               <div>
-                <div className="mb-4 sm:mb-6 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
-                  <div className="flex items-center gap-2 text-gray-600">
-                    <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                <div className="mb-3 sm:mb-6 grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4">
+                  <div className="flex items-center gap-1 sm:gap-2 text-gray-600">
+                    <MapPin className="w-3 h-3 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-xs sm:text-sm">Destinasi Terpilih</span>
                   </div>
-                  <div className="flex items-center gap-2 text-gray-600">
-                    <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                  <div className="flex items-center gap-1 sm:gap-2 text-gray-600">
+                    <Clock className="w-3 h-3 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-xs sm:text-sm">Fleksibel</span>
                   </div>
-                  <div className="flex items-center gap-2 text-gray-600">
-                    <Users className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+                  <div className="flex items-center gap-1 sm:gap-2 text-gray-600">
+                    <Users className="w-3 h-3 sm:w-5 sm:h-5 text-primary" />
                     <span className="text-xs sm:text-sm">Grup & Pribadi</span>
                   </div>
                 </div>
@@ -226,7 +226,7 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
                     href="https://wa.me/6287770005801"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 border-2 border-primary bg-primary text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold text-center inline-block hover:bg-primary-dark transition-colors"
+                    className="flex-1 border-2 border-primary bg-primary text-white py-2 sm:py-3 px-3 sm:px-6 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold text-center inline-block hover:bg-primary-dark transition-colors hover:border-primary-dark"
                   >
                     Konsultasi Gratis
                   </a>

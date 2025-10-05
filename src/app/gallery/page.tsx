@@ -6,7 +6,8 @@ import { sanityFetch, queries } from '@/sanity/lib/client'
 import { generateBreadcrumbJsonLd } from '@/lib/jsonLd'
 
 // Force dynamic rendering to avoid build-time authentication issues
-export const dynamic = 'force-dynamic'
+// Enable static generation with revalidation
+export const revalidate = 600 // Revalidate every 10 minutes for gallery content
 
 // Generate metadata dynamically
 export async function generateMetadata(): Promise<Metadata> {

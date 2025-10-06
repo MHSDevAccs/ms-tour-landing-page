@@ -723,7 +723,9 @@ export const queries = {
       socialMedia {
         instagram,
         facebook,
-        youtube
+        youtube,
+        twitter,
+        tiktok
       }
     }
   `,

@@ -1,9 +1,44 @@
 import { Metadata } from 'next'
+import { PortableText } from '@portabletext/react'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import AnimatedSection, { PageTransition, StaggerContainer, StaggerItem } from '@/components/AnimatedSection'
 import { generateOrganizationJsonLd, generateBreadcrumbJsonLd } from '@/lib/jsonLd'
 
-
+// Portable Text components for styling
+const portableTextComponents = {
+  block: {
+    normal: ({ children }: any) => (
+      <p className="text-gray-700 leading-relaxed mb-4">{children}</p>
+    ),
+    h1: ({ children }: any) => (
+      <h1 className="text-2xl font-bold text-gray-900 mb-4">{children}</h1>
+    ),
+    h2: ({ children }: any) => (
+      <h2 className="text-xl font-bold text-gray-900 mb-3">{children}</h2>
+    ),
+    h3: ({ children }: any) => (
+      <h3 className="text-lg font-bold text-gray-900 mb-2">{children}</h3>
+    ),
+  },
+  marks: {
+    strong: ({ children }: any) => (
+      <strong className="font-semibold text-gray-900">{children}</strong>
+    ),
+    em: ({ children }: any) => (
+      <em className="italic">{children}</em>
+    ),
+    link: ({ children, value }: any) => (
+      <a
+        href={value.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-primary hover:text-primary-dark underline"
+      >
+        {children}
+      </a>
+    ),
+  },
+}
 
 // Generate comprehensive metadata for about page
 export async function generateMetadata(): Promise<Metadata> {
@@ -66,11 +101,10 @@ export default async function AboutPage() {
   let aboutUs: any = null
 
   try {
-    const siteSettings = await sanityFetch<any>({
-      query: queries.getSiteSettings(),
-      tags: ['siteSettings']
+    aboutUs = await sanityFetch<any>({
+      query: queries.getAboutUs(),
+      tags: ['aboutUs']
     })
-    aboutUs = siteSettings?.aboutContent
   } catch (error) {
     console.error('Failed to fetch about us:', error)
   }
@@ -107,86 +141,111 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      {/* Content Section */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 flex items-center sm:block">
-        <div className="bg-white rounded-lg shadow-md p-8 w-full">
-          <h2 className="text-2xl font-semibold text-black mb-4 text-center sm:text-left">
-            {aboutUs?.contentSection?.ourStory?.title || 'Cerita Kami'}
-          </h2>
-          <div className="text-gray-700 mb-6 text-center sm:text-left">
-            {aboutUs?.contentSection?.ourStory?.content ? (
-              <div dangerouslySetInnerHTML={{ __html: aboutUs.contentSection.ourStory.content }} />
-            ) : (
-              <p>Mahabbatussholihin Tour & Travel didirikan dengan misi sederhana: menciptakan pengalaman perjalanan berkesan yang menghubungkan orang dengan destinasi menakjubkan di seluruh dunia. Kami percaya bahwa perjalanan memiliki kekuatan untuk mengubah hidup, memperluas perspektif, dan menciptakan kenangan abadi.</p>
-            )}
+      {/* Cerita Kami Section */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <AnimatedSection>
+          <div className="bg-white rounded-lg shadow-md p-8 w-full">
+            <h2 className="text-2xl font-semibold text-black mb-4 text-center sm:text-left">
+              {aboutUs?.contentSection?.ourStory?.title || 'Cerita Kami'}
+            </h2>
+            <div className="text-gray-700 text-center sm:text-left">
+              {aboutUs?.contentSection?.ourStory?.content && (
+                <PortableText
+                  value={aboutUs.contentSection.ourStory.content}
+                  components={portableTextComponents}
+                />
+              )}
+            </div>
           </div>
-          
-          <h2 className="text-2xl font-semibold text-black mb-4 text-center sm:text-left">
-            {aboutUs?.contentSection?.ourMission?.title || 'Misi Kami'}
-          </h2>
-          <div className="text-gray-700 mb-6 text-center sm:text-left">
-            {aboutUs?.contentSection?.ourMission?.content ? (
-              <div dangerouslySetInnerHTML={{ __html: aboutUs.contentSection.ourMission.content }} />
-            ) : (
-              <p>Dengan ridho Alloh SWT, kami berkomitmen nyediain layanan perjalanan yang berkah dan penuh makna yang bisa melampaui ekspektasi jamaah kami sambil menjaga amanah dan tanggung jawab dalam setiap langkah perjalanan.</p>
-            )}
-          </div>
-          
-          <h2 className="text-2xl font-semibold text-black mb-6 text-center sm:text-left">
-            {aboutUs?.contentSection?.whyChooseUs?.title || 'Mengapa Memilih Kami'}
-          </h2>
-          
-          <StaggerContainer className="space-y-4">
-              {aboutUs?.contentSection?.whyChooseUs?.items && aboutUs.contentSection.whyChooseUs.items.length > 0 ? (
-                aboutUs.contentSection.whyChooseUs.items.map((item: any, index: number) => (
-                  <StaggerItem key={index}>
-                    <div className="flex items-start space-x-4 p-4 border-l-4 border-primary">
-                      {item.icon?.asset?.url && (
-                        <img 
-                          src={item.icon.asset.url} 
-                          alt={item.icon.alt || item.title} 
-                          className="w-8 h-8 flex-shrink-0 mt-1" 
-                        />
-                      )}
-                      <div>
-                        <h3 className="font-semibold text-gray-800 mb-2">{item.title}</h3>
-                        <p className="text-gray-700 leading-relaxed">{item.description}</p>
-                      </div>
-                    </div>
-                  </StaggerItem>
-                ))
+        </AnimatedSection>
+      </section>
+
+      {/* Misi Kami Section */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <AnimatedSection>
+          <div className="bg-white rounded-lg shadow-md p-8 w-full">
+            <h2 className="text-2xl font-semibold text-black mb-4 text-center sm:text-left">
+              {aboutUs?.contentSection?.ourMission?.title || 'Misi Kami'}
+            </h2>
+            <div className="text-gray-700 text-center sm:text-left">
+              {aboutUs?.contentSection?.ourMission?.content ? (
+                <PortableText
+                  value={aboutUs.contentSection.ourMission.content}
+                  components={portableTextComponents}
+                />
               ) : (
-              <>
-                <StaggerItem>
-                  <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
-                    Pengetahuan lokal yang ahli dan itinerary yang udah dikurasi dengan penuh barakah
-                  </p>
+                <p>Dengan ridho Alloh SWT, kami berkomitmen nyediain layanan perjalanan yang berkah dan penuh makna yang bisa melampaui ekspektasi jamaah kami sambil menjaga amanah dan tanggung jawab dalam setiap langkah perjalanan.</p>
+              )}
+            </div>
+          </div>
+        </AnimatedSection>
+      </section>
 
-                  <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
-                    Dukungan jamaah 24/7 sepanjang perjalanan dengan penuh amanah
-                  </p>
-
-                  <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
-                    Harga yang berkah dengan kebijakan transparan tanpa biaya tersembunyi
-                  </p>
-
-                  <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
-                    Praktik perjalanan yang halal dan berkah untuk komunitas lokal
-                  </p>
-
-                  <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
-                    Opsi pemesanan fleksibel dan paket yang bisa disesuaikan sesuai kebutuhan jamaah
-                  </p>
-                </StaggerItem>
-              </>
-            )}
-          </StaggerContainer>
-        </div>
+      {/* Mengapa Memilih Kami Section */}
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <AnimatedSection>
+          <div className="bg-white rounded-lg shadow-md p-8 w-full">
+            <h2 className="text-2xl font-semibold text-black mb-6 text-center sm:text-left">
+              {aboutUs?.contentSection?.whyChooseUs?.title || 'Mengapa Memilih Kami'}
+            </h2>
+            
+            <StaggerContainer className="space-y-4">
+                {aboutUs?.contentSection?.whyChooseUs?.items && aboutUs.contentSection.whyChooseUs.items.length > 0 ? (
+                  aboutUs.contentSection.whyChooseUs.items.map((item: any, index: number) => (
+                    <StaggerItem key={index}>
+                      <div className="flex items-start space-x-4 p-4 border-l-4 border-primary">
+                        {item.icon?.asset?.url && (
+                          <img 
+                            src={item.icon.asset.url} 
+                            alt={item.icon.alt || item.title} 
+                            className="w-8 h-8 flex-shrink-0 mt-1" 
+                          />
+                        )}
+                        <div>
+                          <h3 className="font-semibold text-gray-800 mb-2">{item.title}</h3>
+                          <p className="text-gray-700 leading-relaxed">{item.description}</p>
+                        </div>
+                      </div>
+                    </StaggerItem>
+                  ))
+                ) : (
+                <>
+                  <StaggerItem>
+                    <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
+                      Pengetahuan lokal yang ahli dan itinerary yang udah dikurasi dengan penuh barakah
+                    </p>
+                  </StaggerItem>
+                  <StaggerItem>
+                    <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
+                      Dukungan jamaah 24/7 sepanjang perjalanan dengan penuh amanah
+                    </p>
+                  </StaggerItem>
+                  <StaggerItem>
+                    <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
+                      Harga yang berkah dengan kebijakan transparan tanpa biaya tersembunyi
+                    </p>
+                  </StaggerItem>
+                  <StaggerItem>
+                    <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
+                      Praktik perjalanan yang halal dan berkah untuk komunitas lokal
+                    </p>
+                  </StaggerItem>
+                  <StaggerItem>
+                    <p className="text-gray-700 leading-relaxed pl-4 border-l-4 border-primary py-2">
+                      Opsi pemesanan fleksibel dan paket yang bisa disesuaikan sesuai kebutuhan jamaah
+                    </p>
+                  </StaggerItem>
+                </>
+              )}
+            </StaggerContainer>
+          </div>
+        </AnimatedSection>
       </section>
 
       {/* Legalitas Section */}
-      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 flex items-center sm:block">
-        <div className="bg-white rounded-lg shadow-md p-8 w-full">
+      <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-12">
+        <AnimatedSection>
+          <div className="bg-white rounded-lg shadow-md p-8 w-full">
           <h2 className="text-2xl font-semibold text-black mb-6 text-center sm:text-left">
             {aboutUs?.legalitasSection?.title || 'Legalitas Perusahaan'}
           </h2>
@@ -257,7 +316,8 @@ export default async function AboutPage() {
               Perusahaan kami beroperasi secara legal dan terdaftar resmi sesuai dengan peraturan perundang-undangan yang berlaku di Indonesia.
             </p>
           </div>
-        </div>
+          </div>
+        </AnimatedSection>
       </section>
     </div>
     </PageTransition>

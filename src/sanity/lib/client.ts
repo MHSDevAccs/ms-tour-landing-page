@@ -739,6 +739,7 @@ export const queries = {
         email
       },
       contactWhatsapp,
+      whatsappTemplate,
       businessHours {
         mondayFriday,
         timezone
@@ -765,6 +766,7 @@ export const queries = {
         email
       },
       contactWhatsapp,
+      whatsappTemplate,
       businessHours {
         mondayFriday
       }

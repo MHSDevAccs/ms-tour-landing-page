@@ -64,15 +64,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function GalleryPage() {
-  // Fetch galleries, categories, stats, and site settings from Sanity
-  const [galleries, categories, stats, siteSettings] = await Promise.all([
+  // Fetch galleries, categories, and stats from Sanity
+  const [galleries, categories, stats] = await Promise.all([
     galleryService.getAllGalleries(),
     galleryService.getAllCategories(),
-    galleryService.getGalleryStats(),
-    sanityFetch<any>({
-      query: queries.getSiteSettings(),
-      tags: ['siteSettings']
-    })
+    galleryService.getGalleryStats()
   ])
 
 
@@ -92,14 +88,14 @@ export default async function GalleryPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
-      {/* Gallery Header - HARDCODED */}
+      {/* Gallery Header */}
       <section className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center sm:text-left">
           <h1 className="text-4xl font-bold mb-4">
-            {siteSettings?.pageContent?.galleryMainTitle || 'Galeri Foto'}
+            Galeri Foto
           </h1>
           <p className="text-xl text-white">
-            {siteSettings?.pageContent?.galleryMainDescription || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata dan pengalaman tur yang telah kami selenggarakan'}
+            Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata dan pengalaman tur yang telah kami selenggarakan
           </p>
         </div>
       </section>
@@ -118,19 +114,19 @@ export default async function GalleryPage() {
             // Empty state
             <div className="text-center py-20">
               <h2 className="text-3xl font-bold text-black mb-4">
-                {siteSettings?.pageContent?.galleryEmptyTitle || 'Galeri Akan Segera Hadir'}
+                Galeri Akan Segera Hadir
               </h2>
               <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                {siteSettings?.pageContent?.galleryEmptyDescription || 'Tim kami sedang mempersiapkan koleksi foto-foto menakjubkan dari berbagai destinasi wisata dan pengalaman tur. Nantikan kehadiran galeri kami!'}
+                Tim kami sedang mempersiapkan koleksi foto-foto menakjubkan dari berbagai destinasi wisata dan pengalaman tur. Nantikan kehadiran galeri kami!
               </p>
               <p className="text-lg text-gray-600 mb-4">
-                {siteSettings?.pageContent?.galleryEmptyTipDescription || 'Jelajahi layanan tur kami dan temukan petualangan yang menanti Anda!'}
+                Jelajahi layanan tur kami dan temukan petualangan yang menanti Anda!
               </p>
               <a
                 href="/services"
                 className="bg-accent text-primary-dark px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-light transition-colors duration-200"
               >
-                {siteSettings?.pageContent?.galleryEmptyButtonText || 'Lihat Layanan Tur →'}
+                Lihat Layanan Tur →
               </a>
             </div>
           )}
@@ -146,7 +142,7 @@ export default async function GalleryPage() {
           <AnimatedSection direction="scale" delay={0.1}>
             <div className="text-center bg-white rounded-lg shadow-lg p-8">
               <h2 className="text-3xl font-bold text-black mb-4">
-                {siteSettings?.content?.ctaText || 'Terinspirasi dengan Galeri Kami?'}
+                Terinspirasi dengan Galeri Kami?
               </h2>
               <p className="text-lg text-gray-600 mb-6">
                 Wujudkan momen istimewa Anda bersama kami. Dapatkan konsultasi gratis dan penawaran eksklusif untuk menciptakan pengalaman tak terlupakan yang sesuai dengan visi Anda.

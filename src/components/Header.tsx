@@ -6,42 +6,29 @@ import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
-import { contactData } from '@/sanity/schemaTypes/contactData' 
 
+// Define the ContactData interface based on the actual Sanity schema
 interface ContactData {
-  _id: string
-  logo?: {
-    asset: {
-      _id: string
-      url: string
-      metadata: {
-        dimensions: {
-          width: number
-          height: number
-        }
-      }
-    }
-    alt?: string
+  contactInfo: {
+    phone: string
+    email: string
+    address: string
   }
-  logoAlt?: string
-  siteName?: string
-  siteTitle?: string
-  siteDescription?: string
-  contactInfo?: {
-    phone?: string
-    email?: string
-    address?: string
-    whatsapp?: string
+  contactWhatsapp: string
+  whatsappTemplate: string
+  businessHours: {
+    mondayFriday: string
+    timezone: string
   }
-  businessHours?: {
-    mondayFriday?: string
-    saturday?: string
-    sunday?: string
-    timezone?: string
-  }
-  content?: {
-    tagline?: string
-    copyrightText?: string
+  contactContent: {
+    pageTitle: string
+    pageDescription: string
+    contactDetailsTitle: string
+    phoneLabel: string
+    emailLabel: string
+    addressLabel: string
+    whatsappLabel: string
+    businessHoursTitle: string
   }
 }
 

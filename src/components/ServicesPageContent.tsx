@@ -9,13 +9,11 @@ import FeaturesSection from '@/components/FeaturesSection'
 interface ServicesPageContentProps {
   services: ServicePackage[]
   featuresData: any
-  siteSettings: any
 }
 
 export default function ServicesPageContent({ 
   services, 
-  featuresData, 
-  siteSettings
+  featuresData
 }: ServicesPageContentProps) {
   const [selectedService, setSelectedService] = useState<ServicePackage | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -38,12 +36,12 @@ export default function ServicesPageContent({
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center sm:text-left">
             <AnimatedSection direction="up" delay={0.2}>
               <h1 className="text-4xl font-bold mb-4">
-                {siteSettings?.servicesContent?.mainTitle || 'Layanan Kami'}
+                Layanan Kami
               </h1>
             </AnimatedSection>
             <AnimatedSection direction="up" delay={0.4}>
               <p className="text-xl text-white">
-                {siteSettings?.servicesContent?.subtitle || 'Bismillah, kami nawarin berbagai layanan perjalanan yang berkah dan komprehensif yang dirancang buat memenuhi kebutuhan setiap jamaah dengan penuh amanah dan barakah.'}
+                Bismillah, kami nawarin berbagai layanan perjalanan yang berkah dan komprehensif yang dirancang buat memenuhi kebutuhan setiap jamaah dengan penuh amanah dan barakah.
               </p>
             </AnimatedSection>
           </div>
@@ -82,17 +80,17 @@ export default function ServicesPageContent({
           <AnimatedSection direction="scale" delay={0.1}>
             <div className="text-center bg-white rounded-lg shadow-lg p-8">
               <h2 className="text-3xl font-bold text-black mb-4">
-                {siteSettings?.servicesContent?.ctaTitle || 'Siap Memulai Perjalanan Anda?'}
+                Siap Memulai Perjalanan Anda?
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                {siteSettings?.servicesContent?.ctaDescription || 'Hubungi kami sekarang untuk konsultasi gratis dan dapatkan penawaran terbaik untuk perjalanan impian Anda.'}
+                Hubungi kami sekarang untuk konsultasi gratis dan dapatkan penawaran terbaik untuk perjalanan impian Anda.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="https://wa.me/6287770005801"
                   className="border-2 border-primary text-white bg-primary px-8 py-3 rounded-lg font-semibold"
                 >
-                  {siteSettings?.servicesContent?.ctaSecondaryButtonText || 'Konsultasi Gratis'}
+                  Konsultasi Gratis
                 </a>
               </div>
             </div>

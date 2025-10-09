@@ -39,6 +39,15 @@ export const contactData = defineType({
     }),
     
     defineField({
+      name: 'whatsappTemplate',
+      title: 'WhatsApp Template Message',
+      type: 'text',
+      placeholder: 'Halo! Saya tertarik dengan layanan tour Anda. Bisa bantu saya dengan informasi lebih lanjut?',
+      description: 'Template pesan yang akan muncul ketika customer mengklik WhatsApp',
+      initialValue: 'Halo! Saya tertarik dengan layanan tour Anda. Bisa bantu saya dengan informasi lebih lanjut?'
+    }),
+    
+    defineField({
       name: 'businessHours',
       title: 'Pengatur Jam',
       type: 'object',
@@ -49,18 +58,6 @@ export const contactData = defineType({
           type: 'string',
           placeholder: 'Masukkan Jam Operasional'
         },
-        // {
-        //   name: 'saturday',    
-        //   title: 'Saturday',
-        //   type: 'string',
-        //   initialValue: '9:00 AM - 4:00 PM'
-        // },
-        // {
-        //   name: 'sunday',
-        //   title: 'Sunday',
-        //   type: 'string',
-        //   initialValue: 'Closed'
-        // },
         {
           name: 'timezone',
           title: 'Timezone',

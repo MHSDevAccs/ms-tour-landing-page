@@ -43,12 +43,6 @@ export default async function BlogPage({
   const currentPage = parseInt(page) || 1
 
   try {
-    // Fetch site settings for CMS content
-    const siteSettings = await sanityFetch<any>({
-      query: queries.getSiteSettings(),
-      tags: ['siteSettings']
-    }).catch(() => null)
-
     // Fetch blog data
     let blogDataResult
     let featuredPosts: BlogPost[] = []
@@ -72,16 +66,16 @@ export default async function BlogPage({
       featuredPosts = await blogService.getFeaturedPosts('id', 3)
     }
 
-    // Use CMS content for page titles and subtitles with fallbacks
-    let pageTitle = siteSettings?.blogContent?.pageTitle || 'Blog'
-    let pageSubtitle = siteSettings?.blogContent?.pageSubtitle || 'Temukan tips perjalanan, destinasi wisata, dan inspirasi untuk petualangan Anda'
+    // Use hardcoded values for page titles and subtitles
+    let pageTitle = 'Blog'
+    let pageSubtitle = 'Temukan tips perjalanan, destinasi wisata, dan inspirasi untuk petualangan Anda'
 
     if (search) {
-      pageTitle = siteSettings?.blogContent?.searchResultTitle?.replace('{search}', search) || `Hasil Pencarian: "${search}"`
-      pageSubtitle = siteSettings?.blogContent?.searchResultSubtitle?.replace('{count}', blogDataResult.posts.length.toString()) || `Ditemukan ${blogDataResult.posts.length} artikel untuk pencarian Anda`
+      pageTitle = `Hasil Pencarian: "${search}"`
+      pageSubtitle = `Ditemukan ${blogDataResult.posts.length} artikel untuk pencarian Anda`
     } else if (tag) {
-      pageTitle = siteSettings?.blogContent?.tagPageTitle?.replace('{tag}', tag) || `Tag: ${tag}`
-      pageSubtitle = siteSettings?.blogContent?.tagPageSubtitle?.replace('{tag}', tag) || `Artikel dengan tag "${tag}"`
+      pageTitle = `Tag: ${tag}`
+      pageSubtitle = `Artikel dengan tag "${tag}"`
     }
 
     // Generate structured data

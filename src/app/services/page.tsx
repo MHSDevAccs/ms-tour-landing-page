@@ -67,7 +67,6 @@ export default async function ServicesPage() {
   // Fetch services from CMS
   let services: ServicePackage[] = []
   let featuresData = null
-  let siteSettings = null
 
   try {
     services = await sanityFetch<ServicePackage[]>({
@@ -80,19 +79,13 @@ export default async function ServicesPage() {
       query: queries.getFeaturesSection(),
       tags: ['featuresSection']
     })
-
-    // Get site settings for dynamic content
-    siteSettings = await sanityFetch<any>({
-      query: queries.getSiteSettings(),
-      tags: ['siteSettings']
-    })
   } catch (error) {
     console.error('Error fetching services:', error)
   }
 
   // Generate structured data
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://travel.mahabbatussholihin.com'
-  const servicePageJsonLd = generateServicePageJsonLd(baseUrl, siteSettings || undefined)
+  const servicePageJsonLd = generateServicePageJsonLd(baseUrl)
   const breadcrumbJsonLd = generateBreadcrumbJsonLd([
     { name: 'Beranda', url: baseUrl },
     { name: 'Layanan', url: `${baseUrl}/services` }
@@ -114,7 +107,6 @@ export default async function ServicesPage() {
       <ServicesPageContent 
         services={services}
         featuresData={featuresData}
-        siteSettings={siteSettings}
       />
     </>
   )

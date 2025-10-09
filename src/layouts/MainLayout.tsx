@@ -12,6 +12,7 @@ interface MainLayoutProps {
 
 interface ContactData {
   contactWhatsapp?: string
+  whatsappTemplate?: string
   theme?: {
     colors?: {
       background?: string
@@ -66,7 +67,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       {/* Floating WhatsApp Button */}
       <WhatsAppFloat 
         phoneNumber={whatsappNumber || '+6287770005801'}
-        message="Halo! Saya tertarik dengan layanan tour Anda. Bisa bantu saya dengan informasi lebih lanjut?"
+        message={contactData?.whatsappTemplate || "Halo! Saya tertarik dengan layanan tour Anda. Bisa bantu saya dengan informasi lebih lanjut?"}
       />
     </div>
   )

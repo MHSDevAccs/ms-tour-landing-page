@@ -107,13 +107,6 @@ export const structure: StructureResolver = (S) =>
                     .schemaType('businessInfo')
                     .documentId('businessInfo')
                 ),
-              // S.listItem()
-              //   .title('🎨 Theme & Design')
-              //   .child(
-              //     S.document()
-              //       .schemaType('themeSettings')
-              //       .documentId('themeSettings')
-              //   ),
               S.listItem()
                 .title('📱 Social Media & Communication')
                 .child(
@@ -128,13 +121,6 @@ export const structure: StructureResolver = (S) =>
                     .schemaType('contactData')
                     .documentId('contactData')
                 ),
-              // S.listItem()
-              //   .title('📝 Content Management')
-              //   .child(
-              //     S.document()
-              //       .schemaType('contentSettings')
-              //       .documentId('contentSettings')
-              //   ),
             ])
         ),
       

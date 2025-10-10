@@ -10,6 +10,7 @@ import ServicePackagesSection from '@/components/ServicePackagesSection'
 import FeaturedGallery from '@/components/FeaturedGallery'
 import { ServicePackage } from '@/components/ServiceCard'
 import TestimonialsSection from '@/components/TestimonialsSection'
+import TestimonialsCarousel from '@/components/TestimonialsCarousel'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
 import BlogCard from '@/components/BlogCard'
 import HeroSlider from '@/components/HeroSlider'
@@ -495,11 +496,29 @@ export default async function Home() {
 
       {/* Testimonials Section */}
       {testimonials && testimonials.length > 0 && (
-        <TestimonialsSection 
-          testimonials={testimonials}
-          maxTestimonials={3}
-          variant="default"
-        />
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+                Testimoni Jamaah - Barakallohu Fiikum
+              </h2>
+              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                Alhamdulillah, dengerin langsung cerita jamaah yang udah merasakan berkah perjalanan bersama kami
+              </p>
+            </div>
+            
+            <div className="max-w-4xl mx-auto">
+              <TestimonialsCarousel 
+                testimonials={testimonials}
+                autoPlay={true}
+                autoPlayInterval={6000}
+                showDots={true}
+                showArrows={true}
+                className="testimonials-carousel"
+              />
+            </div>
+          </div>
+        </section>
       )}
 
       {/* Featured Blog Posts Section */}

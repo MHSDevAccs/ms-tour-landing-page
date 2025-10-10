@@ -41,13 +41,13 @@ export default function ServicesPageContent({
             </AnimatedSection>
             <AnimatedSection direction="up" delay={0.4}>
               <p className="text-xl text-white">
-                Bismillah, kami nawarin berbagai layanan perjalanan yang berkah dan komprehensif yang dirancang buat memenuhi kebutuhan setiap jamaah dengan penuh amanah dan barakah.
+                Bismillah, kami menawarkan berbagai layanan perjalanan yang berkah dan komprehensif yang dirancang untuk memenuhi kebutuhan setiap jamaah dengan penuh amanah dan barokah.
               </p>
             </AnimatedSection>
           </div>
         </div>
       
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-32 py-16">
 
           {/* All Services Section */}
           {services.length > 0 && (

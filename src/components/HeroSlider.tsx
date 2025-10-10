@@ -149,7 +149,7 @@ export default function HeroSlider({
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary-dark"></div>
         
         {/* Hero Content */}
-        <div className="absolute inset-0 z-10 flex items-center justify-center lg:justify-start px-4 sm:px-6 lg:px-32 lg:items-start lg:pt-32 lg:pl-64">
+        <div className="absolute inset-0 z-10 flex items-center justify-center lg:justify-start px-4 sm:px-6 lg:px-32 lg:items-start lg:pt-48 lg:pl-64">
           <div className="max-w-4xl text-center lg:text-left">
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 drop-shadow-lg">
               {title}

@@ -67,7 +67,13 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
       maximumFractionDigits: 0,
     })
     
-    return `${formatter.format(price.amount)}/${price.unit || 'bulan'}`
+    const unitText = price.unit === 'person' ? 'orang' :
+                     price.unit === 'group' ? 'grup' :
+                     price.unit === 'day' ? 'hari' :
+                     price.unit === 'package' ? 'paket' :
+                     price.unit || 'orang'
+    
+    return `${formatter.format(price.amount)}/${unitText}`
   }
 
   // Handle backdrop click
@@ -134,7 +140,7 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
                 alt={service.icon.alt || service.title}
                 fill
                 className="object-cover object-center transition-opacity duration-300"
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 540px"
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 100vw, 540px"
                 priority
 
               />
@@ -201,20 +207,38 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
                 </div>
               )}
 
-              {/* Additional Info */}
+              {/* Service Information */}
               <div>
                 <div className="mb-3 sm:mb-6 grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4">
                   <div className="flex items-center gap-1 sm:gap-2 text-gray-600">
                     <MapPin className="w-3 h-3 sm:w-5 sm:h-5 text-primary" />
-                    <span className="text-xs sm:text-sm">Destinasi Terpilih</span>
+                    <span className="text-xs sm:text-sm capitalize">
+                      {service.category === 'packages' ? 'Paket Tour' :
+                       service.category === 'custom' ? 'Tour Custom' :
+                       service.category === 'group' ? 'Tour Grup' :
+                       service.category === 'private' ? 'Tour Pribadi' :
+                       service.category === 'adventure' ? 'Tour Petualangan' :
+                       service.category === 'cultural' ? 'Tour Budaya' :
+                       service.category}
+                    </span>
                   </div>
-                  <div className="flex items-center gap-1 sm:gap-2 text-gray-600">
-                    <Clock className="w-3 h-3 sm:w-5 sm:h-5 text-primary" />
-                    <span className="text-xs sm:text-sm">Fleksibel</span>
-                  </div>
+                  {service.price && (
+                    <div className="flex items-center gap-1 sm:gap-2 text-gray-600">
+                      <Clock className="w-3 h-3 sm:w-5 sm:h-5 text-primary" />
+                      <span className="text-xs sm:text-sm">
+                        {service.price.unit === 'person' ? 'Per Orang' :
+                         service.price.unit === 'group' ? 'Per Grup' :
+                         service.price.unit === 'day' ? 'Per Hari' :
+                         service.price.unit === 'package' ? 'Per Paket' :
+                         service.price.unit}
+                      </span>
+                    </div>
+                  )}
                   <div className="flex items-center gap-1 sm:gap-2 text-gray-600">
                     <Users className="w-3 h-3 sm:w-5 sm:h-5 text-primary" />
-                    <span className="text-xs sm:text-sm">Grup & Pribadi</span>
+                    <span className="text-xs sm:text-sm">
+                      {service.isPopular ? 'Populer' : 'Tersedia'}
+                    </span>
                   </div>
                 </div>
               </div>

@@ -271,7 +271,7 @@ export const healthMonitor = {
 export const queries = {
   // Hero Section - More flexible query
   getHeroSection: (language: string = 'id') => `
-    *[_type == "heroSection" && language == "${language}" && isActive == true] | order(_updatedAt desc) [0] {
+    *[_type == "heroSection"] | order(_updatedAt desc) [0] {
       _id,
       title,
       subtitle,
@@ -299,11 +299,13 @@ export const queries = {
           alt
         },
         alt,
+        title,
+        subtitle,
         caption
       },
       sliderSettings {
-        autoplay,
-        interval,
+        autoPlay,
+        autoPlayInterval,
         showNavigation,
         showDots,
         pauseOnHover

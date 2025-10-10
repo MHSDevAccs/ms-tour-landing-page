@@ -145,7 +145,7 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
 
               />
             ) : (
-              <div className="w-full h-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center">
+              <div className="w-full h-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center pt-4">
                 <span className="text-white text-6xl font-bold opacity-20">
                   {service.title[0]}</span>
               </div>
@@ -155,17 +155,17 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
            </div>
 
           {/* Content */}
-          <div className="p-3 sm:p-6 lg:p-8 lg:w-1/2 flex-1 overflow-y-auto">
-            <div>
+          <div className="p-6 sm:p-6 lg:p-8 lg:w-1/2 flex-1 overflow-y-auto">
+            <div className="space-y-6">
               {/* Header */}
               <div>
-                <div className="mb-3 sm:mb-6">
-                  <div className="flex items-center gap-2 mb-1 sm:mb-2">
+                <div className="mb-6 sm:mb-6">
+                  <div className="flex items-center gap-2 mb-3 sm:mb-2">
                   </div>
-                  <h2 className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-1 sm:mb-3">
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-4 sm:mb-3 leading-tight">
                     {service.title}
                   </h2>
-                  <p className="text-sm sm:text-base text-gray-600 leading-snug sm:leading-relaxed">
+                  <p className="text-base sm:text-base text-gray-600 leading-relaxed sm:leading-relaxed">
                     {service.description}
                   </p>
                 </div>
@@ -174,10 +174,10 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
               {/* Price */}
               {service.price && (
                 <div>
-                  <div className="mb-3 sm:mb-6 p-2 sm:p-4 bg-gray-50 rounded-lg sm:rounded-xl">
+                  <div className="mb-6 sm:mb-6 p-4 sm:p-4 bg-gray-50 rounded-xl sm:rounded-xl">
                     <div className="flex flex-col justify-between">
-                      <span className="text-xs sm:text-base text-gray-600">Harga Mulai Dari:</span>
-                      <span className="text-base sm:text-2xl font-bold text-primary">
+                      <span className="text-sm sm:text-base text-gray-600 mb-1">Harga Mulai Dari:</span>
+                      <span className="text-xl sm:text-2xl font-bold text-primary">
                         {formatPrice(service.price)}
                       </span>
                     </div>
@@ -188,18 +188,18 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
               {/* Features */}
               {service.features && service.features.length > 0 && (
                 <div>
-                  <div className="mb-3 sm:mb-6">
-                    <h3 className="text-sm sm:text-lg font-semibold text-gray-900 mb-1 sm:mb-3">
+                  <div className="mb-6 sm:mb-6">
+                    <h3 className="text-lg sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-3">
                       Yang Termasuk:
                     </h3>
-                    <div className="space-y-1 sm:space-y-2">
+                    <div className="space-y-3 sm:space-y-2">
                       {service.features.map((feature, index) => (
                         <div 
                           key={index} 
-                          className="flex items-start gap-2 sm:gap-3"
+                          className="flex items-start gap-3 sm:gap-3"
                         >
-                          <Check className="w-4 h-4 sm:w-5 sm:h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                          <span className="text-sm sm:text-base text-gray-700">{feature}</span>
+                          <Check className="w-5 h-5 sm:w-5 sm:h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                          <span className="text-base sm:text-base text-gray-700 leading-relaxed">{feature}</span>
                         </div>
                       ))}
                     </div>
@@ -209,10 +209,10 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
 
               {/* Service Information */}
               <div>
-                <div className="mb-3 sm:mb-6 grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4">
-                  <div className="flex items-center gap-1 sm:gap-2 text-gray-600">
-                    <MapPin className="w-3 h-3 sm:w-5 sm:h-5 text-primary" />
-                    <span className="text-xs sm:text-sm capitalize">
+                <div className="mb-6 sm:mb-6 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+                  <div className="flex items-center gap-3 sm:gap-2 text-gray-600 py-2">
+                    <MapPin className="w-5 h-5 sm:w-5 sm:h-5 text-primary" />
+                    <span className="text-sm sm:text-sm capitalize">
                       {service.category === 'packages' ? 'Paket Tour' :
                        service.category === 'custom' ? 'Tour Custom' :
                        service.category === 'group' ? 'Tour Grup' :
@@ -223,9 +223,9 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
                     </span>
                   </div>
                   {service.price && (
-                    <div className="flex items-center gap-1 sm:gap-2 text-gray-600">
-                      <Clock className="w-3 h-3 sm:w-5 sm:h-5 text-primary" />
-                      <span className="text-xs sm:text-sm">
+                    <div className="flex items-center gap-3 sm:gap-2 text-gray-600 py-2">
+                      <Clock className="w-5 h-5 sm:w-5 sm:h-5 text-primary" />
+                      <span className="text-sm sm:text-sm">
                         {service.price.unit === 'person' ? 'Per Orang' :
                          service.price.unit === 'group' ? 'Per Grup' :
                          service.price.unit === 'day' ? 'Per Hari' :
@@ -234,9 +234,9 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
                       </span>
                     </div>
                   )}
-                  <div className="flex items-center gap-1 sm:gap-2 text-gray-600">
-                    <Users className="w-3 h-3 sm:w-5 sm:h-5 text-primary" />
-                    <span className="text-xs sm:text-sm">
+                  <div className="flex items-center gap-3 sm:gap-2 text-gray-600 py-2">
+                    <Users className="w-5 h-5 sm:w-5 sm:h-5 text-primary" />
+                    <span className="text-sm sm:text-sm">
                       {service.isPopular ? 'Populer' : 'Tersedia'}
                     </span>
                   </div>
@@ -245,12 +245,12 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
 
               {/* Action Buttons */}
               <div>
-                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-3 pt-2">
                   <a 
                     href="https://wa.me/6287770005801"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 border-2 border-primary bg-primary text-white py-2 sm:py-3 px-3 sm:px-6 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold text-center inline-block hover:bg-primary-dark transition-colors hover:border-primary-dark"
+                    className="flex-1 border-2 border-primary bg-primary text-white py-4 sm:py-3 px-6 sm:px-6 rounded-xl sm:rounded-xl text-base sm:text-base font-semibold text-center inline-block hover:bg-primary-dark transition-colors hover:border-primary-dark"
                   >
                     Konsultasi Gratis
                   </a>

@@ -111,6 +111,8 @@ interface HeroSection {
       alt?: string
     }
     alt: string
+    title?: string
+    subtitle?: string
     caption?: string
   }>
   sliderSettings?: {
@@ -218,70 +220,73 @@ interface SiteSettings {
 
 
 export default async function Home() {
-  // Fetch CMS data with error handling
-  let heroData: HeroSection | null = null
-  let featuresData: FeaturesSection | null = null
-  let siteSettings: SiteSettings | null = null
-  let testimonials: any[] = []
-  let featuredBlogPosts: any[] = []
-  let servicePackages: ServicePackage[] = []
-  let featuredGalleries: any[] = []
-  try {
-    servicePackages = await sanityFetch<ServicePackage[]>({
-      query: queries.getPopularServices(4),
-      tags: ['servicePackage']
-    })
-  } catch (error) {
-    console.error('Failed to fetch service packages:', error)
-  }
-
-  try {
-    heroData = await sanityFetch<HeroSection>({
+  // Fetch all data in parallel for better performance
+  const [heroData, featuresData, servicePackages, featuredGalleries, siteSettings, testimonials, featuredBlogPosts] = await Promise.all([
+    sanityFetch<HeroSection>({
       query: queries.getHeroSection('id'),
       tags: ['heroSection']
-    })
-  } catch (error) {
-    console.error('Failed to fetch hero data:', error)
-  }
-
-  try {
-    featuresData = await sanityFetch<FeaturesSection>({
+    }).catch(error => {
+      console.error('Failed to fetch hero data:', error)
+      return null
+    }),
+    sanityFetch<FeaturesSection>({
       query: queries.getFeaturesSection('id'),
       tags: ['featuresSection']
-    })
-  } catch (error) {
-    console.error('Failed to fetch features data:', error)
-  }
-
-  try {
-    siteSettings = await sanityFetch<SiteSettings>({
+    }).catch(error => {
+      console.error('Failed to fetch features data:', error)
+      return null
+    }),
+    sanityFetch<ServicePackage[]>({
+      query: queries.getPopularServices(4),
+      tags: ['servicePackage']
+    }).catch(error => {
+      console.error('Failed to fetch service packages:', error)
+      return []
+    }),
+    galleryService.getFeaturedGalleries().catch(error => {
+      console.error('Failed to fetch featured galleries:', error)
+      return []
+    }),
+    sanityFetch<SiteSettings>({
       query: queries.getSiteSettings(),
       tags: ['siteSettings']
-    })
-  } catch (error) {
-    console.error('Failed to fetch site settings:', error)
-  }
-
-  try {
-    testimonials = await sanityFetch<any[]>({
-      query: queries.getTestimonials('id', true), // Get featured testimonials
+    }).catch(error => {
+      console.error('Failed to fetch site settings:', error)
+      return null
+    }),
+    sanityFetch<any[]>({
+      query: queries.getTestimonials('id', true),
       tags: ['testimonial']
+    }).catch(error => {
+      console.error('Failed to fetch testimonials:', error)
+      return []
+    }),
+    blogService.getFeaturedPosts('id', 3).catch(error => {
+      console.error('Failed to fetch featured blog posts:', error)
+      return []
     })
-  } catch (error) {
-    console.error('Failed to fetch testimonials:', error)
-  }
+  ])
 
-  try {
-    featuredBlogPosts = await blogService.getFeaturedPosts('id', 3)
-  } catch (error) {
-    console.error('Failed to fetch featured blog posts:', error)
+  // Debug hero data
+  console.log('=== HERO DATA DEBUG ===');
+  console.log('heroData:', heroData);
+  console.log('heroData type:', typeof heroData);
+  console.log('heroData is null:', heroData === null);
+  console.log('heroData is undefined:', heroData === undefined);
+  console.log('heroData.title:', heroData?.title);
+  console.log('heroData.subtitle:', heroData?.subtitle);
+  console.log('heroData.sliderImagesCount:', heroData?.sliderImages?.length || 0);
+  console.log('heroData.sliderImages:', heroData?.sliderImages);
+  if (heroData?.sliderImages) {
+    heroData.sliderImages.forEach((img: any, index: number) => {
+      console.log(`Slide ${index}:`, {
+        title: img.title,
+        subtitle: img.subtitle,
+        alt: img.alt
+      });
+    });
   }
-
-  try {
-    featuredGalleries = await galleryService.getFeaturedGalleries()
-  } catch (error) {
-    console.error('Failed to fetch featured galleries:', error)
-  }
+  console.log('=== END HERO DATA DEBUG ===');
 
   // Generate comprehensive structured data
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://travel.mahabbatussholihin.com'

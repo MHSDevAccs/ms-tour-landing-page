@@ -250,7 +250,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
             />
           </div>
         ) : (
-          <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-primary-lighter flex items-center justify-center text-primary font-semibold text-lg md:text-xl flex-shrink-0">
+          <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-primary flex items-center justify-center text-white font-semibold text-lg md:text-xl flex-shrink-0">
             {testimonial.customerName.charAt(0)}
           </div>
         )}

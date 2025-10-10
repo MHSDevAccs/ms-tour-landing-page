@@ -74,6 +74,18 @@ export const heroSection = defineType({
               validation: Rule => Rule.required()
             },
             {
+              name: 'title',
+              title: 'Slide Title',
+              type: 'string',
+              description: 'Main title text for this slide (overrides global title when present)'
+            },
+            {
+              name: 'subtitle',
+              title: 'Slide Subtitle',
+              type: 'text',
+              description: 'Subtitle text for this slide (overrides global subtitle when present)'
+            },
+            {
               name: 'caption',
               title: 'Caption (Optional)',
               type: 'string',
@@ -82,22 +94,24 @@ export const heroSection = defineType({
           ],
           preview: {
             select: {
-              title: 'alt',
-              subtitle: 'caption',
+              title: 'title',
+              subtitle: 'subtitle',
+              alt: 'alt',
+              caption: 'caption',
               media: 'image'
             },
             prepare(selection) {
-              const { title, subtitle } = selection
+              const { title, subtitle, alt, caption } = selection
               return {
-                title: title || 'Untitled Image',
-                subtitle: subtitle || 'No caption'
+                title: title || alt || 'Untitled Image',
+                subtitle: subtitle || caption || 'No subtitle'
               }
             }
           }
         }
       ],
       validation: Rule => Rule.min(1).max(10).error('Please add between 1-10 slider images'),
-      description: '🎠 HERO SLIDER: 1920x1080px (16:9) | Max Size: 20MB each | Format: JPEG/PNG/WebP | Minimum 1, Maximum 10 images'
+      description: '🎠 HERO SLIDER: 1920x1080px (16:9) | Max Size: 20MB each | Format: JPEG/PNG/WebP | Minimum 1, Maximum 10 images. Each slide can have its own title and subtitle.'
     }),
     defineField({
       name: 'sliderSettings',

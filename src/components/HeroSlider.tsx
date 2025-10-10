@@ -1,10 +1,9 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { urlForHero } from '@/sanity/lib/image'
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 
 // TypeScript interfaces
 interface SliderImage {
@@ -22,12 +21,16 @@ interface SliderImage {
     alt?: string
   }
   alt: string
+  title?: string
+  subtitle?: string
   caption?: string
 }
 
 interface SliderSettings {
   autoplay?: boolean
   interval?: number
+  autoPlay?: boolean // Alternative CMS naming
+  autoPlayInterval?: number // Alternative CMS naming
   showNavigation?: boolean
   showDots?: boolean
   pauseOnHover?: boolean
@@ -55,11 +58,21 @@ interface HeroSliderProps {
   }
 }
 
-
+// Function to clean corrupted Unicode characters
+function cleanText(text: string | undefined | null): string {
+  if (!text || typeof text !== 'string') return ''
+  
+  // Remove Unicode corruption patterns and zero-width characters
+  return text
+    .replace(/​​​​‌﻿‍﻿​‍​‍‌‍﻿﻿‌﻿​‍‌‍‍‌‌‍‌﻿‌‍‍‌‌‍﻿‍​‍​‍​﻿‍‍​‍​‍‌﻿​﻿‌‍​‌‌‍﻿‍‌‍‍‌‌﻿‌​‌﻿‍‌​‍﻿‍‌‍‍‌‌‍﻿﻿​‍​‍​‍﻿​​‍​‍‌‍‍​‌﻿​‍‌‍‌‌‌‍‌‍​‍​‍​﻿‍‍​‍​‍‌‍‍​‌﻿‌​‌﻿‌​‌﻿​​‌﻿​﻿​﻿‍‍​‍﻿﻿​‍﻿﻿‌﻿​​‌‍‍‌‌﻿‌﻿‌‍﻿‌‌﻿‍​​﻿‌‍‌‍‌‍‌‍‍​​‍﻿‍‌﻿​﻿‌‍​‌‌‍﻿‍‌‍‍‌‌﻿‌​‌﻿‍‌​‍﻿‍‌﻿​﻿‌﻿‌​‌﻿‌‌‌‍‌​‌‍‍‌‌‍﻿﻿​‍﻿﻿‌‍‍‌‌‍﻿‍‌﻿‌​‌‍‌‌‌‍﻿‍‌﻿‌​​‍﻿﻿‌‍‌‌‌‍‌​‌‍‍‌‌﻿‌​​‍﻿﻿‌‍﻿‌‌‍﻿﻿‌‍‌​‌‍‌‌​﻿﻿‌‌﻿​​‌﻿​‍‌‍‌‌‌﻿​﻿‌‍‌‌‌‍﻿‍‌﻿‌​‌‍​‌‌﻿‌​‌‍‍‌‌‍﻿﻿‌‍﻿‍​﻿‍﻿‌‍‍‌‌‍‌​​﻿﻿‌‌‍‍​‌‍‌‌‌﻿​‍‌‍﻿﻿‌‌​﻿‌‍‌‌‌‍​﻿‌﻿‌​‌‍‍‌‌‍﻿﻿‌‍﻿‍​﻿‍﻿‌﻿‌​‌﻿‍‌‌﻿​​‌‍‌‌​﻿﻿‌‌‍‍​‌‍‌‌‌﻿​‍‌‍﻿﻿‌‌​﻿‌‍‌‌‌‍​﻿‌﻿‌​‌‍‍‌‌‍﻿﻿‌‍﻿‍​﻿‍﻿‌﻿​​‌‍​‌‌﻿‌​‌‍‍​​﻿﻿‌‌﻿​﻿‌‍﻿​‌‍‍‌‌‍‌​‌‍‌‌‌﻿​‍‌​‍‌‌‍﻿‌‌‍​‌‌‍‌﻿‌‍‌‌‌﻿​﻿​‍‌‌​﻿‌‌‌​​‍‌‌﻿﻿‌‍‍﻿‌‍‌‌‌﻿‍‌​‍‌‌​﻿​﻿‌​‌​​‍‌‌​﻿​﻿‌​‌​​‍‌‌​﻿​‍​﻿​‍​﻿‌﻿​﻿‍​​﻿​‍​﻿‍‌​﻿​‌​﻿‍‌‌‍‌‍‌‍​﻿‌‍‌‍​﻿​﻿​﻿‍​‌‍​‌​‍‌‌​﻿​‍​﻿​‍​‍‌‌​﻿‌‌‌​‌​​‍﻿‍‌‍​﻿‌‍​‌‌﻿​​‌﻿‌​‌‍‍‌‌‍﻿﻿‌‍﻿‍​‍‌‍‌﻿​​‌‍‌‌‌﻿​‍‌﻿​﻿‌﻿​​‌‍‌‌‌‍​﻿‌﻿‌​‌‍‍‌‌﻿‌‍‌‍‌‌​﻿﻿‌‌﻿​​‌﻿‌‌‌‍​‍‌‍﻿​‌‍‍‌‌﻿​﻿‌‍‍​‌‍‌‌‌‍‌​​‍​‍‌﻿﻿‌/g, '')
+    .replace(/[​‌‍﻿]/g, '') // Remove any remaining zero-width characters
+    .replace(/[\u200B-\u200D\uFEFF]/g, '') // Remove additional zero-width characters
+    .trim()
+}
 
 export default function HeroSlider({
-  title,
-  subtitle,
+  title: globalTitle,
+  subtitle: globalSubtitle,
   ctaText,
   ctaLink,
   sliderImages,
@@ -67,61 +80,112 @@ export default function HeroSlider({
   backgroundImage
 }: HeroSliderProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(sliderSettings?.autoplay ?? true)
-  const [isPaused, setIsPaused] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(true)
+  
+  // Touch/swipe handling refs
+  const touchStartX = useRef<number>(0)
+  const touchEndX = useRef<number>(0)
+
+  // Clean the text data
+  const cleanTitle = cleanText(globalTitle) || 'Mahabbatussholihin Tour & Travel'
+  const cleanSubtitle = cleanText(globalSubtitle) || 'Mendampingi Jamaah Haji dan Umroh, InsyaAllah Amanah dalam memberangkatkan para Jamaah ke tanah suci'
+  const cleanCtaText = cleanText(ctaText) || 'Info lebih lanjut'
+  const cleanCtaLink = cleanText(ctaLink) || 'https://wa.me/6287770005801'
+
+  // Default settings - remove navigation, dots, and pause on hover
+  const settings = useMemo(() => {
+    // Handle both CMS naming conventions and null values
+    const autoplayValue = sliderSettings?.autoplay ?? sliderSettings?.autoPlay ?? true
+    const intervalValue = sliderSettings?.interval ?? sliderSettings?.autoPlayInterval ?? 5
+    
+    return {
+      autoplay: autoplayValue,
+      interval: intervalValue < 100 ? intervalValue * 1000 : intervalValue, // Convert seconds to milliseconds if needed
+      ...sliderSettings,
+      // Override these settings regardless of what comes from CMS
+      showNavigation: false,
+      showDots: false,
+      pauseOnHover: false
+    }
+  }, [sliderSettings])
 
   // Use slider images if available, otherwise fallback to background image
-  const images = sliderImages && sliderImages.length > 0 ? sliderImages : 
-    backgroundImage ? [{ 
-      image: backgroundImage, 
-      alt: backgroundImage.alt || 'Hero Background',
-      caption: undefined 
-    }] : []
+  const images = sliderImages && sliderImages.length > 0 
+    ? sliderImages.map(img => ({
+        ...img,
+        alt: cleanText(img.alt) || 'Hero image',
+        caption: cleanText(img.caption),
+        title: cleanText(img.title),
+        subtitle: cleanText(img.subtitle)
+      }))
+    : backgroundImage 
+    ? [{ 
+        image: backgroundImage, 
+        alt: cleanText(backgroundImage.alt) || 'Hero background',
+        caption: undefined,
+        title: undefined,
+        subtitle: undefined
+      }] 
+    : []
 
-  const settings = {
-    autoplay: sliderSettings?.autoplay ?? true,
-    interval: (sliderSettings?.interval ?? 5) * 1000, // Convert to milliseconds
-    showNavigation: sliderSettings?.showNavigation ?? true,
-    showDots: sliderSettings?.showDots ?? true,
-    pauseOnHover: sliderSettings?.pauseOnHover ?? true
-  }
+  // Get current slide's text content or fallback to global
+  const currentImage = images[currentSlide]
+  const displayTitle = currentImage?.title || cleanTitle
+  const displaySubtitle = currentImage?.subtitle || cleanSubtitle
 
   // Auto-play functionality
   useEffect(() => {
-    if (!settings.autoplay || isPaused || images.length <= 1) return
+    if (!settings.autoplay || !isPlaying || images.length === 0) return
 
-    const timer = setInterval(() => {
+    const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % images.length)
     }, settings.interval)
 
-    return () => clearInterval(timer)
-  }, [settings.autoplay, settings.interval, isPaused, images.length])
+    return () => clearInterval(interval)
+  }, [settings.autoplay, settings.interval, isPlaying, images.length])
 
   // Navigation functions
-  const goToSlide = useCallback((index: number) => {
-    setCurrentSlide(index)
-  }, [])
+  const goToNext = useCallback(() => {
+    if (images.length > 1) {
+      setCurrentSlide((prev) => (prev + 1) % images.length)
+    }
+  }, [images.length])
 
   const goToPrevious = useCallback(() => {
-    setCurrentSlide((prev) => (prev - 1 + images.length) % images.length)
+    if (images.length > 1) {
+      setCurrentSlide((prev) => (prev - 1 + images.length) % images.length)
+    }
   }, [images.length])
 
-  const goToNext = useCallback(() => {
-    setCurrentSlide((prev) => (prev + 1) % images.length)
+  const goToSlide = useCallback((index: number) => {
+    if (index >= 0 && index < images.length) {
+      setCurrentSlide(index)
+    }
   }, [images.length])
 
-  // Pause/resume on hover
-  const handleMouseEnter = useCallback(() => {
-    if (settings.pauseOnHover) {
-      setIsPaused(true)
-    }
-  }, [settings.pauseOnHover])
+  // Touch/Swipe handlers for mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.targetTouches[0].clientX
+  }
 
-  const handleMouseLeave = useCallback(() => {
-    if (settings.pauseOnHover) {
-      setIsPaused(false)
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndX.current = e.targetTouches[0].clientX
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStartX.current || !touchEndX.current) return
+    
+    const distance = touchStartX.current - touchEndX.current
+    const isLeftSwipe = distance > 50
+    const isRightSwipe = distance < -50
+
+    if (isLeftSwipe && images.length > 1) {
+      goToNext()
     }
-  }, [settings.pauseOnHover])
+    if (isRightSwipe && images.length > 1) {
+      goToPrevious()
+    }
+  }
 
   // Keyboard navigation
   useEffect(() => {
@@ -135,37 +199,23 @@ export default function HeroSlider({
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [goToPrevious, goToNext])
+  }, [goToNext, goToPrevious])
 
-  if (images.length === 0) {
-    // Fallback when no images are available
+  // Fallback UI when no images are available
+  if (!images || images.length === 0) {
     return (
-      <section 
-        className="relative w-full h-[60vh] md:h-[70vh] lg:h-[80vh] xl:h-[85vh] max-h-[800px] bg-gradient-to-br from-primary via-primary to-primary-dark text-white overflow-hidden"
-        role="banner"
-        aria-label="Hero section"
-      >
-        {/* Fallback background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-primary-dark"></div>
-        
-        {/* Hero Content */}
-        <div className="absolute inset-0 z-10 flex items-center justify-center lg:justify-start px-4 sm:px-6 lg:px-32 lg:items-start lg:pt-48 lg:pl-64">
-          <div className="max-w-4xl text-center lg:text-left">
-            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 drop-shadow-lg">
-              {title}
-            </h1>
-            <p className="text-md sm:text-lg md:text-xl text-white mb-8 max-w-2xl drop-shadow-lg mx-auto lg:mx-0">
-              {subtitle}
-            </p>
-            <div className="flex justify-center lg:justify-start">
-              <Link
-                href={ctaLink}
-                className="inline-block bg-white hover:bg-gray-100 text-primary font-semibold px-6 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-              >
-                {ctaText}
-              </Link>
-            </div>
-          </div>
+      <section className="relative h-screen bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center">
+        <div className="text-center text-white px-4">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">{displayTitle}</h1>
+          <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto text-white">{displaySubtitle}</p>
+          <Link
+            href={cleanCtaLink}
+            className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+            target={cleanCtaLink.startsWith('http') ? '_blank' : '_self'}
+            rel={cleanCtaLink.startsWith('http') ? 'noopener noreferrer' : undefined}
+          >
+            {cleanCtaText}
+          </Link>
         </div>
       </section>
     )
@@ -173,30 +223,29 @@ export default function HeroSlider({
 
   return (
     <section 
-      className="relative w-full h-[60vh] md:h-[70vh] lg:h-[80vh] xl:h-[85vh] max-h-[800px] bg-gradient-to-br from-primary via-primary to-primary-dark text-white overflow-hidden"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      role="banner"
-      aria-label="Hero section with image slider"
+      className="relative h-screen overflow-hidden"
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
-      {/* Image Slider */}
-      <div className="absolute inset-0 z-0">
+      {/* Background Images */}
+      <div className="absolute inset-0">
         {images.map((slideImage, index) => (
           <div
-            key={`${slideImage.image.asset._id}-${index}`}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+            key={`slide-${index}`}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
               index === currentSlide ? 'opacity-100' : 'opacity-0'
             }`}
           >
             <Image
               src={urlForHero(slideImage.image).url()}
-              alt={slideImage.alt || `Hero slide ${index + 1}`}
+              alt={slideImage.alt}
               fill
               className="object-cover"
               priority={index === 0}
               sizes="100vw"
             />
-            {/* Caption overlay */}
+            {/* Slide Caption */}
             {slideImage.caption && (
               <div className="absolute bottom-4 left-4 bg-black/60 text-white px-4 py-2 rounded-lg">
                 <p className="text-sm font-medium">{slideImage.caption}</p>
@@ -204,80 +253,47 @@ export default function HeroSlider({
             )}
           </div>
         ))}
-        <div className="absolute inset-0 bg-black/20 z-10"></div>
+        <div className="absolute inset-0 bg-black/30 z-10"></div>
       </div>
 
       {/* Hero Content */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center lg:justify-start px-4 sm:px-6 lg:px-32 lg:items-start lg:pt-32 lg:pl-64">
+      <div className="absolute inset-0 z-20 flex items-center justify-center lg:justify-start px-4 sm:px-6 lg:px-32 lg:items-start lg:pt-32 lg:pl-64">
         <div className="max-w-4xl text-center lg:text-left">
-          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 drop-shadow-lg">
-            {title}
+          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 drop-shadow-2xl">
+            {displayTitle}
           </h1>
-          <p className="text-md sm:text-lg md:text-xl text-white mb-8 max-w-2xl drop-shadow-lg mx-auto lg:mx-0">
-            {subtitle}
+          <p className="text-md sm:text-lg md:text-xl text-white mb-8 max-w-2xl drop-shadow-2xl mx-auto lg:mx-0 leading-relaxed">
+            {displaySubtitle}
           </p>
           <div className="flex justify-center lg:justify-start">
             <Link
-              href={ctaLink}
-              className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-6 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              href={cleanCtaLink}
+              className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl "
+              target={cleanCtaLink.startsWith('http') ? '_blank' : '_self'}
+              rel={cleanCtaLink.startsWith('http') ? 'noopener noreferrer' : undefined}
             >
-              {ctaText}
+              {cleanCtaText}
             </Link>
           </div>
         </div>
       </div>
 
-      {/* Navigation Arrows */}
-      {settings.showNavigation && images.length > 1 && (
-        <>
+      {/* Dot Indicators - Desktop Only */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30 hidden lg:flex space-x-2">
+        {images.map((_, index) => (
           <button
-            onClick={goToPrevious}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-40 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50"
-            aria-label="Previous slide"
-          >
-            <ChevronLeftIcon className="w-6 h-6" />
-          </button>
-          <button
-            onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-40 bg-black/30 hover:bg-black/50 text-white p-2 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50"
-            aria-label="Next slide"
-          >
-            <ChevronRightIcon className="w-6 h-6" />
-          </button>
-        </>
-      )}
-
-      {/* Dot Indicators */}
-      {settings.showDots && images.length > 1 && (
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-40 flex space-x-2">
-          {images.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50 ${
-                index === currentSlide 
-                  ? 'bg-white' 
-                  : 'bg-white/50 hover:bg-white/75'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-      )}
-
-
-
-      {/* Slide Progress Indicator */}
-      {settings.autoplay && images.length > 1 && !isPaused && (
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-white/20 z-40">
-          <div 
-            className="h-full bg-white transition-all duration-100 ease-linear"
-            style={{
-              width: `${((currentSlide + 1) / images.length) * 100}%`
-            }}
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              index === currentSlide
+                ? 'bg-white scale-125'
+                : 'bg-white/50 hover:bg-white/75'
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
           />
-        </div>
-      )}
+        ))}
+      </div>
+
     </section>
   )
 }

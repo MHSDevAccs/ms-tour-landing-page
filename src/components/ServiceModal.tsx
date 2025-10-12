@@ -15,13 +15,13 @@ const portableTextComponents = {
       <p className="text-gray-700 leading-7 mb-6 text-base font-normal tracking-wide whitespace-pre-line">{children}</p>
     ),
     h1: ({ children }: any) => (
-      <h1 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 mt-8 leading-tight">{children}</h1>
+      <h1 className="text-xl font-bold text-gray-900 mb-4 mt-8 leading-tight">{children}</h1>
     ),
     h2: ({ children }: any) => (
-      <h2 className="text-lg sm:text-xl font-bold text-gray-900 mb-3 mt-6 leading-tight">{children}</h2>
+      <h2 className="text-lg font-bold text-gray-900 mb-3 mt-6 leading-tight">{children}</h2>
     ),
     h3: ({ children }: any) => (
-      <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 mt-5 leading-tight">{children}</h3>
+      <h3 className="text-base font-semibold text-gray-900 mb-3 mt-5 leading-tight">{children}</h3>
     ),
     blockquote: ({ children }: any) => (
       <blockquote className="border-l-4 border-primary bg-primary/10 pl-4 py-3 italic text-gray-700 my-6 rounded-r">
@@ -167,7 +167,7 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-gray-500 bg-opacity-30 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center p-2 bg-gray-500 bg-opacity-30 backdrop-blur-sm"
           onClick={handleBackdropClick}
         >
           <motion.div 
@@ -175,7 +175,7 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="relative bg-white rounded-xl sm:rounded-2xl shadow-2xl max-w-sm sm:max-w-5xl w-full max-h-[95vh] sm:max-h-[85vh] overflow-hidden"
+            className="relative bg-white rounded-xl shadow-2xl max-w-sm w-full max-h-[95vh] overflow-hidden"
           >
         {/* Close Button */}
         <motion.button
@@ -183,15 +183,15 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
           whileHover={{ scale: 1.1, rotate: 90 }}
           whileTap={{ scale: 0.9 }}
           transition={{ duration: 0.2 }}
-          className="absolute top-2 right-2 sm:top-4 sm:right-4 z-10 p-1.5 sm:p-2 bg-white bg-opacity-90 rounded-full shadow-lg hover:bg-opacity-100 transition-all duration-300 ease-in-out"
+          className="absolute top-2 right-2 z-10 p-1.5 bg-white bg-opacity-90 rounded-full shadow-lg hover:bg-opacity-100 transition-all duration-300 ease-in-out"
         >
-          <X className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 hover:text-gray-800 transition-colors duration-200" />
+          <X className="w-5 h-5 text-gray-600 hover:text-gray-800 transition-colors duration-200" />
         </motion.button>
 
         {/* Modal Content */}
-        <div className="flex flex-col lg:flex-row overflow-y-auto max-h-[95vh] sm:max-h-[85vh]">
+        <div className="flex flex-col h-full">
           {/* Image Section */}
-          <AnimatedSection direction="left" delay={0.2} className="relative h-64 sm:h-80 lg:h-[600px] lg:w-1/2 overflow-hidden bg-gray-100 rounded-lg lg:rounded-l-lg lg:rounded-r-none">
+          <AnimatedSection direction="left" delay={0.2} className="relative h-64 w-full overflow-hidden bg-gray-100 rounded-t-xl flex-shrink-0">
             {service.icon?.asset ? (
               <Image
                 src={urlForProduct(service.icon).url()}
@@ -213,14 +213,14 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
            </AnimatedSection>
 
           {/* Content */}
-          <div className="p-4 sm:p-6 lg:p-8 lg:w-1/2">
+          <div className="p-4 overflow-y-auto flex-1 min-h-0">
             <StaggerContainer>
               {/* Header */}
               <StaggerItem>
-                <div className="mb-4 sm:mb-6">
+                <div className="mb-4">
                   <div className="flex items-center gap-2 mb-2">
                   </div>
-                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 sm:mb-3">
+                  <h2 className="text-xl font-bold text-gray-900 mb-2">
                     {service.title}
                   </h2>
                   <div className="text-gray-700 leading-7">
@@ -251,10 +251,10 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
               {/* Price */}
               {service.price && (
                 <StaggerItem>
-                  <div className="mb-4 sm:mb-6 p-3 sm:p-4 bg-gray-50 rounded-xl">
+                  <div className="mb-4 p-3 bg-gray-50 rounded-xl">
                     <div className="flex flex-col justify-between">
-                      <span className="text-sm sm:text-base text-gray-600">Harga Mulai Dari:</span>
-                      <span className="text-lg sm:text-2xl font-bold text-primary">
+                      <span className="text-sm text-gray-600">Harga Mulai Dari:</span>
+                      <span className="text-lg font-bold text-primary">
                         {formatPrice(service.price)}
                       </span>
                     </div>
@@ -265,8 +265,8 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
               {/* Features */}
               {service.features && service.features.length > 0 && (
                 <StaggerItem>
-                  <div className="mb-4 sm:mb-6">
-                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 sm:mb-3">
+                  <div className="mb-4">
+                    <h3 className="text-base font-semibold text-gray-900 mb-2">
                       Yang Termasuk:
                     </h3>
                     <div className="space-y-2">
@@ -289,15 +289,15 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
 
               {/* Additional Info */}
               <StaggerItem>
-                <div className="mb-4 sm:mb-6 grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4">
+                <div className="mb-4 grid grid-cols-1 gap-2">
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1, duration: 0.3 }}
                     className="flex items-center gap-2 text-gray-600"
                   >
-                    <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                    <span className="text-xs sm:text-sm">Destinasi Terpilih</span>
+                    <MapPin className="w-4 h-4 text-primary" />
+                    <span className="text-xs">Destinasi Terpilih</span>
                   </motion.div>
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }}
@@ -305,8 +305,8 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
                     transition={{ delay: 0.2, duration: 0.3 }}
                     className="flex items-center gap-2 text-gray-600"
                   >
-                    <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                    <span className="text-xs sm:text-sm">Fleksibel</span>
+                    <Clock className="w-4 h-4 text-primary" />
+                    <span className="text-xs">Fleksibel</span>
                   </motion.div>
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }}
@@ -314,22 +314,22 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
                     transition={{ delay: 0.3, duration: 0.3 }}
                     className="flex items-center gap-2 text-gray-600"
                   >
-                    <Users className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                    <span className="text-xs sm:text-sm">Grup & Pribadi</span>
+                    <Users className="w-4 h-4 text-primary" />
+                    <span className="text-xs">Grup & Pribadi</span>
                   </motion.div>
                 </div>
               </StaggerItem>
 
               {/* Action Buttons */}
               <StaggerItem>
-                <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
+                <div className="flex flex-col gap-2">
                   <motion.a 
                     href="https://wa.me/6281110002477"
                     target="_blank"
                     rel="noopener noreferrer"
                     whileTap={{ scale: 0.95 }}
                     transition={{ duration: 0.2 }}
-                    className="flex-1 border-2 border-primary bg-primary text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl text-sm sm:text-base font-semibold text-center inline-block"
+                    className="flex-1 border-2 border-primary bg-primary text-white py-2.5 px-4 rounded-lg text-sm font-semibold text-center inline-block"
                   >
                     Konsultasi Gratis
                   </motion.a>

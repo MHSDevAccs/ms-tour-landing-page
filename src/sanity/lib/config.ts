@@ -43,7 +43,7 @@ export const sanityConfig = {
     performance: {
       enableMonitoring: true,
       slowQueryThreshold: 2000, // 2 seconds
-      logLevel: 'debug',
+      logLevel: 'warn',
     },
   },
   

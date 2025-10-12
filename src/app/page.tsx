@@ -32,7 +32,6 @@ export async function generateMetadata(): Promise<Metadata> {
     const description = siteSettings?.siteDescription || 'Jelajahi dunia bersama Mahabbatussholihin Tour & Travel - Mitra terpercaya untuk pengalaman perjalanan yang tak terlupakan. Paket wisata domestik, internasional, dan umroh terbaik dengan pelayanan profesional.'
 
     return {
-      title,
       description,
       keywords: [
         'mahabbatussholihin tour', 'travel agency indonesia', 'paket wisata', 'tour operator',
@@ -266,27 +265,6 @@ export default async function Home() {
       return []
     })
   ])
-
-  // Debug hero data
-  console.log('=== HERO DATA DEBUG ===');
-  console.log('heroData:', heroData);
-  console.log('heroData type:', typeof heroData);
-  console.log('heroData is null:', heroData === null);
-  console.log('heroData is undefined:', heroData === undefined);
-  console.log('heroData.title:', heroData?.title);
-  console.log('heroData.subtitle:', heroData?.subtitle);
-  console.log('heroData.sliderImagesCount:', heroData?.sliderImages?.length || 0);
-  console.log('heroData.sliderImages:', heroData?.sliderImages);
-  if (heroData?.sliderImages) {
-    heroData.sliderImages.forEach((img: any, index: number) => {
-      console.log(`Slide ${index}:`, {
-        title: img.title,
-        subtitle: img.subtitle,
-        alt: img.alt
-      });
-    });
-  }
-  console.log('=== END HERO DATA DEBUG ===');
 
   // Generate comprehensive structured data
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://travel.mahabbatussholihin.com'

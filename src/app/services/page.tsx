@@ -16,11 +16,11 @@ export async function generateMetadata(): Promise<Metadata> {
       tags: ['siteSettings']
     })
 
-    const title = siteSettings?.servicesContent?.pageTitle || 'Layanan Travel & Tour Terlengkap - Mahabbatussholihin Tour'
+  
     const description = siteSettings?.servicesContent?.pageDescription || 'Dapatkan layanan travel terpercaya dengan paket wisata domestik, internasional, umroh, dan corporate travel. Harga terbaik, pelayanan profesional, pengalaman tak terlupakan.'
 
     return {
-      title,
+
       description,
       keywords: [
         'layanan travel', 'paket wisata', 'tour domestik', 'tour internasional',
@@ -29,7 +29,6 @@ export async function generateMetadata(): Promise<Metadata> {
         'mountain trekking', 'city tour', 'custom itinerary', 'travel consultation'
       ],
       openGraph: {
-        title,
         description,
         url: 'https://travel.mahabbatussholihin.com/services',
         siteName: 'Mahabbatussholihin Tour & Travel',
@@ -47,7 +46,6 @@ export async function generateMetadata(): Promise<Metadata> {
       twitter: {
         card: 'summary_large_image',
         site: '@mhstour',
-        title,
         description,
         images: ['/og-services.jpg'],
       },

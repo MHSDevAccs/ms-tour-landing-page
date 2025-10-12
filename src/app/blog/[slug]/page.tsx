@@ -40,7 +40,6 @@ export async function generateMetadata({
     const imageUrl = post.featuredImage ? urlFor(post.featuredImage).width(1200).height(630).url() : undefined
 
     return {
-      title: `${title} - Blog MHS Tour`,
       description,
       keywords: post.tags?.join(', '),
       authors: [{ name: post.author }],

@@ -152,32 +152,45 @@ export const blogQueries = {
   `,
 
   // Optimized: Minimal fields for related posts
-  getRelatedBlogPosts: (currentPostId: string, categories: string[], tags: string[], language: string = 'id', limit: number = 3) => `
-    *[_type == "blogPost" && isPublished == true && _id != "${currentPostId}" && language == "${language}" 
-      && (${categories.map(cat => `"${cat}" in categories`).join(' || ')} || ${tags.map(tag => `"${tag}" in tags`).join(' || ')})] 
-    | order(publishedAt desc) 
-    [0...${limit}] {
-      _id,
-      title,
-      slug,
-      excerpt,
-      featuredImage {
-        asset-> {
-          _id,
-          url,
-          metadata {
-            dimensions
-          }
-        },
-        alt
-      },
-      author,
-      publishedAt,
-      categories,
-      tags,
-      language
+  getRelatedBlogPosts: (currentPostId: string, categories: string[], tags: string[], language: string = 'id', limit: number = 3) => {
+    const categoryConditions = categories.length > 0 ? categories.map(cat => `"${cat}" in categories`).join(' || ') : '';
+    const tagConditions = tags.length > 0 ? tags.map(tag => `"${tag}" in tags`).join(' || ') : '';
+    
+    let conditions = '';
+    if (categoryConditions && tagConditions) {
+      conditions = `&& (${categoryConditions} || ${tagConditions})`;
+    } else if (categoryConditions) {
+      conditions = `&& (${categoryConditions})`;
+    } else if (tagConditions) {
+      conditions = `&& (${tagConditions})`;
     }
-  `,
+    
+    return `
+      *[_type == "blogPost" && isPublished == true && _id != "${currentPostId}" && language == "${language}" ${conditions}] 
+      | order(publishedAt desc) 
+      [0...${limit}] {
+        _id,
+        title,
+        slug,
+        excerpt,
+        featuredImage {
+          asset-> {
+            _id,
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        },
+        author,
+        publishedAt,
+        categories,
+        tags,
+        language
+      }
+    `;
+  },
 
   // Get all unique categories
   getCategories: (language: string = 'id') => `

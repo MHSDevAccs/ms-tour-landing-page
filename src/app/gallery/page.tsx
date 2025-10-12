@@ -18,7 +18,6 @@ export async function generateMetadata(): Promise<Metadata> {
     })
 
     return {
-      title: siteSettings?.pageContent?.galleryTitle || 'Galeri Foto - MHS Tour & Travel',
       description: siteSettings?.pageContent?.galleryDescription || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan pengalaman bersama MHS Tour & Travel.',
       keywords: siteSettings?.pageContent?.galleryKeywords || 'galeri foto, destinasi wisata, tur budaya, petualangan, Indonesia, MHS Tour',
       openGraph: {

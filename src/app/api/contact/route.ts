@@ -164,12 +164,6 @@ async function sendEmailNotification(contactDoc: any) {
   try {
     // Skip email sending if environment variables are not configured
     if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) {
-      console.log('SMTP not configured. Contact form data saved to CMS only.')
-      console.log('New contact form submission:', {
-        name: contactDoc.name,
-        email: contactDoc.email,
-        subject: contactDoc.subject
-      })
       return
     }
 
@@ -312,10 +306,7 @@ async function sendEmailNotification(contactDoc: any) {
       html: customerEmailHtml,
     })
 
-    console.log('Email notifications sent successfully')
-
   } catch (error) {
-    console.error('Failed to send email notification:', error)
-    // Don't throw error - form submission should still succeed
+    // Silent error handling for production
   }
 }

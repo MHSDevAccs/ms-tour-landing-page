@@ -52,7 +52,6 @@ export async function generateMetadata(): Promise<Metadata> {
     const description = aboutUs?.seoDescription || 'Mahabbatussholihin Tour & Travel adalah mitra perjalanan terpercaya dengan pengalaman bertahun-tahun. Komitmen kami memberikan pengalaman wisata terbaik dengan pelayanan profesional dan harga kompetitif.'
 
     return {
-      title,
       description,
       keywords: [
         'tentang mahabbatussholihin', 'profil perusahaan travel', 'sejarah travel agency',

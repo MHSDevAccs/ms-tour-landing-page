@@ -33,10 +33,6 @@ const logPerformance = (operation: string, startTime: number, success: boolean) 
   const duration = Date.now() - startTime
   const slowThreshold = getSlowQueryThreshold()
   
-  if (process.env.NODE_ENV === 'development') {
-    console.log(`[Sanity ${operation}] ${success ? 'Success' : 'Error'} - ${duration}ms`)
-  }
-  
   // Log slow queries in any environment
   if (duration > slowThreshold) {
     console.warn(`[Sanity ${operation}] Slow query detected: ${duration}ms (threshold: ${slowThreshold}ms)`)

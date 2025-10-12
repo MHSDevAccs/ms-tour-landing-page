@@ -186,10 +186,6 @@ export default async function BlogPage({
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               {/* Results Info */}
               <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center text-gray-600">
-                  <Calendar className="w-5 h-5 mr-2" />
-                  
-                </div>
                 
                 {(tag || search) && (
                   <Link

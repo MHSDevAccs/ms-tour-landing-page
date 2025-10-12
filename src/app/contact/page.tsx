@@ -20,7 +20,6 @@ export async function generateMetadata(): Promise<Metadata> {
     const description = contactData?.contactContent?.pageDescription || 'Butuh bantuan atau informasi? Hubungi tim professional Mahabbatussholihin Tour & Travel. Konsultasi gratis untuk semua kebutuhan perjalanan Anda. WhatsApp, telepon, atau email tersedia 24/7.'
 
     return {
-      title,
       description,
       keywords: [
         'hubungi mahabbatussholihin', 'kontak travel agent', 'konsultasi travel', 'booking tour',

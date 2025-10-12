@@ -73,7 +73,7 @@ const portableTextComponents = {
   },
 }
 
-// Types
+// Service interfaces
 interface ServicePrice {
   amount: number
   currency: string
@@ -175,169 +175,168 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.9, opacity: 0, y: 20 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="relative bg-white rounded-xl shadow-2xl max-w-sm w-full max-h-[95vh] overflow-hidden"
+            className="relative bg-white rounded-xl shadow-2xl max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl w-full max-h-[95vh] overflow-hidden flex flex-col"
           >
-        {/* Close Button */}
-        <motion.button
-          onClick={onClose}
-          whileHover={{ scale: 1.1, rotate: 90 }}
-          whileTap={{ scale: 0.9 }}
-          transition={{ duration: 0.2 }}
-          className="absolute top-2 right-2 z-10 p-1.5 bg-white bg-opacity-90 rounded-full shadow-lg hover:bg-opacity-100 transition-all duration-300 ease-in-out"
-        >
-          <X className="w-5 h-5 text-gray-600 hover:text-gray-800 transition-colors duration-200" />
-        </motion.button>
+            {/* Close Button */}
+            <motion.button
+              onClick={onClose}
+              whileHover={{ scale: 1.1, rotate: 90 }}
+              whileTap={{ scale: 0.9 }}
+              transition={{ duration: 0.2 }}
+              className="absolute top-2 right-2 z-10 p-1.5 bg-white bg-opacity-90 rounded-full shadow-lg hover:bg-opacity-100 transition-all duration-300 ease-in-out"
+            >
+              <X className="w-5 h-5 text-gray-600 hover:text-gray-800 transition-colors duration-200" />
+            </motion.button>
 
-        {/* Modal Content */}
-        <div className="flex flex-col h-full">
-          {/* Image Section */}
-          <AnimatedSection direction="left" delay={0.2} className="relative h-64 w-full overflow-hidden bg-gray-100 rounded-t-xl flex-shrink-0">
-            {service.icon?.asset ? (
-              <Image
-                src={urlForProduct(service.icon).url()}
-                alt={service.icon.alt || service.title}
-                fill
-                className="object-cover object-center transition-opacity duration-300"
-                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 540px"
-                priority
-
-              />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center">
-                <span className="text-white text-6xl font-bold opacity-20">
-                  {service.title[0]}</span>
-              </div>
-            )}
-            
-            
-           </AnimatedSection>
-
-          {/* Content */}
-          <div className="p-4 overflow-y-auto flex-1 min-h-0">
-            <StaggerContainer>
-              {/* Header */}
-              <StaggerItem>
-                <div className="mb-4">
-                  <div className="flex items-center gap-2 mb-2">
+            {/* Single Scrollable Content Area */}
+            <div className="overflow-y-auto flex-1 min-h-0">
+              {/* Image Section */}
+              <AnimatedSection direction="left" delay={0.2} className="relative w-full bg-gray-100 rounded-t-xl">
+                {service.icon?.asset ? (
+                  <Image
+                    src={urlForProduct(service.icon).url()}
+                    alt={service.icon.alt || service.title}
+                    width={1350}
+                    height={1080}
+                    className="w-full h-auto transition-opacity duration-300"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 540px"
+                    priority
+                  />
+                ) : (
+                  <div className="w-full h-64 bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center">
+                    <span className="text-white text-6xl font-bold opacity-20">
+                      {service.title[0]}
+                    </span>
                   </div>
-                  <h2 className="text-xl font-bold text-gray-900 mb-2">
-                    {service.title}
-                  </h2>
-                  <div className="text-gray-700 leading-7">
-                    {service.description ? (
-                      typeof service.description === 'string' ? (
-                        <p className="text-gray-700 leading-7 text-base font-normal tracking-wide whitespace-pre-line">
-                          {service.description}
-                        </p>
-                      ) : service.description.length > 0 ? (
-                        <PortableText
-                          value={service.description}
-                          components={portableTextComponents}
-                        />
+                )}
+              </AnimatedSection>
+
+              {/* Content */}
+              <div className="p-4">
+              <StaggerContainer>
+                {/* Header */}
+                <StaggerItem>
+                  <div className="mb-4">
+                    <div className="flex items-center gap-2 mb-2">
+                    </div>
+                    <h2 className="text-xl font-bold text-gray-900 mb-2">
+                      {service.title}
+                    </h2>
+                    <div className="text-gray-700 leading-7">
+                      {service.description ? (
+                        typeof service.description === 'string' ? (
+                          <p className="text-gray-700 leading-7 text-base font-normal tracking-wide whitespace-pre-line">
+                            {service.description}
+                          </p>
+                        ) : service.description.length > 0 ? (
+                          <PortableText
+                            value={service.description}
+                            components={portableTextComponents}
+                          />
+                        ) : (
+                          <p className="text-gray-700 leading-7 text-base font-normal tracking-wide">
+                            No description available.
+                          </p>
+                        )
                       ) : (
                         <p className="text-gray-700 leading-7 text-base font-normal tracking-wide">
                           No description available.
                         </p>
-                      )
-                    ) : (
-                      <p className="text-gray-700 leading-7 text-base font-normal tracking-wide">
-                        No description available.
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </StaggerItem>
-
-              {/* Price */}
-              {service.price && (
-                <StaggerItem>
-                  <div className="mb-4 p-3 bg-gray-50 rounded-xl">
-                    <div className="flex flex-col justify-between">
-                      <span className="text-sm text-gray-600">Harga Mulai Dari:</span>
-                      <span className="text-lg font-bold text-primary">
-                        {formatPrice(service.price)}
-                      </span>
+                      )}
                     </div>
                   </div>
                 </StaggerItem>
-              )}
 
-              {/* Features */}
-              {service.features && service.features.length > 0 && (
-                <StaggerItem>
-                  <div className="mb-4">
-                    <h3 className="text-base font-semibold text-gray-900 mb-2">
-                      Yang Termasuk:
-                    </h3>
-                    <div className="space-y-2">
-                      {service.features.map((feature, index) => (
-                        <motion.div 
-                          key={index} 
-                          initial={{ opacity: 0, x: -20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1, duration: 0.3 }}
-                          className="flex items-start gap-3"
-                        >
-                          <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                          <span className="text-gray-700">{feature}</span>
-                        </motion.div>
-                      ))}
+                {/* Price */}
+                {service.price && (
+                  <StaggerItem>
+                    <div className="mb-4 p-3 bg-gray-50 rounded-xl">
+                      <div className="flex flex-col justify-between">
+                        <span className="text-sm text-gray-600">Harga Mulai Dari:</span>
+                        <span className="text-lg font-bold text-primary">
+                          {formatPrice(service.price)}
+                        </span>
+                      </div>
                     </div>
+                  </StaggerItem>
+                )}
+
+                {/* Features */}
+                {service.features && service.features.length > 0 && (
+                  <StaggerItem>
+                    <div className="mb-4">
+                      <h3 className="text-base font-semibold text-gray-900 mb-2">
+                        Yang Termasuk:
+                      </h3>
+                      <div className="space-y-2">
+                        {service.features.map((feature, index) => (
+                          <motion.div 
+                            key={index} 
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.1, duration: 0.3 }}
+                            className="flex items-start gap-3"
+                          >
+                            <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                            <span className="text-gray-700">{feature}</span>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </div>
+                  </StaggerItem>
+                )}
+
+                {/* Additional Info */}
+                <StaggerItem>
+                  <div className="mb-4 grid grid-cols-1 gap-2">
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1, duration: 0.3 }}
+                      className="flex items-center gap-2 text-gray-600"
+                    >
+                      <MapPin className="w-4 h-4 text-primary" />
+                      <span className="text-xs">Destinasi Terpilih</span>
+                    </motion.div>
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2, duration: 0.3 }}
+                      className="flex items-center gap-2 text-gray-600"
+                    >
+                      <Clock className="w-4 h-4 text-primary" />
+                      <span className="text-xs">Fleksibel</span>
+                    </motion.div>
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.3, duration: 0.3 }}
+                      className="flex items-center gap-2 text-gray-600"
+                    >
+                      <Users className="w-4 h-4 text-primary" />
+                      <span className="text-xs">Grup & Pribadi</span>
+                    </motion.div>
                   </div>
                 </StaggerItem>
-              )}
 
-              {/* Additional Info */}
-              <StaggerItem>
-                <div className="mb-4 grid grid-cols-1 gap-2">
-                  <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1, duration: 0.3 }}
-                    className="flex items-center gap-2 text-gray-600"
-                  >
-                    <MapPin className="w-4 h-4 text-primary" />
-                    <span className="text-xs">Destinasi Terpilih</span>
-                  </motion.div>
-                  <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.3 }}
-                    className="flex items-center gap-2 text-gray-600"
-                  >
-                    <Clock className="w-4 h-4 text-primary" />
-                    <span className="text-xs">Fleksibel</span>
-                  </motion.div>
-                  <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3, duration: 0.3 }}
-                    className="flex items-center gap-2 text-gray-600"
-                  >
-                    <Users className="w-4 h-4 text-primary" />
-                    <span className="text-xs">Grup & Pribadi</span>
-                  </motion.div>
-                </div>
-              </StaggerItem>
-
-              {/* Action Buttons */}
-              <StaggerItem>
-                <div className="flex flex-col gap-2">
-                  <motion.a 
-                    href="https://wa.me/6281110002477"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    whileTap={{ scale: 0.95 }}
-                    transition={{ duration: 0.2 }}
-                    className="flex-1 border-2 border-primary bg-primary text-white py-2.5 px-4 rounded-lg text-sm font-semibold text-center inline-block"
-                  >
-                    Konsultasi Gratis
-                  </motion.a>
-                </div>
-              </StaggerItem>
-            </StaggerContainer>
-          </div>
-        </div>
+                {/* Action Buttons */}
+                <StaggerItem>
+                  <div className="flex flex-col gap-2">
+                    <motion.a 
+                      href="https://wa.me/6281110002477"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileTap={{ scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="flex-1 border-2 border-primary bg-primary text-white py-2.5 px-4 rounded-lg text-sm font-semibold text-center inline-block"
+                    >
+                      Konsultasi Gratis
+                    </motion.a>
+                  </div>
+                </StaggerItem>
+              </StaggerContainer>
+              </div>
+            </div>
           </motion.div>
         </motion.div>
       )}

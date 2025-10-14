@@ -81,7 +81,7 @@ export default function ServiceCard({
 
   // Theme configuration
   const themeConfig = {
-    cardBase: theme?.cards?.service || 'bg-white rounded-lg shadow-lg overflow-hidden',
+    cardBase: theme?.cards?.service || 'bg-white rounded-lg shadow-lg overflow-hidden ',
     primaryColor: 'bg-primary text-white',
     primaryText: 'text-primary',
     textPrimary: 'text-gray-900',
@@ -93,7 +93,7 @@ export default function ServiceCard({
   return (
     <div 
       className={`
-        relative overflow-hidden rounded-2xl shadow-2xl
+        relative overflow-hidden rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 shadow-lg
         ${isFeatured ? 'shadow-3xl' : ''}
         w-full h-[500px] cursor-pointer
         drop-shadow-lg
@@ -171,11 +171,11 @@ export function ServicesGrid({
   const getGridClass = () => {
     if (variant === 'compact') return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
     if (variant === 'featured') return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-    return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+    return 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 '
   }
 
   return (
-    <div className={`grid ${getGridClass()} gap-6 ${className}`}>
+    <div className={`grid ${getGridClass()} gap-6 ${className} `}>
       {services.map((service) => (
         <ServiceCard
           key={service._id}

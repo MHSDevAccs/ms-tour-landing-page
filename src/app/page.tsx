@@ -546,7 +546,7 @@ export default async function Home() {
             <div className="text-center">
               <Link
                 href="/blog"
-                className="border-2 border-primary text-white bg-primary px-8 py-4 rounded-lg font-semibold"
+                className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
                 Lihat Semua Artikel
               </Link>

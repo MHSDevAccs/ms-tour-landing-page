@@ -126,16 +126,13 @@ export default function FeaturedGallery({
         </StaggerContainer>
 
         {/* Show More Button */}
-        {showMore && galleries.length > 6 && (
+        {showMore && (
           <div className="text-center">
             <Link 
               href="/gallery"
-              className="inline-flex items-center px-8 py-3 bg-primary text-white font-semibold rounded-full hover:bg-primary/90 transition-colors duration-300 shadow-lg hover:shadow-xl"
+              className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
             >
               Lihat Semua Galeri
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
             </Link>
           </div>
         )}

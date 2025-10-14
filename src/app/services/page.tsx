@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import { ServicePackage } from '@/components/ServiceCard'
 import ServicePackagesSection from '@/components/ServicePackagesSection'
+import CTASection from '@/components/CTASection'
 import { generateServicePageJsonLd, generateBreadcrumbJsonLd } from '@/lib/jsonLd'
 import AnimatedSection, { PageTransition } from '@/components/AnimatedSection'
 
@@ -63,21 +64,30 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ServicesPage() {
-  // Fetch popular services and site settings from CMS
+  // Fetch popular services, site settings, and contact data from CMS
   let services: ServicePackage[] = []
   let siteSettings = null
+  let contactData = null
 
   try {
-    services = await sanityFetch<ServicePackage[]>({
-      query: queries.getPopularServices(10), // Get up to 10 popular services
-      tags: ['servicePackage']
-    })
-
-    // Get site settings for theme configuration
-    siteSettings = await sanityFetch<any>({
-      query: queries.getSiteSettings(),
-      tags: ['siteSettings']
-    })
+    const [servicesData, settingsData, contactInfo] = await Promise.all([
+      sanityFetch<ServicePackage[]>({
+        query: queries.getPopularServices(10), // Get up to 10 popular services
+        tags: ['servicePackage']
+      }),
+      sanityFetch<any>({
+        query: queries.getSiteSettings(),
+        tags: ['siteSettings']
+      }),
+      sanityFetch<any>({
+        query: queries.getContactDataBasic(),
+        tags: ['contactData']
+      })
+    ])
+    
+    services = servicesData
+    siteSettings = settingsData
+    contactData = contactInfo
   } catch (error) {
     console.error('Error fetching services:', error)
   }
@@ -103,12 +113,12 @@ export default async function ServicesPage() {
       />
       
       {/* Services Page Header */}
-      <AnimatedSection className="bg-gradient-to-br from-primary/10 to-primary-lighter/20 py-16 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+      <AnimatedSection className="bg-gradient-to-br from-primary-dark via-primary to-primary-light text-white py-20 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center sm:text-left">
+          <h1 className="text-4xl font-bold mb-4">
             Paket Rekomendasi
           </h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-white">
             Pilihan terbaik paket wisata yang telah dipercaya ribuan pelanggan untuk pengalaman perjalanan tak terlupakan
           </p>
         </div>
@@ -118,6 +128,15 @@ export default async function ServicesPage() {
       <ServicePackagesSection 
         servicePackages={services}
         siteSettings={siteSettings}
+        showViewAllButton={false}
+      />
+      
+      {/* Call to Action Section */}
+      <CTASection 
+        contactData={contactData}
+        title="Tertarik dengan Paket Kami?"
+        description="Konsultasikan kebutuhan perjalanan Anda dengan tim profesional kami. Dapatkan penawaran terbaik dan pelayanan yang memuaskan."
+        buttonText="Konsultasi Sekarang"
       />
     </PageTransition>
   )

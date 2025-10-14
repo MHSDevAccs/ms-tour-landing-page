@@ -14,6 +14,7 @@ import TestimonialsCarousel from '@/components/TestimonialsCarousel'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
 import BlogCard from '@/components/BlogCard'
 import HeroSlider from '@/components/HeroSlider'
+import CTASection from '@/components/CTASection'
 import AnimatedSection, { PageTransition, StaggerContainer, StaggerItem } from '@/components/AnimatedSection'
 import { generateOrganizationJsonLd, generateTravelServiceJsonLd, generateWebsiteJsonLd } from '@/lib/jsonLd'
 
@@ -220,7 +221,7 @@ interface SiteSettings {
 
 export default async function Home() {
   // Fetch all data in parallel for better performance
-  const [heroData, featuresData, servicePackages, featuredGalleries, siteSettings, testimonials, featuredBlogPosts] = await Promise.all([
+  const [heroData, featuresData, servicePackages, featuredGalleries, siteSettings, testimonials, featuredBlogPosts, contactData] = await Promise.all([
     sanityFetch<HeroSection>({
       query: queries.getHeroSection('id'),
       tags: ['heroSection']
@@ -263,6 +264,13 @@ export default async function Home() {
     blogService.getFeaturedPosts('id', 3).catch(error => {
       console.error('Failed to fetch featured blog posts:', error)
       return []
+    }),
+    sanityFetch<any>({
+      query: queries.getContactDataBasic(),
+      tags: ['contactData']
+    }).catch(error => {
+      console.error('Failed to fetch contact data:', error)
+      return null
     })
   ])
 
@@ -547,29 +555,11 @@ export default async function Home() {
         </section>
       )}
 
-      {/* Call to Action Section - Uses Site Settings */}
-      <section className="bg-white py-20 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <AnimatedSection direction="scale" delay={0.1}>
-            <div className="text-center bg-white rounded-lg shadow-lg p-8">
-              <h2 className="text-3xl font-bold text-black mb-4">
-                {siteSettings?.content?.ctaText || 'Siap Memulai Perjalanan Anda?'}
-              </h2>
-              <p className="text-lg text-gray-600 mb-6">
-                Hubungi kami sekarang untuk konsultasi gratis dan dapatkan penawaran terbaik untuk perjalanan impian Anda.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="https://wa.me/6287770005801"
-                  className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-                >
-                  Konsultasi Gratis
-                </a>
-              </div>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
+      {/* Call to Action Section - Dynamic WhatsApp Integration */}
+      <CTASection 
+        contactData={contactData}
+        title={siteSettings?.content?.ctaText || 'Siap Memulai Perjalanan Anda?'}
+      />
 
 
     </PageTransition>

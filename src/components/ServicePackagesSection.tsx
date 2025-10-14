@@ -8,11 +8,13 @@ import ServiceModal from '@/components/ServiceModal'
 interface ServicePackagesSectionProps {
   servicePackages: ServicePackage[]
   siteSettings?: any
+  showViewAllButton?: boolean
 }
 
 export default function ServicePackagesSection({ 
   servicePackages, 
-  siteSettings 
+  siteSettings,
+  showViewAllButton = true
 }: ServicePackagesSectionProps) {
   const [selectedService, setSelectedService] = useState<ServicePackage | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -61,14 +63,16 @@ export default function ServicePackagesSection({
               />
             </div>
           </div>
-          <div className="text-center">
-            <Link
-              href="/services"
-              className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
-            >
-              Lihat Semua Paket 
-            </Link>
-          </div>
+          {showViewAllButton && (
+            <div className="text-center">
+              <Link
+                href="/services"
+                className="inline-block bg-primary hover:bg-primary-dark text-white font-semibold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg"
+              >
+                Lihat Semua Paket 
+              </Link>
+            </div>
+          )}
         </div>
       </section>
 

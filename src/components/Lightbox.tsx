@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { urlFor } from '@/sanity/lib/image'
 import { GalleryImage } from '@/types/gallery'
+import { formatDateIndonesian, formatDateTimeIndonesian } from '@/utils/dateUtils'
 import { 
   X, 
   ChevronLeft, 
@@ -358,13 +359,7 @@ const Lightbox: React.FC<LightboxProps> = ({
                   <div>
                     <label className="text-sm text-gray-300">Tanggal Diambil</label>
                     <p className="text-white">
-                      {new Date(currentImage.dateTaken).toLocaleDateString('id-ID', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                      })}
+                      {formatDateTimeIndonesian(currentImage.dateTaken)}
                     </p>
                   </div>
                 )}

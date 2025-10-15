@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Gallery, GalleryCategory, GalleryGridProps } from '@/types/gallery'
 import { MapPin, Calendar, Camera, Eye } from 'lucide-react'
 import Lightbox from './Lightbox'
+import { formatDateIndonesian } from '@/utils/dateUtils'
 
 const GalleryGrid: React.FC<GalleryGridProps> = ({
   galleries,
@@ -124,11 +125,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
   }
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('id-ID', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
+    return formatDateIndonesian(dateString);
   };
 
   if (loading) {
@@ -307,10 +304,7 @@ const GalleryCard: React.FC<GalleryCardProps> = ({
   }
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('id-ID', {
-      year: 'numeric',
-      month: 'long'
-    })
+    return formatDateIndonesian(dateString)
   }
 
   return (

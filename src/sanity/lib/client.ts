@@ -808,5 +808,112 @@ export const queries = {
       isActive,
       lastUpdated
     }
+  `,
+
+  // Error Pages Configuration
+  getErrorPages: (language: string = 'id') => `
+    *[_type == "errorPages" && language == "${language}" && isActive == true][0] {
+      _id,
+      layout {
+        showHeader,
+        showFooter,
+        backgroundColor,
+        centerContent
+      },
+      error404 {
+        title,
+        subtitle,
+        description,
+        image {
+          asset-> {
+            _id,
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        },
+        primaryButton {
+          text,
+          link
+        },
+        secondaryButton {
+          text,
+          link
+        }
+      },
+      error500 {
+        title,
+        subtitle,
+        description,
+        image {
+          asset-> {
+            _id,
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        },
+        primaryButton {
+          text,
+          link
+        },
+        secondaryButton {
+          text,
+          link
+        }
+      },
+      error403 {
+        title,
+        subtitle,
+        description,
+        image {
+          asset-> {
+            _id,
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        },
+        primaryButton {
+          text,
+          link
+        },
+        secondaryButton {
+          text,
+          link
+        }
+      },
+      generalError {
+        title,
+        subtitle,
+        description,
+        image {
+          asset-> {
+            _id,
+            url,
+            metadata {
+              dimensions
+            }
+          },
+          alt
+        },
+        primaryButton {
+          text,
+          link
+        },
+        secondaryButton {
+          text,
+          link
+        }
+      },
+      language,
+      isActive
+    }
   `
 }

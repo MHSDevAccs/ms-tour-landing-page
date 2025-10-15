@@ -1,4 +1,5 @@
 import { client, sanityFetch } from '@/sanity/lib/client'
+import { formatDateIndonesian } from '@/utils/dateUtils'
 
 // GROQ queries for blog posts
 export const blogQueries = {
@@ -435,12 +436,7 @@ export const blogUtils = {
 
   // Format date
   formatDate(dateString: string, locale: string = 'id-ID'): string {
-    const date = new Date(dateString)
-    return date.toLocaleDateString(locale, {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })
+    return formatDateIndonesian(dateString)
   },
 
   // Generate excerpt from content

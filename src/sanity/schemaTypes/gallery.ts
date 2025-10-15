@@ -162,7 +162,12 @@ export default {
               const { title, subtitle } = selection
               return {
                 title: title || 'Untitled Image',
-                subtitle: subtitle ? new Date(subtitle).toLocaleDateString() : 'No date'
+                subtitle: subtitle ? new Date(subtitle).toLocaleDateString('id-ID', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  timeZone: 'UTC'
+                }) : 'No date'
               }
             }
           }

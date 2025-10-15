@@ -8,6 +8,7 @@ import { GalleryImage } from '@/types/gallery'
 import { ChevronLeft, ChevronRight, Camera, Calendar, User, Tag } from 'lucide-react'
 import Lightbox from './Lightbox'
 import { galleryService } from '@/lib/galleryService'
+import { formatDateIndonesian } from '@/utils/dateUtils'
 
 interface GalleryImageGridProps {
   gallerySlug: string
@@ -116,11 +117,7 @@ const GalleryImageGrid: React.FC<GalleryImageGridProps> = ({
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return null
-    return new Date(dateString).toLocaleDateString('id-ID', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })
+    return formatDateIndonesian(dateString)
   }
 
   if (loading && images.length === 0) {

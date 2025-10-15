@@ -5,6 +5,7 @@ import { urlForIcon } from '@/sanity/lib/image'
 import AnimatedSection, { StaggerContainer, StaggerItem, HoverCard } from './AnimatedSection'
 import { getStyleClasses, getGridClasses, getCardClasses, combineClasses } from '@/lib/cms-styles'
 import { useEffect, useState } from 'react'
+import { formatDateIndonesian } from '@/utils/dateUtils'
 
 // TypeScript interfaces for Testimonial
 interface Testimonial {
@@ -245,11 +246,7 @@ function TestimonialCard({ testimonial, showRating, variant }: TestimonialCardPr
         {/* Tour Date */}
         {testimonial.dateOfTour && (
           <div className="text-xs text-gray-500 mt-2 text-right">
-            {new Date(testimonial.dateOfTour).toLocaleDateString('id-ID', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
+            {formatDateIndonesian(testimonial.dateOfTour)}
           </div>
         )}
       </div>

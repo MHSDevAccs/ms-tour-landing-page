@@ -9,6 +9,7 @@ import AnimatedSection from '@/components/AnimatedSection'
 import GalleryGrid from '@/components/GalleryGrid'
 import GalleryImageGrid from '@/components/GalleryImageGrid'
 import ShareButton from '@/components/ShareButton'
+import { formatDateIndonesian } from '@/utils/dateUtils'
 
 // Enable static generation with revalidation
 export const revalidate = 1200 // Revalidate every 20 minutes for individual gallery pages
@@ -112,11 +113,7 @@ export default async function GalleryDetailPage({ params }: Props) {
     }
 
     const formatDate = (dateString: string) => {
-      return new Date(dateString).toLocaleDateString('id-ID', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      })
+      return formatDateIndonesian(dateString)
     }
 
     const getCategoryName = (category: string) => {

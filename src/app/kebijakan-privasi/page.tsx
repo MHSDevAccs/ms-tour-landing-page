@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { PageTransition } from '@/components/AnimatedSection'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
 import { sanityFetch, queries } from '@/sanity/lib/client'
+import LastUpdatedDate from '@/components/LastUpdatedDate'
 
 // Force dynamic rendering
 // Enable static generation with revalidation
@@ -63,15 +64,7 @@ export default async function PrivacyPolicyPage() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="bg-white rounded-lg shadow-lg p-8">
           {/* Last Updated */}
-          <div className="mb-8 p-4 bg-primary-lighter rounded-lg">
-            <p className="text-sm text-primary-dark">
-              <strong>Terakhir diperbarui:</strong> {new Date().toLocaleDateString('id-ID', { 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
-              })}
-            </p>
-          </div>
+          <LastUpdatedDate />
 
           {/* Introduction */}
           <section className="mb-8">

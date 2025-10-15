@@ -121,6 +121,13 @@ export const structure: StructureResolver = (S) =>
                     .schemaType('contactData')
                     .documentId('contactData')
                 ),
+              S.listItem()
+                .title('⚠️ Error Pages')
+                .child(
+                  S.document()
+                    .schemaType('errorPages')
+                    .documentId('errorPages')
+                ),
             ])
         ),
       
@@ -128,6 +135,6 @@ export const structure: StructureResolver = (S) =>
       
       // All Documents (fallback)
       ...S.documentTypeListItems().filter(
-        (listItem) => !['heroSection', 'featuresSection', 'testimonial', 'siteSettings', 'businessInfo', 'themeSettings', 'socialSettings', 'contentSettings', 'servicePackage', 'gallery', 'galleryCategory', 'blogPost', 'contactSubmission', 'aboutUs', 'contactData'].includes(listItem.getId() || '')
+        (listItem) => !['heroSection', 'featuresSection', 'testimonial', 'siteSettings', 'businessInfo', 'themeSettings', 'socialSettings', 'contentSettings', 'servicePackage', 'gallery', 'galleryCategory', 'blogPost', 'contactSubmission', 'aboutUs', 'contactData', 'errorPages'].includes(listItem.getId() || '')
       ),
     ])

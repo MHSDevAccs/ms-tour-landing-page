@@ -6,6 +6,7 @@ import { motion, AnimatePresence, PanInfo } from 'framer-motion'
 import { urlFor } from '@/sanity/lib/image'
 import { Testimonial, TestimonialsCarouselProps } from '@/types/testimonial'
 import { ChevronLeft, ChevronRight, Star, Play, Pause, Quote } from 'lucide-react'
+import { formatDateIndonesian } from '@/utils/dateUtils'
 
 const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
   testimonials,
@@ -117,10 +118,7 @@ const TestimonialsCarousel: React.FC<TestimonialsCarouselProps> = ({
   }
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('id-ID', {
-      year: 'numeric',
-      month: 'long'
-    })
+    return formatDateIndonesian(dateString)
   }
 
   if (!testimonials || testimonials.length === 0) {
@@ -219,10 +217,7 @@ const TestimonialCard: React.FC<TestimonialCardProps> = ({
   }
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('id-ID', {
-      year: 'numeric',
-      month: 'long'
-    })
+    return formatDateIndonesian(dateString)
   }
 
   return (

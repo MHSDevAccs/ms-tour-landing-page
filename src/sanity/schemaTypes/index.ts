@@ -10,6 +10,7 @@ import servicePackage from './servicePackage'
 import gallery from './gallery'
 import galleryCategory from './galleryCategory'
 import { aboutUs } from './aboutUs'
+import { errorPages } from './errorPages'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -23,6 +24,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     servicePackage, 
     gallery,
     galleryCategory,
-    aboutUs
+    aboutUs,
+    errorPages
   ],
 }

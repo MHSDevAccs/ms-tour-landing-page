@@ -16,10 +16,10 @@ export default function Loading() {
         
         {/* Loading Text */}
         <h2 className="text-xl font-semibold text-gray-700 mb-2">
-          Memuat Halaman...
+          Memuat Layanan...
         </h2>
         <p className="text-gray-500">
-          Mohon tunggu sebentar
+          Sedang menyiapkan informasi paket wisata
         </p>
       </div>
     </div>

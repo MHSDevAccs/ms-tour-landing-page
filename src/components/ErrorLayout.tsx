@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
+import { GooeyLoader } from '@/components/ui/loader-10'
 
 // Types
 interface ErrorButton {
@@ -135,8 +136,23 @@ export default function ErrorLayout({
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading...</p>
+          {/* Gooey Loader */}
+          <div className="mb-8">
+            <GooeyLoader
+              primaryColor="#39ace7" // Using your brand primary color
+              secondaryColor="#9bd4e4" // Using your brand light color
+              borderColor="#e5e7eb" // Gray border
+              className="mx-auto"
+            />
+          </div>
+          
+          {/* Loading Text */}
+          <h2 className="text-xl font-semibold text-gray-700 mb-2">
+            Memuat Halaman...
+          </h2>
+          <p className="text-gray-500">
+            Mohon tunggu sebentar
+          </p>
         </div>
       </div>
     )

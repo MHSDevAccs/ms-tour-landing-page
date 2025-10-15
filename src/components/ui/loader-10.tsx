@@ -1,4 +1,8 @@
+"use client";
+
 import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
+
 import { cn } from "@/lib/utils"; // Assumes a standard shadcn setup
 
 export interface GooeyLoaderProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -18,6 +22,69 @@ const GooeyLoader = React.forwardRef<HTMLDivElement, GooeyLoaderProps>(
       "--gooey-secondary-color": secondaryColor || "var(--secondary)",
       "--gooey-border-color": borderColor || "var(--border)",
     } as React.CSSProperties;
+
+    // Use useEffect to add styles after component mounts to prevent hydration issues
+    React.useEffect(() => {
+      // Check if styles are already added
+      if (document.getElementById('gooey-loader-styles')) return;
+
+      const styleElement = document.createElement('style');
+      styleElement.id = 'gooey-loader-styles';
+      styleElement.textContent = `
+        .gooey-loader {
+          width: 12em;
+          height: 3em;
+          position: relative;
+          overflow: hidden;
+          border-bottom: 8px solid var(--gooey-border-color);
+          filter: url(#gooey-loader-filter);
+        }
+
+        .gooey-loader::before,
+        .gooey-loader::after {
+          content: '';
+          position: absolute;
+          border-radius: 50%;
+        }
+
+        .gooey-loader::before {
+          width: 22em;
+          height: 18em;
+          background-color: var(--gooey-primary-color);
+          left: -2em;
+          bottom: -18em;
+          animation: gooey-loader-wee1 2s linear infinite;
+        }
+
+        .gooey-loader::after {
+          width: 16em;
+          height: 12em;
+          background-color: var(--gooey-secondary-color);
+          left: -4em;
+          bottom: -12em;
+          animation: gooey-loader-wee2 2s linear infinite 0.75s;
+        }
+
+        @keyframes gooey-loader-wee1 {
+          0% {
+            transform: translateX(-10em) rotate(0deg);
+          }
+          100% {
+            transform: translateX(7em) rotate(180deg);
+          }
+        }
+
+        @keyframes gooey-loader-wee2 {
+          0% {
+            transform: translateX(-8em) rotate(0deg);
+          }
+          100% {
+            transform: translateX(8em) rotate(180deg);
+          }
+        }
+      `;
+      document.head.appendChild(styleElement);
+    }, []);
 
     return (
       <div
@@ -43,65 +110,6 @@ const GooeyLoader = React.forwardRef<HTMLDivElement, GooeyLoaderProps>(
             </filter>
           </defs>
         </svg>
-
-        {/* Embedded styles for complex animations and pseudo-elements that are not
-          achievable with standard Tailwind classes. Using CSS variables makes them theme-aware.
-        */}
-        <style>
-          {`
-            .gooey-loader {
-              width: 12em;
-              height: 3em;
-              position: relative;
-              overflow: hidden;
-              border-bottom: 8px solid var(--gooey-border-color);
-              filter: url(#gooey-loader-filter);
-            }
-
-            .gooey-loader::before,
-            .gooey-loader::after {
-              content: '';
-              position: absolute;
-              border-radius: 50%;
-            }
-
-            .gooey-loader::before {
-              width: 22em;
-              height: 18em;
-              background-color: var(--gooey-primary-color);
-              left: -2em;
-              bottom: -18em;
-              animation: gooey-loader-wee1 2s linear infinite;
-            }
-
-            .gooey-loader::after {
-              width: 16em;
-              height: 12em;
-              background-color: var(--gooey-secondary-color);
-              left: -4em;
-              bottom: -12em;
-              animation: gooey-loader-wee2 2s linear infinite 0.75s;
-            }
-
-            @keyframes gooey-loader-wee1 {
-              0% {
-                transform: translateX(-10em) rotate(0deg);
-              }
-              100% {
-                transform: translateX(7em) rotate(180deg);
-              }
-            }
-
-            @keyframes gooey-loader-wee2 {
-              0% {
-                transform: translateX(-8em) rotate(0deg);
-              }
-              100% {
-                transform: translateX(8em) rotate(180deg);
-              }
-            }
-          `}
-        </style>
 
         {/* The loader element that the styles target */}
         <div className="gooey-loader" />

@@ -4,6 +4,7 @@ import { ReactNode, useEffect, useState } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import WhatsAppFloat from '../components/WhatsAppFloat'
+import NavigationLoader from '../components/NavigationLoader'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 
 interface MainLayoutProps {
@@ -58,6 +59,7 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       className="min-h-screen flex flex-col"
       style={backgroundStyle}
     >
+      <NavigationLoader />
       <Header />
       <main className="flex-grow">
         {children}

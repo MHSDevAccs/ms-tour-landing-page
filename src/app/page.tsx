@@ -1,11 +1,11 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { PortableText } from '@portabletext/react'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import { urlForHero, urlForProduct } from '@/sanity/lib/image'
 import { blogService } from '@/lib/blogService'
 import { galleryService } from '@/lib/galleryService'
-import FeaturesSection from '@/components/FeaturesSection'
 import ServicePackagesSection from '@/components/ServicePackagesSection'
 import FeaturedGallery from '@/components/FeaturedGallery'
 import { ServicePackage } from '@/components/ServiceCard'
@@ -17,6 +17,23 @@ import HeroSlider from '@/components/HeroSlider'
 import CTASection from '@/components/CTASection'
 import AnimatedSection, { PageTransition, StaggerContainer, StaggerItem } from '@/components/AnimatedSection'
 import { generateOrganizationJsonLd, generateTravelServiceJsonLd, generateWebsiteJsonLd } from '@/lib/jsonLd'
+
+// Portable Text components for styling
+const portableTextComponents = {
+  block: {
+    normal: ({ children }: any) => (
+      <p className="text-gray-700 leading-relaxed mb-4 last:mb-0">{children}</p>
+    ),
+  },
+  marks: {
+    strong: ({ children }: any) => (
+      <strong className="font-semibold text-gray-900">{children}</strong>
+    ),
+    em: ({ children }: any) => (
+      <em className="italic">{children}</em>
+    ),
+  },
+}
 
 // Enable static generation with revalidation for home page
 export const revalidate = 300 // Revalidate every 5 minutes for fresh home page content
@@ -126,28 +143,6 @@ interface HeroSection {
   language: string
 }
 
-interface Feature {
-  title: string
-  description: string
-  icon?: {
-    asset: {
-      _id: string
-      url: string
-    }
-    alt?: string
-  }
-  link?: string
-}
-
-interface FeaturesSection {
-  _id: string
-  sectionTitle: string
-  sectionSubtitle?: string
-  features: Feature[]
-  isActive: boolean
-  language: string
-}
-
 interface SiteSettings {
   _id: string
   logo?: {
@@ -221,19 +216,12 @@ interface SiteSettings {
 
 export default async function Home() {
   // Fetch all data in parallel for better performance
-  const [heroData, featuresData, servicePackages, featuredGalleries, siteSettings, testimonials, featuredBlogPosts, contactData] = await Promise.all([
+  const [heroData, servicePackages, featuredGalleries, siteSettings, aboutUs, testimonials, featuredBlogPosts, contactData] = await Promise.all([
     sanityFetch<HeroSection>({
       query: queries.getHeroSection('id'),
       tags: ['heroSection']
     }).catch(error => {
       console.error('Failed to fetch hero data:', error)
-      return null
-    }),
-    sanityFetch<FeaturesSection>({
-      query: queries.getFeaturesSection('id'),
-      tags: ['featuresSection']
-    }).catch(error => {
-      console.error('Failed to fetch features data:', error)
       return null
     }),
     sanityFetch<ServicePackage[]>({
@@ -252,6 +240,13 @@ export default async function Home() {
       tags: ['siteSettings']
     }).catch(error => {
       console.error('Failed to fetch site settings:', error)
+      return null
+    }),
+    sanityFetch<any>({
+      query: queries.getAboutUs(),
+      tags: ['aboutUs']
+    }).catch(error => {
+      console.error('Failed to fetch about us data:', error)
       return null
     }),
     sanityFetch<any[]>({
@@ -314,25 +309,130 @@ export default async function Home() {
         />
       </div>
 
+      {/* About Section - Company Information */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+              {aboutUs?.mainTitle || 'Tentang Kami'}
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              {aboutUs?.subtitle || 'Mengenal lebih dekat perjalanan spiritual bersama Mahabbatussholihin Tour & Travel'}
+            </p>
+          </div>
 
-      {/* Features Section - Reusable Component */}
-      <FeaturesSection data={featuresData} variant="default" maxFeatures={3} />
+          {/* Cerita Kami Section */}
+          <AnimatedSection className="mb-8">
+            <div className="bg-white rounded-lg shadow-md p-8">
+              <h3 className="text-2xl font-semibold text-black mb-2">
+                {aboutUs?.contentSection?.ourStory?.title || 'Cerita Kami'}
+              </h3>
+              <div className="w-38 h-1 bg-primary mb-4"></div>
+              <div className="text-gray-700 leading-relaxed">
+                {aboutUs?.contentSection?.ourStory?.content ? (
+                  <PortableText
+                    value={aboutUs.contentSection.ourStory.content}
+                    components={portableTextComponents}
+                  />
+                ) : (
+                  <p>Mahabbatussholihin Tour & Travel didirikan dengan komitmen untuk memberikan pelayanan terbaik dalam bidang perjalanan spiritual dan wisata. Dengan pengalaman bertahun-tahun, kami telah melayani ribuan jamaah untuk menunaikan ibadah haji dan umrah serta wisata ke berbagai destinasi menarik.</p>
+                )}
+              </div>
+            </div>
+          </AnimatedSection>
 
-      {/* Service Packages Section */}
-      <ServicePackagesSection 
-        servicePackages={servicePackages}
-        siteSettings={siteSettings}
-      />
+          {/* Misi Kami Section */}
+          <AnimatedSection className="mb-8">
+            <div className="bg-white rounded-lg shadow-md p-8">
+              <h3 className="text-2xl font-semibold text-black mb-2">
+                {aboutUs?.contentSection?.ourMission?.title || 'Misi Kami'}
+              </h3>
+              <div className="w-32 h-1 bg-primary mb-4"></div>
+              <div className="text-gray-700 leading-relaxed">
+                {aboutUs?.contentSection?.ourMission?.content ? (
+                  <PortableText
+                    value={aboutUs.contentSection.ourMission.content}
+                    components={portableTextComponents}
+                  />
+                ) : (
+                  <p>Dengan ridho Alloh SWT, kami berkomitmen nyediain layanan perjalanan yang berkah dan penuh makna yang bisa melampaui ekspektasi jamaah kami sambil menjaga amanah dan tanggung jawab dalam setiap langkah perjalanan.</p>
+                )}
+              </div>
+            </div>
+          </AnimatedSection>
 
-      {/* Featured Gallery Section */}
-      {featuredGalleries && featuredGalleries.length > 0 && (
-        <FeaturedGallery
-          galleries={featuredGalleries}
-          title="Galeri Perjalanan Terbaik"
-          subtitle="Saksikan momen-momen indah dari perjalanan wisata bersama kami"
-          showMore={true}
-        />
-      )}
+          {/* Mengapa Memilih Kami Section */}
+          <AnimatedSection>
+            <div className="bg-white rounded-lg shadow-md p-8">
+              <h3 className="text-2xl font-semibold text-black mb-2">
+                {aboutUs?.contentSection?.whyChooseUs?.title || 'Mengapa Memilih Kami'}
+              </h3>
+              <div className="w-74 h-1 bg-primary mb-6"></div>
+              
+              <StaggerContainer className="space-y-4">
+                {aboutUs?.contentSection?.whyChooseUs?.items && aboutUs.contentSection.whyChooseUs.items.length > 0 ? (
+                  aboutUs.contentSection.whyChooseUs.items.map((item: any, index: number) => (
+                    <StaggerItem key={index}>
+                      <div className="flex items-start gap-3">
+                        <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                        <div>
+                          <h4 className="font-semibold text-gray-800 mb-1">{item.title}</h4>
+                          <p className="text-gray-700 leading-relaxed">{item.description}</p>
+                        </div>
+                      </div>
+                    </StaggerItem>
+                  ))
+                ) : (
+                  // Default items if not set in CMS
+                  <>
+                    <StaggerItem>
+                      <div className="flex items-start gap-3">
+                        <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                        <p className="text-gray-700 leading-relaxed">
+                          Pengetahuan lokal yang ahli dan itinerary yang udah dikurasi dengan penuh barakah
+                        </p>
+                      </div>
+                    </StaggerItem>
+                    <StaggerItem>
+                      <div className="flex items-start gap-3">
+                        <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                        <p className="text-gray-700 leading-relaxed">
+                          Dukungan jamaah 24/7 sepanjang perjalanan dengan penuh amanah
+                        </p>
+                      </div>
+                    </StaggerItem>
+                    <StaggerItem>
+                      <div className="flex items-start gap-3">
+                        <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                        <p className="text-gray-700 leading-relaxed">
+                          Harga yang berkah dengan kebijakan transparan tanpa biaya tersembunyi
+                        </p>
+                      </div>
+                    </StaggerItem>
+                    <StaggerItem>
+                      <div className="flex items-start gap-3">
+                        <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                        <p className="text-gray-700 leading-relaxed">
+                          Praktik perjalanan yang halal dan berkah untuk komunitas lokal
+                        </p>
+                      </div>
+                    </StaggerItem>
+                    <StaggerItem>
+                      <div className="flex items-start gap-3">
+                        <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                        <p className="text-gray-700 leading-relaxed">
+                          Opsi pemesanan fleksibel dan paket yang bisa disesuaikan sesuai kebutuhan jamaah
+                        </p>
+                      </div>
+                    </StaggerItem>
+                  </>
+                )}
+              </StaggerContainer>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
 
       {/* Fasilitas Jamaah Section */}
       <section className="py-16 bg-gray-50">
@@ -485,6 +585,22 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Service Packages Section */}
+      <ServicePackagesSection 
+        servicePackages={servicePackages}
+        siteSettings={siteSettings}
+      />
+
+      {/* Featured Gallery Section */}
+      {featuredGalleries && featuredGalleries.length > 0 && (
+        <FeaturedGallery
+          galleries={featuredGalleries}
+          title="Galeri Perjalanan Terbaik"
+          subtitle="Saksikan momen-momen indah dari perjalanan wisata bersama kami"
+          showMore={true}
+        />
+      )}
+
       {/* Testimonials Section */}
       {testimonials && testimonials.length > 0 && (
         <section className="py-16 bg-gray-50">
@@ -514,7 +630,7 @@ export default async function Home() {
 
       {/* Featured Blog Posts Section */}
       {featuredBlogPosts && featuredBlogPosts.length > 0 && (
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <div className="flex items-center justify-center mb-4">

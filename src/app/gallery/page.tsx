@@ -19,7 +19,25 @@ export async function generateMetadata(): Promise<Metadata> {
 
     return {
       description: siteSettings?.pageContent?.galleryDescription || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan pengalaman bersama MS Tour & Travel.',
-      keywords: siteSettings?.pageContent?.galleryKeywords || 'galeri foto, destinasi wisata, tur budaya, petualangan, Indonesia, MS Tour',
+      keywords: siteSettings?.pageContent?.galleryKeywords || [
+        // Brand gallery keywords
+        'galeri mahabbatussholihin', 'foto mahabbatussholihin', 'gallery mahabbatussholihin',
+        'galeri MS travel', 'foto MS tour', 'gallery MS travel', 'album MS tour',
+        
+        // Gallery variations and typos
+        'galeri mahabbatushholihin', 'foto mahabbatusholihin', 'gallery mahabatussholihin',
+        'galeri ms travel', 'foto ms tour', 'album ms travel',
+        
+        // Content keywords
+        'galeri foto', 'destinasi wisata', 'tur budaya', 'petualangan', 'Indonesia',
+        'foto perjalanan', 'album wisata', 'dokumentasi travel', 'galeri destinasi',
+        'foto umroh', 'galeri haji', 'album perjalanan', 'photo gallery travel',
+        'travel photography', 'destination photos', 'tour documentation',
+        
+        // Indonesian gallery keywords
+        'galeri wisata indonesia', 'foto tempat wisata', 'album liburan',
+        'dokumentasi perjalanan', 'galeri travel agent', 'portfolio travel'
+      ].join(', '),
       openGraph: {
         title: siteSettings?.pageContent?.galleryTitle || 'Galeri Foto - Mahabbatussholihin Tour & Travel',
         description: siteSettings?.pageContent?.galleryDescription || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata dan pengalaman tur.',

@@ -25,10 +25,30 @@ export async function generateMetadata(): Promise<Metadata> {
 
       description,
       keywords: [
+        // Brand services keywords
+        'layanan mahabbatussholihin', 'paket wisata mahabbatussholihin', 'umroh mahabbatussholihin',
+        'layanan MS travel', 'paket tour MS travel', 'umroh MS tour',
+        'mahabbatussholihin tour package', 'mahabbatussholihin travel service',
+        
+        // Service variations and typos
+        'layanan mahabbatushholihin', 'paket wisata mahabbatusholihin', 'umroh mahabatussholihin',
+        'layanan ms travel', 'paket tour ms travel', 'service mahabbatussholihin',
+        
+        // Core services
         'layanan travel', 'paket wisata', 'tour domestik', 'tour internasional',
-        'paket umroh', 'corporate travel', 'group tour', 'honeymoon package',
-        'family trip', 'adventure tour', 'cultural tour', 'beach holiday',
-        'mountain trekking', 'city tour', 'custom itinerary', 'travel consultation'
+        'paket umroh', 'paket haji', 'umroh plus', 'haji plus', 'umroh murah',
+        'corporate travel', 'group tour', 'honeymoon package', 'family trip',
+        'adventure tour', 'cultural tour', 'beach holiday', 'mountain trekking',
+        'city tour', 'custom itinerary', 'travel consultation', 'study tour',
+        
+        // Location specific services
+        'travel jakarta', 'umroh jakarta', 'tour operator jakarta',
+        'agen travel indonesia', 'paket wisata indonesia', 'destinasi wisata',
+        'wisata halal', 'wisata syariah', 'wisata religi', 'ziarah',
+        
+        // Service quality keywords
+        'travel terpercaya', 'pelayanan professional', 'harga terbaik',
+        'travel berlisensi', 'agen resmi', 'full service travel'
       ],
       openGraph: {
         description,

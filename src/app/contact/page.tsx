@@ -22,10 +22,28 @@ export async function generateMetadata(): Promise<Metadata> {
     return {
       description,
       keywords: [
-        'hubungi mahabbatussholihin', 'kontak travel agent', 'konsultasi travel', 'booking tour',
+        // Brand contact keywords
+        'hubungi mahabbatussholihin', 'kontak mahabbatussholihin', 'contact mahabbatussholihin',
+        'hubungi MS travel', 'kontak MS tour', 'customer service mahabbatussholihin',
+        'whatsapp mahabbatussholihin', 'telepon mahabbatussholihin', 'email mahabbatussholihin',
+        
+        // Contact variations and typos
+        'hubungi mahabbatushholihin', 'kontak mahabbatusholihin', 'contact mahabatussholihin',
+        'hubungi ms travel', 'kontak ms tour', 'whatsapp ms travel',
+        
+        // General contact services
+        'kontak travel agent', 'konsultasi travel', 'booking tour', 'reservasi travel',
         'informasi paket wisata', 'customer service', 'travel consultation', 'whatsapp travel',
         'telepon travel agency', 'email travel', 'alamat kantor travel', 'jam operasional',
-        'konsultasi gratis', 'tanya jawab travel', 'bantuan booking', 'layanan pelanggan'
+        'konsultasi gratis', 'tanya jawab travel', 'bantuan booking', 'layanan pelanggan',
+        
+        // Location and office keywords
+        'kantor mahabbatussholihin jakarta', 'alamat MS travel', 'lokasi kantor travel',
+        'office mahabbatussholihin', 'head office travel', 'cabang travel',
+        
+        // Service inquiry keywords
+        'tanya harga umroh', 'konsultasi paket wisata', 'booking online travel',
+        'customer support 24/7', 'live chat travel', 'quick response travel'
       ],
       openGraph: {
         title,

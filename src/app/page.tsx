@@ -52,10 +52,33 @@ export async function generateMetadata(): Promise<Metadata> {
     return {
       description,
       keywords: [
-        'mahabbatussholihin tour', 'travel agency indonesia', 'paket wisata', 'tour operator',
-        'wisata domestik', 'wisata internasional', 'paket umroh', 'agen travel terpercaya',
-        'liburan keluarga', 'honeymoon package', 'corporate travel', 'group tour',
-        'destinasi wisata indonesia', 'travel murah', 'tour guide', 'hotel booking'
+        // Brand name variations and typos
+        'mahabbatussholihin', 'mahabbatushholihin', 'mahabbatusholihin', 'mahabbatussholihin tour',
+        'mahabbatussholihin travel', 'mahabbatussholihin tour travel', 'mahabbatussholihin tour & travel',
+        'mahabbatussholihin tour dan travel', 'mahabbatusholihin tour', 'mahabbatusholihin travel',
+        'MS travel', 'MS tour', 'MS tour travel', 'ms travel indonesia', 'ms tour indonesia',
+        'mahabbatussholihin indonesia', 'mahabbatussholihin jakarta', 'mahabbatussholihin umroh',
+        
+        // Common misspellings and variations
+        'mahabatussholihin', 'mahabbatusholihin', 'mahabbatussalihin', 'mahabbatussholihen',
+        'mahabbatussholikhin', 'mahabbatussholihin tour', 'mahabbatussholikin',
+        'mahabbatussolihin', 'mahabbatussalikhin', 'mahabbatussolichin',
+        
+        // Service related keywords
+        'travel agency indonesia', 'agen travel jakarta', 'tour operator indonesia',
+        'paket wisata', 'paket tour', 'paket umroh', 'paket haji', 'umroh murah',
+        'travel umroh terpercaya', 'agen umroh resmi', 'tour travel jakarta',
+        'wisata domestik', 'wisata internasional', 'liburan keluarga', 'honeymoon package',
+        'corporate travel', 'group tour', 'study tour', 'family trip',
+        
+        // Location and destination keywords
+        'destinasi wisata indonesia', 'wisata halal', 'wisata syariah', 'wisata religi',
+        'travel murah jakarta', 'tour guide indonesia', 'hotel booking indonesia',
+        'tiket pesawat murah', 'paket wisata murah', 'travel agent terpercaya',
+        
+        // Professional services
+        'jasa travel professional', 'pelayanan travel terbaik', 'travel berpengalaman',
+        'travel berlisensi', 'travel resmi', 'mitra perjalanan terpercaya'
       ],
       openGraph: {
         title,

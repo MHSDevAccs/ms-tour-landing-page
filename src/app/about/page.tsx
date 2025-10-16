@@ -54,10 +54,26 @@ export async function generateMetadata(): Promise<Metadata> {
     return {
       description,
       keywords: [
-        'tentang mahabbatussholihin', 'profil perusahaan travel', 'sejarah travel agency',
-        'visi misi travel', 'tim professional travel', 'pengalaman travel', 'kredibilitas agen travel',
-        'legalitas travel', 'sertifikat travel', 'award travel agency', 'testimoni pelanggan',
-        'komitmen pelayanan', 'nilai perusahaan', 'budaya kerja travel', 'kantor travel'
+        // Brand name variations and typos for about page
+        'tentang mahabbatussholihin', 'tentang mahabbatushholihin', 'tentang mahabbatusholihin',
+        'profil mahabbatussholihin', 'sejarah mahabbatussholihin', 'about mahabbatussholihin',
+        'tentang MS travel', 'tentang MS tour', 'profil MS travel', 'sejarah MS tour',
+        'mahabbatussholihin company profile', 'mahabbatussholihin tour & travel profile',
+        
+        // Company and service related
+        'profil perusahaan travel', 'sejarah travel agency', 'about travel company',
+        'visi misi travel', 'visi misi mahabbatussholihin', 'misi MS travel',
+        'tim professional travel', 'pengalaman travel', 'kredibilitas agen travel',
+        'legalitas travel', 'sertifikat travel', 'lisensi travel agency',
+        'award travel agency', 'testimoni pelanggan', 'review mahabbatussholihin',
+        
+        // Trust and credibility keywords
+        'komitmen pelayanan', 'nilai perusahaan', 'budaya kerja travel', 'kantor travel',
+        'travel terpercaya jakarta', 'agen umroh terpercaya', 'travel berlisensi resmi',
+        'pengalaman bertahun-tahun', 'pelayanan professional', 'standar internasional',
+        
+        // Misspellings for about page
+        'tentang mahabatussholihin', 'profil mahabbatusholihin', 'sejarah mahabbatussalihin'
       ],
       openGraph: {
         title,

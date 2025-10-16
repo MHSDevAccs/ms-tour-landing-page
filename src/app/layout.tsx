@@ -19,10 +19,25 @@ export const metadata: Metadata = {
   },
   description: "Jelajahi dunia bersama Mahabbatussholihin Tour & Travel - Mitra terpercaya untuk pengalaman perjalanan yang tak terlupakan. Paket wisata domestik, internasional, dan umroh terbaik dengan pelayanan profesional.",
   keywords: [
+    // Core brand keywords with variations and common typos
+    "mahabbatussholihin", "mahabbatushholihin", "mahabbatusholihin", "mahabatussholihin",
+    "mahabbatussholihin tour", "mahabbatussholihin travel", "mahabbatussholihin tour & travel",
+    "mahabbatussholihin tour dan travel", "MS travel", "MS tour", "ms travel", "ms tour",
+    
+    // Service keywords
     "tour", "travel", "vacation", "holiday", "tourism", "Indonesia", 
     "travel agency", "tour packages", "paket wisata", "wisata domestik", 
-    "wisata internasional", "umroh", "agen travel", "liburan", "destinasi wisata",
-    "travel agent", "tour operator", "paket tour", "wisata religi", "mahabbatussholihin"
+    "wisata internasional", "umroh", "paket umroh", "umroh murah", "haji",
+    "agen travel", "liburan", "destinasi wisata", "travel agent", "tour operator", 
+    "paket tour", "wisata religi", "wisata halal", "wisata syariah",
+    
+    // Location keywords
+    "travel jakarta", "agen travel jakarta", "tour operator jakarta",
+    "umroh jakarta", "travel indonesia", "wisata indonesia",
+    
+    // Service quality keywords
+    "travel terpercaya", "agen travel terpercaya", "travel berlisensi",
+    "pelayanan professional", "travel murah", "tour guide indonesia"
   ],
   authors: [{ name: "Mahabbatussholihin Tour & Travel" }],
   creator: "Mahabbatussholihin Tour & Travel",

@@ -21,8 +21,23 @@ export const metadata: Metadata = {
   title: 'Blog - Mahabbatussholihin Tour & Travel',
   description: 'Temukan tips perjalanan, destinasi wisata, dan panduan lengkap untuk petualangan Anda bersama Mahabbatussholihin Tour & Travel.',
   keywords: [
+    // Brand blog keywords
+    'blog mahabbatussholihin', 'artikel mahabbatussholihin', 'blog MS travel',
+    'artikel MS tour', 'tips mahabbatussholihin', 'panduan mahabbatussholihin',
+    
+    // Blog variations and typos
+    'blog mahabbatushholihin', 'artikel mahabbatusholihin', 'blog mahabatussholihin',
+    'tips ms travel', 'panduan ms tour', 'artikel ms travel',
+    
+    // Content keywords
     'blog travel', 'tips perjalanan', 'destinasi wisata', 'panduan travel',
-    'artikel wisata', 'pengalaman travel', 'informasi destinasi', 'review tempat wisata'
+    'artikel wisata', 'pengalaman travel', 'informasi destinasi', 'review tempat wisata',
+    'cerita perjalanan', 'travel blog indonesia', 'tips umroh', 'panduan haji',
+    'destinasi halal', 'wisata syariah', 'travel experience', 'vacation tips',
+    
+    // SEO blog keywords
+    'travel blogger', 'artikel perjalanan', 'guide wisata', 'travel tips indonesia',
+    'blog wisata terpercaya', 'informasi travel terbaru', 'update destinasi wisata'
   ],
   openGraph: {
     title: 'Blog - Mahabbatussholihin Tour & Travel',

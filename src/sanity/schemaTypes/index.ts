@@ -8,7 +8,6 @@ import { contactData } from './contactData'
 import { socialSettings } from './socialSettings'
 import servicePackage from './servicePackage'
 import gallery from './gallery'
-import galleryCategory from './galleryCategory'
 import { aboutUs } from './aboutUs'
 import { errorPages } from './errorPages'
 
@@ -23,7 +22,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     socialSettings,
     servicePackage, 
     gallery,
-    galleryCategory,
     aboutUs,
     errorPages
   ],

@@ -149,7 +149,7 @@ const Lightbox: React.FC<LightboxProps> = ({
     if (!currentImage) return
 
     try {
-      const imageUrl = urlFor(currentImage.image).width(1920).url()
+      const imageUrl = urlFor(currentImage.image).width(1920).height(1080).fit('clip').crop('center').url()
       const response = await fetch(imageUrl)
       const blob = await response.blob()
       const url = URL.createObjectURL(blob)
@@ -169,7 +169,7 @@ const Lightbox: React.FC<LightboxProps> = ({
   const handleShare = useCallback(async () => {
     if (!currentImage) return
 
-    const imageUrl = urlFor(currentImage.image).width(1200).url()
+    const imageUrl = urlFor(currentImage.image).width(1200).height(675).fit('crop').crop('center').url()
     const shareData = {
       title: galleryTitle || 'Galeri Foto',
       text: currentImage.caption || `Foto ${currentIndex + 1} dari ${images.length}`,
@@ -316,7 +316,7 @@ const Lightbox: React.FC<LightboxProps> = ({
             onClick={toggleZoom}
           >
             <Image
-              src={urlFor(currentImage.image).width(1920).height(1080).url()}
+              src={urlFor(currentImage.image).width(1920).height(1080).fit('clip').crop('center').url()}
               alt={currentImage.image.alt || currentImage.caption || `Gallery image ${currentIndex + 1}`}
               width={1920}
               height={1080}
@@ -404,17 +404,17 @@ const Lightbox: React.FC<LightboxProps> = ({
                 <button
                   key={image._key || index}
                   onClick={() => goToIndex(index)}
-                  className={`flex-shrink-0 w-16 h-12 rounded overflow-hidden border-2 transition-all ${
+                  className={`flex-shrink-0 w-16 h-9 rounded overflow-hidden border-2 transition-all ${
                     index === currentIndex
                       ? 'border-white scale-110'
                       : 'border-transparent hover:border-white/50'
                   }`}
                 >
                   <Image
-                    src={urlFor(image.image).width(80).height(60).url()}
+                    src={urlFor(image.image).width(80).height(45).fit('crop').crop('center').url()}
                     alt={image.image.alt || `Thumbnail ${index + 1}`}
                     width={80}
-                    height={60}
+                    height={45}
                     className="w-full h-full object-cover"
                   />
                 </button>

@@ -14,31 +14,31 @@ export const socialSettings = defineType({
           name: 'instagram',
           title: 'Instagram URL',
           type: 'url',
-          placeholder: 'https://instagram.com/mhstour'
+          placeholder: 'https://instagram.com/MStour'
         },
         {
           name: 'facebook',
           title: 'Facebook URL',
           type: 'url',
-          placeholder: 'https://facebook.com/mhstour'
+          placeholder: 'https://facebook.com/MStour'
         },
         {
           name: 'youtube',
           title: 'YouTube URL',
           type: 'url',
-          placeholder: 'https://youtube.com/@mhstour'
+          placeholder: 'https://youtube.com/@MStour'
         },
         {
           name: 'twitter',
           title: 'Twitter URL',
           type: 'url',
-          placeholder: 'https://twitter.com/mhstour'
+          placeholder: 'https://twitter.com/MStour'
         },
         {
           name: 'tiktok',
           title: 'TikTok URL',
           type: 'url',
-          placeholder: 'https://tiktok.com/@mhstour'
+          placeholder: 'https://tiktok.com/@MStour'
         }
       ]
     })

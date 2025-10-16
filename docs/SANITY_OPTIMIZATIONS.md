@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document outlines the comprehensive performance optimizations implemented for the Sanity CMS integration in the MHS Tourism project. These optimizations focus on improving page load times, reducing API calls, and enhancing the overall user experience.
+This document outlines the comprehensive performance optimizations implemented for the Sanity CMS integration in the MS Tourism project. These optimizations focus on improving page load times, reducing API calls, and enhancing the overall user experience.
 
 ## 🚀 Implemented Optimizations
 

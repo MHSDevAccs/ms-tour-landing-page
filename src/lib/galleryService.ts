@@ -1,5 +1,5 @@
 import { client, sanityFetch } from '@/sanity/lib/client'
-import { Gallery, GalleryCategory } from '@/types/gallery'
+import { Gallery } from '@/types/gallery'
 
 // GROQ Queries for Gallery Data - Optimized for Performance
 
@@ -10,8 +10,6 @@ export const galleryQueries = {
     title,
     slug,
     description,
-    category,
-    destination,
     featuredImage {
       asset,
       hotspot,
@@ -28,8 +26,7 @@ export const galleryQueries = {
     },
     isPublished,
     isFeatured,
-    publishDate,
-    viewCount
+    publishDate
   }`,
 
   // Get featured galleries only (optimized)
@@ -38,7 +35,6 @@ export const galleryQueries = {
     title,
     slug,
     description,
-    category,
     featuredImage {
       asset,
       hotspot,
@@ -52,38 +48,9 @@ export const galleryQueries = {
         alt
       }
     },
-    destination,
     isPublished,
     isFeatured,
-    publishDate,
-    viewCount
-  }`,
-
-  // Get galleries by category (optimized)
-  galleriesByCategory: (category: string) => `*[_type == "gallery" && isPublished == true && category == "${category}"] | order(publishDate desc) {
-    _id,
-    title,
-    slug,
-    description,
-    category,
-    destination,
-    featuredImage {
-      asset,
-      hotspot,
-      alt
-    },
-    "imageCount": count(images),
-    "previewImages": images[0..2] {
-      _key,
-      image {
-        asset,
-        alt
-      }
-    },
-    isPublished,
-    isFeatured,
-    publishDate,
-    viewCount
+    publishDate
   }`,
 
   // Get single gallery by slug with full details
@@ -93,15 +60,13 @@ export const galleryQueries = {
     title,
     slug,
     description,
-    category,
-    destination,
     featuredImage {
       asset,
       hotspot,
       alt
     },
     "imageCount": count(images),
-    "previewImages": images[0..5] {
+    images[] {
       _key,
       image {
         asset,
@@ -109,7 +74,10 @@ export const galleryQueries = {
         crop,
         alt
       },
-      caption
+      caption,
+      dateTaken,
+      photographer,
+      tags
     },
     tourPackage-> {
       _id,
@@ -122,12 +90,28 @@ export const galleryQueries = {
     isFeatured,
     publishDate,
     seoTitle,
-    seoDescription,
-    viewCount
+    seoDescription
   }`,
 
   // Get paginated images for a specific gallery
   galleryImages: (galleryId: string, start: number = 0, limit: number = 20) => `*[_type == "gallery" && _id == "${galleryId}" && isPublished == true][0] {
+    "images": images[${start}..${start + limit - 1}] {
+      _key,
+      image {
+        asset,
+        hotspot,
+        crop,
+        alt
+      },
+      caption,
+      dateTaken,
+      photographer,
+      tags
+    }
+  }`,
+
+  // Get paginated images for a specific gallery by slug
+  galleryImagesBySlug: (slug: string, start: number = 0, limit: number = 20) => `*[_type == "gallery" && slug.current == "${slug}" && isPublished == true][0] {
     "images": images[${start}..${start + limit - 1}] {
       _key,
       image {
@@ -149,8 +133,6 @@ export const galleryQueries = {
     title,
     slug,
     description,
-    category,
-    destination,
     featuredImage {
       asset,
       hotspot,
@@ -166,43 +148,14 @@ export const galleryQueries = {
     },
     isPublished,
     isFeatured,
-    publishDate,
-    viewCount
-  }`,
-
-  // Get all gallery categories
-  allCategories: `*[_type == "galleryCategory" && isActive == true] | order(sortOrder asc) {
-    _id,
-    _type,
-    title,
-    slug,
-    description,
-    icon,
-    coverImage {
-      asset,
-      alt
-    },
-    sortOrder,
-    isActive
+    publishDate
   }`,
 
   // Get gallery statistics
   galleryStats: `{
     "totalGalleries": count(*[_type == "gallery" && isPublished == true]),
     "totalImages": count(*[_type == "gallery" && isPublished == true].images[]),
-    "featuredCount": count(*[_type == "gallery" && isPublished == true && isFeatured == true]),
-    "categoryCounts": {
-      "destinations": count(*[_type == "gallery" && isPublished == true && category == "destinations"]),
-      "cultural": count(*[_type == "gallery" && isPublished == true && category == "cultural"]),
-      "adventure": count(*[_type == "gallery" && isPublished == true && category == "adventure"]),
-      "religious": count(*[_type == "gallery" && isPublished == true && category == "religious"]),
-      "nature": count(*[_type == "gallery" && isPublished == true && category == "nature"]),
-      "culinary": count(*[_type == "gallery" && isPublished == true && category == "culinary"]),
-      "accommodation": count(*[_type == "gallery" && isPublished == true && category == "accommodation"]),
-      "transportation": count(*[_type == "gallery" && isPublished == true && category == "transportation"]),
-      "activities": count(*[_type == "gallery" && isPublished == true && category == "activities"]),
-      "customers": count(*[_type == "gallery" && isPublished == true && category == "customers"])
-    }
+    "featuredCount": count(*[_type == "gallery" && isPublished == true && isFeatured == true])
   }`
 }
 
@@ -267,21 +220,6 @@ export const galleryService = {
     }
   },
 
-  // Fetch galleries by category (with caching)
-  async getGalleriesByCategory(category: string): Promise<Gallery[]> {
-    try {
-      const galleries = await sanityFetch({
-        query: galleryQueries.galleriesByCategory(category),
-        tags: ['gallery', `category-${category}`],
-        revalidate: 300
-      }) as Gallery[]
-      return galleries || []
-    } catch (error) {
-      console.error('Error fetching galleries by category:', error)
-      return []
-    }
-  },
-
   // Fetch single gallery by slug (with caching)
   async getGalleryBySlug(slug: string): Promise<Gallery | null> {
     try {
@@ -318,18 +256,24 @@ export const galleryService = {
     }
   },
 
-  // Fetch all categories (with caching)
-  async getAllCategories(): Promise<GalleryCategory[]> {
+  // Fetch paginated images for a specific gallery by slug
+  async getGalleryImagesBySlug(slug: string, page: number = 1, limit: number = 20): Promise<{ images: any[], hasMore: boolean }> {
     try {
-      const categories = await sanityFetch({
-        query: galleryQueries.allCategories,
-        tags: ['gallery-category'],
-        revalidate: 3600 // 1 hour cache - categories change infrequently
-      }) as GalleryCategory[]
-      return categories || []
+      const start = (page - 1) * limit
+      const result = await sanityFetch({
+        query: galleryQueries.galleryImagesBySlug(slug, start, limit),
+        tags: ['gallery', `gallery-images-${slug}`],
+        revalidate: 600 // Images change less frequently
+      }) as { images: any[] } | null
+      
+      const images = result?.images || []
+      return {
+        images,
+        hasMore: images.length === limit
+      }
     } catch (error) {
-      console.error('Error fetching gallery categories:', error)
-      return []
+      console.error('Error fetching gallery images by slug:', error)
+      return { images: [], hasMore: false }
     }
   },
 
@@ -344,21 +288,18 @@ export const galleryService = {
         totalGalleries: number
         totalImages: number
         featuredCount: number
-        categoryCounts: Record<string, number>
       }
       return stats || {
         totalGalleries: 0,
         totalImages: 0,
-        featuredCount: 0,
-        categoryCounts: {}
+        featuredCount: 0
       }
     } catch (error) {
       console.error('Error fetching gallery stats:', error)
       return {
         totalGalleries: 0,
         totalImages: 0,
-        featuredCount: 0,
-        categoryCounts: {}
+        featuredCount: 0
       }
     }
   },
@@ -385,16 +326,12 @@ export const galleryService = {
     try {
       const searchQuery = `*[_type == "gallery" && isPublished == true && (
         title match "${keyword}*" ||
-        description match "${keyword}*" ||
-        destination.name match "${keyword}*" ||
-        destination.province match "${keyword}*"
+        description match "${keyword}*"
       )] | order(publishDate desc)[0..20] {
         _id,
         title,
         slug,
         description,
-        category,
-        destination,
         featuredImage {
           asset,
           hotspot,
@@ -410,8 +347,7 @@ export const galleryService = {
         },
         isPublished,
         isFeatured,
-        publishDate,
-        viewCount
+        publishDate
       }`
       
       const galleries = await sanityFetch({
@@ -438,18 +374,15 @@ export const getRecentGalleries = async (limit: number = 6): Promise<Gallery[]> 
       title,
       slug,
       description,
-      category,
       featuredImage {
         asset,
         hotspot,
         alt
       },
       "imageCount": count(images),
-      destination,
       isPublished,
       isFeatured,
-      publishDate,
-      viewCount
+      publishDate
     }`
     
     const galleries = await sanityFetch({
@@ -460,40 +393,6 @@ export const getRecentGalleries = async (limit: number = 6): Promise<Gallery[]> 
     return galleries || []
   } catch (error) {
     console.error('Error fetching recent galleries:', error)
-    return []
-  }
-}
-
-// Helper function to get related galleries (same category, different gallery) - Optimized
-export const getRelatedGalleries = async (currentGalleryId: string, category: string, limit: number = 4): Promise<Gallery[]> => {
-  try {
-    const relatedQuery = `*[_type == "gallery" && isPublished == true && category == "${category}" && _id != "${currentGalleryId}"] | order(publishDate desc)[0...${limit}] {
-      _id,
-      title,
-      slug,
-      description,
-      category,
-      featuredImage {
-        asset,
-        hotspot,
-        alt
-      },
-      "imageCount": count(images),
-      destination,
-      isPublished,
-      isFeatured,
-      publishDate,
-      viewCount
-    }`
-    
-    const galleries = await sanityFetch({
-      query: relatedQuery,
-      tags: ['gallery', `category-${category}`, 'related'],
-      revalidate: 600 // 10 minutes cache for related content
-    }) as Gallery[]
-    return galleries || []
-  } catch (error) {
-    console.error('Error fetching related galleries:', error)
     return []
   }
 }

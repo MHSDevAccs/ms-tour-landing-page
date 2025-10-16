@@ -16,7 +16,7 @@
 
 ### Project Structure
 ```
-mhs-sec-server/
+MS-sec-server/
 ├── src/
 │   ├── app/                 # Next.js App Router pages
 │   ├── components/          # Reusable UI components

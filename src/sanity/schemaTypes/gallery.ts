@@ -27,51 +27,6 @@ export default {
       validation: (Rule: any) => Rule.max(300)
     },
     {
-      name: 'category',
-      title: 'Gallery Category',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Tour Destinations', value: 'destinations' },
-          { title: 'Cultural Tours', value: 'cultural' },
-          { title: 'Adventure Tours', value: 'adventure' },
-          { title: 'Religious Tours', value: 'religious' },
-          { title: 'Nature & Landscape', value: 'nature' },
-          { title: 'Food & Culinary', value: 'culinary' },
-          { title: 'Accommodation', value: 'accommodation' },
-          { title: 'Transportation', value: 'transportation' },
-          { title: 'Activities', value: 'activities' },
-          { title: 'Momen Jamaah', value: 'customers' }
-        ]
-      },
-      validation: (Rule: any) => Rule.required()
-    },
-    {
-      name: 'destination',
-      title: 'Destination/Location',
-      type: 'object',
-      fields: [
-        {
-          name: 'name',
-          title: 'Location Name',
-          type: 'string',
-          placeholder: 'e.g., Yogyakarta, Bandung, Jakarta'
-        },
-        {
-          name: 'province',
-          title: 'Province',
-          type: 'string',
-          placeholder: 'e.g., DI Yogyakarta, Jawa Barat'
-        },
-        {
-          name: 'coordinates',
-          title: 'GPS Coordinates',
-          type: 'geopoint',
-          description: 'Optional: GPS location for mapping'
-        }
-      ]
-    },
-    {
       name: 'featuredImage',
       title: 'Featured Image',
       type: 'image',
@@ -86,7 +41,7 @@ export default {
           description: 'Important for SEO and accessibility',
         }
       ],
-      description: '📸 FEATURED: 1200x800px (3:2 ratio) | Max Size: 20MB | Format: JPEG/PNG/WebP'
+      description: '📸 FEATURED: 1280x720px (16:9 ratio) | Max Size: 20MB | Format: JPEG/PNG/WebP'
     },
     {
       name: 'images',
@@ -217,14 +172,6 @@ export default {
       rows: 2,
       validation: (Rule: any) => Rule.max(160),
       description: 'Description for search engines (max 160 characters)'
-    },
-    {
-      name: 'viewCount',
-      title: 'View Count',
-      type: 'number',
-      initialValue: 0,
-      readOnly: true,
-      description: 'Number of times this gallery has been viewed'
     }
   ],
   
@@ -242,19 +189,14 @@ export default {
     {
       title: 'Most Viewed',
       name: 'viewCountDesc',
-      by: [{ field: 'viewCount', direction: 'desc' }]
-    },
-    {
-      title: 'Category',
-      name: 'category',
-      by: [{ field: 'category', direction: 'asc' }]
+      by: [{ field: 'publishDate', direction: 'desc' }]
     }
   ],
   
   preview: {
     select: {
       title: 'title',
-      subtitle: 'category',
+      subtitle: 'description',
       media: 'featuredImage',
       imageCount: 'images.length'
     },
@@ -262,7 +204,7 @@ export default {
       const { title, subtitle, imageCount } = selection
       return {
         title,
-        subtitle: `${subtitle} • ${imageCount || 0} images`
+        subtitle: `${subtitle || 'No description'} • ${imageCount || 0} images`
       }
     }
   }

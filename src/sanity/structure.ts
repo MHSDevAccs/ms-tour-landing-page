@@ -74,7 +74,7 @@ export const structure: StructureResolver = (S) =>
                 .child(S.documentTypeList('gallery').title('Photo Galleries')),
               S.listItem()
                 .title('📂 Gallery Categories')
-                .child(S.documentTypeList('galleryCategory').title('Gallery Categories')),
+                .child(S.documentTypeList('gallery').title('Gallery'))
             ])
         ),
 
@@ -135,6 +135,6 @@ export const structure: StructureResolver = (S) =>
       
       // All Documents (fallback)
       ...S.documentTypeListItems().filter(
-        (listItem) => !['heroSection', 'featuresSection', 'testimonial', 'siteSettings', 'businessInfo', 'themeSettings', 'socialSettings', 'contentSettings', 'servicePackage', 'gallery', 'galleryCategory', 'blogPost', 'contactSubmission', 'aboutUs', 'contactData', 'errorPages'].includes(listItem.getId() || '')
+        (listItem) => !['heroSection', 'featuresSection', 'testimonial', 'siteSettings', 'businessInfo', 'themeSettings', 'socialSettings', 'contentSettings', 'servicePackage', 'gallery', 'blogPost', 'contactSubmission', 'aboutUs', 'contactData', 'errorPages'].includes(listItem.getId() || '')
       ),
     ])

@@ -77,7 +77,7 @@ export async function generateMetadata(): Promise<Metadata> {
       },
       twitter: {
         card: 'summary_large_image',
-        site: '@mhstour',
+        site: '@MStour',
         title,
         description,
         images: ['/og-about.jpg'],

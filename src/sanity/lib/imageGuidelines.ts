@@ -8,7 +8,7 @@
   },IDELINES
  * 
  * This file documents the standardized image resolutions for different content types
- * in the MHS Tour Landing project. Each content type has specific dimensions 
+ * in the MS Tour Landing project. Each content type has specific dimensions 
  * optimized for its display context.
  */
 

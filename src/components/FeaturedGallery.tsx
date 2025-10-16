@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { urlFor } from '@/sanity/lib/image'
 import { Gallery } from '@/types/gallery'
 import AnimatedSection, { StaggerContainer, StaggerItem } from '@/components/AnimatedSection'
-import { Eye, MapPin, Calendar, Camera } from 'lucide-react'
+import { Calendar, Camera } from 'lucide-react'
 
 interface FeaturedGalleryProps {
   galleries: Gallery[]
@@ -52,30 +52,22 @@ export default function FeaturedGallery({
               <Link href={`/gallery/${gallery.slug?.current}`}>
                 <div className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden">
                   {/* Featured Image */}
-                  <div className="relative aspect-[4/3] overflow-hidden">
+                  <div className="gallery-image-container">
                     {gallery.featuredImage?.asset && (
                       <Image
-                        src={urlFor(gallery.featuredImage.asset).format('webp').quality(90).url()}
+                        src={urlFor(gallery.featuredImage.asset).width(800).height(450).fit('crop').crop('center').format('webp').quality(90).url()}
                         alt={gallery.featuredImage.alt || gallery.title}
                         fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-110"
+                        className="gallery-image-forced-16-9 transition-transform duration-700 group-hover:scale-110"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     )}
                     
-                    {/* Image Count Badge */}
+                    {/* Photo Count Badge */}
                     {gallery.images && gallery.images.length > 0 && (
-                      <div className="absolute top-4 right-4 bg-black/70 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium flex items-center space-x-1">
+                      <div className="absolute bottom-4 right-4 bg-black/70 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium flex items-center space-x-1">
                         <Camera className="w-4 h-4" />
                         <span>{gallery.images.length}</span>
-                      </div>
-                    )}
-
-                    {/* View Count Badge */}
-                    {gallery.viewCount && (
-                      <div className="absolute top-4 left-4 bg-primary/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-medium flex items-center space-x-1">
-                        <Eye className="w-4 h-4" />
-                        <span>{gallery.viewCount}</span>
                       </div>
                     )}
                   </div>
@@ -95,14 +87,11 @@ export default function FeaturedGallery({
                     )}
 
                     {/* Meta Info */}
-                    <div className="flex items-center justify-between text-sm text-gray-500">
-                      {gallery.destination?.name && (
-                        <div className="flex items-center space-x-1">
-                          <MapPin className="w-4 h-4 text-primary" />
-                          <span className="truncate font-medium">{gallery.destination.name}</span>
-                        </div>
-                      )}
-
+                    <div className="flex items-center justify-end text-sm text-gray-500">
+                      <div className="flex items-center space-x-1">
+                        <Calendar className="w-4 h-4 text-primary" />
+                        <span>{new Date(gallery.publishDate).toLocaleDateString('id-ID')}</span>
+                      </div>
                     </div>
 
                     {/* View Gallery Button */}
@@ -139,21 +128,4 @@ export default function FeaturedGallery({
       </div>
     </AnimatedSection>
   )
-}
-
-// Helper function to get category label
-function getCategoryLabel(category: string): string {
-  const categoryMap: Record<string, string> = {
-    'destinations': 'Destinasi',
-    'cultural': 'Budaya',
-    'adventure': 'Petualangan',
-    'religious': 'Religi',
-    'nature': 'Alam',
-    'culinary': 'Kuliner',
-    'accommodation': 'Akomodasi',
-    'transportation': 'Transportasi',
-    'activities': 'Aktivitas',
-    'customers': 'Momen Jamaah'
-  }
-  return categoryMap[category] || category
 }

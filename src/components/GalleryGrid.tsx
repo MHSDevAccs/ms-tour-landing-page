@@ -1,74 +1,27 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { urlFor } from '@/sanity/lib/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Gallery, GalleryCategory, GalleryGridProps } from '@/types/gallery'
-import { MapPin, Calendar, Camera, Eye } from 'lucide-react'
+import { Gallery, GalleryGridProps } from '@/types/gallery'
+import { Calendar, Camera } from 'lucide-react'
 import Lightbox from './Lightbox'
 import { formatDateIndonesian } from '@/utils/dateUtils'
 
 const GalleryGrid: React.FC<GalleryGridProps> = ({
   galleries,
-  categories = [],
-  showFilters = true,
   columns = 3,
   loading = false
 }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [hoveredGallery, setHoveredGallery] = useState<string | null>(null)
   const [lightboxGallery, setLightboxGallery] = useState<Gallery | null>(null)
   const [lightboxIndex, setLightboxIndex] = useState(0)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
 
-  // Filter galleries based on selected category
-  const filteredGalleries = useMemo(() => {
-    if (selectedCategory === 'all') {
-      return galleries.filter(gallery => gallery.isPublished)
-    }
-    return galleries.filter(
-      gallery => gallery.isPublished && gallery.category === selectedCategory
-    )
-  }, [galleries, selectedCategory])
-
-  // Category options with counts - using hardcoded categories from schema
-  const categoryOptions = useMemo(() => {
-    const allOption = {
-      value: 'all',
-      label: 'Semua Galeri',
-      count: galleries.filter(g => g.isPublished).length,
-      icon: '🖼️'
-    }
-
-    // Hardcoded categories from gallery schema
-    const hardcodedCategories = [
-      { value: 'destinations', label: 'Tour Destinations', icon: '🏞️' },
-      { value: 'cultural', label: 'Cultural Tours', icon: '🏛️' },
-      { value: 'adventure', label: 'Adventure Tours', icon: '🏔️' },
-      { value: 'religious', label: 'Religious Tours', icon: '🕌' },
-      { value: 'nature', label: 'Nature & Landscape', icon: '🌿' },
-      { value: 'culinary', label: 'Food & Culinary', icon: '🍽️' },
-      { value: 'accommodation', label: 'Accommodation', icon: '🏨' },
-      { value: 'transportation', label: 'Transportation', icon: '🚌' },
-      { value: 'activities', label: 'Activities', icon: '🎯' },
-      { value: 'customers', label: 'Momen Jamaah', icon: '📸' }
-    ]
-
-    const categoryOptionsWithCounts = hardcodedCategories
-      .map(category => ({
-        value: category.value,
-        label: category.label,
-        count: galleries.filter(
-          g => g.isPublished && g.category === category.value
-        ).length,
-        icon: category.icon
-      }))
-      .filter(option => option.count > 0)
-
-    return [allOption, ...categoryOptionsWithCounts]
-  }, [galleries])
+  // Filter only published galleries
+  const publishedGalleries = galleries.filter(gallery => gallery.isPublished)
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -106,44 +59,13 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
     setLightboxIndex(0)
   }
 
-
-
-  const getCategoryIcon = (category: string) => {
-    const iconMap: Record<string, string> = {
-      destinations: 'destinations',
-      cultural: 'cultural',
-      adventure: 'adventure',
-      religious: 'religious',
-      nature: 'nature',
-      culinary: 'culinary',
-      accommodation: 'accommodation',
-      transportation: 'transportation',
-      activities: 'activities',
-      customers: 'customers'
-    }
-    return iconMap[category] || 'gallery'
-  }
-
   const formatDate = (dateString: string) => {
     return formatDateIndonesian(dateString);
   };
 
   if (loading) {
     return (
-      <div className="space-y-8">
-        {/* Filter skeleton */}
-        {showFilters && (
-          <div className="flex flex-wrap gap-3">
-            {[...Array(6)].map((_, i) => (
-              <div
-                key={i}
-                className="h-10 bg-gray-200 rounded-full animate-pulse"
-                style={{ width: `${Math.random() * 60 + 80}px` }}
-              />
-            ))}
-          </div>
-        )}
-        
+      <div className="space-y-8">        
         {/* Gallery grid skeleton */}
         <div className={`grid gap-6 ${
           columns === 2 ? 'grid-cols-1 md:grid-cols-2' :
@@ -153,7 +75,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
         }`}>
           {[...Array(6)].map((_, i) => (
             <div key={i} className="bg-white rounded-xl overflow-hidden shadow-sm">
-              <div className="aspect-[4/3] bg-gray-200 animate-pulse" />
+              <div className="aspect-video bg-gray-200 animate-pulse" />
               <div className="p-4 space-y-3">
                 <div className="h-4 bg-gray-200 rounded animate-pulse" />
                 <div className="h-3 bg-gray-200 rounded w-3/4 animate-pulse" />
@@ -171,79 +93,40 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
 
   return (
     <div className="space-y-8">
-      {/* Category Filters */}
-      {showFilters && categoryOptions.length > 1 && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-wrap gap-3"
-        >
-          {categoryOptions.map((option) => (
-            <button
-              key={option.value}
-              onClick={() => setSelectedCategory(option.value)}
-              className={`
-                inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium
-                transition-all duration-200 hover:scale-105
-                ${selectedCategory === option.value
-                  ? 'bg-primary text-white shadow-lg'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }
-              `}
-            >
-              <span>{option.icon}</span>
-              <span>{option.label}</span>
-              <span className={`
-                text-xs px-2 py-0.5 rounded-full
-                ${selectedCategory === option.value
-                  ? 'bg-primary-dark text-white'
-                  : 'bg-gray-200 text-gray-600'
-                }
-              `}>
-                {option.count}
-              </span>
-            </button>
-          ))}
-        </motion.div>
-      )}
-
       {/* Results Summary */}
       <div className="flex items-center justify-between">
         <p className="text-gray-600">
-          {filteredGalleries.length > 0 
-            ? `Menampilkan ${filteredGalleries.length} galeri`
+          {publishedGalleries.length > 0 
+            ? `Menampilkan ${publishedGalleries.length} galeri`
             : 'Tidak ada galeri ditemukan'
           }
         </p>
       </div>
 
       {/* Gallery Grid */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={selectedCategory}
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className={`grid gap-6 ${
-            columns === 2 ? 'grid-cols-1 md:grid-cols-2' :
-            columns === 3 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' :
-            columns === 4 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' :
-            'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
-          }`}
-        >
-          {filteredGalleries.map((gallery) => (
-            <GalleryCard
-              key={gallery._id}
-              gallery={gallery}
-              isHovered={hoveredGallery === gallery._id}
-              onHover={setHoveredGallery}
-            />
-          ))}
-        </motion.div>
-      </AnimatePresence>
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className={`grid gap-6 ${
+          columns === 2 ? 'grid-cols-1 md:grid-cols-2' :
+          columns === 3 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' :
+          columns === 4 ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' :
+          'grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
+        }`}
+      >
+        {publishedGalleries.map((gallery) => (
+          <GalleryCard
+            key={gallery._id}
+            gallery={gallery}
+            isHovered={hoveredGallery === gallery._id}
+            onHover={setHoveredGallery}
+          />
+        ))}
+      </motion.div>
 
       {/* Empty State */}
-      {filteredGalleries.length === 0 && !loading && (
+      {publishedGalleries.length === 0 && !loading && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -254,7 +137,7 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
             Belum Ada Galeri
           </h3>
           <p className="text-gray-600">
-            Galeri untuk kategori ini akan segera tersedia.
+            Galeri akan segera tersedia.
           </p>
         </motion.div>
       )}
@@ -266,9 +149,6 @@ const GalleryGrid: React.FC<GalleryGridProps> = ({
           initialIndex={lightboxIndex}
           isOpen={isLightboxOpen}
           onClose={closeLightbox}
-          galleryTitle={lightboxGallery.title}
-          showThumbnails={true}
-          autoPlay={false}
         />
       )}
     </div>
@@ -287,22 +167,6 @@ const GalleryCard: React.FC<GalleryCardProps> = ({
   isHovered,
   onHover
 }) => {
-  const getCategoryIcon = (category: string) => {
-    const iconMap: Record<string, string> = {
-      destinations: '🏛️',
-      cultural: '🎭',
-      adventure: '🏔️',
-      religious: '🕌',
-      nature: '🌿',
-      culinary: '🍜',
-      accommodation: '🏨',
-      transportation: '🚐',
-      activities: '🎯',
-      customers: '👥'
-    }
-    return iconMap[category] || '🖼️'
-  }
-
   const formatDate = (dateString: string) => {
     return formatDateIndonesian(dateString)
   }
@@ -321,13 +185,13 @@ const GalleryCard: React.FC<GalleryCardProps> = ({
       >
 
       {/* Gallery Image */}
-      <div className="aspect-[4/3] relative overflow-hidden">
+      <div className="gallery-image-container">
         {gallery.featuredImage ? (
           <Image
-            src={urlFor(gallery.featuredImage).width(400).height(300).url()}
+            src={urlFor(gallery.featuredImage).width(400).height(225).fit('crop').crop('center').url()}
             alt={gallery.featuredImage.alt || gallery.title}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            className="gallery-image-forced-16-9 transition-transform duration-500 group-hover:scale-110"
           />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
@@ -354,16 +218,6 @@ const GalleryCard: React.FC<GalleryCardProps> = ({
 
       {/* Card Content */}
       <div className="p-4">
-        {/* Category & Date */}
-        <div className="flex items-center justify-between mb-2">
-          {gallery.viewCount > 0 && (
-            <span className="flex items-center gap-1 text-xs text-gray-500">
-              <Eye className="w-3 h-3" />
-              {gallery.viewCount}
-            </span>
-          )}
-        </div>
-
         {/* Title */}
         <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-primary transition-colors">
           {gallery.title}
@@ -376,14 +230,8 @@ const GalleryCard: React.FC<GalleryCardProps> = ({
           </p>
         )}
 
-        {/* Location & Date */}
-        <div className="flex items-center justify-between text-xs text-gray-500">
-          {gallery.destination?.name && (
-            <span className="flex items-center gap-1">
-              <MapPin className="w-3 h-3" />
-              {gallery.destination.name}
-            </span>
-          )}
+        {/* Date */}
+        <div className="flex items-center justify-end text-xs text-gray-500">
           <span className="flex items-center gap-1">
             <Calendar className="w-3 h-3" />
             {formatDate(gallery.publishDate)}

@@ -50,10 +50,10 @@ export const defaultBusinessSEO: BusinessSEO = {
     city: 'Indonesia'
   },
   socialProfiles: {
-    facebook: 'https://facebook.com/mhstour',
-    instagram: 'https://instagram.com/mhstour',
-    twitter: 'https://twitter.com/mhstour',
-    youtube: 'https://youtube.com/mhstour'
+    facebook: 'https://facebook.com/MStour',
+    instagram: 'https://instagram.com/MStour',
+    twitter: 'https://twitter.com/MStour',
+    youtube: 'https://youtube.com/MStour'
   }
 };
 
@@ -104,8 +104,8 @@ export function generateMetaTags(seoData: SEOData, businessInfo: BusinessSEO = d
     twitter: {
       card: 'summary_large_image',
       site: businessInfo.socialProfiles?.twitter ? 
-        `@${businessInfo.socialProfiles.twitter.split('/').pop()}` : '@mhstour',
-      creator: seoData.author ? `@${seoData.author}` : '@mhstour',
+        `@${businessInfo.socialProfiles.twitter.split('/').pop()}` : '@MStour',
+      creator: seoData.author ? `@${seoData.author}` : '@MStour',
       title: seoData.title,
       description: seoData.description,
       images: [imageUrl]

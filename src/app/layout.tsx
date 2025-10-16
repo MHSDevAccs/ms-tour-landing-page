@@ -69,8 +69,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@mhstour',
-    creator: '@mhstour',
+    site: '@MStour',
+    creator: '@MStour',
     title: "Mahabbatussholihin Tour & Travel - Mitra Perjalanan Terpercaya Anda",
     description: "Jelajahi dunia bersama Mahabbatussholihin Tour & Travel - Mitra terpercaya untuk pengalaman perjalanan yang tak terlupakan. Paket wisata domestik, internasional, dan umroh terbaik.",
     images: ['/og-image.jpg'],
@@ -126,7 +126,7 @@ export const metadata: Metadata = {
     'mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-status-bar-style': 'default',
-    'apple-mobile-web-app-title': 'MHS Tour',
+    'apple-mobile-web-app-title': 'MS Tour',
     'application-name': 'Mahabbatussholihin Tour',
     'msapplication-tooltip': 'Mahabbatussholihin Tour & Travel',
     'geo.region': 'ID',
@@ -158,7 +158,7 @@ export default function RootLayout({
                   '@type': 'TravelAgency',
                   '@id': 'https://travel.mahabbatussholihin.com#organization',
                   name: 'Mahabbatussholihin Tour & Travel',
-                  alternateName: ['MHS Tour', 'Mahabbatussholihin Travel'],
+                  alternateName: ['MS Tour', 'Mahabbatussholihin Travel'],
                   description: 'Agen perjalanan terpercaya yang menyediakan paket wisata domestik, internasional, dan layanan umroh dengan pengalaman lebih dari 10 tahun',
                   url: 'https://travel.mahabbatussholihin.com',
                   logo: {
@@ -178,10 +178,10 @@ export default function RootLayout({
                     addressLocality: 'Indonesia'
                   },
                   sameAs: [
-                    'https://facebook.com/mhstour',
+                    'https://facebook.com/MStour',
                     'https://instagram.com/mstravel.asia',
-                    'https://twitter.com/mhstour',
-                    'https://youtube.com/mhstour'
+                    'https://twitter.com/MStour',
+                    'https://youtube.com/MStour'
                   ]
                 },
                 {

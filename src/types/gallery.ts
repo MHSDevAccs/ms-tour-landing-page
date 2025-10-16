@@ -26,16 +26,6 @@ export interface GalleryImage {
   tags?: string[]
 }
 
-export interface GalleryDestination {
-  name?: string
-  province?: string
-  coordinates?: {
-    lat: number
-    lng: number
-    alt?: number
-  }
-}
-
 export interface Gallery {
   _id: string
   _type: 'gallery'
@@ -46,8 +36,6 @@ export interface Gallery {
     current: string
   }
   description?: string
-  category: 'destinations' | 'cultural' | 'adventure' | 'religious' | 'nature' | 'culinary' | 'accommodation' | 'transportation' | 'activities' | 'customers'
-  destination?: GalleryDestination
   featuredImage?: {
     asset: {
       _ref: string
@@ -80,33 +68,11 @@ export interface Gallery {
   publishDate: string
   seoTitle?: string
   seoDescription?: string
-  viewCount: number
-}
-
-export interface GalleryCategory {
-  _id: string
-  _type: 'galleryCategory'
-  title: string
-  slug: {
-    current: string
-  }
-  description?: string
-  icon: string
-  coverImage?: {
-    asset: {
-      _ref: string
-      _type: 'reference'
-    }
-    alt?: string
-  }
-  sortOrder: number
-  isActive: boolean
 }
 
 // Component Props
 export interface GalleryGridProps {
   galleries: Gallery[]
-  categories?: GalleryCategory[]
   showFilters?: boolean
   columns?: number
   loading?: boolean
@@ -116,12 +82,6 @@ export interface GalleryCardProps {
   gallery: Gallery
   onClick?: (gallery: Gallery) => void
   loading?: boolean
-}
-
-export interface GalleryFiltersProps {
-  categories: GalleryCategory[]
-  selectedCategory: string
-  onCategoryChange: (category: string) => void
 }
 
 // Sanity Image URL Builder Types
@@ -147,6 +107,5 @@ export interface SanityImageSource {
 export interface GalleryStats {
   totalGalleries: number
   totalImages: number
-  categoryCounts: Record<string, number>
   featuredCount: number
 }

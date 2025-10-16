@@ -2,22 +2,20 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { galleryService, getRelatedGalleries } from '@/lib/galleryService'
+import { galleryService } from '@/lib/galleryService'
 import { urlFor } from '@/sanity/lib/image'
 import { sanityFetch, queries } from '@/sanity/lib/client'
 import AnimatedSection from '@/components/AnimatedSection'
 import GalleryGrid from '@/components/GalleryGrid'
-import GalleryImageGrid from '@/components/GalleryImageGrid'
+import GalleryCarousel from '@/components/GalleryCarousel'
 import ShareButton from '@/components/ShareButton'
 import { formatDateIndonesian } from '@/utils/dateUtils'
 
 // Enable static generation with revalidation
 export const revalidate = 1200 // Revalidate every 20 minutes for individual gallery pages
 import { 
-  MapPin, 
   Calendar, 
   Camera, 
-  Eye, 
   User, 
   Tag,
   ArrowLeft,
@@ -37,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     
     if (!gallery) {
       return {
-        title: 'Gallery Not Found - MHS Tour & Travel',
+        title: 'Gallery Not Found - MS Tour & Travel',
         description: 'The requested gallery could not be found.'
       }
     }
@@ -47,14 +45,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       : null
 
     return {
-      title: gallery.seoTitle || `${gallery.title} - Galeri MHS Tour & Travel`,
-      description: gallery.seoDescription || gallery.description || `Lihat koleksi foto ${gallery.title} dari MHS Tour & Travel`,
-      keywords: `${gallery.title}, galeri foto, ${gallery.category}, destinasi wisata, MHS Tour`,
+      title: gallery.seoTitle || `${gallery.title} `,
+      description: gallery.seoDescription || gallery.description || `Lihat koleksi foto ${gallery.title} dari MS Tour & Travel`,
+      keywords: `${gallery.title}, galeri foto, destinasi wisata, MS Tour`,
       openGraph: {
         title: gallery.title,
         description: gallery.description || `Koleksi foto ${gallery.title}`,
         type: 'article',
-        siteName: 'MHS Tour & Travel',
+        siteName: 'MS Tour & Travel',
         images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: gallery.title }] : [],
       },
       twitter: {
@@ -67,7 +65,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   } catch (error) {
     console.error('Error generating metadata:', error)
     return {
-      title: 'Gallery - MHS Tour & Travel',
+      title: 'Gallery - MS Tour & Travel',
       description: 'Explore our photo gallery'
     }
   }
@@ -88,48 +86,9 @@ export default async function GalleryDetailPage({ params }: Props) {
       notFound()
     }
 
-    // Increment view count asynchronously (non-blocking)
-    galleryService.incrementViewCount(gallery._id).catch(() => {
-      // Silently handle any view count errors to not affect page rendering
-    })
-
-    // Fetch related galleries
-    const relatedGalleries = await getRelatedGalleries(gallery._id, gallery.category, 4)
-
-    const getCategoryIcon = (category: string) => {
-      const iconMap: Record<string, string> = {
-        destinations: 'destinations',
-        cultural: 'cultural',
-        adventure: 'adventure',
-        religious: 'religious',
-        nature: 'nature',
-        culinary: 'culinary',
-        accommodation: 'accommodation',
-        transportation: 'transportation',
-        activities: 'activities',
-        customers: 'customers'
-      }
-      return iconMap[category] || 'gallery'
-    }
-
+    // No view count, related galleries, or category helpers needed
     const formatDate = (dateString: string) => {
       return formatDateIndonesian(dateString)
-    }
-
-    const getCategoryName = (category: string) => {
-      const nameMap: Record<string, string> = {
-        destinations: 'Destinasi Wisata',
-        cultural: 'Tur Budaya',
-        adventure: 'Petualangan',
-        religious: 'Tur Religi',
-        nature: 'Alam & Pemandangan',
-        culinary: 'Kuliner',
-        accommodation: 'Akomodasi',
-        transportation: 'Transportasi',
-        activities: 'Aktivitas',
-        customers: 'Momen Jamaah'
-      }
-      return nameMap[category] || 'Galeri'
     }
 
     return (
@@ -170,12 +129,12 @@ export default async function GalleryDetailPage({ params }: Props) {
               {/* Featured Image */}
               <div className="lg:col-span-2">
                 {gallery.featuredImage && (
-                  <div className="aspect-[4/3] relative rounded-xl overflow-hidden">
+                  <div className="gallery-image-container rounded-xl">
                     <Image
-                      src={urlFor(gallery.featuredImage).width(800).height(600).url()}
+                      src={urlFor(gallery.featuredImage).width(800).height(450).fit('crop').crop('center').url()}
                       alt={gallery.featuredImage.alt || gallery.title}
                       fill
-                      className="object-cover"
+                      className="gallery-image-forced-16-9"
                       priority
                     />
                   </div>
@@ -199,21 +158,10 @@ export default async function GalleryDetailPage({ params }: Props) {
 
                 {/* Metadata */}
                 <div className="space-y-3 text-sm text-gray-600">
-                  {gallery.destination?.name && (
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-primary" />
-                      <span>
-                        {gallery.destination.name}
-                        {gallery.destination.province && `, ${gallery.destination.province}`}
-                      </span>
-                    </div>
-                  )}
-                  
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 text-primary" />
                     <span>Dipublikasikan {formatDate(gallery.publishDate)}</span>
                   </div>
-
                   {gallery.images && gallery.images.length > 0 && (
                     <div className="flex items-center gap-2">
                       <Camera className="w-4 h-4 text-primary" />
@@ -273,33 +221,13 @@ export default async function GalleryDetailPage({ params }: Props) {
                 </p>
               </div>
 
-              {/* Single Gallery with Lightbox */}
-              <GalleryImageGrid gallerySlug={gallery.slug.current} />
+              {/* Single Gallery with Carousel */}
+              <GalleryCarousel gallerySlug={gallery.slug.current} />
             </div>
           </AnimatedSection>
         )}
 
-        {/* Related Galleries */}
-        {relatedGalleries.length > 0 && (
-          <AnimatedSection className="bg-white py-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12">
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">
-                  🔗 Galeri Terkait
-                </h2>
-                <p className="text-xl text-gray-600">
-                  Jelajahi galeri lainnya dalam kategori {getCategoryName(gallery.category)}
-                </p>
-              </div>
-              
-              <GalleryGrid
-                galleries={relatedGalleries}
-                showFilters={false}
-                columns={4}
-              />
-            </div>
-          </AnimatedSection>
-        )}
+        {/* No related galleries section */}
 
         
       </main>

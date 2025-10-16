@@ -17,7 +17,7 @@ interface GalleryImageGridProps {
 
 const GalleryImageGrid: React.FC<GalleryImageGridProps> = ({
   gallerySlug,
-  imagesPerPage = 20
+  imagesPerPage = 12
 }) => {
   const [images, setImages] = useState<GalleryImage[]>([])
   const [totalImages, setTotalImages] = useState(0)
@@ -39,13 +39,16 @@ const GalleryImageGrid: React.FC<GalleryImageGridProps> = ({
       try {
         setLoading(true)
         const gallery = await galleryService.getGalleryBySlug(gallerySlug)
-         if (gallery) {
-           setGalleryTitle(gallery.title)
-           setTotalImages(gallery.images?.length || 0)
+        if (gallery) {
+          setGalleryTitle(gallery.title)
+          // Use all images directly from the gallery object
+          const allImages = gallery.images || []
+          setTotalImages(allImages.length)
           
-          // Load first page of images
-          const imageData = await galleryService.getGalleryImages(gallerySlug, 1, imagesPerPage)
-          setImages(imageData.images)
+          // For first page, slice the images
+          const startIndex = (currentPage - 1) * imagesPerPage
+          const endIndex = startIndex + imagesPerPage
+          setImages(allImages.slice(startIndex, endIndex))
         }
       } catch (error) {
         console.error('Error loading gallery data:', error)
@@ -63,9 +66,15 @@ const GalleryImageGrid: React.FC<GalleryImageGridProps> = ({
 
     setIsLoading(true)
     try {
-      const imageData = await galleryService.getGalleryImages(gallerySlug, page, imagesPerPage)
-      setImages(imageData.images)
-      setCurrentPage(page)
+      // Get the full gallery again and slice for the requested page
+      const gallery = await galleryService.getGalleryBySlug(gallerySlug)
+      if (gallery) {
+        const allImages = gallery.images || []
+        const startIndex = (page - 1) * imagesPerPage
+        const endIndex = startIndex + imagesPerPage
+        setImages(allImages.slice(startIndex, endIndex))
+        setCurrentPage(page)
+      }
     } catch (error) {
       console.error('Error loading images:', error)
     } finally {
@@ -130,9 +139,9 @@ const GalleryImageGrid: React.FC<GalleryImageGridProps> = ({
         </div>
 
         {/* Grid skeleton */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-          {[...Array(20)].map((_, i) => (
-            <div key={i} className="aspect-square bg-gray-200 rounded-lg animate-pulse" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+          {[...Array(12)].map((_, i) => (
+            <div key={i} className="aspect-video bg-gray-200 rounded-lg animate-pulse" />
           ))}
         </div>
 
@@ -166,7 +175,7 @@ const GalleryImageGrid: React.FC<GalleryImageGridProps> = ({
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6"
         >
           {images.map((galleryImage, index) => (
             <motion.div
@@ -175,14 +184,14 @@ const GalleryImageGrid: React.FC<GalleryImageGridProps> = ({
               className="group cursor-pointer"
               onClick={() => openLightbox(index)}
             >
-              <div className="aspect-square relative overflow-hidden rounded-lg bg-gray-100 hover:shadow-lg transition-all duration-300">
+              <div className="gallery-image-container rounded-lg bg-gray-100 hover:shadow-lg transition-all duration-300">
                 {galleryImage.image?.asset ? (
                   <Image
-                    src={urlFor(galleryImage.image).width(300).height(300).url()}
+                    src={urlFor(galleryImage.image).width(640).height(360).fit('crop').crop('center').url()}
                     alt={galleryImage.image.alt || galleryImage.caption || `${galleryTitle} - Foto ${index + 1}`}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, (max-width: 1280px) 25vw, 20vw"
+                    className="gallery-image-forced-16-9 transition-transform duration-500 group-hover:scale-110"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 50vw, 33vw"
                   />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center bg-gray-200">

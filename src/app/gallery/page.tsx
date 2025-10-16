@@ -18,8 +18,8 @@ export async function generateMetadata(): Promise<Metadata> {
     })
 
     return {
-      description: siteSettings?.pageContent?.galleryDescription || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan pengalaman bersama MHS Tour & Travel.',
-      keywords: siteSettings?.pageContent?.galleryKeywords || 'galeri foto, destinasi wisata, tur budaya, petualangan, Indonesia, MHS Tour',
+      description: siteSettings?.pageContent?.galleryDescription || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan pengalaman bersama MS Tour & Travel.',
+      keywords: siteSettings?.pageContent?.galleryKeywords || 'galeri foto, destinasi wisata, tur budaya, petualangan, Indonesia, MS Tour',
       openGraph: {
         title: siteSettings?.pageContent?.galleryTitle || 'Galeri Foto - Mahabbatussholihin Tour & Travel',
         description: siteSettings?.pageContent?.galleryDescription || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata dan pengalaman tur.',
@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
       },
       twitter: {
         card: 'summary_large_image',
-        site: '@mhstour',
+        site: '@MStour',
         title: siteSettings?.pageContent?.galleryTitle || 'Galeri Foto - Mahabbatussholihin Tour & Travel',
         description: siteSettings?.pageContent?.galleryDescription || 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata dan pengalaman tur.',
         images: ['/og-gallery.jpg'],
@@ -49,24 +49,23 @@ export async function generateMetadata(): Promise<Metadata> {
     }
   } catch (error) {
     return {
-      title: 'Galeri Foto - MHS Tour & Travel',
-      description: 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan pengalaman bersama MHS Tour & Travel.',
-      keywords: 'galeri foto, destinasi wisata, tur budaya, petualangan, Indonesia, MHS Tour',
+      title: 'Galeri Foto - MS Tour & Travel',
+      description: 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata, tur budaya, petualangan, dan pengalaman bersama MS Tour & Travel.',
+      keywords: 'galeri foto, destinasi wisata, tur budaya, petualangan, Indonesia, MS Tour',
       openGraph: {
-        title: 'Galeri Foto - MHS Tour & Travel',
+        title: 'Galeri Foto - MS Tour & Travel',
         description: 'Jelajahi koleksi foto-foto menakjubkan dari berbagai destinasi wisata dan pengalaman tur.',
         type: 'website',
-        siteName: 'MHS Tour & Travel'
+        siteName: 'MS Tour & Travel'
       }
     }
   }
 }
 
 export default async function GalleryPage() {
-  // Fetch galleries, categories, and stats from Sanity
-  const [galleries, categories, stats] = await Promise.all([
+  // Fetch galleries and stats from Sanity
+  const [galleries, stats] = await Promise.all([
     galleryService.getAllGalleries(),
-    galleryService.getAllCategories(),
     galleryService.getGalleryStats()
   ])
 
@@ -105,8 +104,7 @@ export default async function GalleryPage() {
           {galleries.length > 0 ? (
             <GalleryGrid
               galleries={galleries}
-              categories={categories}
-              showFilters={true}
+              showFilters={false}
               columns={3}
             />
           ) : (

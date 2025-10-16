@@ -76,7 +76,7 @@ export function generateOrganizationJsonLd(baseUrl: string, siteSettings?: SiteS
     '@context': 'https://schema.org',
     '@type': 'TravelAgency',
     name: siteSettings?.siteName || 'Mahabbatussholihin Tour & Travel',
-    alternateName: 'MHS Tour',
+    alternateName: 'MS Tour',
     description: 'Penyedia layanan wisata dan travel terpercaya di Indonesia dengan pengalaman lebih dari 10 tahun',
     url: baseUrl,
     logo: `${baseUrl}/logo.png`,
@@ -89,9 +89,9 @@ export function generateOrganizationJsonLd(baseUrl: string, siteSettings?: SiteS
       addressLocality: 'Indonesia'
     },
     sameAs: [
-      'https://facebook.com/mhstour',
-      'https://instagram.com/mhstour',
-      'https://twitter.com/mhstour'
+      'https://facebook.com/MStour',
+      'https://instagram.com/MStour',
+      'https://twitter.com/MStour'
     ],
     serviceArea: {
       '@type': 'Country',
@@ -142,7 +142,7 @@ export function generateTravelServiceJsonLd(baseUrl: string, siteSettings?: Site
     '@type': 'TravelAgency',
     '@id': `${baseUrl}#organization`,
     name: siteSettings?.siteName || 'Mahabbatussholihin Tour & Travel',
-    alternateName: ['MHS Tour', 'Mahabbatussholihin Travel'],
+    alternateName: ['MS Tour', 'Mahabbatussholihin Travel'],
     description: 'Agen perjalanan terpercaya yang menyediakan paket wisata domestik, internasional, dan layanan umroh dengan pengalaman lebih dari 10 tahun',
     url: baseUrl,
     logo: {
@@ -171,10 +171,10 @@ export function generateTravelServiceJsonLd(baseUrl: string, siteSettings?: Site
       longitude: 106.8456
     },
     sameAs: [
-      'https://facebook.com/mhstour',
-      'https://instagram.com/mhstour',
-      'https://twitter.com/mhstour',
-      'https://youtube.com/mhstour'
+      'https://facebook.com/MStour',
+      'https://instagram.com/MStour',
+      'https://twitter.com/MStour',
+      'https://youtube.com/MStour'
     ],
     serviceArea: [
       {
@@ -259,7 +259,7 @@ export function generateWebsiteJsonLd(baseUrl: string, siteSettings?: SiteSettin
     '@type': 'WebSite',
     '@id': `${baseUrl}#website`,
     name: siteSettings?.siteName || 'Mahabbatussholihin Tour & Travel',
-    alternateName: 'MHS Tour Website',
+    alternateName: 'MS Tour Website',
     description: 'Situs resmi Mahabbatussholihin Tour & Travel - Partner terpercaya untuk perjalanan wisata dan umroh Anda',
     url: baseUrl,
     inLanguage: 'id-ID',

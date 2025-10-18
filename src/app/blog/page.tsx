@@ -18,7 +18,7 @@ export const revalidate = 300 // Revalidate every 5 minutes for fresh blog conte
 
 // Simple metadata for now
 export const metadata: Metadata = {
-  title: 'Blog - Mahabbatussholihin Tour & Travel',
+  title: 'Mahabbatussholihin Tour & Travel',
   description: 'Temukan tips perjalanan, destinasi wisata, dan panduan lengkap untuk petualangan Anda bersama Mahabbatussholihin Tour & Travel.',
   keywords: [
     // Brand blog keywords
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     'blog wisata terpercaya', 'informasi travel terbaru', 'update destinasi wisata'
   ],
   openGraph: {
-    title: 'Blog - Mahabbatussholihin Tour & Travel',
+    title: 'Mahabbatussholihin Tour & Travel',
     description: 'Temukan tips perjalanan, destinasi wisata, dan panduan lengkap untuk petualangan Anda bersama Mahabbatussholihin Tour & Travel.',
     url: 'https://travel.mahabbatussholihin.com/blog',
     siteName: 'Mahabbatussholihin Tour & Travel',

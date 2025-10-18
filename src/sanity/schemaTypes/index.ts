@@ -1,6 +1,5 @@
 import { type SchemaTypeDefinition } from 'sanity'
 import { heroSection } from './heroSection'
-import { featuresSection } from './featuresSection'
 import { testimonial } from './testimonial'
 import { blogPost } from './blogPost'
 import { businessInfo } from './businessInfo'
@@ -14,7 +13,6 @@ import { errorPages } from './errorPages'
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     heroSection, 
-    featuresSection, 
     testimonial, 
     blogPost, 
     businessInfo,

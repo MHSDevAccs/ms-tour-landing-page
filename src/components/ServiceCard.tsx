@@ -123,7 +123,16 @@ export default function ServiceCard({
             {service.title}
           </h3>
           <p className="text-sm text-gray-200 mb-4 line-clamp-2">
-            {service.description}
+            {typeof service.description === 'string' 
+              ? service.description 
+              : Array.isArray(service.description) 
+                ? (service.description as any[]).map((block: any) => 
+                    block && typeof block === 'object' && 'children' in block 
+                      ? block.children?.map((child: any) => child.text || '').join('') 
+                      : ''
+                  ).join(' ') 
+                : 'Paket layanan terbaik untuk perjalanan Anda'
+            }
           </p>
           <button 
             className="bg-primary hover:bg-primary-dark text-white px-6 py-2 rounded-lg font-semibold transition-colors duration-300 hover:scale-105 shadow-lg"

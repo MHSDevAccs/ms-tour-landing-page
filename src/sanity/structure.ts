@@ -53,12 +53,6 @@ export const structure: StructureResolver = (S) =>
                   S.documentTypeList('servicePackage')
                     .title('Service Packages')
                 ),
-              S.listItem()
-                .title('✨ Service Features')
-                .child(
-                  S.documentTypeList('featuresSection')
-                    .title('Service Features')
-                ),
             ])
         ),
       
@@ -72,9 +66,6 @@ export const structure: StructureResolver = (S) =>
               S.listItem()
                 .title('🖼️ Galleries')
                 .child(S.documentTypeList('gallery').title('Photo Galleries')),
-              S.listItem()
-                .title('📂 Gallery Categories')
-                .child(S.documentTypeList('gallery').title('Gallery'))
             ])
         ),
 
@@ -135,6 +126,6 @@ export const structure: StructureResolver = (S) =>
       
       // All Documents (fallback)
       ...S.documentTypeListItems().filter(
-        (listItem) => !['heroSection', 'featuresSection', 'testimonial', 'siteSettings', 'businessInfo', 'themeSettings', 'socialSettings', 'contentSettings', 'servicePackage', 'gallery', 'blogPost', 'contactSubmission', 'aboutUs', 'contactData', 'errorPages'].includes(listItem.getId() || '')
+        (listItem) => !['heroSection', 'testimonial', 'businessInfo', 'socialSettings', 'servicePackage', 'gallery', 'blogPost', 'aboutUs', 'contactData', 'errorPages'].includes(listItem.getId() || '')
       ),
     ])

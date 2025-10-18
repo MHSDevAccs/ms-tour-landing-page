@@ -10,7 +10,7 @@ import LastUpdatedDate from '@/components/LastUpdatedDate'
 export const revalidate = 86400 // Revalidate every 24 hours for privacy policy (rarely changes)
 
 export const metadata: Metadata = {
-  title: 'Kebijakan Privasi | Mahabbatussholihin Tour & Travel',
+  title: 'Mahabbatussholihin Tour & Travel',
   description: 'Kebijakan privasi Mahabbatussholihin Tour & Travel mengenai pengumpulan, penggunaan, dan perlindungan data pribadi pelanggan.',
   keywords: ['kebijakan privasi', 'perlindungan data', 'privasi pelanggan', 'mahabbatussholihin', 'tour travel'],
   openGraph: {

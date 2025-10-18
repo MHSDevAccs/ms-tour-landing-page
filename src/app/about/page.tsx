@@ -164,11 +164,13 @@ export default async function AboutPage() {
               {aboutUs?.contentSection?.ourStory?.title || 'Cerita Kami'}
             </h2>
             <div className="text-gray-700 text-center sm:text-left">
-              {aboutUs?.contentSection?.ourStory?.content && (
+              {aboutUs?.contentSection?.ourStory?.content && Array.isArray(aboutUs.contentSection.ourStory.content) && aboutUs.contentSection.ourStory.content.length > 0 && aboutUs.contentSection.ourStory.content.every((block: any) => block && typeof block === 'object' && block._type) ? (
                 <PortableText
                   value={aboutUs.contentSection.ourStory.content}
                   components={portableTextComponents}
                 />
+              ) : (
+                <p>Mahabbatussholihin Tour & Travel didirikan dengan komitmen untuk memberikan pelayanan terbaik dalam bidang perjalanan spiritual dan wisata.</p>
               )}
             </div>
           </div>
@@ -183,7 +185,7 @@ export default async function AboutPage() {
               {aboutUs?.contentSection?.ourMission?.title || 'Misi Kami'}
             </h2>
             <div className="text-gray-700 text-center sm:text-left">
-              {aboutUs?.contentSection?.ourMission?.content ? (
+              {aboutUs?.contentSection?.ourMission?.content && Array.isArray(aboutUs.contentSection.ourMission.content) && aboutUs.contentSection.ourMission.content.length > 0 && aboutUs.contentSection.ourMission.content.every((block: any) => block && typeof block === 'object' && block._type) ? (
                 <PortableText
                   value={aboutUs.contentSection.ourMission.content}
                   components={portableTextComponents}

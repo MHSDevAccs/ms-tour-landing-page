@@ -228,11 +228,19 @@ export default function ServiceModal({ service, isOpen, onClose }: ServiceModalP
                           <p className="text-gray-700 leading-7 text-base font-normal tracking-wide whitespace-pre-line">
                             {service.description}
                           </p>
-                        ) : service.description.length > 0 ? (
-                          <PortableText
-                            value={service.description}
-                            components={portableTextComponents}
-                          />
+                        ) : Array.isArray(service.description) && service.description.length > 0 && service.description.every(block => block && typeof block === 'object' && block._type) ? (
+                          service.description.map((block: any, idx: number) => {
+                            if (block._type === 'block' && block.children && block.children.length > 0) {
+                              // Render each block as a separate paragraph
+                              return (
+                                <p key={block._key || idx} className="text-gray-700 leading-7 text-base font-normal tracking-wide whitespace-pre-line mb-2">
+                                  {block.children.map((child: any) => child.text).join('')}
+                                </p>
+                              )
+                            }
+                            // Fallback for non-block types
+                            return null
+                          })
                         ) : (
                           <p className="text-gray-700 leading-7 text-base font-normal tracking-wide">
                             No description available.

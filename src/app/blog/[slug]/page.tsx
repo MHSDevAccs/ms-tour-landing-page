@@ -263,10 +263,14 @@ export default async function BlogPostPage({
           {/* Article Content */}
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12">
             <div className="prose prose-sm sm:prose-lg max-w-none">
-              <PortableText
-                value={post.content}
-                components={portableTextComponents}
-              />
+              {post.content && Array.isArray(post.content) && post.content.length > 0 && post.content.every((block: any) => block && typeof block === 'object' && block._type) ? (
+                <PortableText
+                  value={post.content}
+                  components={portableTextComponents}
+                />
+              ) : (
+                <p>No content available for this post.</p>
+              )}
             </div>
 
             {/* Tags */}

@@ -150,61 +150,6 @@ export async function sanityFetch<T>({
   throw enhancedError
 }
 
-// Specialized fetch function for critical data with higher retry count
-export async function sanityFetchCritical<T>(options: Parameters<typeof sanityFetch>[0]): Promise<T> {
-  return sanityFetch<T>({
-    ...options,
-    retries: 5, // More retries for critical data
-  })
-}
-
-// Specialized fetch function for non-critical data with faster failure
-export async function sanityFetchOptional<T>(options: Parameters<typeof sanityFetch>[0]): Promise<T | null> {
-  try {
-    return await sanityFetch<T>({
-      ...options,
-      retries: 1, // Fewer retries for optional data
-    })
-  } catch (error) {
-    console.warn('Optional Sanity fetch failed, returning null:', error)
-    return null
-  }
-}
-
-// Query optimization utilities
-export const queryOptimizer = {
-  // Add projection to limit fields and improve performance
-  addProjection: (query: string, fields: string[]) => {
-    if (query.includes('{') && !query.includes('...')) {
-      return query
-    }
-    const projection = `{ ${fields.join(', ')} }`
-    return query.replace(/\s*$/, ` ${projection}`)
-  },
-  
-  // Add ordering for consistent results and better caching
-  addOrdering: (query: string, orderBy: string = '_updatedAt desc') => {
-    if (query.includes('| order(')) {
-      return query
-    }
-    const orderClause = ` | order(${orderBy})`
-    const bracketIndex = query.lastIndexOf(']')
-    if (bracketIndex > -1) {
-      return query.slice(0, bracketIndex) + orderClause + query.slice(bracketIndex)
-    }
-    return query + orderClause
-  },
-  
-  // Add limit for pagination and performance
-  addLimit: (query: string, limit: number, offset: number = 0) => {
-    const limitClause = ` [${offset}...${offset + limit}]`
-    if (query.includes('[') && query.includes('...]')) {
-      return query
-    }
-    return query + limitClause
-  }
-}
-
 // Cache management utilities
 export const cacheManager = {
   // Generate cache tags based on content type and identifiers
@@ -302,34 +247,8 @@ export const queries = {
       sliderSettings {
         autoPlay,
         autoPlayInterval,
-        showNavigation,
-        showDots,
-        pauseOnHover
       },
       isActive,
-    }
-  `,
-
-  // Features Section - More flexible query  
-  getFeaturesSection: (language: string = 'id') => `
-    *[_type == "featuresSection" && language == "${language}" && isActive == true] | order(_updatedAt desc) [0] {
-      _id,
-      sectionTitle,
-      sectionSubtitle,
-      features[] {
-        title,
-        description,
-        icon {
-          asset-> {
-            _id,
-            url
-          },
-          alt
-        },
-        link
-      },
-      isActive,
-      language
     }
   `,
 
@@ -351,60 +270,6 @@ export const queries = {
       tourPackage,
       dateOfTour,
       isFeatured,
-      language
-    }
-  `,
-
-  // Blog Posts
-  getBlogPosts: (language: string = 'id', featured: boolean = false, limit: number = 10) => `
-    *[_type == "blogPost" && language == "${language}" && isPublished == true ${featured ? '&& isFeatured == true' : ''}] | order(publishedAt desc) [0...${limit}] {
-      _id,
-      title,
-      slug,
-      excerpt,
-      featuredImage {
-        asset-> {
-          _id,
-          url,
-          metadata {
-            dimensions
-          }
-        },
-        alt
-      },
-      author,
-      publishedAt,
-      categories,
-      tags,
-      isFeatured,
-      language
-    }
-  `,
-
-  // Single Blog Post
-  getBlogPost: (slug: string, language: string = 'id') => `
-    *[_type == "blogPost" && slug.current == "${slug}" && language == "${language}" && isPublished == true][0] {
-      _id,
-      title,
-      slug,
-      excerpt,
-      featuredImage {
-        asset-> {
-          _id,
-          url,
-          metadata {
-            dimensions
-          }
-        },
-        alt
-      },
-      content,
-      author,
-      publishedAt,
-      categories,
-      tags,
-      seoTitle,
-      seoDescription,
       language
     }
   `,
@@ -484,7 +349,6 @@ export const queries = {
         featuredBadgeText,
         publishedText,
         byText,
-        categoriesText,
         tagsText,
         shareText,
         relatedPostsTitle
@@ -630,7 +494,6 @@ export const queries = {
         currency,
         unit
       },
-      category,
       isPopular,
       link,
       order
@@ -657,7 +520,6 @@ export const queries = {
         currency,
         unit
       },
-      category,
       isPopular,
       link,
       order

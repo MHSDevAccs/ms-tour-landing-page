@@ -16,6 +16,7 @@ import BlogCard from '@/components/BlogCard'
 import HeroSlider from '@/components/HeroSlider'
 import CTASection from '@/components/CTASection'
 import AnimatedSection, { PageTransition, StaggerContainer, StaggerItem } from '@/components/AnimatedSection'
+import ErrorBoundary from '@/components/ErrorBoundary'
 import { generateOrganizationJsonLd, generateTravelServiceJsonLd, generateWebsiteJsonLd } from '@/lib/jsonLd'
 
 // Portable Text components for styling
@@ -314,23 +315,25 @@ export default async function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
       />
       {/* Hero Section - CMS Content */}
-      <div className="relative">
-        <HeroSlider
-          title={heroData?.title || "Mahabbatussholihin Tour & Travel"}
-          subtitle={heroData?.subtitle || "Mendampingi Jamaah Haji dan Umrah, InsyaAllah Amanah dalam memberangkatkan para Jamaah ke tanah suci"}
-          ctaText={heroData?.ctaText || "Info lebih lanjut"}
-          ctaLink={heroData?.ctaLink || "/services"}
-          sliderImages={heroData?.sliderImages || []}
-          sliderSettings={heroData?.sliderSettings || {
-            autoplay: true,
-            interval: 5000,
-            showNavigation: true,
-            showDots: true,
-            pauseOnHover: true
-          }}
-          backgroundImage={heroData?.backgroundImage}
-        />
-      </div>
+      <ErrorBoundary name="HeroSection">
+        <div className="relative">
+          <HeroSlider
+            title={heroData?.title || "Mahabbatussholihin Tour & Travel"}
+            subtitle={heroData?.subtitle || "Mendampingi Jamaah Haji dan Umrah, InsyaAllah Amanah dalam memberangkatkan para Jamaah ke tanah suci"}
+            ctaText={heroData?.ctaText || "Info lebih lanjut"}
+            ctaLink={heroData?.ctaLink || "/services"}
+            sliderImages={heroData?.sliderImages || []}
+            sliderSettings={heroData?.sliderSettings || {
+              autoplay: true,
+              interval: 5000,
+              showNavigation: true,
+              showDots: true,
+              pauseOnHover: true
+            }}
+            backgroundImage={heroData?.backgroundImage}
+          />
+        </div>
+      </ErrorBoundary>
 
       {/* About Section - Company Information */}
       <section className="py-16 bg-gray-50">
@@ -353,14 +356,7 @@ export default async function Home() {
               </h3>
               <div className="w-38 h-1 bg-primary mb-4"></div>
               <div className="text-gray-700 leading-relaxed">
-                {aboutUs?.contentSection?.ourStory?.content ? (
-                  <PortableText
-                    value={aboutUs.contentSection.ourStory.content}
-                    components={portableTextComponents}
-                  />
-                ) : (
-                  <p>Mahabbatussholihin Tour & Travel didirikan dengan komitmen untuk memberikan pelayanan terbaik dalam bidang perjalanan spiritual dan wisata. Dengan pengalaman bertahun-tahun, kami telah melayani ribuan jamaah untuk menunaikan ibadah haji dan umrah serta wisata ke berbagai destinasi menarik.</p>
-                )}
+                <p>Mahabbatussholihin Tour & Travel didirikan dengan komitmen untuk memberikan pelayanan terbaik dalam bidang perjalanan spiritual dan wisata. Dengan pengalaman bertahun-tahun, kami telah melayani ribuan jamaah untuk menunaikan ibadah haji dan umrah serta wisata ke berbagai destinasi menarik.</p>
               </div>
             </div>
           </AnimatedSection>
@@ -373,14 +369,7 @@ export default async function Home() {
               </h3>
               <div className="w-32 h-1 bg-primary mb-4"></div>
               <div className="text-gray-700 leading-relaxed">
-                {aboutUs?.contentSection?.ourMission?.content ? (
-                  <PortableText
-                    value={aboutUs.contentSection.ourMission.content}
-                    components={portableTextComponents}
-                  />
-                ) : (
-                  <p>Dengan ridho Alloh SWT, kami berkomitmen nyediain layanan perjalanan yang berkah dan penuh makna yang bisa melampaui ekspektasi jamaah kami sambil menjaga amanah dan tanggung jawab dalam setiap langkah perjalanan.</p>
-                )}
+                <p>Dengan ridho Alloh SWT, kami berkomitmen nyediain layanan perjalanan yang berkah dan penuh makna yang bisa melampaui ekspektasi jamaah kami sambil menjaga amanah dan tanggung jawab dalam setiap langkah perjalanan.</p>
               </div>
             </div>
           </AnimatedSection>
@@ -609,31 +598,38 @@ export default async function Home() {
       </section>
 
       {/* Service Packages Section */}
-      <ServicePackagesSection 
-        servicePackages={servicePackages}
-        siteSettings={siteSettings}
-      />
+      <ErrorBoundary name="ServicePackagesSection">
+        <ServicePackagesSection 
+          servicePackages={servicePackages}
+          siteSettings={siteSettings}
+        />
+      </ErrorBoundary>
 
       {/* Featured Gallery Section */}
-      {featuredGalleries && featuredGalleries.length > 0 && (
-        <FeaturedGallery
-          galleries={featuredGalleries}
-          title="Galeri Perjalanan Terbaik"
-          subtitle="Saksikan momen-momen indah dari perjalanan wisata bersama kami"
-          showMore={true}
-        />
-      )}
+      <ErrorBoundary name="FeaturedGallery">
+        {featuredGalleries && featuredGalleries.length > 0 && (
+          <FeaturedGallery
+            galleries={featuredGalleries}
+            title="Galeri Perjalanan Terbaik"
+            subtitle="Saksikan momen-momen indah dari perjalanan wisata bersama kami"
+            showMore={true}
+          />
+        )}
+      </ErrorBoundary>
 
       {/* Testimonials Section */}
       {testimonials && testimonials.length > 0 && (
         <section className="py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
+                        <p className="text-sm font-semibold text-gray-600 tracking-wide uppercase mb-2">
+            TESTIMONI JAMAAH
+          </p>
               <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-                Testimoni Jamaah - Barakallohu Fiikum
+                Testimoni Jamaah Umroh & Haji
               </h2>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Alhamdulillah, dengerin langsung cerita jamaah yang udah merasakan berkah perjalanan bersama kami
+                Alhamdulillah. Yuk, simak pengalaman mereka yang insyaalloh mabrur bersama kami!
               </p>
             </div>
             
@@ -656,13 +652,16 @@ export default async function Home() {
         <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
+                        <p className="text-sm font-semibold text-gray-600 tracking-wide uppercase mb-2">
+            ARTIKEL KAMI
+          </p>
               <div className="flex items-center justify-center mb-4">
                 <h2 className="text-3xl md:text-4xl font-bold text-black">
                   Tips & Artikel Terbaru
                 </h2>
               </div>
               <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                Dapatkan tips perjalanan terbaru, panduan destinasi, dan inspirasi untuk petualangan Anda berikutnya
+                Dapatkan tips manasik terbaru, panduan ziarah, dan persiapan penting lainnya agar ibadah umroh Anda berjalan lancar dan mabrur.
               </p>
             </div>
             

@@ -340,12 +340,13 @@ export default async function Home() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
-              {aboutUs?.mainTitle || 'Tentang Kami'}
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              {aboutUs?.subtitle || 'Mengenal lebih dekat perjalanan spiritual bersama Mahabbatussholihin Tour & Travel'}
-            </p>
+                        <p className="text-sm font-semibold text-gray-600 tracking-wide uppercase mb-2">
+            TENTANG KAMI
+          </p>
+              <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+                Visi Misi Kami
+              </h2>
+
           </div>
 
           {/* Cerita Kami Section */}

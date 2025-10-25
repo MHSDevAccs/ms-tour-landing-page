@@ -161,6 +161,14 @@ const Footer = () => {
                   Kebijakan Privasi
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/faq"
+                  className="text-gray-300 hover:text-primary-light transition-colors duration-200 text-sm sm:text-base block py-1"
+                >
+                  FAQ
+                </Link>
+              </li>
             </ul>
           </div>
 

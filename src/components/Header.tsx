@@ -115,7 +115,7 @@ const Header = () => {
                   </svg>
                   <div className="flex flex-col">
                     <span className="text-sm">Hubungi Kami</span>
-                    <span className="font-medium text-lg">{contactData.contactInfo.phone}</span>
+                    <span className="font-medium">{contactData.contactInfo.phone}</span>
                   </div>
                 </div>
               )}
